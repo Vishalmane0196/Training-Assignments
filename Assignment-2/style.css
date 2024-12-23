@@ -401,6 +401,9 @@ b {
 /* --------------------------end schedule ----------------------- */
 
 /* ---------contact -------------- */
+.contact{
+  margin-bottom: 1.5rem;
+}
 .form-container {
   max-width: 600px;
   margin: 0 auto;
