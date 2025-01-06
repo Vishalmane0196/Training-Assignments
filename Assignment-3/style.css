@@ -70,12 +70,12 @@
 .inner button{
     height: 2rem;
     width: 3rem;
-    background-color:#02C067;
+    background-color:#6C63FF;
     border: none;
 }
 
 .list button:nth-child(1){
-    background-color: #02C067;
+    background-color:#6C63FF;
     color: white;
     border: none;
     padding: 0.5rem;
@@ -109,7 +109,7 @@
     background-color: #454444;
 }
 .li-right h2{
-   color:  #02C067;
+   color: whitesmoke;
    margin-bottom: 0.6rem;
    display: inline;
 }
@@ -137,6 +137,8 @@
     
     
  } */
+
+ 
 
  /* --------Change window scroller style */
 
