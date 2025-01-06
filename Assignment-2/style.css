@@ -43,12 +43,13 @@
 header {
   width: 100%;
   background-color: #ffffff;
+  height: 15vh;
 }
 
 .navbar {
   display: flex;
   justify-content: space-around;
-  width: 100%;
+  width: 100%;height: 100%;
   align-items: center;
 }
 
@@ -66,7 +67,7 @@ header {
   justify-content: space-between;
   border-radius: 15px;
   padding: 10px 20px;
-  background-color: #eeeeee;
+  /* background-color: #eeeeee; */
   border: none;
 }
 
@@ -247,6 +248,7 @@ content {
   width: 100%;
   background-color: white;
   padding: 0px 20px 20px 20px;
+  margin-bottom: 2rem;
 }
 .speaker > h2 {
   text-align: center;
@@ -259,7 +261,7 @@ content {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  gap: 26px;
+  gap: 27px;
   justify-content: center;
 }
 .card {
@@ -346,7 +348,8 @@ content {
   width: 100%;
   height: 83vh;
   background-color: white;
-  padding: 20px;
+  padding: 20px 0px 20px 0px;
+  /* margin-bottom: 1rem; */
 }
 .schedule > h2 {
   width: 100%;
@@ -373,6 +376,7 @@ content {
 .sss-card > img {
   width: 100%;
   height: 100%;
+  border-radius: 15px;
 }
 .float-card {
   position: absolute;
@@ -577,7 +581,44 @@ button:hover {
 
 /* -------------------------------------------- */
 
- @media screen and (max-width: 440px) {
+
+
+
+@media screen and (max-width: 800px) {
+  content {
+    display: flex;
+    width: 100%;
+    height: 90vh;
+    gap: 5%;
+    background-color: white;
+    padding: 20px;
+  }
+  .c-left {
+    width: 100%;
+  }
+
+  .c-right {
+    width: 100%;
+    display: none;
+  }
+  .container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    align-items: center;
+    grid-gap: 20px;
+  }
+  .about-event {
+    width: 100%;
+    background-color: white;
+    height: 100%;
+  }
+}
+
+
+
+@media screen and (max-width: 760px) {
   .nav-links ul {
     display: none;
   }
@@ -618,31 +659,9 @@ button:hover {
   header{
       padding: 15px;
   }
-  .schedule {
-    width: 100%;
-    height: 156vh;
-    background-color: white;
-    padding: 20px;
 }
 
-.ss-cards {
-    width: 100%;
-    height: 95%;
-    display: grid
-;
-    justify-content: center;
-    grid-template-columns: 82%;
-    gap: 30px;
-}
-.form-container {
-    max-width: 600px;
-    margin: 0 auto;
-    background: white;
-    padding: 1.6rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-}
-}
+
 
 @media screen and (max-width: 500px) {
   .nav-links ul {
@@ -712,7 +731,7 @@ button:hover {
 }
 
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 440px) {
   .nav-links ul {
     display: none;
   }
@@ -753,36 +772,31 @@ button:hover {
   header{
       padding: 15px;
   }
-}
-
-@media screen and (max-width: 800px) {
-  content {
-    display: flex;
+  .schedule {
     width: 100%;
-    height: 90vh;
-    gap: 5%;
+    height: 156vh;
     background-color: white;
     padding: 20px;
-  }
-  .c-left {
-    width: 100%;
-  }
+}
 
-  .c-right {
+.ss-cards {
     width: 100%;
-    display: none;
-  }
-  .container {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    align-items: center;
-    grid-gap: 20px;
-  }
-  .about-event {
-    width: 100%;
-    background-color: white;
-    height: 100%;
-  }
+    height: 95%;
+    display: grid
+;
+    justify-content: center;
+    grid-template-columns: 82%;
+    gap: 30px;
+}
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 1.6rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+content{
+  height: 78vh;
+}
 }
