@@ -15,52 +15,57 @@
         
         <div class="outer">
             <h1>My Todos</h1>
-            <form action="">
+            <form action="" class="form1">
             <div class="inner padmr">
                     <div class="title">
+                      
+                        <div class="calendar">
+                          <div class="month"></div>
+                          <div class="day"></div>
+                          <div class="date"></div>
+                          <div class="year"></div>
+                        </div>
+                      
+                      <div class="task-list">
                             <div class="one">
                                 <h4>Title :</h4>
-                                <input type="text" placeholder="Whats the title of your todo?">
+                                <input type="text" id="title" placeholder="Whats the title of your todo?">
                             </div>
                           
 
                             <div class="one">
                                 <h4>Description :</h4>
-                                <input type="text" placeholder="Description of yout todo?">
+                                <input type="text" id="desciption" placeholder="Description of yout todo?">
                             </div>
 
-                            <div class="one">
-                              <h4>Due date :</h4>
-                              <input type="date" >
+                            <div class="two-div-DC">
+                              <div class="category">
+                                <h4>Category : </h4>
+                                <select name="category" id="category">
+                                  <option value="Personal">Personal</option>
+                                  <option value="Work">Work</option>
+                                  <option value="Shopping">Shopping</option>
+                                  <option value="Others">Others</option>
+                                </select>
+                              </div>
+                              <div class="due-date">
+                                <h4>Due date :</h4>
+                                 <input type="date" id="due-date" >
+                              </div>
+                              <button> Add</button>
                           </div>
-
-                            <button> Add</button>
-                            <!-- <input type="date" name="" id=""> -->
+                            
+                          
+                          </div>
                     </div>
                     <div class="line">
                     </div>
                     <div class="list">
                         <button>To-do</button>
                         <button>Completed</button>
-                        <ul >
-                            <li>
-                              <div class="li-right">
-                                <h2>
-                                    Doing Workout
-                                </h2>
-                                <p>finix Gym Pune</p>
-                                <br>
-                                <p>Due: 16/1/25</p>
-                               
-                              </div>
-                              <div class="li-left">
-                                <button><i class="fa-regular fa-pen-to-square"></i></button>
-                               
-                                <button> <i class="fa-solid fa-check"></i> </button> 
-                                <button > <i class="fa-solid fa-trash"></i> </button>
-                              </div>
-                            </li>
-                            <li>
+                        <ul class="ul-list">
+                           
+                            <!-- <li>
                                 <div class="li-right">
                                   <h2>
                                       Happy New Year
@@ -93,7 +98,7 @@
                                     <button> <i class="fa-solid fa-check"></i> </button> 
                                     <button > <i class="fa-solid fa-trash"></i> </button>
                                 </div>
-                              </li>
+                              </li> -->
                               
                         </ul>
                     </div>
@@ -101,6 +106,8 @@
           </form>
         </div>
     </div>
-    
+    <script src="script.js">
+
+    </script>
 </body>
 </html>

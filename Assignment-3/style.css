@@ -9,7 +9,7 @@
 }
 
 .main{
-    height: 100vh;
+
     width: 100%;
     background-color:#1E1E1E;
    align-content: center;
@@ -17,14 +17,13 @@
 }
 .outer{
     width: 60%;
-    height: 80vh;
     margin: auto auto;
     
 }
 .outer h1{
     color: white;
     text-align: center;
-    margin-bottom: 1rem;
+    margin: 1.5rem;
     
 }
 .inner{
@@ -41,10 +40,15 @@
 /* Title Area */
 .title{
     display: flex;
+    gap: 1.2rem;
     justify-content: space-between;
     color: white;
-    align-items: flex-end;
     padding-bottom: 1.5rem;
+    
+}
+.task-list{
+    width: 63%;
+   
 }
 
 .title button{
@@ -55,25 +59,54 @@
     cursor: pointer;
 }
 .one{
-    width: 40%;
+    width: 100%;
 }
 .one h4{
-    margin-bottom: 10px;
+    margin-bottom:10px;
 }
 .one input{
     padding: 0.3rem;
-    width: 90%;
+    width: 100%;
     height: 2rem;
     border-radius: 0px;
     border: none;
+    margin-bottom: 1.3rem;
 }
 .inner button{
     height: 2rem;
-    width: 3rem;
+    width: 3.3rem;
     background-color:#6C63FF;
     border: none;
+    margin-top: 1rem;
 }
 
+.two-div-DC{
+    display: flex;
+    justify-content: left;
+    gap: 4rem
+    ;
+    align-items: flex-end;
+}
+.category {
+    width: 30%;
+}
+.due-date{
+    width: 30%;
+}
+.category h4{
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+.category select{
+    padding: 0.2rem;
+    width: 100%;
+    border-radius: 0px;
+    border: none;
+}
+.due-date h4{
+      font-size: 1rem;
+      margin-bottom: 8px;
+}
 .list button:nth-child(1){
     background-color:#6C63FF;
     color: white;
@@ -97,8 +130,8 @@
 
 .list ul{
     list-style: none;
-    height: 30vh;
-    margin-top: 1rem;
+    height: 42vh;
+    margin-top: 1.5rem;
     overflow: scroll;
 }
 .list ul li{
@@ -170,5 +203,39 @@ html {
     scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
 }
 
+/* Calendar */
 
- /* --------- */
+.calendar {
+    height: 39vh;
+    width: 32%;
+    /* margin-top: 0.8rem; */
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: monospace;
+}
+  
+  .day,.month,.date,.year {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .month {
+    height: 15%;
+    
+    font-size: 1.5rem;
+    letter-spacing: 5px;
+    font-family: fantasy;
+  }
+  
+  .day ,.year{
+    height: 15%;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .date { 
+    height: 55%;
+  
+  font-size: 5rem;
+  font-weight: 900;
+  }
