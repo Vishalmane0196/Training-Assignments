@@ -1,6 +1,18 @@
 
 const form  =  document.querySelector('.form1');
-let todos = [];
+let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+
+(()=>{
+    const ul = document.getElementsByClassName('ul-list');
+    if(todos.length === 0){
+        ul[0].innerHTML = `<li > No todos</li>`;
+        return;
+    }
+    else{
+        DisplayTodos();
+    }
+})();
 
 form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -9,8 +21,10 @@ form.addEventListener('submit', function (e) {
     const Description = document.getElementById('desciption').value;
     const due_date = document.getElementById('due-date').value;
     const category = document.getElementById('category').value;
+
     console.log(title, Description, due_date, category);
     if([title, Description, due_date, category].includes('')){alert("all field are required") ;return;}
+    if(title.length > 17 || Description.length >35){alert("Task length Should less then 17 and Description is less then 35 ") ;return;}
     else{
         const todo = {
             title: title,
@@ -21,59 +35,158 @@ form.addEventListener('submit', function (e) {
             createdAt: new Date().getTime()
         };
          todos.push(todo);
-        //  localStorage.setItem('todos', JSON.stringify(todos));
+         localStorage.setItem('todos', JSON.stringify(todos));
+         const completed = document.getElementsByClassName('com-btn');
+         const todobtn =  document.getElementsByClassName('todo-btn');
+         completed[0].classList.remove('active');
+         todobtn[0].classList.add('active');
          DisplayTodos();
          this.reset();
     }
    
 });
 
-(()=>{
+function DisplayTodos() {
+    const ul = document.getElementsByClassName('ul-list')[0];
+    ul.innerHTML = '';
+    todos.forEach((todo) => {
+        if (todo.done) return; // Skip completed todos
+
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <div class="li-right">
+                <h2>${todo.title}</h2>
+                <p>${todo.Description}</p>
+                <br>
+                <p>Due: ${todo.due_date}</p>
+                <p>${todo.category}</p>
+            </div>
+            <div class="li-left">
+                <button class="edit" data-id="${todo.createdAt}"><i class="fa-regular fa-pen-to-square"></i></button>
+                <button class="check" data-id="${todo.createdAt}"><i class="fa-solid fa-check"></i></button>
+                <button class="delete" data-id="${todo.createdAt}"><i class="fa-solid fa-trash"></i></button>
+            </div>
+        `;
+        ul.appendChild(li);
+    });
+    addEventListenertoAllButton();
+}
+
+
+function tolodisplay(){
     const ul = document.getElementsByClassName('ul-list');
     if(todos.length === 0){
         ul[0].innerHTML = `<li> No todos</li>`;
         return
     }
-    
-})()
-function DisplayTodos(){
-    const ul = document.getElementsByClassName('ul-list');
-   ul[0].innerHTML = '';
-    todos.forEach((todo)=>{
-        const li = document.createElement('li');
-        li.innerHTML = `
-         <div class="li-right">
-                                <h2 >
-                                ${todo.title}
-                                </h2>
-                                <p>${todo.Description}</p>
-                                <br>
-                                <p>Due: ${todo.due_date}</p>
-                                <p>${todo.category}</p>
-                               
-                              </div>
-                              <div class="li-left">
-                                <button class="edit"><i class="fa-regular fa-pen-to-square"></i></button>
-                               
-                                <button class="check" > <i class="fa-solid fa-check"></i> </button> 
-                                <button class="delete"> <i class="fa-solid fa-trash"></i> </button>
-                              </div>`
-        ul[0].appendChild(li);
-    })
+    else{
+        let newtodo = todos.filter((todo)=> todo.done === true);
+        if(todobtn[0].classList.contains('active')){
+            DisplayTodos();
+        }
+        else{
+            DisplayTodoscompleted(newtodo);
+        }
+    }
+}
+
+function addEventListenertoAllButton() {
+    const deleteButtons = document.querySelectorAll('.delete');
+    deleteButtons.forEach((btn) => {
+        btn.addEventListener('click', function () {
+            const id = this.getAttribute('data-id');
+            todos = todos.filter((todo) => todo.createdAt !== parseInt(id, 10));
+            localStorage.setItem('todos', JSON.stringify(todos));
+            tolodisplay();
+        });
+    });
+
+    const editButtons = document.querySelectorAll('.edit');
+    editButtons.forEach((btn) => {
+        btn.addEventListener('click', function () {
+            const id = this.getAttribute('data-id');
+            const todo = todos.find((todo) => todo.createdAt === parseInt(id, 10));
+            document.getElementById('title').value = todo.title;
+            document.getElementById('desciption').value = todo.Description;
+            document.getElementById('due-date').value = todo.due_date;
+            document.getElementById('category').value = todo.category;
+
+            todos = todos.filter((todo) => todo.createdAt !== parseInt(id, 10));
+            localStorage.setItem('todos', JSON.stringify(todos));
+            DisplayTodos();
+        });
+    });
+
+    const checkButtons = document.querySelectorAll('.check');
+    checkButtons.forEach((btn) => {
+        btn.addEventListener('click', function () {
+            const id = this.getAttribute('data-id');
+            const todo = todos.find((todo) => todo.createdAt === parseInt(id, 10));
+            todo.done = !todo.done;
+
+            localStorage.setItem('todos', JSON.stringify(todos));
+            const completedTodos = todos.filter((todo) => todo.done);
+            if (document.querySelector('.com-btn').classList.contains('active')) {
+                DisplayTodoscompleted(completedTodos);
+            } else {
+                DisplayTodos();
+            }
+        });
+    });
 }
 
 
+const completed = document.getElementsByClassName('com-btn');
+completed[0].addEventListener('click', function(){
+    const todobtn =  document.getElementsByClassName('todo-btn');
+    let newtodo = todos.filter((todo)=> todo.done === true);
+    completed[0].classList.add('active');
+    todobtn[0].classList.remove('active');
+    DisplayTodoscompleted(newtodo);
+})
 
 
 
+function DisplayTodoscompleted(completedTodos) {
+    const ul = document.getElementsByClassName('ul-list')[0];
+    ul.innerHTML = '';
+    completedTodos.forEach((todo) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <div class="li-right" style="text-decoration:line-through;">
+                <h2>${todo.title}</h2>
+                <p>${todo.Description}</p>
+                <br>
+                <p>Due: ${todo.due_date}</p>
+                <p>${todo.category}</p>
+            </div>
+            <div class="li-left">
+                <button class="check" data-id="${todo.createdAt}"><i class="fa-solid fa-xmark"></i></button>
+                <button class="delete" data-id="${todo.createdAt}"><i class="fa-solid fa-trash"></i></button>
+            </div>
+        `;
+        ul.appendChild(li);
+    });
+    addEventListenertoAllButton();
+}
 
 
+const todobtn =  document.getElementsByClassName('todo-btn');
+todobtn[0].addEventListener('click',function(){
+    todobtn[0].classList.add('active');
+    completed[0].classList.remove('active');
+    // todos = todos.filter((todo)=> todo.done === false);
+    DisplayTodos();
+})
 
 
+const clear_btn =  document.getElementsByClassName('clear-btn');
 
-
-
-
+clear_btn[0].addEventListener('click', function(){
+    confirm('Are you sure you want to delete all todos?');
+    localStorage.removeItem('todos');
+    window.location.reload();
+})
 // Calendar JS
 
 
