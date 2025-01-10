@@ -57,7 +57,7 @@ form.addEventListener('submit', function (e) {
             done: false,
             createdAt: new Date().getTime()
         };
-        todos.push(todo);
+        todos.unshift(todo);
         localStorage.setItem('todos', JSON.stringify(todos));
         const completed = document.getElementsByClassName('com-btn');
         const todobtn = document.getElementsByClassName('todo-btn');

@@ -241,6 +241,7 @@
     cursor: pointer;
     width: 3.2rem;
     margin: 0;
+    border-bottom: 2px solid  transparent;
  }
 
  .com-btn{
@@ -251,6 +252,7 @@
     cursor: pointer;
     width: 5rem;
     margin: -5px;
+    border-bottom: 2px solid  transparent;
  }
 
  .active{
