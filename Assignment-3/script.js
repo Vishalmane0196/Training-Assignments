@@ -1,52 +1,78 @@
 
-const form  =  document.querySelector('.form1');
+const form = document.querySelector('.form1');
 let todos = JSON.parse(localStorage.getItem('todos')) || [];
 
 
-(()=>{
+function notask() {
     const ul = document.getElementsByClassName('ul-list');
-    if(todos.length === 0){
-        ul[0].innerHTML = `<li > No todos</li>`;
+    
+    let truetodo = todos.filter((todo) => todo.done === false);
+    
+    if(truetodo.length === 0){
+        ul[0].innerHTML = `<li style="color:white; whidth:100%; height:96% ; display:flex; align-items:center;justify-content:center ; font-size:2rem ; color:gray ";> No todos</li>`;
         return;
     }
-    else{
+    if (todos.length === 0) {
+        ul[0].innerHTML = `<li style="color:white; whidth:100%; height:96% ; display:flex; align-items:center;justify-content:center ; font-size:2rem ; color:gray ";> No todos</li>`;
+        return;
+    }
+    else {
         DisplayTodos();
     }
-})();
+};
+
+
+const todaydate = new Date().toISOString().split('T')[0];
+document.getElementById('due-date').setAttribute('min', todaydate);
+
+let titlee = document.getElementById('title');
+titlee.addEventListener('input', function (e) {
+    if (this.value.length > 17) {
+        this.value = this.value.slice(0, 17); // Truncate the value to 17 characters
+    }
+});
+
+
+let descriptione = document.getElementById('description');
+descriptione.addEventListener('input', function (e) {
+    if (this.value.length > 30) {
+        this.value = this.value.slice(0, 30);
+    }
+});
+
+
+
 
 form.addEventListener('submit', function (e) {
     e.preventDefault();
-  
-    const title = document.getElementById('title').value;
-    const Description = document.getElementById('desciption').value;
-    const due_date = document.getElementById('due-date').value;
     const category = document.getElementById('category').value;
-
-    console.log(title, Description, due_date, category);
-    if([title, Description, due_date, category].includes('')){alert("all field are required") ;return;}
-    if(title.length > 17 || Description.length >35){alert("Task length Should less then 17 and Description is less then 35 ") ;return;}
-    else{
+    const due_date = document.getElementById('due-date').value;
+    if ([titlee.value, due_date, category].includes('')) { alert(" * fields required"); return; }
+    else {
         const todo = {
-            title: title,
+            title: titlee.value,
             category: category,
-            Description: Description,
+            Description: descriptione.value,
             due_date: due_date,
             done: false,
             createdAt: new Date().getTime()
         };
-         todos.push(todo);
-         localStorage.setItem('todos', JSON.stringify(todos));
-         const completed = document.getElementsByClassName('com-btn');
-         const todobtn =  document.getElementsByClassName('todo-btn');
-         completed[0].classList.remove('active');
-         todobtn[0].classList.add('active');
-         DisplayTodos();
-         this.reset();
+        todos.push(todo);
+        localStorage.setItem('todos', JSON.stringify(todos));
+        const completed = document.getElementsByClassName('com-btn');
+        const todobtn = document.getElementsByClassName('todo-btn');
+        completed[0].classList.remove('active');
+        todobtn[0].classList.add('active');
+        DisplayTodos();
+        this.reset();
     }
-   
+
 });
 
 function DisplayTodos() {
+    if(todos.length === 0){
+        notask();
+    }
     const ul = document.getElementsByClassName('ul-list')[0];
     ul.innerHTML = '';
     todos.forEach((todo) => {
@@ -54,7 +80,7 @@ function DisplayTodos() {
 
         const li = document.createElement('li');
         li.innerHTML = `
-            <div class="li-right">
+            <div class="li-right" data-id="${todo.createdAt}>
                 <h2>${todo.title}</h2>
                 <p>${todo.Description}</p>
                 <br>
@@ -73,18 +99,19 @@ function DisplayTodos() {
 }
 
 
-function tolodisplay(){
+function tolodisplay() {
     const ul = document.getElementsByClassName('ul-list');
-    if(todos.length === 0){
-        ul[0].innerHTML = `<li> No todos</li>`;
-        return
+   
+    if (todos.length === 0) {
+        ul[0].innerHTML = `<li style="color:gray; whidth:100%; height:96% ; display:flex; align-items:center;justify-content:center ; font-size:2rem"> No todos</li>`;
+        return;
     }
-    else{
-        let newtodo = todos.filter((todo)=> todo.done === true);
-        if(todobtn[0].classList.contains('active')){
+    else {
+        let newtodo = todos.filter((todo) => todo.done === true);
+        if (todobtn[0].classList.contains('active')) {
             DisplayTodos();
         }
-        else{
+        else {
             DisplayTodoscompleted(newtodo);
         }
     }
@@ -97,7 +124,9 @@ function addEventListenertoAllButton() {
             const id = this.getAttribute('data-id');
             todos = todos.filter((todo) => todo.createdAt !== parseInt(id, 10));
             localStorage.setItem('todos', JSON.stringify(todos));
+
             tolodisplay();
+
         });
     });
 
@@ -107,7 +136,7 @@ function addEventListenertoAllButton() {
             const id = this.getAttribute('data-id');
             const todo = todos.find((todo) => todo.createdAt === parseInt(id, 10));
             document.getElementById('title').value = todo.title;
-            document.getElementById('desciption').value = todo.Description;
+            descriptione.value = todo.Description;
             document.getElementById('due-date').value = todo.due_date;
             document.getElementById('category').value = todo.category;
 
@@ -137,9 +166,9 @@ function addEventListenertoAllButton() {
 
 
 const completed = document.getElementsByClassName('com-btn');
-completed[0].addEventListener('click', function(){
-    const todobtn =  document.getElementsByClassName('todo-btn');
-    let newtodo = todos.filter((todo)=> todo.done === true);
+completed[0].addEventListener('click', function () {
+    const todobtn = document.getElementsByClassName('todo-btn');
+    let newtodo = todos.filter((todo) => todo.done === true);
     completed[0].classList.add('active');
     todobtn[0].classList.remove('active');
     DisplayTodoscompleted(newtodo);
@@ -147,13 +176,19 @@ completed[0].addEventListener('click', function(){
 
 
 
-function DisplayTodoscompleted(completedTodos) {
-    const ul = document.getElementsByClassName('ul-list')[0];
+function DisplayTodoscompleted(completedTodos){
+    if(completedTodos.length === 0){
+        const ul = document.getElementsByClassName('ul-list')[0];
+        ul.innerHTML = `<li style="color:gray; whidth:100%; height:96% ; display:flex; align-items:center;justify-content:center ; font-size:2rem;"> All task completed</li>`;
+    }
+    else{
+        const ul = document.getElementsByClassName('ul-list')[0];
     ul.innerHTML = '';
+
     completedTodos.forEach((todo) => {
         const li = document.createElement('li');
         li.innerHTML = `
-            <div class="li-right" style="text-decoration:line-through;">
+            <div class="li-right" data-id="${todo.createdAt}>
                 <h2>${todo.title}</h2>
                 <p>${todo.Description}</p>
                 <br>
@@ -165,38 +200,49 @@ function DisplayTodoscompleted(completedTodos) {
                 <button class="delete" data-id="${todo.createdAt}"><i class="fa-solid fa-trash"></i></button>
             </div>
         `;
+       
         ul.appendChild(li);
     });
     addEventListenertoAllButton();
+    }
 }
 
 
-const todobtn =  document.getElementsByClassName('todo-btn');
-todobtn[0].addEventListener('click',function(){
+const todobtn = document.getElementsByClassName('todo-btn');
+todobtn[0].addEventListener('click', function () {
     todobtn[0].classList.add('active');
     completed[0].classList.remove('active');
-    // todos = todos.filter((todo)=> todo.done === false);
-    DisplayTodos();
+    notask();
 })
 
 
-const clear_btn =  document.getElementsByClassName('clear-btn');
+const clear_btn = document.getElementsByClassName('clear-btn');
+clear_btn[0].addEventListener('click', function () {
+    
+    if (todos.length === 0) {
+        alert('List is Emplty..');
+        return;
+    }
+    else {
+        confirm('Are you sure you want to delete all todos?');
+        localStorage.removeItem('todos');
+        window.location.reload();
+    }
 
-clear_btn[0].addEventListener('click', function(){
-    confirm('Are you sure you want to delete all todos?');
-    localStorage.removeItem('todos');
-    window.location.reload();
 })
 // Calendar JS
 
 
-const month= document.querySelector('.month')
-const day= document.querySelector('.day')
-const date= document.querySelector('.date')
-const year= document.querySelector('.year')
+const month = document.querySelector('.month')
+const day = document.querySelector('.day')
+const date = document.querySelector('.date')
+const year = document.querySelector('.year')
 
 const today = new Date();
-month.innerHTML = today.toLocaleString('default',{month : 'long'})
-day.innerHTML = today.toLocaleString('default',{weekday : 'long'});
+month.innerHTML = today.toLocaleString('default', { month: 'long' })
+day.innerHTML = today.toLocaleString('default', { weekday: 'long' });
 date.innerHTML = today.getDate();
 year.innerHTML = today.getFullYear();
+
+
+notask();

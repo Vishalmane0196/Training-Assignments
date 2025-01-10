@@ -72,6 +72,17 @@
     border: none;
     margin-bottom: 1.3rem;
 }
+.one textarea{
+    padding: 0.3rem;
+    width: 100%;
+    height: 2rem;
+    border-radius: 0px;
+    border: none;
+    resize: vertical;
+    height: 40px;
+    margin-bottom: 1.3rem;
+    overflow-y: auto; 
+}
 .sub-btn{
     height: 1.7rem;
     width: 3.3rem;
@@ -143,6 +154,7 @@
     height: 42vh;
     margin-top: 1.5rem;
     overflow: scroll;
+    scrollbar-width: none;
 }
 .list ul li{
     display: flex;
@@ -170,7 +182,7 @@
    
 } */
 .li-left > button{
-    margin: 0.5rem;
+    /* margin: 0.5rem; */
 }
 /* .li-left > button > i:nth-child(1){
     
@@ -183,47 +195,43 @@
 
 .edit{
     cursor: pointer;
-    background-color: #6C63FF;
+    background-color: transparent;
     color: white;
     border: none;
-    padding: 0.5rem;
     cursor: pointer;
     width: 3.2rem;
     margin: 0;
 }
-.edit:hover{
-    background-color: #5a52f7;
-}
+
 .check{
     cursor: pointer;
-    background-color: gray;
-    color: white;
+    background-color: transparent;
+    color: greenyellow;
     border: none;
-    padding: 0.5rem;
     cursor: pointer;
     width: 5rem;
-    margin: -5px;
+    
 }
 .check:hover{
     
-    background-color: gray;
-    color: greenyellow;
+    
+    color: rgb(153, 233, 34);
   
 }
 
 .delete{
     
         height: 2rem;
-        width: 3.3rem;
-        background-color: #6C63FF;
+        width: 2rem;
+        background-color: transparent;
         border: none;
-        color: white;
-        margin-top: 1rem;
+        color: rgb(243, 132, 132);
+        margin-top: 0.6rem;
         cursor: pointer;
  }
  .delete:hover{
-    background-color: #5a52f7;
-    color: white;
+   
+    color: rgb(244, 103, 103);
 
  }
 
@@ -272,6 +280,7 @@
     --scrollbar-bg: transparent;
     --scrollbar-thumb: #888;
     --scrollbar-thumb-hover: #555;
+    
 }
 
 ::-webkit-scrollbar {
@@ -280,11 +289,13 @@
 
 ::-webkit-scrollbar-track {
     background: var(--scrollbar-bg);
+    visibility: none;
 }
 
 ::-webkit-scrollbar-thumb {
     background: var(--scrollbar-thumb);
     border-radius: 6px;
+    visibility: none;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -292,7 +303,7 @@
 }
 
 html {
-    scrollbar-width: thin;
+    scrollbar-width: none;
     scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
 }
 
@@ -335,6 +346,9 @@ html {
 
 .slide-right {
     animation: slideRight 0.5s ease-in-out forwards;
+}
+#star-red{
+    color: rgba(255, 0, 0, 0.854);
 }
 
 @keyframes slideRight {

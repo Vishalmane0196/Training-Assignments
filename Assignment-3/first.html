@@ -13,7 +13,7 @@
    
     <div class="main">
         
-        <div class="outer">
+        <div class="outer" >
             <h1>My Todos</h1> 
             <div class="inner padmr">
               <form action="" class="form1">
@@ -28,19 +28,20 @@
                       
                       <div class="task-list">
                             <div class="one">
-                                <h4>Title :</h4>
+                                <h4>Title <span id="star-red">*</span></h4>
                                 <input type="text" id="title" placeholder="Whats the title of your todo?">
                             </div>
                           
 
                             <div class="one">
-                                <h4>Description :</h4>
-                                <input type="text" id="desciption" placeholder="Description of yout todo?">
+                                <h4>Description </h4>
+                                <textarea id="description" placeholder="Description of your todo?"></textarea>
+
                             </div>
 
                             <div class="two-div-DC">
                               <div class="category">
-                                <h4>Category : </h4>
+                                <h4>Category <span id="star-red">*</span> </h4>
                                 <select name="category" id="category">
                                   <option value="Personal">Personal</option>
                                   <option value="Work">Work</option>
@@ -49,7 +50,7 @@
                                 </select>
                               </div>
                               <div class="due-date">
-                                <h4>Due date :</h4>
+                                <h4>Due date <span id="star-red">*</span></h4>
                                  <input type="date" id="due-date" >
                               </div>
                               <button class="sub-btn"> Add</button>
@@ -110,8 +111,6 @@
             </div>
         </div>
     </div>
-    <script src="script.js">
-
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
