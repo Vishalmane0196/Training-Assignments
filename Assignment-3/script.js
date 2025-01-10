@@ -28,15 +28,15 @@ document.getElementById('due-date').setAttribute('min', todaydate);
 let titlee = document.getElementById('title');
 titlee.addEventListener('input', function (e) {
     if (this.value.length > 17) {
-        this.value = this.value.slice(0, 17); // Truncate the value to 17 characters
+        this.value = this.value.slice(0, 17); 
     }
 });
 
 
 let descriptione = document.getElementById('description');
 descriptione.addEventListener('input', function (e) {
-    if (this.value.length > 30) {
-        this.value = this.value.slice(0, 30);
+    if (this.value.length > 50) {
+        this.value = this.value.slice(0, 50);
     }
 });
 
@@ -76,11 +76,11 @@ function DisplayTodos() {
     const ul = document.getElementsByClassName('ul-list')[0];
     ul.innerHTML = '';
     todos.forEach((todo) => {
-        if (todo.done) return; // Skip completed todos
+        if (todo.done) return; 
 
         const li = document.createElement('li');
         li.innerHTML = `
-            <div class="li-right" data-id="${todo.createdAt}>
+            <div class="li-right">
                 <h2>${todo.title}</h2>
                 <p>${todo.Description}</p>
                 <br>
@@ -124,8 +124,13 @@ function addEventListenertoAllButton() {
             const id = this.getAttribute('data-id');
             todos = todos.filter((todo) => todo.createdAt !== parseInt(id, 10));
             localStorage.setItem('todos', JSON.stringify(todos));
-
-            tolodisplay();
+            let li = this.parentElement.parentElement;
+            li.classList.add('slide-min');
+            // tolodisplay();
+            li.addEventListener('animationend', () => {
+                li.remove();
+                tolodisplay();
+            });
 
         });
     });
@@ -188,7 +193,7 @@ function DisplayTodoscompleted(completedTodos){
     completedTodos.forEach((todo) => {
         const li = document.createElement('li');
         li.innerHTML = `
-            <div class="li-right" data-id="${todo.createdAt}>
+            <div class="li-right">
                 <h2>${todo.title}</h2>
                 <p>${todo.Description}</p>
                 <br>
@@ -220,7 +225,7 @@ const clear_btn = document.getElementsByClassName('clear-btn');
 clear_btn[0].addEventListener('click', function () {
     
     if (todos.length === 0) {
-        alert('List is Emplty..');
+        alert('No tasks to clear..');
         return;
     }
     else {

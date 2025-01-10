@@ -93,7 +93,7 @@
     margin-top: 1rem;
 }
 .sub-btn:hover{
-    background-color: #5a52f7;
+    background-color: #3b3881;
     color: white;
     border: none;
     margin-top: 1rem;
@@ -181,9 +181,7 @@
    color:  #02C067;
    
 } */
-.li-left > button{
-    /* margin: 0.5rem; */
-}
+
 /* .li-left > button > i:nth-child(1){
     
     font-size: 1.2rem;
@@ -236,7 +234,7 @@
  }
 
  .todo-btn{
-    background-color: gray;
+    background-color: transparent;
     color: white;
     border: none;
     padding: 0.5rem;
@@ -246,7 +244,7 @@
  }
 
  .com-btn{
-    background-color: gray;
+    background-color: transparent;
     color: white;
     border: none;
     padding: 0.5rem;
@@ -256,7 +254,9 @@
  }
 
  .active{
-    background-color: #6C63FF;
+    /* background-color: #6C63FF; */
+   
+    border-bottom: 2px solid #6C63FF;
     color: white;
     }
 
@@ -272,7 +272,7 @@
     
 }
 .clear-btn:hover{
-    background-color: #5a52f7;
+    background-color: #3b3881;
 }
  /* --------Change window scroller style */
 
@@ -351,17 +351,22 @@ html {
     color: rgba(255, 0, 0, 0.854);
 }
 
-@keyframes slideRight {
+
+@keyframes openclose {
     0% {
-        transform: translateX(0);
+        transform: scale(1);
         opacity: 1;
     }
- 
     100% {
-        transform: translateX(100%);
+        transform: scale(0);
         opacity: 0;
     }
 }
+
+.slide-min {
+    animation: openclose 0.5s ease-in-out forwards;
+}
+
 
 
   @media screen and (max-width: 769px) {
