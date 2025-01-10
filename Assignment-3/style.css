@@ -522,4 +522,25 @@ align-content: center;
         margin-top: 0px;
         cursor: pointer;
     }
+    .inner {
+        background-color: #343434;
+        padding: 1rem;
+        box-shadow: 0.2rem 0.2rem 0.5rem rgba(15, 15, 15, 0.676);
+    }
+    
+.delete{
+    
+    height: 2rem;
+    width: 2rem;
+    background-color: transparent;
+    border: none;
+    color: rgb(243, 132, 132);
+    margin-top: 0.6rem;
+    cursor: pointer;
+}
+.delete:hover{
+
+color: rgb(244, 103, 103);
+
+}
   }
