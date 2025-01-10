@@ -70,10 +70,17 @@ form.addEventListener('submit', function (e) {
 });
 
 function DisplayTodos() {
+    const ul = document.getElementsByClassName('ul-list')[0];
+    let truetodo = todos.filter((todo) => todo.done === false);
+    
+    if(truetodo.length === 0){
+        ul.innerHTML = `<li style="color:white; whidth:100%; height:96% ; display:flex; align-items:center;justify-content:center ; font-size:2rem ; color:gray ";> No todos</li>`;
+        return;
+    }
     if(todos.length === 0){
         notask();
     }
-    const ul = document.getElementsByClassName('ul-list')[0];
+   
     ul.innerHTML = '';
     todos.forEach((todo) => {
         if (todo.done) return; 
@@ -164,6 +171,7 @@ function addEventListenertoAllButton() {
                 DisplayTodoscompleted(completedTodos);
             } else {
                 DisplayTodos();
+                
             }
         });
     });
