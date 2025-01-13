@@ -12,9 +12,55 @@
 <body>
    
     <div class="main">
-        
+      <div class="side">
+        <div class="sidebar">
+          <div class="profile">
+            <img src="./profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg" alt="Profile Picture"
+              class="profile-img" />
+            <span class="profile-name">Vishal Mane</span>
+          </div>
+          <div class="line">
+      
+          </div>
+          <span class="menu-name">
+            <h3>Menu</h3>
+          </span>
+          <br>
+          <nav> 
+            <ul class="menu">
+              <li><span class="icon"><i class="fa-solid fa-calendar-week"></i></span> Pending Todo<span
+                class="badge">
+                <p class="todototal">1</p>
+              </span></li>
+              <li class="addtoli">
+                <span class="icon"><i class="fa-solid fa-plus"></i></span>
+                Add New
+              </li>
+              
+                <li class="clear-btn"><span class="icon"><i class="fa-solid fa-calendar-week"></i></span> Clear All</li>
+            </ul>
+          </nav> 
+          <div class="line">
+      
+          </div>
+          <div class="footer">
+            <h3>Connect us</h3>
+            <div class="icon-connect">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+      
+            </div>
+            <div class="footer-right">
+              <p>2024 Task Manager UI. All rights reserved.</p>
+      
+            </div>
+          </div>
+      
+        </div>
+      </div>
         <div class="outer" >
-            <h1>My Todos</h1> 
             <div class="inner padmr">
               <form action="" class="form1">
                     <div class="title">
@@ -29,13 +75,13 @@
                       <div class="task-list">
                             <div class="one">
                                 <h4>Title <span id="star-red">*</span></h4>
-                                <input type="text" id="title"  placeholder="Whats the title of your todo?" required>
+                                <input type="text" id="title" maxlength="20" placeholder="Whats the title of your todo?" required>
                             </div>
                           
 
                             <div class="one">
                                 <h4>Description </h4>
-                                <textarea id="description"  placeholder="Description of your todo?"></textarea>
+                                <textarea id="description" maxlength="60" placeholder="Description of your todo?"></textarea>
 
                             </div>
 
@@ -53,7 +99,7 @@
                                 <h4>Due date <span id="star-red">*</span></h4>
                                  <input type="date" id="due-date" required>
                               </div>
-                              <button class="sub-btn"> Add</button>
+                              <button class="sub-btn"> Add Todo</button>
                           </div>
                             
                           
@@ -65,7 +111,6 @@
                     <div class="list">
                         <button class="todo-btn active">To-do</button>
                         <button class="com-btn">Completed</button>
-                        <button class="clear-btn">Clear All</button>
                        
                         <ul class="ul-list">
                            
@@ -109,7 +154,31 @@
 
 
             </div>
-        </div>
+          
+            <class class="main1">
+              <div class="header">
+                <div class="header-date-section">
+                  <h1>Today</h1>
+                  <p><span id="day">Saturday</span>,<span id="date">11</span> <span id="month">January</span></p>
+                </div>
+          
+              </div>
+             
+              <div class="content">
+                 
+                <div id="to-list-div">
+                      <div class="illustration">
+                        <img src="./To do list-pana.svg" alt="Illustration" />
+                      </div>
+                      <h2>Have a marvelous day off, Vishal!</h2>
+                      <p>Schedule days off in the Productivity tab of your Settings menu.</p>
+                      <a href="#" class="adjust-schedule">Adjust your schedule</a>
+                  </div>
+                    </div>
+          
+          </class>
+          </div>
+        
     </div>
     <script src="script.js"></script>
 </body>

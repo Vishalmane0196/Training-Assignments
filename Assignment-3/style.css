@@ -4,6 +4,153 @@
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+/* side portion */
+
+
+.sidebar {
+    width: 300px;
+    background-color: #fcfaf8;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ddd;
+    height: 100%;
+  }
+  
+  .profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .profile-name {
+    font-weight: bold;
+  }
+  
+  .add-task-btn {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  
+  .menu {
+    list-style: none;
+    margin-bottom: 2rem;
+  }
+  
+  .menu li {
+    padding: 10px 5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #666565;
+    margin-bottom: 4px;
+  }
+  .menu li:nth-child(1){
+    cursor:default;
+  }
+  
+  .menu li:nth-child(2):hover {
+    background-color: #ffe7e7;
+    color: #ff4d4f;
+  }
+  .menu li:nth-child(3):hover {
+    background-color: #ffe7e7;
+    color: #ff4d4f;
+  }
+  
+  .menu li .icon {
+    margin-right: 10px;
+  }
+  
+  .menu-name {
+    color: #808080;
+    margin-top: 1rem;
+  }
+  .menu-name > h3 {
+    font-weight: 500;
+    display: inline;
+  }
+  .badge {
+    margin-left: auto;
+    background-color: #ff4d4f;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+  }
+  
+  .projects {
+    margin-top: auto;
+  }
+  
+  .projects h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .projects ul {
+    list-style: none;
+  }
+  
+  .projects li {
+    padding: 10px 5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .projects li .icon {
+    margin-right: 10px;
+  }
+  
+  .add-team-btn {
+    background-color: transparent;
+    border: none;
+    color: #ff4d4f;
+    cursor: pointer;
+    padding: 10px 0;
+  }
+
+  .footer {
+    padding-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    color: #808080;
+  }
+  .icon-connect {
+    display: flex;
+    gap: 1rem;
+  }
+  .icon-connect > a > i {
+    font-size: 1rem;
+  }
+  .icon-connect > a {
+    font-size: 1rem;
+    color: #808080;
+  }
+  
+  .icon-connect > a:hover {
+    font-size: 1rem;
+    color: #ff4d4f;
+  }
+/* --- */
+
 .padmr{
     padding: 1.5rem;
 }
@@ -11,30 +158,32 @@
 .main{
 
     width: 100%;
-    background-color:#1E1E1E;
+    display: flex;;
+    background-color:white;
    align-content: center;
    
 }
 .outer{
-    width: 60%;
-    margin: auto auto;
-    
+    width: 80%;
 }
 .outer h1{
-    color: white;
+    color: black;
     text-align: center;
     margin: 1.5rem;
     
 }
 .inner{
-   background-color: #343434;
-   padding: 2rem;
-   box-shadow: 0.2rem 0.2rem 0.5rem rgba(15, 15, 15, 0.676)
+    background-color: rgb(252, 250, 248);
+   padding: 2rem 2rem 0rem 2rem;
+   display: none;
 }
-
+#due-date{
+  outline: none;
+  border: none;
+}
 .line{
     margin-bottom: 1.5rem;
-    border:1px solid rgba(255, 255, 255, 0.635);
+    border:1px solid gray;
 }
 
 /* Title Area */
@@ -48,7 +197,7 @@
 }
 .task-list{
     width: 63%;
-   
+   color: black;
 }
 
 /* .title button{
@@ -75,25 +224,26 @@
 .one textarea{
     padding: 0.3rem;
     width: 100%;
-    height: 2rem;
+    height: 3rem;
     border-radius: 0px;
     border: none;
-    resize: vertical;
+    resize: none;
     height: 40px;
     margin-bottom: 1.3rem;
     overflow-y: auto; 
 }
 .sub-btn{
     height: 1.7rem;
-    width: 3.3rem;
-    background-color: #6C63FF;
+    width: 4.5rem;
+    background-color: rgb(255, 77, 79);
     color: white;
     border: none;
     cursor: pointer;
     margin-top: 1rem;
+    border-radius: 15px;
 }
 .sub-btn:hover{
-    background-color: #3b3881;
+    background-color: rgb(190, 40, 43);
     color: white;
     border: none;
     margin-top: 1rem;
@@ -101,7 +251,7 @@
 
 .two-div-DC{
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     gap: 4rem
     ;
     align-items: flex-end;
@@ -126,32 +276,11 @@
       font-size: 1rem;
       margin-bottom: 8px;
 }
-/* .list button:nth-child(1){
-    background-color:#6C63FF;
-    color: white;
-    border: none;
-    padding: 0.5rem;
-    cursor: pointer;
-    width: 3.2rem;
-    margin: 0;
 
-} */
-
-
-/* 
-.list button:nth-child(2){
-    background-color: gray;
-    color: white;
-    border: none;
-    padding: 0.5rem;
-    cursor: pointer;
-    width: 5rem;
-    margin: -5px;
-} */
 
 .list ul{
     list-style: none;
-    height: 42vh;
+    height: 38vh;
     margin-top: 1.5rem;
     overflow: scroll;
     scrollbar-width: none;
@@ -161,10 +290,10 @@
     justify-content: space-between;
     padding: 0.3rem 0.8rem 0.3rem 0.8rem;
     margin-bottom: 0.5rem;
-    background-color: #454444;
+    background-color: rgb(249, 243, 243);
 }
 .li-right h2{
-   color: whitesmoke;
+   color: black;
    margin-bottom: 0.6rem;
    display: inline;
 }
@@ -173,23 +302,7 @@
     display: inline;
     font-size: 12px;
 }
-/* .li-left > button > i{
-    
-   font-size: 1.2rem;
-   align-content: center;
-   margin: 0.5rem;
-   color:  #02C067;
-   
-} */
 
-/* .li-left > button > i:nth-child(1){
-    
-    font-size: 1.2rem;
-    align-content: center;
-    color: rgba(240, 6, 6, 0.776);
-    
-    
- } */
 
 .edit{
     cursor: pointer;
@@ -204,7 +317,8 @@
 .check{
     cursor: pointer;
     background-color: transparent;
-    color: greenyellow;
+    color: #007245;
+    
     border: none;
     cursor: pointer;
     width: 5rem;
@@ -212,18 +326,30 @@
 }
 .check:hover{
     
+  color: greenyellow;
     
-    color: rgb(153, 233, 34);
   
 }
+.checkblack{
+  cursor: pointer;
+  background-color: transparent;
+  
+  border: none;
+  cursor: pointer;
+  width: 5rem;
+  color: black;
+}
 
+.checkblack:hover{
+  color: #343434;
+}
 .delete{
     
         height: 2rem;
         width: 2rem;
         background-color: transparent;
         border: none;
-        color: rgb(243, 132, 132);
+        color: rgb(240, 24, 24);
         margin-top: 0.6rem;
         cursor: pointer;
  }
@@ -235,9 +361,9 @@
 
  .todo-btn{
     background-color: transparent;
-    color: white;
+    color: black;
     border: none;
-    padding: 0.5rem;
+    padding: 0.5rem 0rem;
     cursor: pointer;
     width: 3.2rem;
     margin: 0;
@@ -246,9 +372,9 @@
 
  .com-btn{
     background-color: transparent;
-    color: white;
+    color: black;
     border: none;
-    padding: 0.5rem;
+    padding: 0.5rem 0rem;
     cursor: pointer;
     width: 5rem;
     margin: -5px;
@@ -258,23 +384,15 @@
  .active{
     /* background-color: #6C63FF; */
    
-    border-bottom: 2px solid #6C63FF;
-    color: white;
+    border-bottom: 2px solid  rgb(255, 77, 79);
+    
+    color: black;
     }
 
 
-.clear-btn{
-    background-color:  #6C63FF;
-    color: white;
-    border: none;
-    padding: 0.5rem;
-    cursor: pointer;
-    margin: 0px 0px 0px 4px;
-    float: right;
-    
-}
+
 .clear-btn:hover{
-    background-color: #3b3881;
+    background-color: rgb(243, 57, 60);
 }
  /* --------Change window scroller style */
 
@@ -309,6 +427,84 @@ html {
     scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
 }
 
+
+/* main1 */
+
+
+.main1 {
+    padding: 2rem 5rem 0rem 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    /* justify-content: center; */
+  }
+  
+  .header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  .header h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 0.6rem;
+    margin-left: 0px;
+    text-align: left;
+}
+  .view-settings {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    height: 90%;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .illustration img {
+    width: 32%;
+    margin-bottom: 20px;
+  }
+  
+  .adjust-schedule {
+    color: #ff4d4f;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+    display: inline-block;
+    cursor:default;
+  }
+  
+ 
+  
+  .tast-input-section {
+    width: 100%;
+    padding: 1rem;
+    background-color: #fcfaf8;
+    position: relative;
+  }
+  
+  .tast-input-section > span {
+    margin-left: 0.4rem;
+  }
+  .tast-input-section > span > h2 {
+    display: inline;
+    font-size: 16px;
+    color: #808088;
+    cursor: pointer;
+  }
+/*  */
+
 /* Calendar */
 
 .calendar {
@@ -318,6 +514,7 @@ html {
     border-radius: 10px;
     overflow: hidden;
     font-family: monospace;
+    color: black;
 }
   
   .day,.month,.date,.year {
