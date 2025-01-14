@@ -61,6 +61,7 @@
   }
   .menu li:nth-child(1){
     cursor:default;
+    opacity: 0.6;
   }
   
   .menu li:nth-child(2):hover {
@@ -68,6 +69,10 @@
     color: #ff4d4f;
   }
   .menu li:nth-child(3):hover {
+    background-color: #ffe7e7;
+    color: #ff4d4f;
+  }
+  .menu li:nth-child(4):hover {
     background-color: #ffe7e7;
     color: #ff4d4f;
   }
@@ -548,6 +553,12 @@ html {
 }
 #star-red{
     color: rgba(255, 0, 0, 0.854);
+}
+
+.pending-todo{
+  display: none;
+  height: 70%;
+  width: 100%;
 }
 
 

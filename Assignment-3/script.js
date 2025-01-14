@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         counttotal();
     }
 
-    function tolodisplay() {
+    function tododisplay() {
         const ul = document.getElementsByClassName('ul-list');
 
         if (todos.length === 0) {
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 dleteaudio();
                 li.addEventListener('animationend', () => {
                     li.remove();
-                    tolodisplay();
+                    tododisplay();
                 });
             });
         });
@@ -263,6 +263,33 @@ function dleteaudio(){
     deleteaudio.play();
 }
 
+
+document.getElementsByClassName('view-todo')[0].addEventListener('click',function(){
+    let ul = document.getElementsByClassName('pending-todo')[0];
+    ul.style.display='flex';
+    ul.style.flexDirection = 'column'
+    ul.style.gap = '1rem';
+    
+    document.getElementById('to-list-div').style.display = 'none';
+    todos.forEach((todo) => {
+        if (todo.done) return;
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <div class="li-right">
+                <h2>${todo.title}</h2>
+                <p class="editable">${todo.Description}</p>
+                <br>
+                <p>Due: ${todo.due_date}</p>
+                <p>${todo.category}</p>
+            </div>
+            
+        `;
+        li.style.display = 'flex';
+        li.style.justifyContent = 'left';
+        li.style.backgroundColor='#fcfaf8';
+        ul.appendChild(li);
+    });
+})
 // Calendar JS
 
 
