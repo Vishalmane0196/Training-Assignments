@@ -4,10 +4,26 @@ document.addEventListener('DOMContentLoaded', () => {
     var audio = new Audio('y2mate (mp3cut.net).mp3');
     var deleteaudio = new Audio('deleteaudio.mp3');
 
-    document.getElementsByClassName('addtoli')[0].addEventListener('click',function(){
+    document.getElementsByClassName('sub-btn')[0].style.opacity = '0.4';  // opacity of submit button
+
+    document.getElementById('title').addEventListener('input', function (e) {
+        if (e.data == null || document.getElementById('title').value == '') {
+            document.getElementsByClassName('sub-btn')[0].style.opacity = '0.4';
+        }
+        else {
+            document.getElementsByClassName('sub-btn')[0].style.opacity = '1';
+        }
+    })
+
+
+    document.getElementsByClassName('addtoli')[0].addEventListener('click', function () {
         document.getElementsByClassName('inner')[0].style.display = 'block';
         document.getElementsByClassName('main1')[0].style.display = 'none';
-        
+        document.getElementsByClassName('list')[0].style.display = 'none';
+        document.getElementsByClassName('form1')[0].style.display = 'block';
+        document.getElementsByClassName('addtoli')[0].classList.add('liactive');
+        document.getElementsByClassName('view-todo')[0].classList.remove('liactive');
+
     })
 
     function notask() {
@@ -16,20 +32,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (truetodo.length === 0) {
             ul[0].innerHTML = `<li style="color:white; width:100%; height:96%; display:flex; align-items:center;justify-content:center; font-size:2rem; color:gray;"> No todos</li>`;
+            document.querySelector('.clear-btn').style.opacity = '0.2';
             return;
         }
         if (todos.length === 0) {
             ul[0].innerHTML = `<li style="color:white; width:100%; height:96%; display:flex; align-items:center;justify-content:center; font-size:2rem; color:gray;"> No todos</li>`;
+            document.querySelector('.clear-btn').style.opacity = '0.2';
+
             return;
         } else {
-            DisplayTodos();
+            DisplayTodos(todos);
         }
     }
 
     const todaydate = new Date().toISOString().split('T')[0];
     document.getElementById('due-date').setAttribute('min', todaydate);
 
- 
+
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -53,18 +72,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const todobtn = document.getElementsByClassName('todo-btn');
             completed[0].classList.remove('active');
             todobtn[0].classList.add('active');
-            DisplayTodos();
-            
+            DisplayTodos(todos);
+            document.querySelector('.clear-btn').style.opacity = '1';
+            document.getElementsByClassName('sub-btn')[0].style.opacity = '0.4';
             this.reset();
         }
     });
 
-    function DisplayTodos() {
+    function DisplayTodos(todos) {
         const ul = document.getElementsByClassName('ul-list')[0];
         let truetodo = todos.filter((todo) => todo.done === false);
 
         if (truetodo.length === 0) {
             ul.innerHTML = `<li style="color:white; width:100%; height:96%; display:flex; align-items:center;justify-content:center; font-size:2rem; color:gray;"> No todos</li>`;
+            document.querySelector('.clear-btn').style.opacity = '0.2';
             return;
         }
         if (todos.length === 0) {
@@ -90,10 +111,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             li.setAttribute('data-id', todo.createdAt);
+            li.style.cursor = 'pointer';
+            li.classList.add('popupliid');
             ul.appendChild(li);
         });
         addEventListenertoAllButton();
         counttotal();
+
+
     }
 
     function tododisplay() {
@@ -107,12 +132,12 @@ document.addEventListener('DOMContentLoaded', () => {
             let newtodo = todos.filter((todo) => todo.done === true);
             if (todobtn[0].classList.contains('active')) {
                 counttotal();
-                DisplayTodos();
-                
+                DisplayTodos(todos);
+
             } else {
                 counttotal();
                 DisplayTodoscompleted(newtodo);
-                
+
             }
         }
     }
@@ -148,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     DisplayTodoscompleted(completedTodos);
                 } else {
                     playaudio();
-                    DisplayTodos();
+                    DisplayTodos(todos);
                 }
             });
         });
@@ -179,6 +204,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         });
+
+
+        document.querySelectorAll('.popupliid').forEach(li => {
+            li.addEventListener('click', function (e) {
+                // if (!e.target.classList.contains('todo-item')) {
+                //     return;
+                // }
+                
+                if(e.target.classList[0] == 'popupliid')
+                {
+                    document.getElementsByClassName('popup')[0].style.display = 'block';
+                let name = document.querySelector('.pop-task-name')
+                let desc = document.querySelector('.pop-task-description')
+                let due = document.querySelector('.pop-due-date')
+                let category = document.querySelector('.pop-category')
+
+                name.innerText = this.childNodes[1].childNodes[1].innerText;
+                desc.innerText = this.childNodes[1].childNodes[3].innerText;
+                category.innerText = this.childNodes[1].childNodes[9].innerText;
+                due.innerText = this.childNodes[1].childNodes[7].innerText;
+                console.log(this.childNodes[1].childNodes[9]);
+                document.getElementById('overlay').style.display = 'block';
+                }
+
+
+            })
+        })
     }
 
     function saveEdit(input) {
@@ -188,18 +240,19 @@ document.addEventListener('DOMContentLoaded', () => {
         input.replaceWith(p);
 
         const li = p.closest('li');
-        console.log( li);
+        console.log(li);
         const id = li.getAttribute('data-id');
         const todo = todos.find(todo => todo.createdAt === parseInt(id, 10));
         todo.Description = input.value;
         localStorage.setItem('todos', JSON.stringify(todos));
         addEventListenertoAllButton();
     }
+    let newtodo = todos.filter((todo) => todo.done == true);
 
     const completed = document.getElementsByClassName('com-btn');
     completed[0].addEventListener('click', function () {
+        newtodo = todos.filter((todo) => todo.done == true);
         const todobtn = document.getElementsByClassName('todo-btn');
-        let newtodo = todos.filter((todo) => todo.done === true);
         completed[0].classList.add('active');
         todobtn[0].classList.remove('active');
         DisplayTodoscompleted(newtodo);
@@ -224,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>${todo.category}</p>
                     </div>
                     <div class="li-left">
-                        <button class="check checkblack" data-id="${todo.createdAt}"><i class="fa-solid fa-xmark"></i></button>
+                        
                         <button class="delete" data-id="${todo.createdAt}"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 `;
@@ -255,122 +308,204 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-function playaudio(){
-    audio.play();
-}
+    function playaudio() {
+        audio.play();
+    }
 
-function dleteaudio(){
-    deleteaudio.play();
-}
-
-
-document.getElementsByClassName('view-todo')[0].addEventListener('click',function(){
-    let ul = document.getElementsByClassName('pending-todo')[0];
-    ul.style.display='flex';
-    ul.style.flexDirection = 'column'
-    ul.style.gap = '1rem';
-    
-    document.getElementById('to-list-div').style.display = 'none';
-    todos.forEach((todo) => {
-        if (todo.done) return;
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <div class="li-right">
-                <h2>${todo.title}</h2>
-                <p class="editable">${todo.Description}</p>
-                <br>
-                <p>Due: ${todo.due_date}</p>
-                <p>${todo.category}</p>
-            </div>
-            
-        `;
-        li.style.display = 'flex';
-        li.style.justifyContent = 'left';
-        li.style.backgroundColor='#fcfaf8';
-        ul.appendChild(li);
-    });
-})
-// Calendar JS
+    function dleteaudio() {
+        deleteaudio.play();
+    }
 
 
+    document.getElementsByClassName('view-todo')[0].addEventListener('click', function () {
+        document.querySelector('.form1').style.display = 'none';
+        document.getElementsByClassName('main1')[0].style.display = 'none';
+        document.getElementsByClassName('inner')[0].style.display = 'block';
+        document.getElementsByClassName('list')[0].style.display = 'block';
+        document.getElementsByClassName('addtoli')[0].classList.remove('liactive');
+        document.getElementsByClassName('view-todo')[0].classList.add('liactive');
 
-const month = document.querySelector('.month')
-const day = document.querySelector('.day')
-const date = document.querySelector('.date')
-const year = document.querySelector('.year')
-
-const today = new Date();
-month.innerHTML = today.toLocaleString('default', { month: 'long' })
-day.innerHTML = today.toLocaleString('default', { weekday: 'long' });
-date.innerHTML = today.getDate();
-year.innerHTML = today.getFullYear();
+    })
 
 
+    //Search Bar
+    document.getElementsByClassName('search')[0].addEventListener('input', function (e) {
 
-const monthd = document.getElementById('month')
-const dayd =document.getElementById('day')
-const dated = document.getElementById('date')
+        let searchValue = document.getElementsByClassName('search')[0].value;
+        const todobtn = document.getElementsByClassName('todo-btn');
+        // let newcomarray = todos.filter(todo=>todo.done == true);
+        let newarray = [];
+        if (searchValue.includes(" ") || e.data == null) {
+            if (todobtn[0].classList.contains('active')) {
+                console.log('i am here')
+                DisplayTodos(todos);
+                return;
+            }
+            else {
 
-monthd.innerHTML = today.toLocaleString('default', { month: 'long' })
-dayd.innerHTML = today.toLocaleString('default', { weekday: 'long' });
-dated.innerHTML = today.getDate();
+                DisplayTodoscompleted(newtodo);
+                return;
 
-notask();
+            }
+        } else {
+            todos.forEach(todo => {
 
+                if (todo.done == true) {
 
+                    if (todo.title.includes(searchValue.trim()) || todo.Description.includes(searchValue.trim())) {
+                        newarray.push(todo);
+                        return;
+                    }
+                } else if (todobtn[0].classList.contains('active')) {
 
-//-------------Notification 
+                    if (todo.title.includes(searchValue.trim()) || todo.Description.includes(searchValue.trim())) {
+                        newarray.push(todo);
+                    }
+                }
 
-function checkDueDates() {
-    const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1);
-
-    todos.forEach(todo => {
-        
-        if(todo.done === false){
-            let dat = '';
-        dat =  today.getDate();
-        duetae = todo.due_date.split('-')[2];
-        duetae = parseInt(duetae);
-        if (duetae == dat) {
-           
-            sendNotification(todo.title, todo.due_date);
+            });
         }
+
+        if (todobtn[0].classList.contains('active')) {
+            DisplayTodos(newarray)
+        }
+        else {
+            DisplayTodoscompleted(newarray)
         }
     });
-}
 
-function sendNotification(title, dueDate) {
-    if (Notification.permission === 'granted') {
-        new Notification('Todo Reminder', {
-            body: `Your task "${title}" is due on Today.`,
-        });
-    } else if (Notification.permission !== 'denied') {
-        Notification.requestPermission().then(permission => {
-            if (permission === 'granted') {
-                new Notification('Todo Reminder', {
-                    body: `Your task "${title}" is due on ${dueDate}.`,
-                });
+
+    //-------------Sorting
+
+
+    document.getElementById('sort').addEventListener('click', function () {
+        let sortedArray = [];
+        let sortType = document.getElementById('sort').value;
+        if (sortType == 'AZ') {
+            sortedArray = todos.slice().sort((a, b) => a.title.localeCompare(b.title))
+            if (todobtn[0].classList.contains('active')) {
+                DisplayTodos(sortedArray);
+                return;
+            }
+            else {
+                DisplayTodoscompleted(sortedArray);
+                return;
+            }
+
+        }
+        else if (sortType == 'ZA') {
+            sortedArray = todos.slice().sort((a, b) => b.title.localeCompare(a.title))
+            if (todobtn[0].classList.contains('active')) {
+                DisplayTodos(sortedArray);
+                return;
+            }
+            else {
+                DisplayTodoscompleted(sortedArray);
+                return;
+            }
+        }
+        else if (sortType == 'latest') {
+            sortedArray = todos.slice().sort((a, b) => new Date(b.due_date) - new Date(a.due_date));
+
+            if (todobtn[0].classList.contains('active')) {
+                DisplayTodos(sortedArray);
+                return;
+            }
+            else {
+                DisplayTodoscompleted(sortedArray);
+                return;
+            }
+        }
+        else if (sortType == 'date') {
+            sortedArray = todos.slice().sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
+
+            if (todobtn[0].classList.contains('active')) {
+                DisplayTodos(sortedArray);
+                return;
+            }
+            else {
+                DisplayTodoscompleted(sortedArray);
+                return;
+            }
+        }
+
+    })
+
+    document.getElementsByClassName('cancel-button')[0].addEventListener('click', function () {
+
+        let name = document.querySelector('.pop-task-name')
+        let desc = document.querySelector('.pop-task-description')
+        let due = document.querySelector('.pop-due-date')
+        let category = document.querySelector('.pop-category')
+
+        name.innerText = " ";
+        desc.innerText = " ";
+        due.innerText = " ";
+        category.innerText = " ";
+
+        document.getElementsByClassName('popup')[0].style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    })
+
+
+
+    notask();
+
+
+
+    //-------------Notification 
+
+    function checkDueDates() {
+        const today = new Date();
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
+
+        todos.forEach(todo => {
+
+            if (todo.done === false) {
+                let dat = '';
+                dat = today.getDate();
+                duetae = todo.due_date.split('-')[2];
+                duetae = parseInt(duetae);
+                if (duetae == dat) {
+
+                    sendNotification(todo.title, todo.due_date);
+                }
             }
         });
     }
-}
 
-function counttotal(){
-    let count = 0;
-    todos.forEach((todo) => {
-        if (todo.done === false) {
-            count++;
-        }});
-document.getElementsByClassName('todototal')[0].innerHTML = count;
- 
-}
+    function sendNotification(title, dueDate) {
+        if (Notification.permission === 'granted') {
+            new Notification('Todo Reminder', {
+                body: `Your task "${title}" is due on Today.`,
+            });
+        } else if (Notification.permission !== 'denied') {
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    new Notification('Todo Reminder', {
+                        body: `Your task "${title}" is due on ${dueDate}.`,
+                    });
+                }
+            });
+        }
+    }
 
-counttotal();
-checkDueDates();
+    function counttotal() {
+        let count = 0;
+        todos.forEach((todo) => {
+            if (todo.done === false) {
+                count++;
+            }
+        });
+        document.getElementsByClassName('todototal')[0].innerHTML = count;
+
+    }
+
+    counttotal();
+    checkDueDates();
 
 
-// setTimeout(checkDueDates, 2000);
+    // setTimeout(checkDueDates, 2000);
 
 });

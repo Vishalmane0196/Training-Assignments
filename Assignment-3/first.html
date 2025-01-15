@@ -1,191 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
 </head>
+
 <body>
-   
-    <div class="main">
-      <div class="side">
-        <div class="sidebar">
-          <div class="profile">
-            <img src="./profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg" alt="Profile Picture"
-              class="profile-img" />
-            <span class="profile-name">Vishal Mane</span>
-          </div>
-          <div class="line">
-      
-          </div>
-          <span class="menu-name">
-            <h3>Menu</h3>
-          </span>
-          <br>
-          <nav> 
-            <ul class="menu">
-              <li><span class="icon"><i class="fa-solid fa-calendar-week"></i></span> Pending Todo<span
-                class="badge">
-                <p class="todototal">1</p>
-              </span></li>
-              <li class="addtoli">
-                <span class="icon"><i class="fa-solid fa-plus"></i></span>
-                Add New
-              </li>
-              
-                <li class="clear-btn"><span class="icon"><i class="fa-solid fa-calendar-week"></i></span> Clear All</li>
-                <li class="view-todo">
-                  <span class="icon"><i class="fa-solid fa-list"></i></span>
-                View Pending Todos
-                </li>
-            </ul>
-          </nav> 
-          <div class="line">
-      
-          </div>
-          <div class="footer">
-            <h3>Connect us</h3>
-            <div class="icon-connect">
-              <a href="#"><i class="fab fa-facebook"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-linkedin"></i></a>
-      
-            </div>
-            <div class="footer-right">
-              <p>2024 Task Manager UI. All rights reserved.</p>
-      
-            </div>
-          </div>
-      
+
+  <div class="main">
+    <div class="side">
+      <div class="sidebar">
+        <div class="profile">
+          <img src="./profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg" alt="Profile Picture"
+            class="profile-img" />
+          <span class="profile-name">Vishal Mane</span>
         </div>
+        <div class="line">
+
+        </div>
+        <span class="menu-name">
+          <h3>Menu</h3>
+        </span>
+        <br>
+        <nav>
+          <ul class="menu">
+
+            <li class="addtoli">
+              <span class="icon"><i class="fa-solid fa-plus"></i></span>
+              Add New
+            </li>
+
+            <!-- <li class="clear-btn"><span class="icon"><i class="fa-solid fa-calendar-week"></i></span> Clear All</li> -->
+            <li class="view-todo">
+              <span class="icon"><i class="fa-solid fa-list"></i></span> View Todos
+              <span class="badge">
+                <p class="todototal">1</p>
+              </span>
+
+            </li>
+          </ul>
+        </nav>
+        <div class="line">
+
+        </div>
+        <div class="footer">
+          <h3>Connect us</h3>
+          <div class="icon-connect">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+
+          </div>
+          <div class="footer-right">
+            <p>2024 Task Manager UI. All rights reserved.</p>
+
+          </div>
+        </div>
+
       </div>
-        <div class="outer" >
-            <div class="inner padmr">
-              <form action="" class="form1">
-                    <div class="title">
-                      
-                        <div class="calendar">
+    </div>
+    <div class="outer">
+      <div class="inner padmr">
+        <form action="" class="form1">
+          <div class="title">
+
+            <!-- <div class="calendar">
                           <div class="month"></div>
                           <div class="day"></div>
                           <div class="date"></div>
                           <div class="year"></div>
-                        </div>
-                      
-                      <div class="task-list">
-                            <div class="one">
-                                <h4>Title <span id="star-red">*</span></h4>
-                                <input type="text" id="title" maxlength="20" placeholder="Whats the title of your todo?" required>
-                            </div>
-                          
+                        </div> -->
 
-                            <div class="one">
-                                <h4>Description </h4>
-                                <textarea id="description" maxlength="60" placeholder="Description of your todo?"></textarea>
+            <div class="task-list">
+              <div class="one">
+                <h4>Title <span id="star-red">*</span></h4>
+                <input type="text" id="title" maxlength="20" placeholder="Whats the title of your todo?" required>
+              </div>
 
-                            </div>
 
-                            <div class="two-div-DC">
-                              <div class="category">
-                                <h4>Category <span id="star-red">*</span> </h4>
-                                <select name="category" id="category" required>
-                                  <option value="Personal">Personal</option>
-                                  <option value="Work">Work</option>
-                                  <option value="Shopping">Shopping</option>
-                                  <option value="Others">Others</option>
-                                </select>
-                              </div>
-                              <div class="due-date">
-                                <h4>Due date <span id="star-red">*</span></h4>
-                                 <input type="date" id="due-date" required>
-                              </div>
-                              <button class="sub-btn"> Add Todo</button>
-                          </div>
-                            
-                          
-                          </div>
-                    </div>
-                </form>    
-                    <div class="line">
-                    </div>
-                    <div class="list">
-                        <button class="todo-btn active">To-do</button>
-                        <button class="com-btn">Completed</button>
-                       
-                        <ul class="ul-list">
-                           
-                            <!-- <li>
-                                <div class="li-right">
-                                  <h2>
-                                      Happy New Year
-                                  </h2>
-                                  <p>Hello Happy new Year tear to all</p>
-                                  <br>
-                                <p>Due: 16/1/25</p>
-                                </div>
-                                <div class="li-left">
-                                  <button class="edit"><i class="fa-regular fa-pen-to-square"></i></button>
-                                   
-                                    <button class="check"> <i class="fa-solid fa-check"></i> </button> 
-                                    <button class="delete"> <i class="fa-solid fa-trash"></i> </button>
-                                </div>
-                              </li>
-                              
-                              <li>
-                                <div class="li-right">
-                                  <h2>
-                                      Doing Workout
-                                  </h2>
-                                  <p>finix Gym Pune</p>
-                                  <br>
-                                <p>Due: 16/1/25</p>
-                                 
-                                </div>
-                                <div class="li-left">
-                                  <button><i class="fa-regular fa-pen-to-square"></i></button>
-                                  
-                                    <button> <i class="fa-solid fa-check"></i> </button> 
-                                    <button > <i class="fa-solid fa-trash"></i> </button>
-                                </div>
-                              </li> -->
-                              
-                        </ul>
-                    </div>
+              <div class="one">
+                <h4>Description </h4>
+                <textarea id="description" maxlength="60" placeholder="Description of your todo?"></textarea>
+
+              </div>
+
+              <div class="two-div-DC">
+                <div class="category">
+                  <h4>Category <span id="star-red">*</span> </h4>
+                  <select name="category" id="category" required>
+                    <option value="" disabled selected hidden>Choose a Category</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Work">Work</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Others">Others</option>
+                  </select>
+                </div>
+                <div class="due-date">
+                  <h4>Due date <span id="star-red">*</span></h4>
+                  <input type="date" id="due-date" placeholder="MM/DD/YYYY" required>
+                </div>
+                <button class="sub-btn"> Add Todo</button>
+              </div>
 
 
             </div>
-          
-            <class class="main1">
-              <div class="header">
-                <div class="header-date-section">
-                  <h1>Today</h1>
-                  <p><span id="day">Saturday</span>,<span id="date">11</span> <span id="month">January</span></p>
-                </div>
-          
-              </div>
-             
-              <div class="content">
-                 <ul class="pending-todo">
-
-                 </ul>
-                <div id="to-list-div">
-                      <div class="illustration">
-                        <img src="./To do list-pana.svg" alt="Illustration" />
-                      </div>
-                      <h2>Have a marvelous day off, Vishal!</h2>
-                      <p>Schedule days off in the Productivity tab of your Settings menu.</p>
-                      <a href="#" class="adjust-schedule">Adjust your schedule</a>
-                  </div>
-                    </div>
-          
-          </class>
           </div>
-        
+        </form>
+
+        <div class="list">
+          <button class="todo-btn active">To-do</button>
+          <button class="com-btn">Completed</button>
+          <input type="text" placeholder="Search" class="search">
+          <select name="" id="sort">
+            <option value="" disabled selected hidden>Sort</option>
+            <option value="AZ">A-Z</option>
+            <option value="ZA">Z-A</option>
+            <option value="date">Oldest</option>
+            <option value="latest">Latest</option>
+          </select>
+          <button class="clear-btn">Clear All</button>
+
+          <ul class="ul-list">
+
+            <li>
+              <div class="li-right">
+                <h2>
+                  Happy New Year
+                </h2>
+                <p>Hello Happy new Year tear to all</p>
+                <br>
+                <p>Due: 16/1/25</p>
+              </div>
+              <div class="li-left">
+                <button class="edit"><i class="fa-regular fa-pen-to-square"></i></button>
+
+                <button class="check"> <i class="fa-solid fa-check"></i> </button>
+                <button class="delete"> <i class="fa-solid fa-trash"></i> </button>
+              </div>
+            </li>
+
+            <li>
+              <div class="li-right">
+                <h2>
+                  Doing Workout
+                </h2>
+                <p>finix Gym Pune</p>
+                <br>
+                <p>Due: 16/1/25</p>
+
+              </div>
+              <div class="li-left">
+                <button><i class="fa-regular fa-pen-to-square"></i></button>
+
+                <button> <i class="fa-solid fa-check"></i> </button>
+                <button> <i class="fa-solid fa-trash"></i> </button>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+
+
+      </div>
+
+      <class class="main1">
+        <div class="header">
+          <div class="header-date-section">
+            <h1>Today</h1>
+            <p><span id="day">Saturday</span>,<span id="date">11</span> <span id="month">January</span></p>
+          </div>
+
+        </div>
+
+        <div class="content">
+          <ul class="pending-todo">
+
+          </ul>
+          <div id="to-list-div">
+            <div class="illustration">
+              <img src="./To do list-pana.svg" alt="Illustration" />
+            </div>
+            <h2>Have a marvelous day off, Vishal!</h2>
+            <p>Schedule days off in the Productivity tab of your Settings menu.</p>
+            <a href="#" class="adjust-schedule">Adjust your schedule</a>
+          </div>
+        </div>
+
+      </class>
     </div>
-    <script src="script.js"></script>
+  </div>
+  <div class="popup">
+    <div class="popup-header">
+       <label for="">Task Title :</label>
+         <h1 class="pop-task-name"> HELLO</h1>
+         <label for="">Task Description :</label>
+         <h3 class="pop-task-description">Happy BirthDay AloK</h3>
+    </div>
+    <div class="popup-options">
+      <p class="pop-due-date">Due Date  : 12/11/2002</p>
+      <br>
+      <label for="">Category :</label>
+      <p class="pop-category">Personal</p>
+
+    </div>
+    <div class="popup-footer">
+      <select class="inbox-select">
+        <option value="inbox">Inbox</option>
+
+      </select>
+      <div class="footer-buttons">
+        <button class="cancel-button">Cancel</button>
+        <!-- <button class="add-task-button">Add task</button> -->
+      </div>
+    </div>
+  </div>
+  <div id="overlay" class="hidden"></div>
+  <script src="script.js"></script>
 </body>
+
 </html>
