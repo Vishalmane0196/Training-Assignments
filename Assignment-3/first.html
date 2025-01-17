@@ -19,9 +19,12 @@
     <div class="side">
       <div class="sidebar">
         <div class="profile">
+         <div class="rig">
           <img src="./profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg" alt="Profile Picture"
-            class="profile-img" />
-          <span class="profile-name">Vishal Mane</span>
+          class="profile-img" />
+        <span class="profile-name">Vishal Mane</span>
+         </div>
+         
         </div>
         <div class="line">
 
@@ -32,6 +35,11 @@
         <br>
         <nav>
           <ul class="menu">
+
+            <li class="home">
+              <span class="icon"><i class="fa-solid fa-house"></i></span>
+              Home
+            </li>
 
             <li class="addtoli">
               <span class="icon"><i class="fa-solid fa-plus"></i></span>
@@ -56,7 +64,7 @@
           <div class="icon-connect">
             <a href="#"><i class="fab fa-facebook"></i></a>
             <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-square-instagram"></i></a>
             <a href="#"><i class="fab fa-linkedin"></i></a>
 
           </div>
@@ -83,13 +91,13 @@
             <div class="task-list">
               <div class="one">
                 <h4>Title <span id="star-red">*</span></h4>
-                <input type="text" id="title" maxlength="20" placeholder="Whats the title of your todo?" required>
+                <input type="text" id="title" maxlength="20" pattern="[A-Za-z ]+" placeholder="Whats the title of your todo?" required>
               </div>
 
 
               <div class="one">
                 <h4>Description </h4>
-                <textarea id="description" maxlength="60" placeholder="Description of your todo?"></textarea>
+                <textarea id="description" maxlength="60"  placeholder="Description of your todo?"></textarea>
 
               </div>
 
@@ -117,7 +125,9 @@
         </form>
 
         <div class="list">
-          <button class="todo-btn active">To-do</button>
+          <div class="list-btns">
+            <div class="list-btns-first">
+              <button class="todo-btn active">To-do</button>
           <button class="com-btn">Completed</button>
           <input type="text" placeholder="Search" class="search">
           <select name="" id="sort">
@@ -127,7 +137,9 @@
             <option value="date">Oldest</option>
             <option value="latest">Latest</option>
           </select>
+            </div>
           <button class="clear-btn">Clear All</button>
+          </div>
 
           <ul class="ul-list">
 
@@ -191,13 +203,16 @@
             </div>
             <h2>Have a marvelous day off, Vishal!</h2>
             <p>Schedule days off in the Productivity tab of your Settings menu.</p>
-            <a href="#" class="adjust-schedule">Adjust your schedule</a>
+           
           </div>
         </div>
 
       </class>
     </div>
   </div>
+  <div class="profi">
+    <img src="./Screenshot_16-1-2025_163842_fontawesome.com.jpeg" alt="">
+   </div>
   <div class="popup">
     <div class="popup-header">
        <label for="">Task Title :</label>
@@ -220,6 +235,19 @@
       <div class="footer-buttons">
         <button class="cancel-button">Cancel</button>
         <!-- <button class="add-task-button">Add task</button> -->
+      </div>
+    </div>
+  </div>
+ 
+  <div class="popup-overlay">
+    <div class="popup-delete">
+      <p class="popup-title-delete">Are you sure to proceed?</p>
+      <p class="popup-description-delete">
+        This may change your interface and functionality to navigate to other pages.
+      </p>
+      <div class="popup-buttons-delete">
+        <button class="btn confirm-btn-delete">Confirm</button>
+        <button class="btn cancel-btn-delete">Cancel</button>
       </div>
     </div>
   </div>
