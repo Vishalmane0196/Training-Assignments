@@ -1,0 +1,129 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Ubuntu", serif;
+}
+.cantainer {
+    width: 100%;
+    height: 100vh;
+    background-color: #EEF5FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    width: 65%;
+    /* height: 80%; */
+    border-radius: 15px;
+    border: none;
+    background-color:#FFFFFF;
+    padding: 0.6rem;
+    display: flex;
+    gap: 0.5rem;
+    box-shadow: 1px 1px 2rem 1px hsl(231, 11%, 63%);
+}
+
+.content-tab {
+    width: 36%;
+    border-radius: 15px;
+    background-image: url(./assets/images/bg-sidebar-desktop.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.process-status {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2rem;
+    gap: 2rem;
+
+}
+
+.tab {
+    display: flex;
+    
+}
+
+.stage {
+    border-radius: 50%;
+    border: 1px solid #C4E4FF;
+    width: 18%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.detail {
+    color: whitesmoke;
+    padding-left: 1rem;
+    font-size: 10px;
+}
+
+.detail h3:nth-child(1) {
+    font-weight: 300;
+    opacity: 0.7;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+    font-size: 10px;
+
+}
+
+.detail h3:nth-child(2) {
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 12px;
+}
+.content-form{
+   display: flex;
+   justify-content: center;
+   width: 100%;
+}
+.from-div{
+    width: 70%;
+    padding-top: 1.9rem;
+    font-family: 'MyCustomFont' ,sans-serif;
+   
+}
+.form-title{
+    margin-bottom: 2rem;
+}
+.form-title h1{
+    margin-bottom: 1rem;
+    color: hsl(213, 96%, 18%);
+}
+.form-title p{
+    color: hsl(231, 11%, 63%);
+}
+.form-content label{
+    display: block;
+    color: hsl(213, 96%, 18%);
+    font-size: 13px;
+    margin-bottom: 0.5rem;
+}
+.form-content input{
+   padding: 0.6rem 1rem;
+   margin-bottom: 1.5rem;
+   width: 100%;
+   border: 1px solid  hsl(231, 11%, 63%);
+   border-radius: 5px;
+}
+.next-btn-all{
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+    border: none;
+    background-color: hsl(213, 96%, 18%);;
+    color: white;
+    float: inline-end;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+#form1{
+    height: 100%;
+    bottom: 0px;
+    transition: 0.5;
+}

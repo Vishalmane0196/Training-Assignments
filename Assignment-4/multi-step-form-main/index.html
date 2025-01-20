@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <title>Frontend Mentor | Multi-step form</title>
+
+</head>
+
+<body>
+  <div class="cantainer">
+    <div class="content">
+      <div class="content-tab">
+        <div class="process-status">
+          <div class="tab">
+            <div class="stage"><b>1</b></div>
+            <div class="detail">
+              <h3 >STEP 1</h3>
+              <h3 >YOUR INFO</h3>
+            </div>
+          </div>
+          <div class="tab">
+            <div class="stage"><b>2</b></div>
+            <div class="detail">
+              <h3 >STEP 2</h3>
+              <h3 >SELECT PLAN</h3>
+            </div>
+          </div>
+          <div class="tab">
+            <div class="stage">3</div>
+            <div class="detail">
+              <h3 >STEP 3</h3>
+              <h3 >ADD-ONS</h3>
+            </div>
+          </div>
+          <div class="tab">
+            <div class="stage">4</div>
+            <div class="detail">
+              <h3 >STEP 4</h3>
+              <h3 >SUMMARY</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-form">
+        <div class="from-div">
+          <!-- form 1 -->
+          <form action="" id="form1">
+            <div class="form-title">
+              <h1>Personal info</h1>
+              <p>Please provide your name, email and contact number</p>
+            </div>
+            <div class="form-content">
+              <label for="name"> Name</label>
+              <input type="text" placeholder="e.g. Vishal Mane">
+              <label for="name"> Email Address</label>
+              <input type="text" placeholder="e.g. vishal12345mane00@gmail.com">
+              <label for="name"> Phone Number</label>
+              <input type="text" placeholder="e.g. +917666-379-916">
+            </div>
+            <button class="next-btn-all" id="next-btn0 ">Next Step</button>
+          </form>
+    
+          <!-- form 2
+    
+          <form action="" id="form2">
+            <div class="form-title">
+              <h1>Select your plan</h1>
+              <p>You have the option of monthly or yearly billing</p>
+            </div>
+            <div class="form-content">
+              <div class="card">
+                <div class="card-img">
+                  <img src="./assets/images/icon-arcade.svg" alt="">
+                </div>
+                <div class="card-detail">
+                  <h3>Arcade</h3>
+                  <p>$9/mo</p>
+                  <p>2 month free</p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-img">
+                  <img src="./assets/images/icon-advanced.svg" alt="">
+                </div>
+                <div class="card-detail">
+                  <h3>Advanced</h3>
+                  <p id="month-price">$12/mo</p>
+                  <p id="year-free">2 month free</p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-img">
+                  <img src="./assets/images/icon-pro.svg" alt="">
+                </div>
+                <div class="card-detail">
+                  <h3>pro</h3>
+                  <p id="month-price">$15/mo</p>
+                  <p id="year-free">2 month free</p>
+                </div>
+              </div>
+            </div>
+            <div class="plan-switch">
+              <div class="monthly">
+    
+              </div>
+              <div class="toggle">
+                <label class="toggle-switch">
+                  <input type="checkbox" />
+                  <span class="slider"></span>
+                </label>
+    
+              </div>
+              <div class="yearly">
+    
+              </div>
+            </div>
+            <div class="btn">
+              <button id="back-btn1">Go Back</button>
+              <button id="next-btn1">Next Step</button>
+            </div>
+          </form>
+    
+          form 3
+    
+          <form action="" id="form3">
+            <div class="form-title">
+              <h1>Pick add-ons</h1>
+              <p>Add-ons help enhance your gaming experince</p>
+            </div>
+            <div class="form-content">
+    
+             <div class="card-addon">
+              <div class="addcheck">
+                <input type="checkbox">
+              </div>
+              <div class="add-on-details">
+               <h3>Online Service</h3>
+               <p>Access to multiplayer games</p>
+              </div>
+              <div class="add-on-extra-plan">
+                <p id="add-on-plan">
+                  +$2/mo
+                </p>
+              </div>
+             </div>
+    
+             <div class="card-addon">
+              <div class="addcheck">
+                <input type="checkbox">
+              </div>
+              <div class="add-on-details">
+               <h3>larger Storage</h3>
+               <p>Extra 1TB cloud save</p>
+              </div>
+              <div class="add-on-extra-plan">
+                <p id="add-on-plan">
+                  +$3/mo
+                </p>
+              </div>
+             </div>
+    
+             <div class="card-addon">
+              <div class="addcheck">
+                <input type="checkbox">
+              </div>
+              <div class="add-on-details">
+               <h3>Customizable Profile</h3>
+               <p>Custom theme on your profile</p>
+              </div>
+              <div class="add-on-extra-plan">
+                <p id="add-on-plan">
+                  $2/mo
+                </p>
+              </div>
+             </div>
+    
+            </div>
+            <div class="btn">
+              <button id="back-btn2">Go Back</button>
+              <button id="next-btn2">Next Step</button>
+            </div>
+          </form>
+    
+          form 4
+    
+          <form action="" id="form4">
+            <div class="form-title">
+              <h1>Finishing up</h1>
+              <p>Double-check everything looks OK before confirming </p>
+            </div>
+            <div class="form-content">
+              <div class="summary-card">
+                <div class="plan-check">
+                    <div class="left">
+                      <p id="plan-show">Archade</p> <span id="month-show">monthly</span>
+                    <a href="#">Change</a>
+                    </div>
+                    <div class="right">
+                      <p id="show-mon-yea-plan">$9/mo</p>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="plan-check-extra-plans">
+                  <div id="extra-plan-show" >
+                    <p>online service </p>
+                    <h5>9/mon</h5>
+                  </div>
+     
+                </div>
+              </div>
+              <div class="total-bill-div">
+                <p >
+                  Total 
+                  <span id="mon-year-total"></span>
+                </p>
+                <h3 id="total-price">
+    
+                </h3>
+              </div>
+            </div>
+            <div class="btn">
+              <button id="back-btn3">Go Back</button>
+              <button id="next-btn3">Next Step</button>
+            </div>
+          </form> -->
+      </div>
+    </div>
+    </div>
+  </div>
+</body>
+
+</html>
