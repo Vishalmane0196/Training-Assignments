@@ -55,27 +55,28 @@
           <form action="" id="form1">
             <div class="form-title">
               <h1>Personal info</h1>
-              <p>Please provide your name, email and contact number</p>
+              <p>Please provide your name, email and contact number.</p>
             </div>
             <div class="form-content">
-              <label for="name"> Name</label>
-              <input type="text" placeholder="e.g. Vishal Mane">
+              <label for="name"> Name</label> <label for="">This field is required</label>
+              <input type="text" placeholder="e.g. Vishal Mane" pattern="[A-Za-z]" required>
               <label for="name"> Email Address</label>
-              <input type="text" placeholder="e.g. vishal12345mane00@gmail.com">
-              <label for="name"> Phone Number</label>
-              <input type="text" placeholder="e.g. +917666-379-916">
+              <label for="">This field is required</label>
+              <input type="email" placeholder="e.g. vishal12345mane00@gmail.com" required >
+              <label for="name"> Phone Number</label> <label for="">This field is required</label>
+              <input type="text" placeholder="e.g. +917666-379-916" required>
             </div>
-            <button class="next-btn-all" id="next-btn0 ">Next Step</button>
+            <button class="next-btn-all first-next-btn" id="next-btn0 ">Next Step</button>
           </form>
     
-          <!-- form 2
-    
+          <!-- form 2 -->
+<!--     
           <form action="" id="form2">
             <div class="form-title">
               <h1>Select your plan</h1>
               <p>You have the option of monthly or yearly billing</p>
             </div>
-            <div class="form-content">
+            <div class="form-content2">
               <div class="card">
                 <div class="card-img">
                   <img src="./assets/images/icon-arcade.svg" alt="">
@@ -109,7 +110,7 @@
             </div>
             <div class="plan-switch">
               <div class="monthly">
-    
+                  Monthly
               </div>
               <div class="toggle">
                 <label class="toggle-switch">
@@ -119,23 +120,23 @@
     
               </div>
               <div class="yearly">
-    
+                 Yearly
               </div>
             </div>
             <div class="btn">
-              <button id="back-btn1">Go Back</button>
-              <button id="next-btn1">Next Step</button>
+              <button id="back-btn1" class="back-btn-all">Go Back</button>
+              <button class="next-btn-all" id="next-btn1">Next Step</button>
             </div>
-          </form>
+          </form> -->
     
-          form 3
+          <!-- form 3 -->
     
-          <form action="" id="form3">
+          <!-- <form action="" id="form3">
             <div class="form-title">
               <h1>Pick add-ons</h1>
               <p>Add-ons help enhance your gaming experince</p>
             </div>
-            <div class="form-content">
+            <div class="form-content3">
     
              <div class="card-addon">
               <div class="addcheck">
@@ -183,15 +184,15 @@
              </div>
     
             </div>
-            <div class="btn">
-              <button id="back-btn2">Go Back</button>
-              <button id="next-btn2">Next Step</button>
+            <div class="btn3">
+              <button class="back-btn-all" id="back-btn2">Go Back</button>
+              <button class="next-btn-all" id="next-btn2">Next Step</button>
             </div>
-          </form>
+          </form> -->
     
-          form 4
+          <!-- form 4 -->
     
-          <form action="" id="form4">
+          <!-- <form action="" id="form4">
             <div class="form-title">
               <h1>Finishing up</h1>
               <p>Double-check everything looks OK before confirming </p>
@@ -210,10 +211,14 @@
                 <div class="line"></div>
                 <div class="plan-check-extra-plans">
                   <div id="extra-plan-show" >
-                    <p>online service </p>
-                    <h5>9/mon</h5>
+                    <p>Online service </p>
+                    <h5>+$9/mo</h5>
                   </div>
      
+                  <div id="extra-plan-show" >
+                    <p>lnline service </p>
+                    <h5>+$9/mo</h5>
+                  </div>
                 </div>
               </div>
               <div class="total-bill-div">
@@ -222,13 +227,13 @@
                   <span id="mon-year-total"></span>
                 </p>
                 <h3 id="total-price">
-    
+                   98
                 </h3>
               </div>
             </div>
-            <div class="btn">
-              <button id="back-btn3">Go Back</button>
-              <button id="next-btn3">Next Step</button>
+            <div class="btn4">
+              <button class="back-btn-all" id="back-btn3">Go Back</button>
+              <button  class="confirm-btn-all"  id="confirm-btn">Confirm</button>
             </div>
           </form> -->
       </div>
