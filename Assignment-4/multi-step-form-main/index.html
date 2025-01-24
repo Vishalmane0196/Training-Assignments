@@ -34,14 +34,14 @@
             </div>
           </div>
           <div class="tab">
-            <div class="stage">3</div>
+            <div class="stage"> <b>3</b></div>
             <div class="detail">
               <h3 >STEP 3</h3>
               <h3 >ADD-ONS</h3>
             </div>
           </div>
           <div class="tab">
-            <div class="stage">4</div>
+            <div class="stage"><b>4</b></div>
             <div class="detail">
               <h3 >STEP 4</h3>
               <h3 >SUMMARY</h3>
@@ -58,20 +58,22 @@
               <p>Please provide your name, email and contact number.</p>
             </div>
             <div class="form-content">
-              <label for="name"> Name</label> <label for="">This field is required</label>
-              <input type="text" placeholder="e.g. Vishal Mane" pattern="[A-Za-z]" required>
+              <label for="name"> Name</label> <label id="name-error" for="">This field is required</label>
+              <input id="name-input"  type="text" placeholder="e.g. Vishal Mane"  >
               <label for="name"> Email Address</label>
-              <label for="">This field is required</label>
-              <input type="email" placeholder="e.g. vishal12345mane00@gmail.com" required >
-              <label for="name"> Phone Number</label> <label for="">This field is required</label>
-              <input type="text" placeholder="e.g. +917666-379-916" required>
+              <label id="email-error" for="">This field is required</label>
+              <input id="email-input" type="email" placeholder="e.g. vishal12345mane00@gmail.com" >
+              <label for="name"> Phone Number</label> <label id="mobile-error" for="">This field is required</label>
+              <input id="mobile-input" type="text"  pattern="[1-9]{1}[0-9]{9}" maxlength="10" placeholder="e.g. +917666-379-916" >
             </div>
-            <button class="next-btn-all first-next-btn" id="next-btn0 ">Next Step</button>
+           <div class="btn">
+            <button type="submit" class="next-btn-all first-next-btn" id="next-btn0 ">Next Step</button>
+           </div>
           </form>
     
           <!-- form 2 -->
-<!--     
-          <form action="" id="form2">
+    
+          <form action="" class="" id="form2">
             <div class="form-title">
               <h1>Select your plan</h1>
               <p>You have the option of monthly or yearly billing</p>
@@ -83,17 +85,19 @@
                 </div>
                 <div class="card-detail">
                   <h3>Arcade</h3>
-                  <p>$9/mo</p>
-                  <p>2 month free</p>
+                  <p value="9" id="month-price1">$9/mo</p>
+                  <p value="90" id="month-price">$90/yr</p>
+                  <p id="year-free">2 month free</p>
                 </div>
               </div>
-              <div class="card">
+              <div class="card" >
                 <div class="card-img">
                   <img src="./assets/images/icon-advanced.svg" alt="">
                 </div>
                 <div class="card-detail">
                   <h3>Advanced</h3>
-                  <p id="month-price">$12/mo</p>
+                  <p value="12" id="month-price1">$12/mo</p>
+                  <p value="120" id="month-price">$120/yr</p>
                   <p id="year-free">2 month free</p>
                 </div>
               </div>
@@ -103,7 +107,8 @@
                 </div>
                 <div class="card-detail">
                   <h3>pro</h3>
-                  <p id="month-price">$15/mo</p>
+                  <p value="15" id="month-price1">$15/mo</p>
+                  <p value="150" id="month-price">$150/yr</p>
                   <p id="year-free">2 month free</p>
                 </div>
               </div>
@@ -114,7 +119,7 @@
               </div>
               <div class="toggle">
                 <label class="toggle-switch">
-                  <input type="checkbox" />
+                  <input id="toggleer-input" type="checkbox" />
                   <span class="slider"></span>
                 </label>
     
@@ -123,15 +128,15 @@
                  Yearly
               </div>
             </div>
-            <div class="btn">
+            <div class="btn2">
               <button id="back-btn1" class="back-btn-all">Go Back</button>
-              <button class="next-btn-all" id="next-btn1">Next Step</button>
+              <button type="submit" class="next-btn-all" id="next-btn1">Next Step</button>
             </div>
-          </form> -->
+          </form>
     
           <!-- form 3 -->
     
-          <!-- <form action="" id="form3">
+          <form action="" id="form3">
             <div class="form-title">
               <h1>Pick add-ons</h1>
               <p>Add-ons help enhance your gaming experince</p>
@@ -140,45 +145,54 @@
     
              <div class="card-addon">
               <div class="addcheck">
-                <input type="checkbox">
+                <input id="checkbox-input" type="checkbox">
               </div>
               <div class="add-on-details">
                <h3>Online Service</h3>
                <p>Access to multiplayer games</p>
               </div>
               <div class="add-on-extra-plan">
-                <p id="add-on-plan">
+                <p value="2" id="add-on-plan">
                   +$2/mo
+                </p>
+                <p value="140" id="add-on-plan-year">
+                  +$140/yr
                 </p>
               </div>
              </div>
     
              <div class="card-addon">
               <div class="addcheck">
-                <input type="checkbox">
+                <input id="checkbox-input" type="checkbox">
               </div>
               <div class="add-on-details">
                <h3>larger Storage</h3>
                <p>Extra 1TB cloud save</p>
               </div>
               <div class="add-on-extra-plan">
-                <p id="add-on-plan">
+                <p value="3" id="add-on-plan">
                   +$3/mo
+                </p>
+                <p value="30" id="add-on-plan-year">
+                  +$30/yr
                 </p>
               </div>
              </div>
     
              <div class="card-addon">
               <div class="addcheck">
-                <input type="checkbox">
+                <input id="checkbox-input" type="checkbox">
               </div>
               <div class="add-on-details">
                <h3>Customizable Profile</h3>
                <p>Custom theme on your profile</p>
               </div>
               <div class="add-on-extra-plan">
-                <p id="add-on-plan">
+                <p value="2" id="add-on-plan">
                   $2/mo
+                </p>
+                <p value="20" id="add-on-plan-year">
+                  +$20/yr
                 </p>
               </div>
              </div>
@@ -186,13 +200,13 @@
             </div>
             <div class="btn3">
               <button class="back-btn-all" id="back-btn2">Go Back</button>
-              <button class="next-btn-all" id="next-btn2">Next Step</button>
+              <button  type="submit" class="next-btn-all" id="next-btn2">Next Step</button>
             </div>
-          </form> -->
+          </form>
     
           <!-- form 4 -->
     
-          <!-- <form action="" id="form4">
+          <form action="" id="form4">
             <div class="form-title">
               <h1>Finishing up</h1>
               <p>Double-check everything looks OK before confirming </p>
@@ -210,15 +224,15 @@
                 </div>
                 <div class="line"></div>
                 <div class="plan-check-extra-plans">
-                  <div id="extra-plan-show" >
+                  <!-- <div id="extra-plan-show" >
                     <p>Online service </p>
-                    <h5>+$9/mo</h5>
-                  </div>
+                    <h5 >+$9/mo</h5>
+                  </div> -->
      
-                  <div id="extra-plan-show" >
+                  <!-- <div id="extra-plan-show" >
                     <p>lnline service </p>
                     <h5>+$9/mo</h5>
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <div class="total-bill-div">
@@ -235,11 +249,23 @@
               <button class="back-btn-all" id="back-btn3">Go Back</button>
               <button  class="confirm-btn-all"  id="confirm-btn">Confirm</button>
             </div>
-          </form> -->
+          </form>
+          <!-- Thank You Page -->
+          <div class="thankyou">
+            <div class="thank-you-content">
+              <div class="thankyou-img">
+                <img src="./assets/images/icon-thank-you.svg" alt="thankyou">
+              </div>
+              <h1>Thank you!</h1>
+              <h4>Thanks for confirming your subscription! We hope you have Fun using our platform. If you ever need support, please feel free to email us at support@loremgaming.com.</h4>
+            </div>
+          </div>
+
       </div>
     </div>
     </div>
   </div>
+  <script src="script.js"></script>
 </body>
 
 </html>
