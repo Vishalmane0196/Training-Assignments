@@ -1,38 +1,86 @@
 
 let data = JSON.parse(localStorage.getItem('data')) || {};
-let step = data.step || 0; 
+let step = data.step || 0;
+let username, email, mobile, subsciption = 'Arcade', m_price = 9, y_price = 90, check = false, addOnTotal = 0, total = 0;
+let addondata = data.addon || [];
 
 (() => {
-   
-    switch(step) {
+
+    switch (step) {
         case 1:
             document.getElementById('form1').style.display = 'none';
             document.getElementById('form2').style.display = 'block';
             document.getElementsByClassName('stage')[1].classList.add('active');
+
+            document.querySelectorAll('.card').forEach(e => {
+                let str = e.childNodes[3].childNodes[1].innerText;
+                if (str == data.subsciption) {
+                    e.classList.add('activecard');
+                }
+            });
+
+
+            document.getElementById('toggleer-input').checked = data.check;
             break;
         case 2:
             document.getElementById('form1').style.display = 'none';
             document.getElementById('form2').style.display = 'none';
             document.getElementById('form3').style.display = 'block';
             document.getElementsByClassName('stage')[2].classList.add('active');
+            document.querySelectorAll('#checkbox-input').forEach(e => {
+
+                if (data.addon.includes(parseInt(e.getAttribute('value')))) {
+                    e.checked = true
+                    e.parentNode.parentNode.style.backgroundColor = '#F8F9FE';
+                    e.parentNode.parentNode.style.border = '1px solid hsl(243, 100%, 62%)';
+
+                } else {
+
+                    e.parentNode.parentNode.style.backgroundColor = '#FFFFFF';
+                    e.parentNode.parentNode.style.border = '1px solid hsl(229, 24%, 87%)';
+
+                }
+            });
             break;
         case 3:
             document.getElementById('form1').style.display = 'none';
             document.getElementById('form2').style.display = 'none';
             document.getElementById('form3').style.display = 'none';
             document.getElementById('form4').style.display = 'block';
+            document.getElementById('plan-show').innerText = data.subsciption;
+            document.getElementById('month-show').innerText = data.check ? '(yearly)' : '(monthly)';
             document.getElementsByClassName('stage')[3].classList.add('active');
+            let divv = document.getElementsByClassName('plan-check-extra-plans')[0];
+            divv.innerHTML = '';
+
+            document.querySelectorAll('#checkbox-input').forEach(e => {
+                let y = e.getAttribute('value');
+                if (data.addon.includes(parseInt(e.getAttribute('value')))) {
+
+                    let div = document.createElement('div');
+                    let p = document.createElement('p');
+                    let h5 = document.createElement('span');
+                    p.innerText = e.parentNode.parentNode.childNodes[3].childNodes[1].innerText;
+                    h5.innerHTML = e.parentNode.parentNode.childNodes[5].childNodes[check ? 3 : 1].innerText;
+                    div.appendChild(p);
+                    div.appendChild(h5);
+                    div.setAttribute('id', 'extra-plan-show');
+                    divv.appendChild(div);
+                }
+            });
+            document.getElementById('total-price').innerText = `+$ ${data.total_price} ${data.check ? '/yr' : '/mo'}`;
+
             break;
         default:
             document.getElementById('form1').style.display = 'block';
             document.getElementsByClassName('stage')[0].classList.add('active');
     }
 
-   
+
     if (data.username) document.getElementById('name-input').value = data.username;
     if (data.email) document.getElementById('email-input').value = data.email;
     if (data.mobile) document.getElementById('mobile-input').value = data.mobile;
-   
+
 })();
 
 document.getElementById('name-input').addEventListener('input', function (e) {
@@ -51,7 +99,6 @@ document.getElementById('mobile-input').addEventListener('input', function (e) {
 });
 
 
-let username, email, mobile, subsciption = 'Arcade', m_price = 9, y_price = 90, check = false, addOnTotal = 0, total = 0;
 
 
 document.getElementById('form1').addEventListener('submit', function (e) {
@@ -117,11 +164,14 @@ function cardEvent(e) {
 
     y_price = parseInt(this.childNodes[3].childNodes[5].getAttribute('value'));
     m_price = parseInt(this.childNodes[3].childNodes[3].getAttribute('value'));
+    data.m_price = m_price;
+    data.y_price = y_price;
+    localStorage.setItem('data', JSON.stringify(data))
 }
 
 // Monthly and Yearly toggle event
 document.getElementById('toggleer-input').addEventListener('change', function (e) {
-    data = localStorage.getItem('data');
+    data = JSON.parse(localStorage.getItem('data'));
     if (e.target.checked) {
         document.getElementsByClassName('monthly')[0].style.color = 'hsl(231, 11%, 63%)';
         document.getElementsByClassName('yearly')[0].style.color = 'hsl(213, 96%, 18%)';
@@ -156,27 +206,28 @@ document.getElementById('toggleer-input').addEventListener('change', function (e
         data.check = false;
         localStorage.setItem('data', JSON.stringify(data));
     }
+
 });
 
 // Back button in Form 2
 
 document.getElementById('back-btn1').addEventListener('click', function (e) {
     e.preventDefault();
-    
-   
+
+
     data = JSON.parse(localStorage.getItem('data'));
 
-    
-    data.step = 0; 
+
+    data.step = 0;
     localStorage.setItem('data', JSON.stringify(data));
-    
- 
+
+
     document.getElementsByClassName('stage')[0].classList.add('active');
     document.getElementsByClassName('stage')[1].classList.remove('active');
     document.getElementById('form1').style.display = 'block';
     document.getElementById('form2').style.display = 'none';
 
-  
+
     document.getElementsByTagName('input')[0].value = data.username;
     document.getElementsByTagName('input')[1].value = data.email;
     document.getElementsByTagName('input')[2].value = data.mobile;
@@ -214,25 +265,27 @@ document.getElementById('form2').addEventListener('submit', function (e) {
 // Back button in Form 2
 document.getElementById('back-btn2').addEventListener('click', function (e) {
     e.preventDefault();
-    
- 
+
+
     data = JSON.parse(localStorage.getItem('data'));
-    
-    
-    data.step = 1;  
+    addondata = [];
+    data.addon = [];
+    data.step = 1;
     localStorage.setItem('data', JSON.stringify(data));
-    
- 
+
+    document.querySelectorAll('.card-addon').forEach(e => {
+        e.style.backgroundColor = ' #FFFFFF';
+        e.style.border = '1px solid hsl(229, 24%, 87%)';
+
+    });
+
     document.getElementsByClassName('stage')[1].classList.add('active');
     document.getElementsByClassName('stage')[2].classList.remove('active');
     document.getElementById('form2').style.display = 'block';
     document.getElementById('form3').style.display = 'none';
-    
- 
-    document.querySelectorAll('.card-addon').forEach(e => {
-        e.style.backgroundColor = '#FFFFFF';
-        e.style.border = '1px solid hsl(229, 24%, 87%)';
-    });
+
+
+
     addOnTotal = 0;
 
     document.querySelectorAll('.card').forEach(e => {
@@ -242,23 +295,28 @@ document.getElementById('back-btn2').addEventListener('click', function (e) {
         }
     });
 
-   
+
     document.getElementById('toggleer-input').checked = data.check;
+
+    document.getElementById('form3').reset();
+
 });
 
 // Add-on plan checkbox event
 document.querySelectorAll('#checkbox-input').forEach(e => {
+
     e.addEventListener('change', function (event) {
         if (event.target.checked) {
             this.parentNode.parentNode.style.backgroundColor = '#F8F9FE';
             this.parentNode.parentNode.style.border = '1px solid hsl(243, 100%, 62%)';
-
+            addondata.push(parseInt(e.getAttribute('value')));
             if (check) {
                 addOnTotal += parseInt(this.parentNode.parentNode.childNodes[5].childNodes[3].getAttribute('value'));
             } else {
                 addOnTotal += parseInt(this.parentNode.parentNode.childNodes[5].childNodes[1].getAttribute('value'));
             }
         } else {
+            addondata = addondata.filter(i => parseInt(e.getAttribute('value')) != i)
             this.parentNode.parentNode.style.backgroundColor = '#FFFFFF';
             this.parentNode.parentNode.style.border = '1px solid hsl(229, 24%, 87%)';
             if (check) {
@@ -267,7 +325,9 @@ document.querySelectorAll('#checkbox-input').forEach(e => {
                 addOnTotal -= parseInt(this.parentNode.parentNode.childNodes[5].childNodes[1].getAttribute('value'));
             }
         }
-
+        data = JSON.parse(localStorage.getItem('data'));
+        data.addon = addondata;
+        data = localStorage.setItem('data', JSON.stringify(data));
     });
 });
 
@@ -280,8 +340,10 @@ document.getElementById('form3').addEventListener('submit', function (e) {
     document.getElementsByClassName('stage')[3].classList.add('active');
     document.getElementById('plan-show').innerText = subsciption;
     document.getElementById('month-show').innerText = check ? '(yearly)' : '(monthly)';
-    document.getElementById('show-mon-yea-plan').innerText = `+$ ${check ? y_price : m_price}  ${check ? "/yr" : "/mo"}`;
-    document.getElementById('total-price').innerText = (check ? y_price : m_price) + addOnTotal;
+
+    document.getElementById('show-mon-yea-plan').innerText = `+$${check ? y_price : m_price}  ${check ? "/yr" : "/mo"}`;
+    document.getElementById('mon-year-total').innerHTML = `${check ? '(Yearly)' : '(Monthly)'}`;
+    document.getElementById('total-price').innerText = `+$${(check ? y_price : m_price) + addOnTotal}/${check ? 'yr' : 'mo'}`;
     let divv = document.getElementsByClassName('plan-check-extra-plans')[0];
     divv.innerHTML = '';
     data = JSON.parse(localStorage.getItem('data'));
@@ -292,16 +354,32 @@ document.getElementById('form3').addEventListener('submit', function (e) {
         if (e.checked) {
             let div = document.createElement('div');
             let p = document.createElement('p');
-            let h5 = document.createElement('h5');
+            let h5 = document.createElement('span');
             p.innerText = e.parentNode.parentNode.childNodes[3].childNodes[1].innerText;
-            h5.innerText = e.parentNode.parentNode.childNodes[5].childNodes[check ? 3 : 1].innerText;
+            h5.innerHTML = e.parentNode.parentNode.childNodes[5].childNodes[check ? 3 : 1].innerText;
             div.appendChild(p);
             div.appendChild(h5);
             div.setAttribute('id', 'extra-plan-show');
             divv.appendChild(div);
         }
     });
+    data.total_price = (check ? y_price : m_price) + addOnTotal;
+    localStorage.setItem('data', JSON.stringify(data));
 });
+
+// change plan 
+
+document.getElementById('Change-plan').addEventListener('click', function () {
+
+    document.getElementById('form3').style.display = 'none';
+    document.getElementById('form4').style.display = 'none';
+    document.getElementById('form1').style.display = 'none';
+    document.getElementById('form2').style.display = 'block';
+    document.getElementsByClassName('stage')[1].classList.add('active');
+    addondata = [];
+    data.addon = [];
+    localStorage.setItem('data',JSON.stringify(data));
+})
 
 // Back button in Form 4
 document.getElementById('back-btn3').addEventListener('click', function (e) {
@@ -310,6 +388,7 @@ document.getElementById('back-btn3').addEventListener('click', function (e) {
     document.getElementsByClassName('stage')[2].classList.add('active');
     document.getElementById('form4').style.display = 'none';
     document.getElementById('form3').style.display = 'block';
+
     data = JSON.parse(localStorage.getItem('data'));
     data.step = 2;
     localStorage.setItem('data', JSON.stringify(data));
