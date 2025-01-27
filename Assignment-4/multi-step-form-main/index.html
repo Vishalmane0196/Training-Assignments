@@ -59,7 +59,7 @@
             </div>
             <div class="form-content">
               <label for="name"> Name</label> <label id="name-error" for="">This field is required</label>
-              <input id="name-input"  type="text" placeholder="e.g. Vishal Mane"  >
+              <input id="name-input" maxlength="30" type="text" placeholder="e.g. Vishal Mane"  >
               <label for="name"> Email Address</label>
               <label id="email-error" for="">This field is required</label>
               <input id="email-input" type="email" placeholder="e.g. vishal12345mane00@gmail.com" >
@@ -143,9 +143,9 @@
             </div>
             <div class="form-content3">
     
-             <div class="card-addon">
+             <label for="one" class="card-addon">
               <div class="addcheck">
-                <input value="1" id="checkbox-input" type="checkbox">
+                <input value="1" class="checkbox-input" id="one"  type="checkbox">
               </div>
               <div class="add-on-details">
                <h3>Online Service</h3>
@@ -159,11 +159,11 @@
                   +$140/yr
                 </p>
               </div>
-             </div>
+             </label>
     
-             <div class="card-addon">
+             <label for="two" class="card-addon">
               <div class="addcheck">
-                <input value="2" id="checkbox-input" type="checkbox">
+                <input value="2" class="checkbox-input" id="two" type="checkbox">
               </div>
               <div class="add-on-details">
                <h3>larger Storage</h3>
@@ -177,11 +177,11 @@
                   +$30/yr
                 </p>
               </div>
-             </div>
+            </label>
     
-             <div class="card-addon">
+             <label class="card-addon">
               <div class="addcheck">
-                <input value="3" id="checkbox-input" type="checkbox">
+                <input value="3" class="checkbox-input" id="three" type="checkbox">
               </div>
               <div class="add-on-details">
                <h3>Customizable Profile</h3>
@@ -195,7 +195,7 @@
                   +$20/yr
                 </p>
               </div>
-             </div>
+             </label>
     
             </div>
             <div class="btn3">
