@@ -1,7 +1,7 @@
 
 let data = JSON.parse(localStorage.getItem('data')) || {};
 let step = data.step || 0;
-let username, email, mobile, subsciption = data.subsciption || '', m_price = 9, y_price = 90, check = false, addOnTotal = 0, total = 0;
+let username, email, mobile, subsciption = data.subsciption || 'Arcade', m_price = 9, y_price = 90, check = false, addOnTotal = 0, total = 0;
 
 let addondata = data.addon || [];
 
@@ -21,7 +21,7 @@ let addondata = data.addon || [];
             });
 
 
-            document.getElementById('toggleer-input').checked = data.check;
+            // document.getElementById('toggleer-input').checked = data.check;
             break;
         case 2:
             document.getElementById('form1').style.display = 'none';
@@ -401,6 +401,14 @@ document.getElementById('Change-plan').addEventListener('click', function () {
     data.total_price = 0;
     addOnTotal = 0;
     document.getElementById('form3').reset();
+
+    document.querySelectorAll('.card-addon').forEach(e => {
+        e.style.backgroundColor = ' #FFFFFF';
+        e.style.border = '1px solid hsl(229, 24%, 87%)';
+
+    });
+
+    document.getElementsByClassName('stage')[3].classList.remove('active');
     localStorage.setItem('data',JSON.stringify(data));
 })
 
@@ -442,6 +450,7 @@ document.getElementById('form4').addEventListener('submit', function (e) {
 
        document.getElementsByClassName('stage')[0].classList.add('active');
        document.getElementsByClassName('stage')[3].classList.remove('active');
+
 
         document.getElementById('name-input').value ='';
         document.getElementById('email-input').value = '';
