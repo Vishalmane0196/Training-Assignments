@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Expense Track</title>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="navbar">
+            <h3>Spendee</h3>
+        </div>
+        <div class="boxing-container">
+            <div class="border-div">
+                <div class="overview">
+                    <h1>overview</h1>
+                    <div class="balance">
+                        <div class="current">
+                            <p>Current balance</p>
+                            <h3 id="current">$2345</h3>
+                        </div>
+                        <div class="expense">
+                            <p>Expense Total</p>
+                            <h3 id="expense">-$2345</h3>
+                        </div>
+
+                    </div>
+                    <div class="process-bar">
+                        <div class="fill-bar"></div>
+                    </div>
+
+                </div>
+                <div class="filter">
+                    <div class="filter-first">
+                        <span><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="search"
+                                placeholder="Search Transaction"></span>
+
+                        <label for="select-sort"> 
+                            <select id="select-sort">
+                                <option  value="Sort" selected hidden class="option-select2">Sort</option>
+                                <option  value="date">Date</option>
+                                <option value="amount">Amount</option>
+                            </select></label>
+                    </div>
+
+                    <div class="button-div">
+                        <button id="addTransaction"><i class="fa-solid fa-plus"></i> Add Transaction</button>
+                    </div>
+
+                </div>
+
+
+                <div class="expence-cover">
+
+                    <div class="transaction-container">
+
+                        <h2>Monday, 12.06.2023</h2>
+                        <div class="transaction">
+                            <div class="details">
+                                <img src="num-pang-logo.png" alt="Num Pang">
+                                <div>
+                                    <h3>Num Pang</h3>
+                                    <p>Restaurants · Tiffany Bennett</p>
+                                </div>
+                            </div>
+                            <div class="amount">
+                                <p>$14.15</p>
+                                <span>1.5% $0.21</span>
+                            </div>
+                        </div>
+
+                        <div class="transaction">
+                            <div class="details">
+                                <img src="amazon-logo.png" alt="Amazon">
+                                <div>
+                                    <h3>Amazon</h3>
+                                    <p>General Merchandise · Cameron Wilson</p>
+                                </div>
+                            </div>
+                            <div class="amount">
+                                <p>$968.67</p>
+                                <span>1.5% $14.80</span>
+                            </div>
+                        </div>
+
+                        <h2>Pending</h2>
+
+                        <div class="transaction">
+                            <div class="details">
+                                <img src="google-logo.png" alt="Google G Suite">
+                                <div>
+                                    <h3>Google G Suite</h3>
+                                    <p>SaaS / Software · Priscilla Williamson</p>
+                                </div>
+                            </div>
+                            <div class="amount">
+                                <p>$92.99</p>
+                                <span>1.5% $1.39</span>
+                            </div>
+                        </div>
+
+                        <div class="transaction">
+                            <div class="details">
+                                <img src="slack-logo.png" alt="Slack">
+                                <div>
+                                    <h3>Slack</h3>
+                                    <p>SaaS / Software · Ricardo McKinney</p>
+                                </div>
+                            </div>
+                            <div class="amount">
+                                <p>$365.67</p>
+                                <span>1.5% $5.48</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="chart-container">
+                <div class="left" id="left-chart" >
+                    
+                </div>
+                <div class="right" id="right-chart"></div>
+            </div> -->
+            </div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
