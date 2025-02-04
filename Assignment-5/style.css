@@ -227,7 +227,7 @@ h2 {
 }
 
 .transaction {
-    position: relative;
+   
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -237,22 +237,18 @@ h2 {
 }
 
 #deletebtn {
-    position: absolute;
+   
     right: 0px;
-    padding: 0.5rem 2rem;
+   background-color: transparent;
     font-size: 1rem;
     border: none;
-    background-color: rgb(245, 104, 104);
     cursor: pointer;
-    transform: translateX(80px);
     transition: transform 0.3s ease;
     border-radius: 5px;
 }
-
-.transaction:hover #deletebtn {
-    transform: translateX(0px);
+#deletebtn i {
+    color: rgba(245, 104, 104, 0.85);
 }
-
 .transaction:last-child {
     border-bottom: none;
 }
@@ -536,7 +532,7 @@ select {
 }
 
 .title-transaction {
-    text-align: right;
+    text-align: center;
 }
 
 .transaction-container{

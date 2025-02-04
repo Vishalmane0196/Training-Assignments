@@ -57,7 +57,7 @@ document.getElementById("addtransactionform").addEventListener("submit", functio
   let P_N;
   let icon = document.getElementById("transaction-type").options[document.getElementById("transaction-type").selectedIndex].getAttribute('icon-data');;
   let logo_color = document.getElementById("transaction-type").options[document.getElementById("transaction-type").selectedIndex].getAttribute('logo-data');
-
+  
   if (transaction_type === 'Salary' || transaction_type === 'Bussiness') {
     P_N = 'positive';
 
@@ -107,7 +107,9 @@ function buttonvalid() {
   else {
     document.getElementById("transaction-type").style.backgroundColor = " rgba(245, 104, 104, 0.85)";
   }
-  if (amount) {
+  
+  
+  if ( transaction_type === 'Salary' || transaction_type === 'Bussiness' ? amount :  amount && Total_Income !== 0 ) {
     document.getElementsByClassName("submit-btn")[0].disabled = false;
     document.getElementsByClassName("submit-btn")[0].style.opacity = '1';
     document.getElementsByClassName("submit-btn")[0].style.cursor = 'pointer';
@@ -151,19 +153,19 @@ function displayTransaction(transactionList) {
                                </div>
                             </div>
                             <div class="label-div">
-                                <p edit_id="${e.id} id="edit">${e.Label}</p>
+                                <p edit_id="${e.id}" id="edit" >${e.Label}</p>
                             </div>
                             <div class="date-div">
                                 <p>${e.Date}</p>
                             </div>
                             <div class="amount ${e.P_N}">
                                 <p>${e.Amount} /-</p>
-                               
                             </div>
-                               <Button delete_id="${e.id}" id="deletebtn"><i class="fa-solid fa-trash-can"></i></Button>
+                     <button delete_id="${e.id}" id="deletebtn"> <i class="fa-solid fa-trash-can"></i></button>
                        `
       div.setAttribute('delete_id', `${e.id}`);
       divv.appendChild(div);
+      
     })
     addEventOnDelEdit();
   }
@@ -180,51 +182,53 @@ function addEventOnDelEdit() {
     })
   })
 
-  document.querySelectorAll("#edit").forEach(e=>{
+  let editbtns = document.querySelectorAll(' #edit');
+ 
+  editbtns.forEach(e => {
     console.log(e);
-    e.addEventListener('click',function(){
-      let  input  =  document.createElement('input');
+    e.addEventListener('click', function () {
+      let input = document.createElement('input');
       let id = 0;
       input.type = 'text';
       input.value = e.textContent;
-      id  = e.getAttribute('edit_id');
+      id = e.getAttribute('edit_id');
       e.replaceWith(input);
       input.focus();
-    
+
       let enterPressed = false;
 
       input.addEventListener('blur', function () {
-          if (!enterPressed) {
-              saveEdit(input,id);
-          }
+        if (!enterPressed) {
+          saveEdit(input, id);
+        }
       });
 
       input.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter') {
-              enterPressed = true;
-              saveEdit(input,id);
-          }
+        if (e.key === 'Enter') {
+          enterPressed = true;
+          saveEdit(input, id);
+        }
       });
-      })
+    })
   })
-  
+
 }
-function saveEdit(input,id) {
+function saveEdit(input, id) {
   let p = document.createElement('p');
   p.textContent = input.value;
   input.replaceWith(p);
-
-  const transaction = transactionList.find(tans => tans.id === parseInt(id));
+  const transaction = transactionList.find(tans => tans.id === parseInt(id,10));
   transaction.Label = input.value;
-  localStorage.setItem('todos', JSON.stringify(transactionList));
- addEventOnDelEdit();
+ 
+  localStorage.setItem('data', JSON.stringify(transactionList));
+  addEventOnDelEdit();
 }
 // Calculate INcome and Expense ----------------------------------------------------------
 
 function calculateAmount() {
   Income = 0;
   Expense = 0;
-  Total_Income  = 0;
+  Total_Income = 0;
   console.log("I am In Calculate");
   transactionList.forEach(e => {
     if (e.P_N === "positive") {
@@ -244,8 +248,8 @@ function calculateAmount() {
   }
   document.getElementById("progress-percentage").innerText = `${Math.floor(persetage)}%`;
   document.getElementsByClassName("fill-bar")[0].style.width = `${persetage}%`;
-  document.getElementById("expense").innerText = `${Expense}/-`;
-  document.getElementById("current").innerText = `${Income}/-`;
+  document.getElementById("expense").innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i> ${Expense}/-`;
+  document.getElementById("current").innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i> ${Income}/-`;
 
   categoryCalculation();
   categoryCalculation();
@@ -256,11 +260,13 @@ function calculateAmount() {
 
 
 
-
+var myChart2;
 
 function categoryCalculation() {
   let map = new Map();
-
+  if (myChart2) {
+    myChart2.destroy();
+  }
   transactionList.forEach(e => {
     let getitem = map.get(e.Type);
     if (getitem) {
@@ -271,19 +277,22 @@ function categoryCalculation() {
 
   })
 
- let yValuess = [];
- let xValuess = [];
- 
+  let yValuess = [];
+  let xValuess = [];
+
   map.forEach((value, key) => {
-    console.log("Hello");
-    xValuess.push(key);
-    console.log(value);
-    yValuess.push(((value / Total_Income) * 100))
+
+    if (key === 'Salary' || key === 'Bussiness') {
+
+    }
+    else {
+      xValuess.push(key);
+      console.log(value);
+      yValuess.push(((value / Total_Income) * 100))
+    }
   })
-  console.log(map);
-  console.log(xValues);
-  console.log(yValuess);
-  new Chart("myChart2", {
+
+  myChart2 = new Chart("myChart2", {
     type: "pie",
     data: {
       labels: xValuess,
@@ -301,8 +310,8 @@ function categoryCalculation() {
       }
     }
   });
-   yValuess = [];
-   xValuess = [];
+  yValuess = [];
+  xValuess = [];
 }
 
 // --------------------------------------------------------------------------
@@ -310,28 +319,33 @@ function categoryCalculation() {
 
 // Bar chart --------------------------------------------------
 
+var myChart;
 function barCalculation() {
- let yValues = [Expense,Income,Total_Income,0];
-new Chart("myChart", {
-  
-  type: "bar",
-  data: {
-    labels: xValues,
-    datasets: [{
-      backgroundColor: barColors,
-      data: yValues
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    legend: { display: false },
-    title: {
-      display: true,
-      text: "Income Expense Index"
-    }
+  if (myChart) {
+    myChart.destroy();
   }
-});
+  let yValues = [Expense, Income, Total_Income, 0];
+
+  myChart = new Chart("myChart", {
+
+    type: "bar",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: { display: false },
+      title: {
+        display: true,
+        text: "Income Expense Index"
+      }
+    }
+  });
 
 }
 
@@ -376,6 +390,6 @@ document.getElementById('search').addEventListener('input', function (e) {
 })
 
 addEventOnDelEdit();
-calculateAmount() ;
+calculateAmount();
 displayTransaction(transactionList);
 
