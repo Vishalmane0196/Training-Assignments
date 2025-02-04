@@ -75,7 +75,7 @@
     width: 95%;
     height: 5px;
     border-radius: 15px;
-  
+
     box-shadow: inset 0px 4px 8px rgba(129, 129, 129, 0.381);
 }
 
@@ -84,11 +84,13 @@
     background-color: #12c48b;
     height: 100%;
     border-radius: 15px;
-   
+
 }
-#progress-percentage{
+
+#progress-percentage {
     margin-left: 5px;
 }
+
 #addTransaction {
     background-color: #12c48b;
     border-radius: 5px;
@@ -168,7 +170,7 @@
     border: 0.1rem solid rgba(128, 128, 128, 0.541);
     border-radius: 5px;
     outline: none;
-    padding: 0.5rem;
+    padding: 0.56rem;
     width: 60%;
     margin-left: 1rem;
     border: none;
@@ -212,7 +214,7 @@
     width: 100%;
 
     background-color: #ffffff;
-    
+
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 1rem 2rem;
@@ -250,6 +252,7 @@ h2 {
 .transaction:hover #deletebtn {
     transform: translateX(0px);
 }
+
 .transaction:last-child {
     border-bottom: none;
 }
@@ -268,7 +271,7 @@ h2 {
 
 .details h3 {
     font-size: 16px;
-   
+
 }
 
 .details p {
@@ -289,62 +292,65 @@ h2 {
     font-size: 12px;
     color: #999;
 }
-option{
+
+option {
     color: black;
 }
 
-.option-select2{
+.option-select2 {
     color: gray;
 }
 
-.divv{
+.divv {
     display: flex;
     align-items: center;
 }
+
 .category {
     font-weight: bold;
     border-radius: 50%;
     color: #fff;
     width: 36px;
     height: 36px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   margin-right: 5px;
-  }
-  .shopping {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.shopping {
     background-color: #ff8a65;
-  }
-   
-  .beauty {
+}
+
+.beauty {
     background-color: #ab47bc;
-  }
-   
-  .food {
+}
+
+.food {
     background-color: #ffa726;
-  }
-   
-  .home {
+}
+
+.home {
     background-color: #42a5f5;
-  }
-   
-  .other {
+}
+
+.other {
     background-color: #78909c;
-  }
-   
-  .salary {
+}
+
+.salary {
     background-color: #66bb6a;
-  }
+}
 
-  .negative {
+.negative {
     color: rgba(245, 104, 104, 0.85);
-  }
-   
-  .positive {
-    color: #12c48b;
-  }
+}
 
-  .title{
+.positive {
+    color: #12c48b;
+}
+
+.title {
     display: flex;
     justify-content: space-between;
     padding: 1rem 2rem;
@@ -352,52 +358,60 @@ option{
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  .title h3{
+}
+
+.title h3 {
     width: 20%;
     color: #A1A6A9;
     font-size: 1rem;
     font-weight: 400;
-  }
-.expence-cover{
+}
+
+.expence-cover {
     display: block;
     /* display: none; */
     margin-bottom: 2rem;
-    padding:0.2rem 2rem;
-    height: 50vh;
+    padding: 0.2rem 2rem;
+    /* height: 50vh;
     scrollbar-width: none;
-    overflow-y:scroll ;
+    overflow-y: scroll; */
 }
-.chart-container{
+
+.chart-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+    display: flex;
+
     margin: 1.9rem;
-
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
-/* #left-chart{
-    width: 46%;
+
+#left-chart {
+    width: 49%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-} */
+}
 
-/* #right-chart{
-    width:45% ;
+#right-chart {
+    width: 49%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  } */
+}
 
-  /* Popup Styles */
+/* Popup Styles */
 
-  .up{
+.up {
     display: flex;
     justify-content: space-around;
-  }
-  .up h3{
+}
+
+.up h3 {
     color: gray;
     font-weight: 400;
     font-size: 1rem;
     margin-bottom: 0.5rem;
-  }
-  .popup {
+}
+
+.popup {
     position: fixed;
     top: 0;
     left: 0;
@@ -407,18 +421,18 @@ option{
     display: none;
     justify-content: center;
     align-items: center;
-  }
-   
-  .popup-content {
+}
+
+.popup-content {
     background: white;
     padding: 20px;
     width: 83%;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
-  }
-   
-  .close-btn {
+}
+
+.close-btn {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -426,52 +440,57 @@ option{
     border: none;
     font-size: 24px;
     cursor: pointer;
-  }
-   
-  form {
+}
+
+form {
     display: flex;
     flex-direction: column;
     gap: 10px;
-  }
-   
-  input, select {
+}
+
+input,
+select {
     padding: 10px;
     border: none;
     border-radius: 5px;
     width: 120%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     outline: none;
-  }
-   .dowm{
+}
+
+.dowm {
     display: flex;
     justify-content: end;
-   }
-  .submit-btn {
-    background-color:  #12c48b;
+}
+
+.submit-btn {
+    background-color: #12c48b;
     color: white;
     border: none;
     padding: 10px;
     border-radius: 5px;
     margin-left: 8px;
     box-shadow: 0 4px 4px 0 rgba(17, 195, 139, 0.174);
-    
+
     cursor: pointer;
-  }
-  .cancel-btn{
-    background-color:  gray;
+}
+
+.cancel-btn {
+    background-color: gray;
     color: white;
     border: none;
     padding: 10px;
     border-radius: 5px;
     margin-left: 8px;
     cursor: pointer;
-  }
-   
-  .submit-btn:hover {
-    background-color:  #10d396;
+}
+
+.submit-btn:hover {
+    background-color: #10d396;
     box-shadow: 0 4px 4px 0 rgba(17, 195, 139, 0.276);
-  }
-.notrancsactiondispaly{
+}
+
+.notrancsactiondispaly {
     display: flex;
     display: none;
     justify-content: center;
@@ -479,43 +498,314 @@ option{
     height: 40vh;
     width: 100%;
 }
-#right-chart{
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-#left-chart{
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-#myChart, #myChart2{
 
-        width:100% !important;
-       height: 20rem !important;
-        
+#left-chart {
+    width: 49%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.label-div{
+
+#right-chart {
+    width: 49%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#myChart,
+#myChart2 {
+
+    width: 100% !important;
+    height: 20rem !important;
+
+}
+
+.label-div {
     text-align: left;
     width: 20%;
 }
-.details{
+
+.details {
     width: 20%;
 }
-.date-div{
+
+.date-div {
     text-align: left;
     width: 20%;
 }
-.amount{
+
+.amount {
     width: 20%;
 }
-.title-transaction{
-   text-align: right;
+
+.title-transaction {
+    text-align: right;
+}
+
+.transaction-container{
+    height: 50vh;
+        scrollbar-width: none;
+        overflow-y: scroll;
 }
 @media screen and (max-width: 780px) {
-    
+
     .chart-container {
-        display: flex
-    ;
+        display: flex;
         /* display: none; */
         gap: 2rem;
         flex-direction: column;
-       
+
     }
-  }
+
+    #left-chart {
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #right-chart {
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #myChart,
+    #myChart2 {
+
+        width: 100% !important;
+        height: 25rem !important;
+
+    }
+
+    .boxing-container {
+        padding: 0rem 2rem 0rem 2rem;
+        /* height: 90%; */
+    }
+
+    .filter-first span {
+
+        width: 56%;
+    }
+}
+
+@media screen and (max-width: 380px) {
+
+    .chart-container {
+        display: flex;
+        /* display: none; */
+        gap: 2rem;
+        flex-direction: column;
+        margin: 1rem;
+
+    }
+
+    #left-chart {
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #right-chart {
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #myChart,
+    #myChart2 {
+
+        width: 100% !important;
+        height: 23rem !important;
+
+    }
+
+    .overview h1 {
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .current p {
+        font-size: 0.7rem;
+    }
+
+    .expense p {
+        font-size: 0.7rem;
+    }
+
+    #current {
+        color: #12c48b;
+        font-size: 1rem;
+    }
+
+    #expense {
+        font-size: 1rem;
+    }
+
+    .boxing-container {
+        padding: 0rem 0rem 0rem 0rem;
+        /* height: 90%; */
+    }
+
+    .balance {
+
+        margin-bottom: 0.5rem;
+    }
+
+    .overview {
+        background-color: #FAFAFA;
+        padding: 1rem 1rem 1rem 1rem;
+    }
+
+    #progress-percentage {
+        margin-left: 0px;
+        font-size: 0.5rem;
+    }
+
+    .process-bar {
+        display: inline-block;
+        width: 93%;
+    }
+
+    .filter-first {
+        display: flex;
+        gap: 0rem;
+        width: 100%;
+    }
+
+    #select-sort {
+        border: none;
+        border-radius: 5px;
+        outline: none;
+        padding: 0.5rem;
+        width: 82%;
+        font-size: 0.7rem;
+    }
+
+    .filter {
+        margin: 0rem;
+    }
+
+    .expence-cover {
+
+        padding: 0.2rem 1rem;
+    }
+
+    .title {
+
+        padding: 0.5rem 0.5rem;
+    }
+
+    .title h3 {
+        width: 20%;
+        color: #A1A6A9;
+        font-size: 0.67rem;
+        font-weight: 400;
+    }
+
+    #addTransaction {
+
+        font-size: 0.7rem;
+    }
+
+    .transaction-container {
+
+        padding: 0.5rem 0.5rem;
+        height: 50vh;
+        scrollbar-width: none;
+        overflow-y: scroll;
+    }
+
+    .category {
+
+        width: 22px;
+        height: 22px;
+    }
+
+    .category i {
+        font-size: 0.5rem;
+    }
+
+    .details h3 {
+        font-size: 8px;
+    }
+
+    .label-div p {
+        font-size: 10px;
+    }
+
+    .label-div {
+        text-align: left;
+        width: 100%;
+    }
+
+    .details {
+        width: 100%;
+    }
+
+    .date-div {
+        text-align: left;
+        width: 100%;
+    }
+
+    .amount {
+        width: 100%;
+    }
+
+    .amount p {
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    .date-div p {
+        font-size: 10px;
+    }
+
+    .filter-first span {
+
+        width: 56%;
+    }
+
+    #deletebtn {
+        position: absolute;
+        right: 0px;
+        padding: 0.3rem 1rem;
+        font-size: 0.7rem;
+        border: none;
+        background-color: rgb(245, 104, 104);
+        cursor: pointer;
+        transform: translateX(80px);
+        transition: transform 0.3s ease;
+        border-radius: 5px;
+    }
+
+    #search {
+        border: none;
+        margin-left: 0.5rem;
+        width: 70%;
+        outline: none;
+        font-size: 0.7rem;
+        box-shadow: none;
+        padding: 0px;
+    }
+
+    .up {
+        display: flex;
+        flex-direction: column;
+    }
+
+    input,
+    select {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .submit-btn {
+        font-size: 0.6rem;
+    }
+
+    .cancel-btn {
+        margin-left: 0px;
+        font-size: 0.6rem;
+    }
+
+    .dowm {
+        display: flex;
+        justify-content: space-between;
+    }
+}
