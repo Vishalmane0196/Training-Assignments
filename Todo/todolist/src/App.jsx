@@ -1,35 +1,98 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import Layout from './components/Layout/Layout';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import DashBoard from './components/DashBoard/DashBoard';
+import Form from './components/Form/Form'
+import DisplayTodo from './components/DisplayTodo/DisplayTodo';
+import FormListCover from './components/FormListCover/FormListCover';
+import { createContext } from 'react';
+import { useState } from 'react';
+import { Register } from './components/Register/Register';
+import { Login } from './components/Login/Login';
+import axios from 'axios';
 
+let Data = createContext(null);
 function App() {
-  const [count, setCount] = useState(0)
+  const [isLogin, setIsLogin] = useState(localStorage.getItem('isLogin') || false);
+  const [token , settoken] = useState(localStorage.getItem('token') || '');
+ 
+  const client = axios.create({
+    baseURL: "http://localhost:5000/api" ,
+    headers: {
+      'Authorization': `${token}`
+    }
+  });
+
+  
+
+  const router = createBrowserRouter(
+    [
+      {
+        path: '/',
+        element: <Layout />,
+        children:
+          [
+            {
+              path: '/',
+              element:  <DashBoard /> 
+            },
+            {
+              path: '/register',
+              element:<Register/>,
+            },
+            {
+                path: '/login',
+                element:<Login/>,
+            },
+            {
+              path: '/user/addtodo',
+              element: <FormListCover />,
+              children: [
+                {
+                  path: '',
+                  element: <Form />
+                }
+                ,
+              ]
+            },
+            {
+              path: '/user/display',
+              element: <FormListCover />,
+              children: [
+                {
+                  path:'',
+                  element: <DisplayTodo />,
+                  children:[
+                    {
+                      path:'',
+                      element: <DisplayTodo />
+                    },
+                    {
+                      path:'/user/display/completed',
+                      element: <DisplayTodo />
+                    }
+                  ]
+                }
+                ,
+              ]
+            }
+          ]
+
+      }
+    ]
+  )
+
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Data.Provider value={ {isLogin,client,setIsLogin,settoken}}>
+        <RouterProvider router={router} />
+      </Data.Provider>
+
     </>
   )
 }
 
 export default App
+
+export {Data}
