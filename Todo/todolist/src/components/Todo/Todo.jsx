@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Data } from '../../App';
 export const Todo = ({id, title, dec, due,updateStatus,deleteTodo,status,setAllTOdos}) => {
    
@@ -8,7 +8,8 @@ export const Todo = ({id, title, dec, due,updateStatus,deleteTodo,status,setAllT
         description: dec
     });
     const [edittoggle , setEdittoggle] = useState(false);
-    const handleUpdateData =(e)=>{
+
+    const  handleUpdateData =(e)=>{
         setEditTodo({...edit, [e.target.name]: e.target.value })
     }
     const handleEdit = (e) => {
@@ -33,32 +34,44 @@ export const Todo = ({id, title, dec, due,updateStatus,deleteTodo,status,setAllT
       
           } catch (error) {
             console.error("Registration failed:", error);
-            datac.setIsLogin(false);
+            
           }
       
     }
+    useEffect(() => {
+      setEditTodo({ title, description: dec }); // Reset state when props change
+      setEdittoggle(false); // Close edit mode
+  }, [id, title, dec]); 
+   
   return (
     <>
     <li>
             <div className="li-right">
               <h2>
-                {edittoggle === false ? title : <input type="text" id="title" maxlength="20" pattern="[A-Za-z ]+"
+                {edittoggle === false ? title : <input type="text" id="title"  maxLength="20" pattern="[A-Za-z ]+"
                 placeholder="Whats the title of your todo?" value={edit.title}  name='title' required onChange={handleUpdateData} />} 
               </h2>
-              {console.log(edit)}
-              <p className='dec'>{edittoggle === false ? dec :<input id="description" value={edit.description}  onChange={handleUpdateData} name='description' maxlength="60" placeholder="Description of your todo?" />} </p>
-              <br />
-              <p>Due: {due.slice(0,10)}</p>
+              
+              <p className='dec'>{edittoggle === false ? dec :<input id="description" value={edit.description}  onChange={handleUpdateData} name='description' maxLength="60" required placeholder="Description of your todo?" />} </p>
+              {/* <br style={{marginBottom:"0.5rem",marginBottom:"0.4rem"}}/>   */}
+              <p style={{display:"block",marginTop:"0.3rem"}} >Due date: {due.slice(0,10)}</p>
             </div>
             <div className="li-left">
      {status === 'incomplete'? 
      edittoggle ?
-      <button onClick={sendDataToUpdate}  className="edit"><i class="fa-solid fa-floppy-disk"></i></button> :  
+      <button onClick={sendDataToUpdate}  className="edit"><i className="fa-solid fa-floppy-disk"></i></button> :  
       <button onClick={handleEdit}  className="edit"><i className="fa-regular fa-pen-to-square"></i></button> 
-      : null}        
-     {status === 'incomplete'?  <button onClick={()=>updateStatus(id)} className="check"> <i className="fa-solid fa-check"></i> </button> : null}  
+      : null} 
+             
+     { 
+     edittoggle ? null:
+     status === 'incomplete'? 
+      <button onClick={()=>updateStatus(id)} className="check"> <i className="fa-solid fa-check"></i> </button>
+       : null}  
               
-              <button onClick={()=>deleteTodo(id)}  className="delete"> <i className="fa-solid fa-trash"></i> </button>
+              {
+                edittoggle ? null : <button onClick={()=>deleteTodo(id)}  className="delete"> <i className="fa-solid fa-trash"></i> </button>
+              }
             </div>
           </li>
     </>

@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { Register } from './components/Register/Register';
 import { Login } from './components/Login/Login';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 let Data = createContext(null);
 function App() {
@@ -85,7 +86,9 @@ function App() {
 
   return (
     <>
+      
       <Data.Provider value={ {isLogin,client,setIsLogin,settoken}}>
+      <ToastContainer/>
         <RouterProvider router={router} />
       </Data.Provider>
 

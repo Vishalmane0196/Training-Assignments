@@ -8,7 +8,7 @@ export default function Form() {
   const handleTodo = (e) =>{
     setTodo({...todo,[e.target.name]:e.target.value });
   }
-
+  const [error , setErrors] = useState({});
   const handleForm = async (e) => {
     e.preventDefault();
     
@@ -17,15 +17,18 @@ export default function Form() {
       if (response.data.status === 201) {
         console.log("Registration successful");
         e.target.reset();
+        setErrors({});
         navigate('/user/addtodo');
-      } else {
-        console.log("Registration failed:", response.data.message);
-      }
-      console.log(response);
+      } 
 
     } catch (error) {
       console.error("Registration failed:", error);
-      datac.setIsLogin(false);
+     console.log("error msg",error.response.data.message);
+     setErrors({
+          'message' : error.response.data.message
+     }
+       
+     )
     }
 
   }
@@ -36,15 +39,19 @@ export default function Form() {
 
           <div className="task-list">
             <div className="one">
+              <div style={{display:'flex',justifyContent:"space-between"}}>
               <h4>Title <span id="star-red">*</span></h4>
-              <input type="text" id="title" maxlength="20" pattern="[A-Za-z ]+"
-                placeholder="Whats the title of your todo?" name='title' required onChange={handleTodo} />
+              {error?.message ? <span className='error'>{error.message}
+              </span> : null}
+              </div>
+              <input type="text" id="title" maxLength="20" pattern="[A-Za-z ]+"
+                placeholder="Whats the title of your task?" name='title' required onChange={handleTodo} />
             </div>
 
 
             <div className="one">
-              <h4>Description </h4>
-              <textarea id="description" onChange={handleTodo} name='description' maxlength="60" placeholder="Description of your todo?"></textarea>
+              <h4>Description <span id="star-red">*</span></h4>
+              <textarea id="description" onChange={handleTodo} name='description' maxLength="60" placeholder="Description of your task?" required></textarea>
 
             </div>
 
@@ -63,7 +70,7 @@ export default function Form() {
                 <h4>Due date <span id="star-red">*</span></h4>
                 <input type="date" id="due-date" placeholder="MM/DD/YYYY" name='due_date' required onChange={handleTodo}  />
               </div>
-              <button type='submit' className="sub-btn"> Add Todo</button>
+              <button type='submit' className="sub-btn"> Add Task</button>
             </div>
           </div>
         </div>

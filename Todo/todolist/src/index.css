@@ -12,7 +12,7 @@
  }
 
 .sidebar {
-    width: 300px;
+    width: 260px;
     background-color: #fcfaf8;
     padding: 20px;
     display: flex;
@@ -20,7 +20,10 @@
     border-right: 1px solid #ddd;
     height: 100vh;
   }
-  
+  .error{
+    color: rgba(255, 0, 0, 0.817);
+    font-size: 12px;
+}
   .profile {
     display: flex;
     align-items: center;
@@ -38,6 +41,7 @@
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+    cursor: pointer;
   }
   
   .profile-name {
@@ -74,7 +78,7 @@
     padding: 10px 5px;
     display: flex;
     align-items: center;
-    cursor: pointer;
+    
     border-radius: 5px;
     color: #666565;
     margin-bottom: 4px;
@@ -87,6 +91,7 @@
   }
   .menu li .icon {
     margin-right: 10px;
+    cursor: pointer;
   }
  
   .menu-name {
@@ -183,17 +188,18 @@
    
 }
 .outer{
-    width: 80%;
+    width: 100%;
 }
 .outer h1{
     color: black;
     text-align: center;
-    margin: 1.5rem;
+    margin: 0.5rem;
     
 }
 .inner{
+   
     background-color: rgb(252, 250, 248);
-   padding: 2rem 2rem 0rem 2rem;
+   padding: 2rem 3rem 0rem 3rem;
    display: block;
    height: 100vh;
 }
@@ -267,13 +273,14 @@
 .sub-btn{
     height: 2.3rem;
     width: 6.5rem;
-    background-color: #ff725e;
-    color: white;
     border: none;
     cursor: pointer;
     margin-top: 1rem;
     border-radius: 5px;
     margin-right: 1rem;
+    box-shadow: 0 4px 4px 0  #fa724149;
+    color:rgb(255, 255, 255);
+    background-color: #fa7241;
 }
 .sub-btn:hover{
     background-color: rgb(190, 40, 43);
@@ -322,28 +329,31 @@
     overflow: scroll;
     scrollbar-width: none;
 }
-.list ul li{
-    display: flex;
-    justify-content: space-between;
-    padding: 0.3rem 0.8rem 0.3rem 0.8rem;
-    margin-bottom: 0.5rem;
-    background-color: rgb(249, 243, 243);
+.list ul li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7rem 0.8rem 0.8rem 0.8rem;
+  margin-bottom: 0.9rem;
+  background-color: rgb(249, 243, 243);
 }
 .li-right h2{
    color: black;
    margin-bottom: 0.6rem;
    display: inline;
+   font-size: 20px;
+   font-weight: 500;
 }
 .li-right p {
     color: #a9a9a9;
     display: inline;
-    font-size: 12px;
+    font-size: 14px;
 }
 .dec{
   color: #a9a9a9;
     display: inline;
     font-size: 12px;
     margin-left: 0.5rem;
+    margin-top: 1rem;
 }
 
 .edit{
@@ -395,6 +405,9 @@
         margin-top: 0.6rem;
         cursor: pointer;
  }
+ .padnav{
+  padding-bottom: 0.6rem;
+ }
  .delete:hover{
    
     color: rgb(244, 103, 103);
@@ -419,7 +432,7 @@
     padding: 0.5rem 0rem;
     cursor: pointer;
     width: 5rem;
-    margin: -5px;
+    margin-left: 5px;
     border-bottom: 2px solid  transparent;
  }
 
@@ -457,12 +470,15 @@ select {
  
 .clear-btn{
       padding: 0.5rem;
-      background-color: #ff4d4f;
+      
       border: none;
-      border-radius: 5px;
-      color: white;
+      border-radius: 5px; 
+      
+      color:rgb(255, 255, 255);
+      background-color: #fa7241;
       float: right;
       cursor: pointer;
+      box-shadow: 0 4px 4px 0  #fa724149;
 }
 
 .clear-btn:hover{
@@ -519,9 +535,13 @@ html {
   .header {
     width: 100%;
     display: flex;
+
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
+  }
+  .header-date-section{
+    width: 100%;
   }
   .header h1 {
     font-size: 1.8rem;
@@ -547,7 +567,8 @@ html {
   }
   
   .illustration img {
-    width: 32%;
+    width: 43%;
+    height: 22rem;
     margin-bottom: 20px;
   }
   
@@ -842,7 +863,7 @@ body{
   justify-content: space-between;
 }
 .list-btns-first{
-  width: 80%;
+  width: 100%;
 }
 
   @media screen and (max-width: 770px) {
@@ -1021,8 +1042,9 @@ align-content: center;
   padding: 0.5rem 0rem;
   cursor: pointer;
   width: 4.2rem;
-  margin: 0;
+  margin-left: 10px;
   border-bottom: 2px solid transparent;
+  
 }
 .todo-btn {
   background-color: transparent;

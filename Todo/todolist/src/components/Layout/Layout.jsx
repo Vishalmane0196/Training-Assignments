@@ -6,9 +6,10 @@ export default function Layout() {
   return (
     <>
     <div className='main'>
-
+    
       <Navbar />
       <Main />
+      
 
     </div>
     </>
