@@ -1,9 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { Data } from '../../App';
 import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 export default function Form() {
   const [todo,setTodo] = useState({});
   const datac =  useContext(Data);
+  const todaydate = new Date().toISOString().split('T')[0];
+  
   let navigate = useNavigate();
   const handleTodo = (e) =>{
     setTodo({...todo,[e.target.name]:e.target.value });
@@ -19,6 +22,7 @@ export default function Form() {
         e.target.reset();
         setErrors({});
         navigate('/user/addtodo');
+        toast.success("Task added successfully")
       } 
 
     } catch (error) {
@@ -68,7 +72,7 @@ export default function Form() {
                 </div> */}
               <div className="due-date">
                 <h4>Due date <span id="star-red">*</span></h4>
-                <input type="date" id="due-date" placeholder="MM/DD/YYYY" name='due_date' required onChange={handleTodo}  />
+                <input type="date" id="due-date" min={todaydate} placeholder="MM/DD/YYYY" name='due_date' required onChange={handleTodo}  />
               </div>
               <button type='submit' className="sub-btn"> Add Task</button>
             </div>

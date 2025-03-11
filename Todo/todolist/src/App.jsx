@@ -11,6 +11,7 @@ import { Register } from './components/Register/Register';
 import { Login } from './components/Login/Login';
 import axios from 'axios';
 import { ToastContainer } from 'react-toastify';
+import { ProtectedComponent } from './components/Protected/ProtectedComponent';
 
 let Data = createContext(null);
 function App() {
@@ -47,7 +48,7 @@ function App() {
             },
             {
               path: '/user/addtodo',
-              element: <FormListCover />,
+              element:<ProtectedComponent component={<FormListCover />} />,
               children: [
                 {
                   path: '',
@@ -87,7 +88,7 @@ function App() {
   return (
     <>
       
-      <Data.Provider value={ {isLogin,client,setIsLogin,settoken}}>
+      <Data.Provider value={ {isLogin,client,setIsLogin,settoken,token}}>
       <ToastContainer/>
         <RouterProvider router={router} />
       </Data.Provider>

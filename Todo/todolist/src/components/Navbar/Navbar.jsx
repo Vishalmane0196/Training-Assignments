@@ -88,7 +88,7 @@ export default function Navbar() {
                                         <NavLink
                                             to='/login'
                                             className={({ isActive }) => isActive ? 'liactive' : ''}>
-                                            <span className="icon"><i class="fa-solid fa-right-to-bracket"></i></span> Login
+                                            <span className="icon"><i className="fa-solid fa-right-to-bracket"></i></span> Login
                                         </NavLink>
                                         
 

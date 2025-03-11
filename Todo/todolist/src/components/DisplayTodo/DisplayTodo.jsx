@@ -114,7 +114,7 @@ export default function DisplayTodo() {
             }
          }
          getdata();
-    },800)
+    },500)
       return ()=>{clearTimeout(getSearchItems)}
   },[search])
 

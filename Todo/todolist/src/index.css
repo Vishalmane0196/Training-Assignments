@@ -567,7 +567,7 @@ html {
   }
   
   .illustration img {
-    width: 43%;
+    width: 38%;
     height: 22rem;
     margin-bottom: 20px;
   }
@@ -864,6 +864,10 @@ body{
 }
 .list-btns-first{
   width: 100%;
+}
+.li-left{
+  display: flex;
+  
 }
 
   @media screen and (max-width: 770px) {
