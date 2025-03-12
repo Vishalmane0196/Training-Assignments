@@ -77,14 +77,14 @@ export default function DisplayTodo() {
   };
 
 
-  useEffect(() => {
-    const getAllTodos = async () => {
-      let response = await datac.client.get('/task/getTasks');
-      console.log(response.data.data)
-      setAllTOdos(response.data.data);
-    };
-    getAllTodos();
-  }, []);
+  // useEffect(() => {
+  //   const getAllTodos = async () => {
+  //     let response = await datac.client.get('/task/getTasks');
+  //     console.log(response.data.data)
+  //     setAllTOdos(response.data.data);
+  //   };
+  //   getAllTodos();
+  // }, []);
   
   useEffect(() => {
     setFilterdata(filterStatus);
@@ -154,10 +154,15 @@ export default function DisplayTodo() {
         </div>
 
         <ul className="ul-list">
-          {console.log("check", filteredTodos)}
-          {filteredTodos.length === 0 ? <div style={{ display: "flex", justifyContent: 'center', alignItems: 'center', height: '100%', backgroundColor: " rgb(235, 233, 233)" }}> <h3>No Task</h3></div> : filteredTodos.map((todo, index) => (
+          {  
+          filteredTodos.length === 0 ? 
+          
+          <div style={{ display: "flex", justifyContent: 'center', alignItems: 'center', height: '100%', backgroundColor: " rgb(235, 233, 233)" }}> <h3>No Task</h3></div>   : 
+          filteredTodos.map((todo, index) => (
+
             <Todo key={index} id={todo.id} title={todo.title} dec={todo.description} due={todo.due_date} updateStatus={updateStatus} deleteTodo={deleteTodo} status={todo.status} setAllTOdos={setAllTOdos} />
-          ))}
+          )
+          )}
         </ul>
       </div>
     </>
