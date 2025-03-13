@@ -24,7 +24,6 @@ function App() {
       'Authorization': `${token}`
     }
   });
-
   
 
   const router = createBrowserRouter(
@@ -71,6 +70,11 @@ function App() {
                     },
                     {
                       path:'/user/display/completed',
+                      element: <DisplayTodo />
+                    }
+                    ,
+                    {
+                      path:'/user/display/duetasks',
                       element: <DisplayTodo />
                     }
                   ]

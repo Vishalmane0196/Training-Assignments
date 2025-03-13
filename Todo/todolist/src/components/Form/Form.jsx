@@ -5,10 +5,11 @@ import { toast } from 'react-toastify';
 export default function Form() {
   const [todo,setTodo] = useState({});
   const datac =  useContext(Data);
-  const todaydate = new Date().toISOString().split('T')[0];
+  // const todaydate = new Date().toISOString().split('T')[0];
   
   let navigate = useNavigate();
-  const handleTodo = (e) =>{
+  const 
+  handleTodo = (e) =>{
     setTodo({...todo,[e.target.name]:e.target.value });
   }
   const [error , setErrors] = useState({});
@@ -27,11 +28,10 @@ export default function Form() {
 
     } catch (error) {
       console.error("Registration failed:", error);
-     console.log("error msg",error.response.data.message);
+     console.log("error msg",error.response.data.error);
      setErrors({
-          'message' : error.response.data.message
+          'message' : error.response.data?.error
      }
-       
      )
     }
 
@@ -54,8 +54,8 @@ export default function Form() {
 
 
             <div className="one">
-              <h4>Description <span id="star-red">*</span></h4>
-              <textarea id="description" onChange={handleTodo} name='description' maxLength="60" placeholder="Description of your task?" required></textarea>
+              <h4>Description </h4>
+              <textarea id="description" onChange={handleTodo} name='description' maxLength="60" placeholder="Description of your task?" ></textarea>
 
             </div>
 
@@ -72,7 +72,8 @@ export default function Form() {
                 </div> */}
               <div className="due-date">
                 <h4>Due date <span id="star-red">*</span></h4>
-                <input type="date" id="due-date" min={todaydate} placeholder="MM/DD/YYYY" name='due_date' required onChange={handleTodo}  />
+                {/* response.data.data min={todaydate} */}
+                <input type="date" id="due-date"  placeholder="MM/DD/YYYY" name='due_date' required onChange={handleTodo}  />
               </div>
               <button type='submit' className="sub-btn"> Add Task</button>
             </div>

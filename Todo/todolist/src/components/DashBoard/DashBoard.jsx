@@ -31,7 +31,7 @@ let day = weekday[d.getDay()];
                <p> <span id="date">{date.getDate()}</span>, <span id="day">{day}</span> ,<span>{date.getFullYear()}</span></p>
             
           </div>
-
+          
         </div>
 
         <div className="content">

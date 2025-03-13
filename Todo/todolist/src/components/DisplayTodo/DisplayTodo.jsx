@@ -16,7 +16,6 @@ export default function DisplayTodo() {
 
   const setFilterdata = async (status) => {
     setFilterStatus(prestatus => {
-    
       localStorage.setItem('filtereStatus', status);
       return status;
     });
@@ -26,8 +25,13 @@ export default function DisplayTodo() {
     }
     if (status === 'complete') {
       setFilteredTodos(AllTOdos.filter(todo => todo.status === 'complete'));
-    } else {
+    } else if(status === 'incomplete'){
       setFilteredTodos(AllTOdos.filter(todo => todo.status === 'incomplete'));
+    }
+    else{
+      let response = await datac.client.get(`task/filterTasks/?due_date=overdue`);
+    
+      setFilteredTodos(response.data.data);
     }
   };
 
@@ -76,16 +80,6 @@ export default function DisplayTodo() {
     setFilteredTodos(sortedArray);
   };
 
-
-  // useEffect(() => {
-  //   const getAllTodos = async () => {
-  //     let response = await datac.client.get('/task/getTasks');
-  //     console.log(response.data.data)
-  //     setAllTOdos(response.data.data);
-  //   };
-  //   getAllTodos();
-  // }, []);
-  
   useEffect(() => {
     setFilterdata(filterStatus);
     console.log("filter status: " + filterStatus)
@@ -105,11 +99,15 @@ export default function DisplayTodo() {
                 setAllTOdos(response.data.data);
                 return;
               }
-             
-              let response = await datac.client.get(`/task/taskssearch/title/${search}`);
+              if(filterStatus ==='duetask')
+              {
+                let response = await datac.client.get(`task/searchTask/?due_date=overdue`);
+                setFilteredTodos(response.data.data);
+                return;
+              }
+              let response = await datac.client.get(`/task/searchTask/${search}`);
               setAllTOdos(response.data.data);
             } catch (error) {
-             
               setAllTOdos([]);
             }
          }
@@ -134,6 +132,11 @@ export default function DisplayTodo() {
                   isActive ? 'active padnav' : ''
                 }>
                   <button onClick={() => setFilterdata('complete')} className="com-btn">Completed</button>
+                </NavLink>
+                <NavLink to={'/user/display/duetasks'} className={({ isActive }) =>
+                  isActive ? 'active padnav' : ''
+                }>
+                  <button onClick={() => setFilterdata('duetask')} className="com-btn">Due  Tasks</button>
                 </NavLink>
               </div>
               <div style={{display:"flex"}}>
