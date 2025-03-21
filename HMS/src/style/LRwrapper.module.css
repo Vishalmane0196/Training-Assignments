@@ -1,0 +1,38 @@
+.lrwrapper{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.lrwrapperleftpanel{
+    width: 33%;
+    height: 100%;
+    background-color: black;
+}
+.lrwrapperrightpanel{
+    width: 70%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.lrvideo{
+    width: 100%;
+    background-size: contain;
+
+}
+.titlewrapper
+{
+    background-color: black;
+    height: 53%;
+}
+
+.decs
+{
+    color: rgba(255, 255, 255, 0.708);
+    margin: 1rem;
+    font-size: 2rem;
+    margin-left: 2rem;
+    line-height: 3.5rem;
+    margin-top: 3.5rem;
+    margin-bottom: 0;
+}

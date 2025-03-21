@@ -133,11 +133,11 @@ export default function DisplayTodo() {
                 }>
                   <button onClick={() => setFilterdata('complete')} className="com-btn">Completed</button>
                 </NavLink>
-                <NavLink to={'/user/display/duetasks'} className={({ isActive }) =>
+                {/* <NavLink to={'/user/display/duetasks'} className={({ isActive }) =>
                   isActive ? 'active padnav' : ''
                 }>
                   <button onClick={() => setFilterdata('duetask')} className="com-btn">Due  Tasks</button>
-                </NavLink>
+                </NavLink> */}
               </div>
               <div style={{display:"flex"}}>
                 <input type="text"  placeholder="Search" onChange={handleSearch} className="search" />

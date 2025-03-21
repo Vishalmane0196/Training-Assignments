@@ -156,7 +156,7 @@ export const Todo = ({
     due_date: new Date(due).toISOString().split("T")[0],
   });
   const [edittoggle, setEdittoggle] = useState(false);
-
+  
   const handleUpdateData = (e) => {
     setEditTodo({ ...edit, [e.target.name]: e.target.value });
   };
@@ -196,10 +196,10 @@ export const Todo = ({
   //   });
   //   setEdittoggle(false);
   // }, [id, title, dec, due]);
-
+ {console.log()}
   return (
     <>
-      <li>
+      <li style={new Date(due) < new Date() && status === 'incomplete' ? {backgroundColor:"#ff4d5021"}:{}}>
         <div className="li-right">
           <h2>
             {edittoggle === false ? (

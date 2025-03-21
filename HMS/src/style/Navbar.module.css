@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&family=Material+Symbols+Rounded&family=Material+Symbols+Sharp&display=swap");
+
+.container{
+    width: 100%;
+    height: 10vh;
+    background-color: rgb(238, 238, 238);
+}
+.navbar{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    padding: 0px 5rem 0rem 5rem;
+}
+.main{
+    
+    width: 100%;
+    display: flex;
+  
+    justify-content: right;
+    gap: 2rem;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 3px 0 black;
+    object-fit: cover;
+  }
+  .navitem{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .avatarlogo{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .logoutbtn{
+    padding: 0.5rem;
+    border-radius: 10x;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .logoutbtn:hover{
+    background-color: #181818;
+    color: #fff;
+  }
