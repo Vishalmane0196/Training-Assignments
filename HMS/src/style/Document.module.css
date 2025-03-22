@@ -1,0 +1,125 @@
+
+.container {
+   
+    width: 80%;
+  }
+
+  .fieldcoverdiv
+  {
+  width: 22%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+.inputfield
+{
+ 
+  outline: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+.inputfield:hover{
+
+  box-shadow: 0 0 0 4px rgba(234, 100, 217, 0.1);
+}
+.inputfield:focus{
+  outline: none;
+  border: 1px solid rgba(234, 100, 216, 0.438);;
+}
+.star{
+  color: red;
+}
+.fielderror{
+  color: rgb(244, 82, 82);
+}
+::placeholder{
+  color: #797777;
+}
+.labelradio{
+  margin-right: 0.5rem;
+}
+
+.submitbtn{
+  color: rgb(250, 250, 250);
+  background-color: #7bcce2;
+
+  padding: 0.6rem 2rem;
+  cursor: pointer;
+  border: none;
+  font-size: 18px;
+  border-radius: 5px;
+  outline: none;
+  text-align: center;
+}
+.backbtn{
+    color: rgb(250, 250, 250);
+    padding: 0.6rem 2rem;
+    cursor: pointer;
+    border: none;
+    font-size: 18px;
+    border-radius: 5px;
+    outline: none;
+    text-align: center;
+    color: rgb(163, 140, 140);
+    margin-right: 10px;
+}
+.previewImage {
+    width: 206px;
+    height: auto;
+    max-height: 190px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  .btnstye{
+    display: flex;
+    justify-content: right;
+    position: relative;
+    gap: 0.8rem;
+    bottom: 0rem;
+  }
+  .uploadbtn{
+    padding: 0.5rem 0.5rem;
+    width: 36%;
+    margin: 5px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer ;
+  }
+
+  .uploadbtn:hover {
+    background-color: #becde0;
+  }
+  
+  .uploadbtn:disabled {
+    background-color: lightgreen;
+    cursor: not-allowed;
+    width: 40%;
+  }
+
+  
+.deletebtn {
+  padding: 6px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(244, 43, 43);
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.deletebtn:hover {
+  background-color: darkred;
+}
+
+.inputfield:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+ 
+}

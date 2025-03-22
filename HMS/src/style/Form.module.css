@@ -1,0 +1,82 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 82%;
+    align-items: center;
+}
+
+.stepcover {
+  margin-top: 1rem;
+    height: 10vh;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 20px 0;
+}
+
+.stepcover::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 80%;
+    height: 4px;
+    background-color: #ccc;
+    z-index: 0;
+}
+
+.step {
+    position: relative;
+   margin-top: 1.5rem;
+    z-index: 1;
+    text-align: center;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stepno {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50%;
+    background-color: #ddd;
+    color: black;
+    border: 2px solid #bbb;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 0.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stepdetail {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Active Step */
+.active .stepno {
+    background-color: #3498db;
+    color: white;
+    border-color: #3498db;
+}
+
+.active .stepdetail {
+    color: #3498db;
+}
+
+.line{
+    padding: 5px;
+    border-bottom: 1px solid #bbb;;
+    width: 80%;
+    margin-top:3rem;
+}

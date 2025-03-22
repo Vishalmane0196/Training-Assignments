@@ -1,0 +1,66 @@
+
+.container {
+   
+    width: 80%;
+  }
+
+  .fieldcoverdiv
+  {
+  width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+.inputfield
+{
+ 
+  outline: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+.inputfield:hover{
+
+  box-shadow: 0 0 0 4px rgba(234, 100, 217, 0.1);
+}
+.inputfield:focus{
+  outline: none;
+  border: 1px solid rgba(234, 100, 216, 0.438);;
+}
+.star{
+  color: red;
+}
+.fielderror{
+  color: rgb(244, 82, 82);
+}
+::placeholder{
+  color: #797777;
+}
+.labelradio{
+  margin-right: 0.5rem;
+}
+
+.submitbtn{
+  color: rgb(250, 250, 250);
+  background-color: #7bcce2;
+
+  padding: 0.6rem 2rem;
+  cursor: pointer;
+  border: none;
+  font-size: 18px;
+  border-radius: 5px;
+  outline: none;
+  text-align: center;
+}
+.backbtn{
+    color: rgb(250, 250, 250);
+    padding: 0.6rem 2rem;
+    cursor: pointer;
+    border: none;
+    font-size: 18px;
+    border-radius: 5px;
+    outline: none;
+    text-align: center;
+    color: rgb(163, 140, 140);
+    margin-right: 10px;
+}

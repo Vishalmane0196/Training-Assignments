@@ -1,29 +1,41 @@
-import React from 'react'
-
+import React, { useState } from "react";
+import { PersonalInfo } from "./PersonalInfo";
+import FormCSS from "../../style/Form.module.css";
+import { FamilyInfo } from '../Form/FamilyInfo'
+import { DocumentInfo } from "./DocumentInfo";
 export const Form = () => {
-  return (
-   <>
+  const [step, setStep] = useState(0);
+  const [patientId,setPatientId] = useState(null);
+  const handleMultiStepForm = (step) => {
+    switch (step) {
+      case 0:
+        return <PersonalInfo setPatientId={setPatientId} setStep={setStep} />;
+      case 1:
+        return <FamilyInfo patientId={patientId} setStep={setStep} />;
+      case 2:
+        return <DocumentInfo patientId={patientId}  setStep={setStep}/>
+      default:
+        return null;
+    }
+  };
 
-<div class="form-container">
-        <h2>Form Title</h2>
-        <form action="#" method="post">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" required/>
- 
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required/>
- 
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" required/>
- 
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="4" required></textarea>
- 
-            <button type="submit">Submit</button>
-        </form>
-    </div>
-  
-   </>
-    
-  )
-}
+  return (
+    <>
+      <div className={FormCSS.container}>
+        <div className={FormCSS.stepcover}>
+          {["Personal Info", "Family Info", "Document Info", "Completed"].map((label, index) => (
+            <div
+              key={index}
+              className={`${FormCSS.step} ${step >= index ? FormCSS.active : ""}`}
+            >
+              <h3 className={FormCSS.stepno}>{index + 1}</h3>
+              <p className={FormCSS.stepdetail}>{label}</p>
+            </div>
+          ))}
+        </div>
+        <div className={FormCSS.line}> </div>
+        {handleMultiStepForm(step)}
+      </div>
+    </>
+  );
+};

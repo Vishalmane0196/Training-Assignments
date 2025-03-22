@@ -18,8 +18,8 @@ export const UserNavbar = () => {
   }
   return (
     <>
-    <div class={NavbarCSS.container}>
-    <nav class={NavbarCSS.navbar}>
+    <div className={NavbarCSS.container}>
+    <nav className={NavbarCSS.navbar}>
         <div>
             <img className={NavbarCSS.avatarlogo} src={logo} alt="logo" />
         </div>

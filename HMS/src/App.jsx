@@ -17,12 +17,14 @@ import { UserPatientTable } from "./components/Table/UserPatientTable.jsx";
 import { UserProfile } from "./components/Profile/UserProfile.jsx";
 import { Setting } from "./components/Setting/Setting.jsx";
 import { DeletePopUp } from "./components/Setting/Delete/DeletePopUp.jsx";
+import { MultiStepForm } from "./components/MultiStepForm/MultiStepForm.jsx";
+import { UserMain } from "./components/UserMain/UserMain.jsx";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [isAdmin , setIsAdmin] = useState(localStorage.getItem('isAdmin'));
   const[isDark,setIsDark] = useState(false);
- 
+  
   const secretKey = "123456789";
   
   const axiosInstance = axios.create({
@@ -42,23 +44,39 @@ function App() {
       element: <ProtectedRoute/>,
       children:[
         {
-          path: "/user/dashboard/viewpatients",
-          element: <UserPatientTable/>,
-        },
-        {
-          path: "/user/dashboard/profile",
-          element: <UserProfile/>,
-        },
-        {
-          path: "/user/dashboard/setting",
-          element: <Setting/>,
+          path: "/user/dashboard/",
+          element: <UserMain/>,
           children:[
             {
-              path: "/user/dashboard/setting/deleteaccount",
-              element: <DeletePopUp/>,
+              path:'/user/dashboard/profile',
+              element:<UserProfile/>
+            },
+            {
+              path: "/user/dashboard/viewpatients",
+              element: <UserPatientTable/>,
             }
+            ,
+            {
+              path:'/user/dashboard/setting',
+              element:<Setting/>,
+              children:[
+                {
+                  path: "/user/dashboard/setting/deleteaccount",
+                  element: <DeletePopUp/>,
+                }]
+            },
+            {
+
+            }
+
           ]
         },
+        {
+          path: "/user/dashboard/addpatient",
+          element: <MultiStepForm/>,
+          
+        },
+      
       ]
     },
     {
