@@ -19,6 +19,7 @@ export const Register = () => {
      let response = await contextData.axiosInstance.post("/user/register", data);
      if(response.data.status)
      {
+      contextData.setUserInfo({...data})
       navigate('/account/user/login');
       toast.success('Registration successful! Redirecting to dashboard...', { position: 'top-right' });
      }

@@ -23,37 +23,7 @@ export const UserNavbar = () => {
         <div>
             <img className={NavbarCSS.avatarlogo} src={logo} alt="logo" />
         </div>
-      {/* <section class={NavbarCSS.main}>
-        <div class={NavbarCSS.navitem}>
-          <span class="material-symbols-rounded">
-            home
-          </span>
-          <span>
-            Dashboard
-          </span>
-         
-        </div>
-        <div class={NavbarCSS.navitem}>
-          <span class="material-symbols-rounded">
-            person
-          </span>
-          <span>
-            Profile
-          </span>
-         
-        </div>
-        <div class={NavbarCSS.navitem}>
-          <span class="material-symbols-rounded">
-            article
-          </span>
-          <span>
-            Patients Data
-          </span>
-          
-        </div>
-        
-
-      </section> */}
+      
       <button onClick={handleLogOutBtn} className={NavbarCSS.logoutbtn}>Log Out </button>
      
     </nav>

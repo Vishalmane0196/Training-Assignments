@@ -2,9 +2,11 @@ import React, { useContext, useState } from 'react'
 import SettingCSS from '../../style/Setting.module.css'
 import { DeletePopUp } from './Delete/DeletePopUp';
 import { MyContext } from '../../utils/ContextApi';
+import {Edit} from '../Setting/Edit/Edit.jsx'
 
 export const Setting = () => {
     const [deleteState, setDeleteState] = useState(false);
+    const [editProfile,setEditProfile] = useState(false);
     const contextData = useContext(MyContext);
   return (
     <>
@@ -19,7 +21,9 @@ export const Setting = () => {
        <p  className={SettingCSS.p3tag} >
        You can change your email, password, and other details here.
        </p>
-       <button className={SettingCSS.editbtn}>Edit Profile</button>
+       <button className={SettingCSS.editbtn} onClick={()=>{
+        setEditProfile(true)
+       }}>Edit Profile</button>
         </div>
 
        {/* Theme Toggle */}
@@ -56,6 +60,7 @@ export const Setting = () => {
          setDeleteState(true)
        }} className={SettingCSS.deletebtn}>Delete Account</button>
         </div>
+      {editProfile && <Edit editProfile={editProfile} setEditProfile={setEditProfile} />}
       {deleteState  && <DeletePopUp setDeleteState ={setDeleteState}/>}
     </div>
 

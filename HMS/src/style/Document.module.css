@@ -32,6 +32,7 @@
 }
 .fielderror{
   color: rgb(244, 82, 82);
+  margin: 0;
 }
 ::placeholder{
   color: #797777;
@@ -42,7 +43,7 @@
 
 .submitbtn{
   color: rgb(250, 250, 250);
-  background-color: #7bcce2;
+  background-color: #3498db;
 
   padding: 0.6rem 2rem;
   cursor: pointer;

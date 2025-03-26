@@ -1,0 +1,153 @@
+
+.container {
+   
+    width:100%;
+    overflow: hidden;
+    height: 70vh;
+    overflow: scroll;
+    padding: 10px;
+    scrollbar-width: none;
+  }
+
+  .fieldcoverdiv
+  {
+    width: 31%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+  }
+.inputfield
+{
+  outline: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+.inputfield:hover{
+
+  box-shadow: 0 0 0 4px rgba(234, 100, 217, 0.1);
+}
+.inputfield:focus{
+  outline: none;
+  border: 1px solid rgba(234, 100, 216, 0.438);;
+}
+.star{
+  color: red;
+}
+.fielderror{
+  color: rgb(244, 82, 82);
+}
+::placeholder{
+  color: #797777;
+}
+.labelradio{
+  margin-right: 0.5rem;
+}
+
+.submitbtn{
+  color: rgb(250, 250, 250);
+  background-color: #7bcce2;
+
+  padding: 0.6rem 2rem;
+  cursor: pointer;
+  border: none;
+  font-size: 18px;
+  border-radius: 5px;
+  outline: none;
+  text-align: center;
+}
+.sectioncover{
+    width: 100%;
+   
+    background-color: #dddddd68;
+    border-radius: 5px;
+    padding: 0.6rem 2rem;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+   
+}
+.sectioncover form{
+    width: 100%;
+}
+.divv{
+    width: 100%;
+}
+.previewImage{
+    width: 206px;
+    height: auto;
+    max-height: 190px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.textandiconcover{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+.iconcoverdivdeletedit{
+    
+    display: flex;
+   gap: 2rem;
+    align-items: center;
+    
+
+}
+
+.iconcoverdivdeletedit i{
+    font-size: 16px;
+    cursor: pointer;
+    
+}
+.iconcoverdivdeletedit i:nth-child(1)
+{
+    color: rgb(116, 87, 52);
+    
+}
+.iconcoverdivdeletedit i:nth-child(2)
+{
+    color: rgb(245, 24, 24);
+}
+
+
+.iconcoverdivdeletedit i:nth-child(1):hover
+{
+    color: rgb(160, 123, 78);
+    
+}
+.iconcoverdivdeletedit i:nth-child(2):hover
+{
+    color: rgb(192, 63, 63);
+}
+.title
+{
+    position: relative;
+    top: -2rem;
+    background-color: white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 0.5rem 1.3rem;
+    margin: 0;
+    color: black;
+}
+
+.uploadbtn{
+  padding: 0.5rem 0.5rem;
+  width: 36%;
+  margin: 5px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer ;
+  background-color: #becde0;
+}
+
+.uploadbtn:hover {
+  background-color: #a0b6d3;
+}

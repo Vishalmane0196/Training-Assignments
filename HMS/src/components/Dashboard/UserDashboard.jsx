@@ -25,7 +25,7 @@ export const UserDashboard = () => {
                  className={({isActive})=>{
                   return isActive?UserDashboardCSS.active : UserDashboardCSS.linktext
                  }}>
-                  profile
+                 <i class="fa-solid fa-user"></i> <span > profile</span>
                  </NavLink>
                </li>
                <li>
@@ -34,7 +34,7 @@ export const UserDashboard = () => {
                  className={({isActive})=>{
                   return isActive?UserDashboardCSS.active : UserDashboardCSS.linktext
                  }}>
-                  view Patients
+                 <i class="fa-solid fa-list"></i> <span style={{marginLeft:"0.5rem"}}>  view Patients </span>
                  </NavLink>
                </li>
                <li>
@@ -43,7 +43,7 @@ export const UserDashboard = () => {
                  className={({isActive})=>{
                   return isActive?UserDashboardCSS.active : UserDashboardCSS.linktext
                  }}>
-                  Setting
+                 <i class="fa-solid fa-gear"></i> <span style={{marginLeft:"0.5rem"}}>Setting </span> 
                  </NavLink>
                </li>
 

@@ -4,6 +4,9 @@
     width: 100%;
     height: 10vh;
     background-color: rgb(238, 238, 238);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .navbar{
     width: 100%;
@@ -31,10 +34,12 @@
     box-shadow: 0 0 3px 0 black;
     object-fit: cover;
   }
-  .navitem{
+  .navbarlink{
     display: flex;
     align-items: center;
     gap: 5px;
+    text-decoration: none;
+    color:#181818;
   }
   .avatarlogo{
     width: 45px;
@@ -43,12 +48,23 @@
     object-fit: cover;
   }
   .logoutbtn{
-    padding: 0.5rem;
-    border-radius: 10x;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s;
   }
   .logoutbtn:hover{
     background-color: #181818;
     color: #fff;
+  }
+
+  .navbarlink{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .active{
+    background-color: #fff;
+    color: #181818;
+    border-bottom: 2px solid #181818;
   }

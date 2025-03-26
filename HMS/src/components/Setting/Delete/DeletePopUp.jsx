@@ -1,10 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import SettingCSS from '../../../style/Setting.module.css'
+import { MyContext } from '../../../utils/ContextApi'
+import { useNavigate } from 'react-router-dom'
 export const DeletePopUp = ({setDeleteState}) => {
-    const handleDeleteAccount = () => {
-        // Your delete API call goes here
+   const navigate =  useNavigate();
+    const contextData =  useContext(MyContext);
+    
+    const handleDeleteAccount =async() => {
+        try {
+            let response = await contextData.axiosInstance.delete('/user/deleteUser');
+              console.log(response);
+              setDeleteState(false);
+              localStorage.clear();
+              contextData.setToken(null);
+              contextData.setIsAdmin(false);
+              navigate('/account/user/login');
+        } catch (error) {
+            console.log(error)
+        }
         console.log('Deleting account...');
-        setDeleteState(false);
+
+        
     }
 
   return (

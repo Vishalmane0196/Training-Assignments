@@ -1,185 +1,13 @@
-// import React, { useContext, useState } from 'react'
-
-
-// import DocumentCSS from '../../style/Document.module.css'
-// import { useForm} from 'react-hook-form';
-// import { MyContext } from '../../utils/ContextApi';
-// export const DocumentInfo = ({setStep,patientId}) => {
-//   const[updateState, setUpdateState] = useState(false);
-//   const [filePreviews, setFilePreviews] = useState({}); 
-//   const [fileData, setFileData] = useState({});
-//   const contextData = useContext(MyContext);
-//    const {
-//       register,
-//       handleSubmit,
-//       formState: { errors },
-//     } = useForm();
-   
-//     const handleSubmitDocumentData = () => {
-//         const formData = new FormData();
-//         Object.entries(fileData).forEach(([key, value]) => {
-//           formData.append(key, value);
-//         });
-    
-//     };
-//     const handleBackBtn = () =>{
-//       setStep(pre=>{
-//         return pre -1
-//        })
-//     }
-//     const handleUploadDocument = async(img) =>{
-//         try {
-//             const formData = new FormData();
-            
-//             formData.append('file',fileData[img]);
-//             formData.append('document_type',img)
-//             formData.append('patient_id',patientId);
-//             let response = await contextData.axiosInstance('/patient/upload',formData)
-//             console.log(response);
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     }
-//     const handleFileChange = (event) => {
-//         const file = event.target.files[0];
-//         if (!file) return;
-//         setFileData((prev) => ({
-//           ...prev,
-//           [event.target.name]: file, 
-//         }));
-
-//         const fileURL = URL.createObjectURL(file);
-//       setFilePreviews((prev) => ({
-//         ...prev,
-//         [event.target.name]: fileURL, 
-//       }));
-//       };
-//   return (
-//     <>
-   
-//      <div className={DocumentCSS.container} >
-//     <h1 className={DocumentCSS.title} >Document Information</h1>
-//     <form  onSubmit={handleSubmit(handleSubmitDocumentData)}>
-      
-//      <div style={{display:"flex",gap:"3rem"}}>
-//      <div className={DocumentCSS.fieldcoverdiv}>
-//      <label className={DocumentCSS.fieldlabel}>Adhar Card Front <span className={DocumentCSS.star}>*</span></label>
-//       <input
-//                className={DocumentCSS.inputfield}
-//                 {...register("AdharFront", {
-//                   required: true,
-//                 })}
-//                 onChange={(e) => {
-//                     handleFileChange(e)
-//                 }}
-//                 required 
-//                 type="file"
-             
-//               />
-//               {filePreviews.AdharFront && (
-//                 <img src={filePreviews.AdharFront} alt="Adhar front" className={DocumentCSS.previewImage} />
-//               )}
-
-//               <button onClick={handleUploadDocument('AdharFront')} className={DocumentCSS.uploadbtn}>Upload</button>
-//               { 
-//                 errors.AdharFront && <p className={DocumentCSS.fielderror}>{errors.AdharFront.message}</p>
-//               }
-//      </div>
-//      <div className={DocumentCSS.fieldcoverdiv}>
-//      <label className={DocumentCSS.fieldlabel}>Adhar Card Back <span className={DocumentCSS.star}>*</span></label>
-//       <input
-//                className={DocumentCSS.inputfield}
-//                 {...register("Adharback", {
-//                   required: true,
-                  
-                 
-//                 })}
-//                 onChange={(e) => {
-//                 handleFileChange(e);
-//                 }}
-//                 type="file"
-              
-//               />
-//                {filePreviews.Adharback && (
-//                 <img src={filePreviews.Adharback} alt="Adhar Back" className={DocumentCSS.previewImage} />
-//               )}
-//               { 
-//                 errors.Adharback && <p className={DocumentCSS.fielderror}>{errors.Adharback.message}</p>
-//               }
-//      </div>
-//      <div className={DocumentCSS.fieldcoverdiv}>
-//      <label className={DocumentCSS.fieldlabel}>Medical Insurance Front <span className={DocumentCSS.star}>*</span></label>
-//       <input
-//                className={DocumentCSS.inputfield}
-//                 {...register("insurancefront", {
-//                   required: true,
-                  
-//                 })}
-//                 onChange={(e) => {
-//                  handleFileChange(e)
-//                 }}
-//                 type="file"
-               
-//               />
-//                {filePreviews.insurancefront && (
-//                 <img src={filePreviews.insurancefront} alt="Adhar Back" className={DocumentCSS.previewImage} />
-//               )}
-//               { 
-//                 errors.insurancefront && <p className={DocumentCSS.fielderror}>{errors.insurancefront.message}</p>
-//               }
-//      </div>
-//      <div className={DocumentCSS.fieldcoverdiv}>
-//      <label className={DocumentCSS.fieldlabel}>Medical Insurance Back <span className={DocumentCSS.star}>*</span></label>
-//       <input
-//                className={DocumentCSS.inputfield}
-//                 {...register("insuranceback", {
-//                   required: true,
-//                 })}
-//                 onChange={(e) => {
-//                 handleFileChange(e);
-//                 }}
-//                 required 
-//                 type="file"
-                
-//               />
-//                {filePreviews.insuranceback && (
-//                 <img src={filePreviews.insuranceback} alt="Adhar Back" className={DocumentCSS.previewImage} />
-//               )}
-//               { 
-//                 errors.insuranceback && <p className={DocumentCSS.fielderror}>{errors.insuranceback.message}</p>
-//               }
-//      </div>
-     
-
-//      </div>
-  
-//     <div className={DocumentCSS.btnstye} >
-//     <button onClick={handleBackBtn} className={DocumentCSS.backbtn} type="button"> Back</button>
-//       {
-//         updateState ? 
-// <button className={DocumentCSS.Update} type="submit">Update</button> :
-//   <button  className={DocumentCSS.submitbtn} type="submit"> Next</button>
-//       }
-   
-     
-//      </div>
-//     </form>
-//   </div>
-   
-//     </>
-//   )
-// }
-import React, { useContext, useState } from 'react';
-import DocumentCSS from '../../style/Document.module.css';
-import { useForm } from 'react-hook-form';
-import { MyContext } from '../../utils/ContextApi';
+import React, { useContext, useState } from "react";
+import DocumentCSS from "../../style/Document.module.css";
+import { useForm } from "react-hook-form";
+import { MyContext } from "../../utils/ContextApi";
 
 export const DocumentInfo = ({ setStep, patientId }) => {
-  const [updateState, setUpdateState] = useState(false);
-  const [filePreviews, setFilePreviews] = useState({});
+  const [filePreviews, setFilePreviews] = useState(JSON.parse(localStorage.getItem('file_preview')) || {});
   const [fileData, setFileData] = useState({});
-  const [uploadStatus, setUploadStatus] = useState({}); // Track uploaded files
-  const [disabledInputs, setDisabledInputs] = useState({}); // Track disabled inputs
+  const [uploadStatus, setUploadStatus] = useState(JSON.parse(localStorage.getItem('upload_status'))  || {}); // Track uploaded files
+
   const contextData = useContext(MyContext);
 
   const {
@@ -196,29 +24,35 @@ export const DocumentInfo = ({ setStep, patientId }) => {
   };
 
   const handleBackBtn = () => {
-    setStep((prev) => prev - 1);
+    setStep((prev) => {
+      localStorage.setItem("step", prev - 1);
+      return prev - 1;
+    });
   };
 
   const handleUploadDocument = async (img) => {
     try {
       const formData = new FormData();
-      formData.append('file', fileData[img]);
-      formData.append('document_type', img);
-      formData.append('patient_id', patientId);
-
-      let response = await contextData.axiosInstance.post('/patient/upload', formData);
+      formData.append("file", fileData[img]);
+      formData.append("document_type", img);
+      formData.append("patient_id", patientId);
+      console.log("iD", patientId);
+      let response = await contextData.axiosInstance.post(
+        "/patient/upload",
+        formData
+      );
+      console.log("upload", response);
       console.log(response);
 
       if (response.data.status === 201) {
-        setUploadStatus((prev) => ({
-          ...prev,
-          [img]: true, // Mark as uploaded
-        }));
-
-        setDisabledInputs((prev) => ({
-          ...prev,
-          [img]: true, // Disable input field after upload
-        }));
+        setUploadStatus((prev) =>{
+          let obj = {
+            ...prev,
+            [img]: true,
+          }
+          localStorage.setItem('upload_status',JSON.stringify(obj));
+          return obj;
+        });
       }
     } catch (error) {
       console.log(error);
@@ -237,57 +71,82 @@ export const DocumentInfo = ({ setStep, patientId }) => {
     }));
 
     const fileURL = URL.createObjectURL(file);
-    setFilePreviews((prev) => ({
-      ...prev,
-      [name]: fileURL,
-    }));
+    setFilePreviews((prev) =>
+      {
+        let obj = {
+         ...prev,
+          [name]: fileURL,
+        }
+        localStorage.setItem('file_preview',JSON.stringify(obj));
+        return obj;
+      });
 
-    setUploadStatus((prev) => ({
-      ...prev,
-      [name]: false, // Reset upload status when a new file is selected
-    }));
+    setUploadStatus((prev) =>{
+      let obj = {
+        ...prev,
+        [name]: false,
+      }
+      localStorage.setItem('upload_status',JSON.stringify(obj));
+      return obj;
+    });
+  };
+  const handleUploadUpdateDocument = async (docType) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", fileData[docType]);
+      formData.append("document_type", docType);
+      formData.append("patient_id", patientId);
 
-    setDisabledInputs((prev) => ({
-      ...prev,
-      [name]: false, 
-    }));
+      let response = await contextData.axiosInstance.put(
+        "/patient/updateDocument",
+        formData
+      );
+      console.log("update", response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleDeleteFile = async(docType) => {
-    const formdata =  new FormData();
-    formdata.append('document_type', docType);
-    formdata.append('patient_id', patientId);
+  const handleDeleteFile = async (docType) => {
+    console.log("type", docType);
+    // const formData = {"document_type": docType, "patient_id": patientId}
+    const formData = new FormData();
+    formData.append("document_type", docType);
+    formData.append("patient_id", patientId);
+    console.log("id", patientId);
+
     try {
-        let response = await contextData.axiosInstance.delete('/patient/deleteDocument',formdata);
-        console.log(response);
-        // if(response.data.status === 200)
-        // {
-        //     setFileData((prev) => {
-        //         const updatedFiles = { ...prev };
-        //         delete updatedFiles[docType];
-        //         return updatedFiles;
-        //       });
-        //       setFilePreviews((prev) => {
-        //         const updatedPreviews = { ...prev };
-        //         delete updatedPreviews[docType];
-        //         return updatedPreviews;
-        //       });
-          
-        //       setUploadStatus((prev) => {
-        //         const updatedStatus = { ...prev };
-        //         delete updatedStatus[docType];
-        //         return updatedStatus;
-        //       });
-        //       setDisabledInputs((prev) => ({
-        //         ...prev,
-        //         [docType]: false, 
-        //       }));
-        // }
-       
+      console.log("skjdksj", formData);
+      let response = await contextData.axiosInstance.delete(
+        "/patient/deleteDocument",
+        {
+          data: formData,
+        }
+      );
+      console.log(response);
+      if (response.data.status === 200) {
+        setFileData((prev) => {
+          const updatedFiles = { ...prev };
+          delete updatedFiles[docType];
+          return updatedFiles;
+        });
+        setFilePreviews((prev) => {
+          const updatedPreviews = { ...prev };
+          delete updatedPreviews[docType];
+          localStorage.setItem('file_preview',JSON.stringify(updatedPreviews));
+          return updatedPreviews;
+        });
+
+        setUploadStatus((prev) => {
+          const updatedStatus = { ...prev };
+          delete updatedStatus[docType];
+          localStorage.setItem('upload_status',JSON.stringify(updatedStatus));
+          return updatedStatus;
+        });
+      }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-    
   };
 
   return (
@@ -295,68 +154,113 @@ export const DocumentInfo = ({ setStep, patientId }) => {
       <div className={DocumentCSS.container}>
         <h1 className={DocumentCSS.title}>Document Information</h1>
         <form onSubmit={handleSubmit(handleSubmitDocumentData)}>
-          <div style={{ display: 'flex', gap: '3rem', height: '45vh' }}>
-            {['AdharFront', 'Adharback', 'insurancefront', 'insuranceback'].map((docType) => (
-              <div key={docType} className={DocumentCSS.fieldcoverdiv}>
-                <label className={DocumentCSS.fieldlabel}>
-                  {docType.replace(/([A-Z])/g, ' $1')} <span className={DocumentCSS.star}>*</span>
-                </label>
-                <input
-                  className={DocumentCSS.inputfield}
-                  {...register(docType, { required: true })}
-                  onChange={handleFileChange}
-                  type="file"
-                  disabled={disabledInputs[docType]} // Disable after upload
-                />
+          <div style={{ display: "flex", gap: "3rem", height: "45vh" }}>
+            {["AdharFront", "Adharback", "insurancefront", "insuranceback"].map(
+              (docType) => (
+                <div key={docType} className={DocumentCSS.fieldcoverdiv}>
+                  <label className={DocumentCSS.fieldlabel}>
+                    {docType.replace(/([A-Z])/g, " $1")}{" "}
+                    <span className={DocumentCSS.star}>*</span>
+                  </label>
+                  <input
+                    className={DocumentCSS.inputfield}
+                    {...register(docType, { required: true })}
+                    onChange={handleFileChange}
+                    type="file"
+                    // Disable after upload
+                  />
 
-                {filePreviews[docType] && (
-                  <div className={DocumentCSS.previewContainer}>
-                    <img src={filePreviews[docType]} alt={docType} className={DocumentCSS.previewImage} />
-                    
-                    {/* Upload Button */}
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleUploadDocument(docType);
-                      }}
-                      className={DocumentCSS.uploadbtn}
-                      disabled={uploadStatus[docType]} // Disable button after upload
-                      style={uploadStatus[docType] ? { backgroundColor: 'lightgreen', cursor: 'not-allowed' } : {}}
-                    >
-                      {uploadStatus[docType] ? 'Uploaded' : 'Upload'}
-                    </button>
+                  {filePreviews[docType] && (
+                    <div className={DocumentCSS.previewContainer}>
+                      <img
+                        src={filePreviews[docType]}
+                        alt={docType}
+                        className={DocumentCSS.previewImage}
+                      />
 
-                    {/* Delete Button */}
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleDeleteFile(docType);
-                      }}
-                      className={DocumentCSS.deletebtn}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                )}
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        {uploadStatus[docType] ? (
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleUploadUpdateDocument(docType);
+                            }}
+                            className={DocumentCSS.uploadbtn}
+                            style={
+                              uploadStatus[docType]
+                                ? {
+                                    backgroundColor: "#ddd",
+                                    color: "black",
+                                  }
+                                : {
+                                    backgroundColor: "#D9534F",
+                                    color: "white",
+                                  }
+                            }
+                          >
+                            Update
+                          </button>
+                        ) : (
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleUploadDocument(docType);
+                            }}
+                            className={DocumentCSS.uploadbtn}
+                          >
+                            Upload
+                          </button>
+                        )}
 
-                {errors[docType] && <p className={DocumentCSS.fielderror}>{errors[docType].message}</p>}
-              </div>
-            ))}
+                        <button
+                          style={
+                            uploadStatus[docType]
+                              ? { display: "flex" }
+                              : { display: "none" }
+                          }
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleDeleteFile(docType);
+                          }}
+                          className={DocumentCSS.deletebtn}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {errors[docType] && (
+                    <p className={DocumentCSS.fielderror}>
+                      {errors[docType].message}
+                    </p>
+                  )}
+                </div>
+              )
+            )}
           </div>
 
           <div className={DocumentCSS.btnstye}>
-            <button onClick={handleBackBtn} className={DocumentCSS.backbtn} type="button">
+            <button
+              onClick={handleBackBtn}
+              className={DocumentCSS.backbtn}
+              type="button"
+            >
               Back
             </button>
-            {updateState ? (
-              <button className={DocumentCSS.Update} type="submit">
-                Update
-              </button>
-            ) : (
-              <button className={DocumentCSS.submitbtn} type="submit">
-                Next
-              </button>
-            )}
+
+            <button
+              onClick={() => {
+                setStep((prev) => {
+                  localStorage.setItem("step", prev + 1);
+                  return prev + 1;
+                });
+              }}
+              className={DocumentCSS.submitbtn}
+              type="submit"
+            >
+              Next
+            </button>
           </div>
         </form>
       </div>

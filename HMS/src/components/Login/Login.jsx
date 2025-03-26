@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import { MyContext } from "../../utils/ContextApi";
 import { toast } from "react-toastify";
+import { AuthContext, AuthProtected } from "../../utils/AuthProtected";
 
 export const Login = () => {
   const navigate =  useNavigate();
@@ -16,6 +17,7 @@ export const Login = () => {
     trigger,
     formState: { errors },
   } = useForm();
+  const AuthContextApi = useContext(AuthContext);
    const  contextData = useContext(MyContext);
   const responseMessage = (response) => {
     console.log(response);
@@ -24,21 +26,38 @@ export const Login = () => {
     
     try {
       let response =  await contextData.axiosInstance.post('/user/login',data);
-     if(response.status === 200)
+      console.log(response);
+     if(response?.data?.message)
      {
-      if(response.data.isAdmin === true)
-      {
-        contextData.setIsAdmin(()=>{
-          localStorage.setItem('isAdmin',true);
-          return true;
-        })
-      }
       contextData.setToken(()=>{
         localStorage.setItem('token',response.data.token);
         return response.data.token;
       })
-      navigate('/user/dashboard/profile')
-      toast.success('Login successful! Redirecting to dashboard...', { position: 'top-right' });
+
+      if(response.data.admin_message === 1)
+      {
+        contextData.setIsAdmin(()=>{
+          localStorage.setItem('isAdmin',1);
+          return 1;
+        })
+        AuthContextApi.setIsAdmin(()=> 1);
+        navigate('/admin/dashboard')
+        toast.success('Login successful! Redirecting to admin dashboard...', { position: 'top-right' });
+        return;
+      }
+      else{
+        contextData.setIsAdmin(()=>{
+          localStorage.setItem('isAdmin',0);
+          return 1;
+        })
+        AuthContextApi.setIsAdmin(()=> 0);
+        
+        navigate('/user/dashboard/profile');
+        toast.success('Login successful! Redirecting to dashboard...', { position: 'top-right' });
+      }
+
+      
+      
      }
      
     } catch (error) {
@@ -50,12 +69,12 @@ export const Login = () => {
     console.log(error);
   };
   const submitLoginData = (data) => {
-    // Use a strong key
+  
     const textToEncrypt = "Hello, World!";
     const encryptedData = CryptoJS.AES.encrypt(textToEncrypt,contextData.secretKey).toString();
     console.log(encryptedData);
 
-    // handleSubmitLoginData({...data,['user_password']:encryptedData});
+
     handleSubmitLoginData(data);
   };
   return (

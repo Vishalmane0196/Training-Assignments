@@ -7,7 +7,7 @@ export const UserMain = () => {
     const navigate  =  useNavigate();
     const darkRef =  useRef();
     const contextData =useContext(MyContext);
-  
+    
     useEffect(()=>{
       if(contextData.isDark){
         darkRef.current.style.backgroundColor = '#161b22';
@@ -18,6 +18,16 @@ export const UserMain = () => {
           darkRef.current.style.color = '#161b22';
       }
     },[contextData.isDark])
+
+    
+      useEffect(()=>{
+        const getuserInfo =async() =>{
+            let response = await contextData.axiosInstance.get('user/getUser');
+            contextData.setUserInfo({...response.data.data[0]});
+        }
+        getuserInfo();
+      },[])
+   
   return (
     <>
     
@@ -27,7 +37,7 @@ export const UserMain = () => {
                <div className={UserDashboardCSS.profilediv}>
                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"className={UserDashboardCSS.avatar} alt="User Profile"/>
                 <div>
-                    <h2>Vishalmane0196</h2>
+                    <h2>{contextData.userInfo?.first_name}</h2>
                     <p>Your personal account</p>
                 </div>
                </div>
