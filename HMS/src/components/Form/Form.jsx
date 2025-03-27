@@ -7,7 +7,7 @@ import { DiseaseInfo } from "./DiseaseInfo";
 import { Final } from "./Final";
 export const Form = () => {
   const [step, setStep] = useState(parseInt (localStorage.getItem("step")) || 0);
-  const [patientId, setPatientId] = useState(((localStorage.getItem('patientId')) ||null));
+  const [patientId, setPatientId] = useState(((localStorage.getItem('patientId')) || null));
   const handleMultiStepForm = (step) => {
     switch (step) {
       case 0:
@@ -25,7 +25,7 @@ export const Form = () => {
       case 3:
         return <DocumentInfo patientId={patientId} setStep={setStep} />;
         case 4 :
-          return <Final />;
+          return <Final setStep={setStep} setPatientId={setPatientId}/>;
       case 5:
       default:
         return null;

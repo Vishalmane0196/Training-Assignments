@@ -12,7 +12,14 @@ export const Edit = ({editProfile,setEditProfile}) => {
       handleSubmit,
       trigger,
       formState: { errors },
-    } = useForm();
+    } = useForm({
+      defaultValues: {
+        email: Contextdata.userInfo.email,
+        first_name: Contextdata.userInfo.first_name,
+        last_name: Contextdata.userInfo.last_name,
+        mobile_number : Contextdata.userInfo.mobile_number
+      },
+    });
     
     const sendDataToUpdate = async(data)=>{
         try {

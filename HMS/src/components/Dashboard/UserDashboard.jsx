@@ -6,10 +6,7 @@ import { Link, NavLink, Outlet }from 'react-router-dom';
 import { UserPatientTable } from '../Table/UserPatientTable';
 import { MyContext } from '../../utils/ContextApi';
 export const UserDashboard = () => {
- 
-
-
-  
+    
   return (
     <>  
        <UserNavbar/>
@@ -21,7 +18,7 @@ export const UserDashboard = () => {
              
                <li>
                  <NavLink
-                 to='/user/dashboard/profile'
+                 to='/admin/dashboard/profile'
                  className={({isActive})=>{
                   return isActive?UserDashboardCSS.active : UserDashboardCSS.linktext
                  }}>

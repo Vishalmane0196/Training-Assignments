@@ -2,7 +2,8 @@ import React, { useContext } from 'react'
 import SettingCSS from '../../../style/Setting.module.css'
 import { MyContext } from '../../../utils/ContextApi'
 import { useNavigate } from 'react-router-dom'
-export const DeletePopUp = ({setDeleteState}) => {
+import { toast } from 'react-toastify'
+export const DeletePopUp = ({deleteState,setDeleteState}) => {
    const navigate =  useNavigate();
     const contextData =  useContext(MyContext);
     
@@ -15,18 +16,24 @@ export const DeletePopUp = ({setDeleteState}) => {
               contextData.setToken(null);
               contextData.setIsAdmin(false);
               navigate('/account/user/login');
+              toast.success('Account deleted successfully! Redirecting to login...', { position: 'top-right' });
         } catch (error) {
-            console.log(error)
-        }
-        console.log('Deleting account...');
-
-        
+            
+            toast.error(`Failed to delete account : ${error.response.data.message}`);
+            
+        } 
     }
 
   return (
     <>
-        <div className={SettingCSS.overlay}>
-            <div className={SettingCSS.popup}>
+        
+          {deleteState && (
+                        <div className={SettingCSS.modal} onClick={() => setDeleteState(false)}>
+                            <div className={SettingCSS.modalContent} onClick={(e) => e.stopPropagation()}>
+                                <span className={SettingCSS.close} onClick={() => setDeleteState(false)}>
+                                    &times;
+                                </span>
+                                <div className={SettingCSS.popup}>
                 <h2 className={SettingCSS.popuph2}>Delete Account</h2>
                 <p className={SettingCSS.popuph2}>Are you sure you want to delete?</p>
                 <div className={SettingCSS.btncontainer}>
@@ -36,7 +43,9 @@ export const DeletePopUp = ({setDeleteState}) => {
                     <button onClick={handleDeleteAccount} className={SettingCSS.deletebtn}>Delete Account</button>
                 </div>
             </div>
-        </div>
+                            </div>
+                        </div>
+                    )}
     </>
   )
 }

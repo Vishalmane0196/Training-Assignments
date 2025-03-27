@@ -4,12 +4,13 @@ import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { MyContext } from "../../utils/ContextApi";
 import { toast } from "react-toastify";
+import { useRef } from "react";
 
 export const ViewPatient = () => {
   const param = useParams();
   const contextData = useContext(MyContext);
   const [patientData, setPatientdat] = useState();
-
+  const inputfield = useRef()
   const [personalUpdate, setPersonalUpdate] = useState(false);
   const [FamilyUpdate, setFamily] = useState(false);
   const [DiseaseUpdate, setDiseaseUpdate] = useState(false);
@@ -57,7 +58,7 @@ export const ViewPatient = () => {
     const file = e.target.files[0]; // Get the selected file
     setSelectedFiles((prev) => ({
       ...prev,
-      [docType]: file, // Store file for specific document type
+      [docType]: file, 
     }));
   };
   const handlePatientData = () => {
@@ -70,6 +71,7 @@ export const ViewPatient = () => {
     setDiseaseUpdate((pre) => !pre);
   };
   const handleDocumentData = () => {
+   
     setDocumentUpdate((pre) => !pre);
   };
   //------------------
@@ -153,19 +155,19 @@ export const ViewPatient = () => {
       const formData = new FormData();
       formData.append("file", selectedFiles[data]);
       formData.append("document_type", data);
-      formData.append("patient_id",patientData.patient_id );
+      formData.append("patient_id",patientData.patient_id);
      
       let response = await contextData.axiosInstance.put(
         "/patient/updateDocument",
         formData
       );
-      console.log("update",response);
+      console.log("update",response)
 
-        
-         
            response = await contextData.axiosInstance.get('/patient/getPatientInfo');
           contextData.setAllPatients(response.data.data);
           setDocumentUpdate(false);
+          setSelectedFiles({});
+          inputfield.current.file[0] = null;
         
     } catch (error) {
       console.log(error);
@@ -721,21 +723,26 @@ export const ViewPatient = () => {
             <div
               style={{ display: "flex", gap: "3rem", flexDirection: "column" }}
             >
+              {
+                console.log(documents)
+              }
               {documents.map((obj, key) => (
                 <div key={key} className={ViewPatientCSS.fieldcoverdiv}>
                   <label className={ViewPatientCSS.fieldlabel}>
                     {obj.document_type}
                     <span className={ViewPatientCSS.star}>*</span>
                   </label>
-                  <input
+                  <input 
+                  ref={inputfield}
                     disabled={DocumentUpdate ? false : true}
-                    className={ViewPatientCSS.inputfield}
-                    {...register(obj.document_type)}
+                    className={ViewPatientCSS.inputfield}      
                     type="file"
+                    name={obj.document_type}
                     onChange={(e) => handleFileChange(e, obj.document_type)}
                   />
                   <button
-                    disabled={!selectedFiles[obj.document_type]}
+                    disabled={!selectedFiles[obj.document_type] }
+                    
                     onClick={() => {
                       handleUpdateDocumentData(obj.document_type);
                     }}

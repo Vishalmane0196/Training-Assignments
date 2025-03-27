@@ -4,7 +4,10 @@ export const MultiStepForm = () => {
   
   return (
     <>
+     <div style={{width:"100%"}}>
       <Form/>
+
+     </div>
     </>
   )
 }

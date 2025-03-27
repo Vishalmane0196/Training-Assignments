@@ -1,17 +1,23 @@
-import React, { useContext, useState } from 'react'
+import React, {  useState } from 'react'
 import SettingCSS from '../../style/Setting.module.css'
 import { DeletePopUp } from './Delete/DeletePopUp';
 import { MyContext } from '../../utils/ContextApi';
 import {Edit} from '../Setting/Edit/Edit.jsx'
 
-export const Setting = () => {
+export const AdminSetting = () => {
     const [deleteState, setDeleteState] = useState(false);
     const [editProfile,setEditProfile] = useState(false);
-    const contextData = useContext(MyContext);
+    
   return (
     <>
     <div className={SettingCSS.container}>
-        <div>
+       <div >
+        <div className={SettingCSS.vertivcalLine}></div>
+        <h3 className={SettingCSS.h3headerse}>
+            Admin Settings
+        </h3>
+       </div>
+        <div className={SettingCSS.featurecover}>
         <h3 className={SettingCSS.h3header}>
             Change personal info
         </h3>
@@ -27,25 +33,22 @@ export const Setting = () => {
         </div>
 
        {/* Theme Toggle */}
-       <div>
-                <h3 className={SettingCSS.h3header}>Theme</h3>
+       <div className={SettingCSS.featurecover}>
+                <h3 className={SettingCSS.h3header}>Add or remove admin</h3>
                 <div className={SettingCSS.line}></div>
                 <p className={SettingCSS.p3tag}>Choose between light and dark mode.</p>
-                <label className={SettingCSS.switch}>
-                    <input 
-                        type="checkbox" 
-                        checked={contextData.isDark} 
-                        onChange={() => contextData.setIsDark(!contextData.isDark)} 
-                    />
-                    <span className={SettingCSS.slider}></span>
-                </label>
-                <span className={contextData.isDark ? SettingCSS.themeTextb : SettingCSS.themeText}>
-                    {contextData.isDark ? "Dark Mode" : "Light Mode"}
-                </span>
+               <div className={SettingCSS.inputbtncover}>
+               <input type="text" className={SettingCSS.adminmailinput} placeholder='Enter Mail'/>
+                <div className={SettingCSS.butcover}>
+                  <button className={SettingCSS.addmainbtn}>Add</button>
+                  <button className={SettingCSS.delmail}>Remove</button>
+                </div>
+               </div>
+                
             </div>
 
 
-        <div>
+        <div className={SettingCSS.featurecover}>
         <h3  className={SettingCSS.h3head} >
             Delete Account
         </h3>

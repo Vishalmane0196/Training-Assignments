@@ -4,3 +4,7 @@
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&family=Material+Symbols+Rounded&family=Material+Symbols+Sharp&display=swap");
+
+#root{
+    height: 100vh;
+}

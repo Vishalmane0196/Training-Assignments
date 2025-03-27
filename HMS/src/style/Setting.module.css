@@ -6,7 +6,8 @@
 .container {
     width: 100%;
     border-radius: 15px;
-  
+    padding: 2rem;
+
     position: relative;
 }
 
@@ -15,7 +16,7 @@
     margin: 0;
     font-size: 24px;
     margin-bottom: 10px;
-    font-weight: 500;
+    font-weight: 400;
 }
 .editbtn{
     background-color: #238636;
@@ -25,7 +26,7 @@
     border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
-    margin-bottom: 1rem;
+   
 }
 .editbtn:hover{
     background-color: #4caf50;
@@ -179,4 +180,100 @@ input:checked + .slider::before {
     font-weight: bold;
     
     color: rgb(255, 255, 255);
+}
+.h3headerse{
+    margin: 0;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+.featurecover{
+    margin-bottom: 2rem;
+}
+.butcover{
+    display: flex;
+    gap: 1rem;
+}
+.inputbtncover{
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+}
+.adminmailinput{
+    outline: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.adminmailinput:hover{
+
+    box-shadow: 0 0 0 4px rgba(234, 100, 217, 0.1);
+  }
+  .adminmailinput:focus{
+    outline: none;
+    border: 1px solid rgba(234, 100, 216, 0.438);;
+  }
+  .addmainbtn{
+background-color: transparent;
+    color: rgb(65, 57, 57);
+    border: 1px solid #ddd;
+    padding: 0.6rem 2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all ease-in-out 0.5s;
+  }
+  .delmail{
+    background-color: transparent;
+    color: rgb(64, 60, 60);
+    border: 1px solid #ddd;
+    padding: 0.6rem 2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all ease-in-out 0.1s;
+    
+  }
+  .addmainbtn:hover
+  {
+    background-color: #1b8b40;
+    color: white;
+   
+  }
+  .delmail:hover
+  {
+    background-color: #f77137;
+    color: white;
+   
+  }
+  .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalContent {
+    background-color: #1e1e1e;
+    color: white;
+   
+    border-radius: 8px;
+  
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
 }

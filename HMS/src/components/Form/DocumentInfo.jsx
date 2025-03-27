@@ -81,14 +81,7 @@ export const DocumentInfo = ({ setStep, patientId }) => {
         return obj;
       });
 
-    setUploadStatus((prev) =>{
-      let obj = {
-        ...prev,
-        [name]: false,
-      }
-      localStorage.setItem('upload_status',JSON.stringify(obj));
-      return obj;
-    });
+    
   };
   const handleUploadUpdateDocument = async (docType) => {
     try {
@@ -109,14 +102,13 @@ export const DocumentInfo = ({ setStep, patientId }) => {
 
   const handleDeleteFile = async (docType) => {
     console.log("type", docType);
-    // const formData = {"document_type": docType, "patient_id": patientId}
     const formData = new FormData();
     formData.append("document_type", docType);
     formData.append("patient_id", patientId);
     console.log("id", patientId);
 
     try {
-      console.log("skjdksj", formData);
+      
       let response = await contextData.axiosInstance.delete(
         "/patient/deleteDocument",
         {
@@ -167,6 +159,7 @@ export const DocumentInfo = ({ setStep, patientId }) => {
                     {...register(docType, { required: true })}
                     onChange={handleFileChange}
                     type="file"
+                    name={docType}
                     // Disable after upload
                   />
 
@@ -253,6 +246,7 @@ export const DocumentInfo = ({ setStep, patientId }) => {
               onClick={() => {
                 setStep((prev) => {
                   localStorage.setItem("step", prev + 1);
+                  localStorage.removeItem('patientId');
                   return prev + 1;
                 });
               }}

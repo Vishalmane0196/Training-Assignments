@@ -21,6 +21,9 @@ import { MultiStepForm } from "./components/MultiStepForm/MultiStepForm.jsx";
 import { UserMain } from "./components/UserMain/UserMain.jsx";
 import { ViewPatient } from "./components/ViewPatient/ViewPatient.jsx";
 import { LandingPage } from "./components/LandingPage/LandingPage.jsx";
+import { Summary } from "./components/Summary/Summary.jsx";
+import { AdminSetting } from "./components/Setting/AdminSetting.jsx";
+import { AdminProgile } from "./components/Profile/AdminProgile.jsx";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -44,55 +47,77 @@ function App() {
     },
     {
       path: "/user/dashboard",
-      element: <ProtectedRoute isAdmin={0}> <UserDashboard /> </ProtectedRoute> ,
-      children:[
-        {       
-                path:"",
-                element: <UserMain />,
-                children:[
-                  {
-                    path: "/user/dashboard/profile",
-                    element: <UserProfile />,
-                  },
-                  {
-                    path: "/user/dashboard/viewpatients",
-                    element: <UserPatientTable />,
-                  },
-                  {
-                    path: "/user/dashboard/viewpatients/patientdetails/:id",
-                    element: <ViewPatient />,
-                  },
-                  {
-                    path: "/user/dashboard/setting",
-                    element: <Setting />,
-                    children: [
-                      {
-                        path: "/user/dashboard/setting/deleteaccount",
-                        element: <DeletePopUp />,
-                      },
-                    ],
-                  }
-                 
-                ]
-               }
-               ,{
-                path: "/user/dashboard/addpatient",
-                element: <MultiStepForm />,
-               }
-          
-        
-      ]
-      
+      element: (
+        <ProtectedRoute isAdmin={0}>
+          {" "}
+          <UserDashboard />{" "}
+        </ProtectedRoute>
+      ),
+      children: [
+        {
+          path: "",
+          element: <UserMain />,
+          children: [
+            {
+              path: "/user/dashboard/profile",
+              element: <UserProfile />,
+            },
+            {
+              path: "/user/dashboard/viewpatients",
+              element: <UserPatientTable />,
+            },
+            {
+              path: "/user/dashboard/viewpatients/patientdetails/:id",
+              element: <ViewPatient />,
+            },
+            {
+              path: "/user/dashboard/setting",
+              element: <Setting />,
+              children: [
+                {
+                  path: "/user/dashboard/setting/deleteaccount",
+                  element: <DeletePopUp />,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          path: "/user/dashboard/addpatient",
+          element: <MultiStepForm />,
+        },
+      ],
     },
     {
       path: "/admin/dashboard",
-      element:<ProtectedRoute isAdmin={1}> <Dashboard/> </ProtectedRoute>,
-      children:[
-            {
-              path: "/admin/dashboard/profile",
-              element:<h1>Hello Iam admin </h1>
-            }
-      ]
+      element: (
+        <ProtectedRoute isAdmin={1}>
+          {" "}
+          <Dashboard />{" "}
+        </ProtectedRoute>
+      ),
+      children: [
+        {
+          path: "/admin/dashboard/profile",
+          element: <AdminProgile />,
+        },
+        {
+          path: "/admin/dashboard/setting",
+          element: <AdminSetting />,
+        },
+        {
+          path: "/admin/dashboard/allpatients",
+          element: <Summary />,
+        },
+        {
+          path: "/admin/dashboard/addpatient",
+          element: <MultiStepForm />,
+        },
+        {
+          path: "/admin/dashboard/mypatients",
+          element: <h1>Here will be patient </h1>,
+        },
+      ],
     },
     {
       path: "/account",
