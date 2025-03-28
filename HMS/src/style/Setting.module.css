@@ -6,8 +6,8 @@
 .container {
     width: 100%;
     border-radius: 15px;
-    padding: 2rem;
-
+    padding-left: 1rem;
+     
     position: relative;
 }
 
@@ -276,4 +276,8 @@ background-color: transparent;
     top: 10px;
     font-size: 24px;
     cursor: pointer;
+}
+
+.containercover{
+    padding: 2rem;
 }

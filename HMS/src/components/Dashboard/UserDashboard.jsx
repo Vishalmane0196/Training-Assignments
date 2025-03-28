@@ -18,7 +18,7 @@ export const UserDashboard = () => {
              
                <li>
                  <NavLink
-                 to='/admin/dashboard/profile'
+                 to='/user/dashboard/profile'
                  className={({isActive})=>{
                   return isActive?UserDashboardCSS.active : UserDashboardCSS.linktext
                  }}>
@@ -48,7 +48,10 @@ export const UserDashboard = () => {
         </aside>
 
         {/* <!-- Main Content --> */}
+        <div className={UserDashboardCSS.outletcontainer}>
         <Outlet/>
+        </div>
+      
     </div>
     </>
   )

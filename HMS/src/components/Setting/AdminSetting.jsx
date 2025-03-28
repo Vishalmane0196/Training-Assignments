@@ -10,7 +10,8 @@ export const AdminSetting = () => {
     
   return (
     <>
-    <div className={SettingCSS.container}>
+      <div className={SettingCSS.containercover}>
+      <div className={SettingCSS.container}>
        <div >
         <div className={SettingCSS.vertivcalLine}></div>
         <h3 className={SettingCSS.h3headerse}>
@@ -66,6 +67,7 @@ export const AdminSetting = () => {
       {editProfile && <Edit editProfile={editProfile} setEditProfile={setEditProfile} />}
       {deleteState  && <DeletePopUp deleteState={deleteState} setDeleteState ={setDeleteState}/>}
     </div>
+      </div>
 
     </>
   )

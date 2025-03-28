@@ -7,7 +7,7 @@
 
 /* Sidebar */
 .sidebar {
-    width: 250px;
+    width: 22%;
     background-color: #161b22;
     padding: 20px;
     
@@ -48,7 +48,7 @@
 /* Main Content */
 .content {
     flex: 1;
-    padding: 30px;
+    padding: 18px;
 }
 
 /* Profile Section */
@@ -152,4 +152,8 @@
         background-color: rgba(128, 128, 128, 0.242);
         border-radius: 5px;
         
+    }
+    .outletcontainer{
+        width: 78%;
+        height: 90vh;
     }

@@ -11,7 +11,7 @@ export const Setting = () => {
   return (
     <>
     <div className={SettingCSS.container}>
-        <div>
+        <div className={SettingCSS.featurecover} >
         <h3 className={SettingCSS.h3header}>
             Change personal info
         </h3>
@@ -27,7 +27,7 @@ export const Setting = () => {
         </div>
 
        {/* Theme Toggle */}
-       <div>
+       <div  className={SettingCSS.featurecover} >
                 <h3 className={SettingCSS.h3header}>Theme</h3>
                 <div className={SettingCSS.line}></div>
                 <p className={SettingCSS.p3tag}>Choose between light and dark mode.</p>
@@ -45,7 +45,7 @@ export const Setting = () => {
             </div>
 
 
-        <div>
+        <div  className={SettingCSS.featurecover} >
         <h3  className={SettingCSS.h3head} >
             Delete Account
         </h3>
