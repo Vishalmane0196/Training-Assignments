@@ -1,13 +1,46 @@
-import React, {  useState } from 'react'
+import React, {  useContext, useRef, useState } from 'react'
 import SettingCSS from '../../style/Setting.module.css'
 import { DeletePopUp } from './Delete/DeletePopUp';
 import { MyContext } from '../../utils/ContextApi';
 import {Edit} from '../Setting/Edit/Edit.jsx'
+import { toast } from 'react-toastify';
 
 export const AdminSetting = () => {
     const [deleteState, setDeleteState] = useState(false);
     const [editProfile,setEditProfile] = useState(false);
-    
+   const mailRef =  useRef(null);
+   const contextApi = useContext(MyContext);
+    const handleAdminEmail = async(type) =>{
+           if(mailRef.current.value == '')
+           {
+            toast.error('Please enter email address');
+            return;
+           }
+         try {
+             if(type == 'edit')
+             {
+                let reponse = await contextApi.axiosInstance.put('/user/addAdmin',{
+                  email:mailRef.current.value
+                })
+                reponse.data.status == 200 ? toast.success("Admin added") : null;
+
+             }
+             else
+             {
+               let reponse = await contextApi.axiosInstance.put('/user/removeAdmin',{
+                  email:mailRef.current.value
+                })
+                reponse.data.status == 200 ? toast.success("Admin deleted") : null;
+               
+             }
+           
+
+             
+         } catch (error) {
+          console.log(error);
+          toast.error(error.response.data.message);
+         }
+    }
   return (
     <>
       <div className={SettingCSS.containercover}>
@@ -39,10 +72,10 @@ export const AdminSetting = () => {
                 <div className={SettingCSS.line}></div>
                 <p className={SettingCSS.p3tag}>Choose between light and dark mode.</p>
                <div className={SettingCSS.inputbtncover}>
-               <input type="text" className={SettingCSS.adminmailinput} placeholder='Enter Mail'/>
+               <input type="text" ref={mailRef} className={SettingCSS.adminmailinput} placeholder='Enter Mail'/>
                 <div className={SettingCSS.butcover}>
-                  <button className={SettingCSS.addmainbtn}>Add</button>
-                  <button className={SettingCSS.delmail}>Remove</button>
+                  <button onClick={()=>handleAdminEmail('edit')} className={SettingCSS.addmainbtn}>Add</button>
+                  <button onClick={()=>handleAdminEmail('delete')} className={SettingCSS.delmail}>Remove</button>
                 </div>
                </div>
                 

@@ -24,6 +24,7 @@ import { LandingPage } from "./components/LandingPage/LandingPage.jsx";
 import { Summary } from "./components/Summary/Summary.jsx";
 import { AdminSetting } from "./components/Setting/AdminSetting.jsx";
 import { AdminProgile } from "./components/Profile/AdminProgile.jsx";
+import { Allpatient } from "./components/AllPatient/Allpatient.jsx";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -108,6 +109,17 @@ function App() {
         {
           path: "/admin/dashboard/allpatients",
           element: <Summary />,
+        },
+        {
+              path: "/admin/dashboard/allpatients/patientdetails/:id",
+              element: <Allpatient />,
+           children:[
+            {
+              path:'',
+              element:<ViewPatient />
+            }
+           ]   
+
         },
         {
           path: "/admin/dashboard/addpatient",

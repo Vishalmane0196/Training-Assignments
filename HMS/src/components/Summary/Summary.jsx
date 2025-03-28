@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import styles from "../../style/Summary.module.css"; // Ensure this contains the pagination styles
 import { MyContext } from "../../utils/ContextApi";
+import { useNavigate } from "react-router-dom";
 
 export const Summary = () => {
   const ContextApi = useContext(MyContext);
@@ -9,7 +10,8 @@ export const Summary = () => {
   const [patients, setAllPatients] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1); // Default 1 page
-  const itemsPerPage = 5;
+  const itemsPerPage = 4;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,8 +20,13 @@ export const Summary = () => {
           `/patient/getAllInfo?page=${currentPage}&limit=${itemsPerPage}`
         );
 
-        setAllPatients(patientResponse.data.data || []);
-        setTotalPages(patientResponse.data.totalPages || 1);
+        console.log(patientResponse.data.data);
+        console.log(patientResponse.data.totalPages);
+        
+       
+        setAllPatients(patientResponse?.data?.data || []);
+        ContextApi.setAllPatients(patientResponse?.data?.data);
+        setTotalPages((patientResponse?.data?.pagination?.totalPatients/4) || 1);
 
         const summaryResponse = await ContextApi.axiosInstance.get(
           "/patient/getAgeGroup"
@@ -36,6 +43,9 @@ export const Summary = () => {
   const handlePageClick = (data) => {
     setCurrentPage(data.selected + 1);
   };
+  const handleviewpage = (id) =>{
+    navigate(`/admin/dashboard/allpatients/patientdetails/${id}`)
+  }
 
   return (
     <div className={styles.dashboard}>
@@ -79,8 +89,8 @@ export const Summary = () => {
                       <td>{obj.mobile_number}</td>
                       <td>
                         <div className={styles.icondiv}>
-                          <i className="fa-solid fa-eye"></i>
-                          <i className="fa-solid fa-trash"></i>
+                          <i onClick={()=>handleviewpage(obj.patient_id)} className="fa-solid fa-eye"></i>
+                          <i onClick={()=>handledletepatient(obj.patient_id)} className="fa-solid fa-trash"></i>
                         </div>
                       </td>
                     </tr>
@@ -98,7 +108,7 @@ export const Summary = () => {
           breakLabel={"..."}
           pageCount={totalPages}
           marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={4}
           onPageChange={handlePageClick}
           containerClassName={styles.pagination}
           pageClassName={styles.pageItem}
