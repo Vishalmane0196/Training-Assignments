@@ -2,11 +2,12 @@ import React, { useContext, useState } from "react";
 import DocumentCSS from "../../style/Document.module.css";
 import { useForm } from "react-hook-form";
 import { MyContext } from "../../utils/ContextApi";
+import { toast } from "react-toastify";
 
 export const DocumentInfo = ({ setStep, patientId }) => {
   const [filePreviews, setFilePreviews] = useState(JSON.parse(localStorage.getItem('file_preview')) || {});
   const [fileData, setFileData] = useState({});
-  const [uploadStatus, setUploadStatus] = useState(JSON.parse(localStorage.getItem('upload_status'))  || {}); // Track uploaded files
+  const [uploadStatus, setUploadStatus] = useState(JSON.parse(localStorage.getItem('upload_status'))  || {}); 
 
   const contextData = useContext(MyContext);
 
@@ -54,8 +55,10 @@ export const DocumentInfo = ({ setStep, patientId }) => {
           return obj;
         });
       }
+      toast.success('file uploaded successfully')
     } catch (error) {
       console.log(error);
+      toast.error('Error uploading file')
     }
   };
 
@@ -95,8 +98,10 @@ export const DocumentInfo = ({ setStep, patientId }) => {
         formData
       );
       console.log("update", response);
+      toast.success('file Updated successfully')
     } catch (error) {
       console.log(error);
+      toast.error('error updating file')
     }
   };
 
@@ -136,8 +141,10 @@ export const DocumentInfo = ({ setStep, patientId }) => {
           return updatedStatus;
         });
       }
+      toast.success('file deleted successfully')
     } catch (error) {
       console.log(error);
+      toast.error(`error deleting file ${error.response.data.message}`)
     }
   };
 

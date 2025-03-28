@@ -70,7 +70,7 @@ export const AdminSetting = () => {
        <div className={SettingCSS.featurecover}>
                 <h3 className={SettingCSS.h3header}>Add or remove admin</h3>
                 <div className={SettingCSS.line}></div>
-                <p className={SettingCSS.p3tag}>Choose between light and dark mode.</p>
+                <p className={SettingCSS.p3tag}>To add or remove an admin, enter the user's email  here.</p>
                <div className={SettingCSS.inputbtncover}>
                <input type="text" ref={mailRef} className={SettingCSS.adminmailinput} placeholder='Enter Mail'/>
                 <div className={SettingCSS.butcover}>

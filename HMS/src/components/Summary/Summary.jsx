@@ -13,30 +13,30 @@ export const Summary = () => {
   const itemsPerPage = 4;
   const navigate = useNavigate();
 
+  const fetchData = async () => {
+    try {
+      const patientResponse = await ContextApi.axiosInstance.get(
+        `/patient/getAllInfo?page=${currentPage}&limit=${itemsPerPage}`
+      );
+
+      console.log(patientResponse.data.data);
+      console.log(patientResponse.data.totalPages);
+      
+     
+      setAllPatients(patientResponse?.data?.data || []);
+      ContextApi.setAllPatients(patientResponse?.data?.data);
+      setTotalPages((patientResponse?.data?.pagination?.totalPatients/4) || 1);
+
+      const summaryResponse = await ContextApi.axiosInstance.get(
+        "/patient/getAgeGroup"
+      );
+      setDetails(summaryResponse.data.data || {});
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const patientResponse = await ContextApi.axiosInstance.get(
-          `/patient/getAllInfo?page=${currentPage}&limit=${itemsPerPage}`
-        );
-
-        console.log(patientResponse.data.data);
-        console.log(patientResponse.data.totalPages);
-        
-       
-        setAllPatients(patientResponse?.data?.data || []);
-        ContextApi.setAllPatients(patientResponse?.data?.data);
-        setTotalPages((patientResponse?.data?.pagination?.totalPatients/4) || 1);
-
-        const summaryResponse = await ContextApi.axiosInstance.get(
-          "/patient/getAgeGroup"
-        );
-        setDetails(summaryResponse.data.data || {});
-      } catch (error) {
-        console.log("Error fetching data:", error);
-      }
-    };
-
     fetchData();
   }, [currentPage]);
 
@@ -46,7 +46,16 @@ export const Summary = () => {
   const handleviewpage = (id) =>{
     navigate(`/admin/dashboard/allpatients/patientdetails/${id}`)
   }
+const handledletepatient = async(id) =>{
+    try {
+      let response = await ContextApi.axiosInstance.delete(`/patient/adminDeletePatientData?patient_id=${id}`);
 
+      console.log(response);
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+}
   return (
     <div className={styles.dashboard}>
       <div>
@@ -69,7 +78,7 @@ export const Summary = () => {
                   <th>Patient ID</th>
                   <th>Patient Name</th>
                   <th>Disease Type</th>
-                  <th>Mobile</th>
+                  <th>Age</th>
                   <th>View</th>
                 </tr>
               </thead>
@@ -86,7 +95,7 @@ export const Summary = () => {
                       <td>{obj.patient_id}</td>
                       <td>{obj.patient_name}</td>
                       <td>{obj.disease_type}</td>
-                      <td>{obj.mobile_number}</td>
+                      <td>{obj.age}</td>
                       <td>
                         <div className={styles.icondiv}>
                           <i onClick={()=>handleviewpage(obj.patient_id)} className="fa-solid fa-eye"></i>
