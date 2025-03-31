@@ -41,7 +41,7 @@ export const Login = () => {
           return 1;
         })
         AuthContextApi.setIsAdmin(()=> 1);
-        navigate('/admin/dashboard')
+        navigate('/admin/dashboard/allpatients')
         toast.success('Login successful! Redirecting to admin dashboard...', { position: 'top-right' });
         return;
       }

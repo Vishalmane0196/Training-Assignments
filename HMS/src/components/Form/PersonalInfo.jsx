@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 export const PersonalInfo = ({ setStep, setPatientId, patientId }) => {
   const contextdata = useContext(MyContext);
+  
   const [PersonalData, setPersonalData] = useState(null);
   const {
     register,

@@ -42,7 +42,7 @@ export const AdminPatient = () => {
             <p>Patient ID</p>
             <p>Patient Name</p>
             <p>Dieases Type</p>
-            <p>Mobile</p>
+            <p>Age</p>
             <p>View</p>
           </div>
           <ul className={patientCSS.ullist}>
