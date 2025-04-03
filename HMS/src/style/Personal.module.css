@@ -1,10 +1,11 @@
 
 .container {
-   
+    background-color: transparent;
     width: 80%;
+    margin-top: 2rem;
   }
 
-  .fieldcoverdiv
+  .fieldCoverDiv
   {
     width: 22%;
     display: flex;
@@ -39,11 +40,11 @@
 ::placeholder{
   color: #797777;
 }
-.labelradio{
+.labelRadio{
   margin-right: 0.5rem;
 }
 
-.submitbtn{
+.submitBtn{
   color: rgb(250, 250, 250);
   background-color: #3498db;
 

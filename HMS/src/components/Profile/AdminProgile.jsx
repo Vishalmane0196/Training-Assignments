@@ -4,7 +4,7 @@ import { MyContext } from "../../utils/ContextApi";
 
 export const AdminProgile = () => {
     const contextApi = useContext(MyContext);
-    const [ToatlPatient ,setToatlPatient] = useState(0)
+    const [totalPatient ,setTotalPatient] = useState(0)
     const [patient , setPatient] = useState(0);
     useEffect(()=>{
         const fun = async()=>{
@@ -14,7 +14,7 @@ export const AdminProgile = () => {
 
                   
                   console.log(response)
-                    setToatlPatient(()=>{
+                    setTotalPatient(()=>{
                return response.data.pagination.totalPatients
                     })
                     setPatient(response2.data.data.length)
@@ -28,9 +28,9 @@ export const AdminProgile = () => {
     <div className={styles.profileContainer}>
       {/* Left Section - Profile Info */}
 
-      <div style={{display:'flex',width:"100%",gap:'1rem'}}>
+      <div style={{display:'flex',width:"100%",gap:'1rem',height:'48vh'}}>
       <div className={styles.profileCard}>
-        <div className={styles.imgdiv}>
+        <div className={styles.imgDiv}>
           <div>
             <img
               src="https://ud2.spinehrm.in/SUD/ELLICI/UserData/EmpPhotoes/EmpPhoto.jpg" // Replace with actual image
@@ -48,18 +48,18 @@ export const AdminProgile = () => {
       {/* Right Section - User Details */}
       <div className={styles.userDetails}>
         <div className={styles.detailRow}>
-          <p className={styles.label}>Personal :</p>
+      
         
           <p className={styles.label}>First Name:</p>
           <p className={styles.value}>{contextApi.userInfo?.first_name} </p>
-          <p className={styles.label}>Last Name:</p>
+          <p style={{marginLeft:"9rem"}} className={styles.label}>Last Name:</p>
           <p className={styles.value}>
           {contextApi.userInfo?.last_name}
           </p>
         </div>
 
         <div className={styles.detailRow}>
-          <p className={styles.label}>Mail :</p>
+       
          
           <p className={styles.label}>Email:</p>
           <p className={styles.value}>{contextApi.userInfo?.email}</p>
@@ -68,11 +68,10 @@ export const AdminProgile = () => {
         </div>
 
         <div className={styles.detailRow}>
-          <p className={styles.label}>Mobile :</p>
+          
           <p className={styles.label}>Mobile:</p>
           <p className={styles.value}>{contextApi.userInfo?.mobile_number}</p>
-          <p className={styles.label}>Telephone</p>
-          <p className={styles.value}>----</p>
+     
           
         </div>
 
@@ -92,10 +91,10 @@ export const AdminProgile = () => {
         </div>
 
         <div className={styles.detailRow}>
-          <p className={styles.label}>Patients Deatils</p>
+     
          
           <p className={styles.label}>Total Patient : </p>
-          <p className={styles.value}>{ToatlPatient}</p>
+          <p className={styles.value}>{totalPatient}</p>
           <p className={styles.label}>Your Patient</p>
           <p className={styles.value}>{patient}</p>
       

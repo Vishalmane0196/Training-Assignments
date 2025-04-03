@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import NavbarCSS from "../../style/Navbar.module.css";
+import navbarCSS from "../../style/Navbar.module.css";
 import logo from "../../assets/Doctor-Symbol-Caduceus-PNG-Picture.png";
 import { Link, useNavigate } from "react-router-dom";
 import { MyContext } from "../../utils/ContextApi";
@@ -42,24 +42,24 @@ export const Navbar = () => {
 
   return (
     <>
-      <div className={NavbarCSS.container}>
-        <nav className={NavbarCSS.navbar}>
-          <img className={NavbarCSS.avatarlogo} src={logo} alt="Logo" />
-          <section className={NavbarCSS.main}></section>
+      <div className={navbarCSS.container}>
+        <nav className={navbarCSS.navbar}>
+          <img className={navbarCSS.avatarLogo} src={logo} alt="Logo" />
+          <section className={navbarCSS.main}></section>
 
-          <section className={NavbarCSS.profile}>
+          <section className={navbarCSS.profile}>
             <img
-              className={NavbarCSS.avatar}
+              className={navbarCSS.avatar}
               src="https://ud2.spinehrm.in/SUD/ELLICI/UserData/EmpPhotoes/EmpPhoto.jpg"
               alt="avatar"
               onClick={togglePopup}
             />
             {showPopup && (
-              <div className={NavbarCSS.popup} ref={popupRef}>
-                <div className={NavbarCSS.popupContent}>
-                  <div className={NavbarCSS.userInfo}>
+              <div className={navbarCSS.popup} ref={popupRef}>
+                <div className={navbarCSS.popupContent}>
+                  <div className={navbarCSS.userInfo}>
                     <img
-                      className={NavbarCSS.popupAvatar}
+                      className={navbarCSS.popupAvatar}
                       src="https://ud2.spinehrm.in/SUD/ELLICI/UserData/EmpPhotoes/EmpPhoto.jpg"
                       alt="User"
                     />
@@ -70,7 +70,7 @@ export const Navbar = () => {
                     <p>{ContextData.userInfo?.email}</p>
                   </div>
 
-                  <ul className={NavbarCSS.popupOptions}>
+                  <ul className={navbarCSS.popupOptions}>
                     <li>
                       <Link to='/admin/dashboard/profile'>
                         <i className="fa-solid fa-user"></i>
@@ -84,7 +84,7 @@ export const Navbar = () => {
                     </li>
                   </ul>
                   <hr />
-                  <p className={NavbarCSS.timestamp}>
+                  <p className={navbarCSS.timestamp}>
                     {new Date().toLocaleString()}
                   </p>
                 </div>

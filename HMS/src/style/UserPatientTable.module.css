@@ -1,4 +1,4 @@
-.tablecontainer {
+.tableContainer {
    
     margin: 16px;
     border-radius: 8px;
@@ -26,13 +26,15 @@ thead {
     top: 0;
     
     z-index: 10;
-    background-color: #dddddd;
+    
+    background-color:transparent
 }
 
 th, td {
     border-bottom: 1px solid #ddd;
     padding: 20px;
     text-align: left;
+
 }
 
 th {
@@ -44,17 +46,17 @@ th {
     background-color: #b9b7b7;
     color: black;
 } */
-.footerdiv{
+.footerDiv{
    padding: 26px;
    border-top: 1px solid #ddd;;
 }
-.icondiv{
+.iconDiv{
     display: flex;
     width: 100%;
     
    
 }
-.icondiv i {
+.iconDiv i {
     
     text-align: center;
     align-self: center;

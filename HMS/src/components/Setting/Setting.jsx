@@ -1,18 +1,19 @@
-import React, { useContext, useState } from 'react'
+import React, {  useState } from 'react'
 import SettingCSS from '../../style/Setting.module.css'
 import { DeletePopUp } from './Delete/DeletePopUp';
-import { MyContext } from '../../utils/ContextApi';
 import {Edit} from '../Setting/Edit/Edit.jsx'
+import { EditPassword } from './Edit/EditPassword.jsx';
 
 export const Setting = () => {
     const [deleteState, setDeleteState] = useState(false);
     const [editProfile,setEditProfile] = useState(false);
-    const contextData = useContext(MyContext);
+    const [reset , setReset] = useState(false);
+    
   return (
     <>
     <div className={SettingCSS.container}>
-        <div className={SettingCSS.featurecover} >
-        <h3 className={SettingCSS.h3header}>
+        <div className={SettingCSS.featureCover} >
+        <h3 className={SettingCSS.header}>
             Change personal info
         </h3>
         <div className={SettingCSS.line}>
@@ -21,31 +22,24 @@ export const Setting = () => {
        <p  className={SettingCSS.p3tag} >
        You can change your email, password, and other details here.
        </p>
-       <button className={SettingCSS.editbtn} onClick={()=>{
+       <button className={SettingCSS.editBtn} onClick={()=>{
         setEditProfile(true)
        }}>Edit Profile</button>
         </div>
 
        {/* Theme Toggle */}
-       <div  className={SettingCSS.featurecover} >
-                <h3 className={SettingCSS.h3header}>Theme</h3>
+       <div  className={SettingCSS.featureCover} >
+                <h3 className={SettingCSS.header}>Reset Password</h3>
                 <div className={SettingCSS.line}></div>
-                <p className={SettingCSS.p3tag}>Choose between light and dark mode.</p>
-                <label className={SettingCSS.switch}>
-                    <input 
-                        type="checkbox" 
-                        checked={contextData.isDark} 
-                        onChange={() => contextData.setIsDark(!contextData.isDark)} 
-                    />
-                    <span className={SettingCSS.slider}></span>
-                </label>
-                <span className={contextData.isDark ? SettingCSS.themeTextb : SettingCSS.themeText}>
-                    {contextData.isDark ? "Dark Mode" : "Light Mode"}
-                </span>
+                <p className={SettingCSS.p3tag}>Please enter the password you wish to change.</p>
+                <button className={SettingCSS.editBtn} onClick={()=>{
+        setReset(true)
+       }}>Reset</button>
+                
             </div>
 
 
-        <div  className={SettingCSS.featurecover} >
+        <div  className={SettingCSS.featureCover} >
         <h3  className={SettingCSS.h3head} >
             Delete Account
         </h3>
@@ -58,10 +52,13 @@ export const Setting = () => {
 
        <button onClick={()=>{
          setDeleteState(true)
-       }} className={SettingCSS.deletebtn}>Delete Account</button>
+       }} className={SettingCSS.deleteBtn}>Delete Account</button>
         </div>
       {editProfile && <Edit editProfile={editProfile} setEditProfile={setEditProfile} />}
       {deleteState  && <DeletePopUp deleteState={deleteState} setDeleteState ={setDeleteState}/>}
+      {
+        reset && <EditPassword reset={reset} setReset={setReset}/>
+      }
     </div>
 
     </>

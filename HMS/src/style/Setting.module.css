@@ -12,13 +12,13 @@
 }
 
 
-.h3header{
+.header{
     margin: 0;
     font-size: 24px;
     margin-bottom: 10px;
-    font-weight: 400;
+    font-weight: 500;
 }
-.editbtn{
+.editBtn{
     background-color: #238636;
     color: white;
     border: none;
@@ -28,7 +28,7 @@
     font-size: 14px;
    
 }
-.editbtn:hover{
+.editBtn:hover{
     background-color: #4caf50;
     color: white;
     border: none;
@@ -51,18 +51,18 @@
     margin-bottom: 0.7rem;
 }
 
-.deletebtn {
+.deleteBtn {
  
     background-color: #e56056;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 10px 30px;
     border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
     margin-bottom: 1rem;
 }
-.deletebtn:hover{
+.deleteBtn:hover{
     background-color: #f98d8d;
     color: white;
     border: none;
@@ -95,16 +95,17 @@
     align-items: center;
     flex-direction: column;
 }
-.btncontainer{
+.btnContainer{
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
     gap: 0.4rem;
 }
-.popuph2{
+.popUph2{
     margin-top: 0.5rem;
+    color: black;
 }
-.btncontainercancel{
+.btnContainerCancel{
     background-color: transparent;
     color: rgb(46, 42, 42);
     cursor: pointer;
@@ -181,40 +182,40 @@ input:checked + .slider::before {
     
     color: rgb(255, 255, 255);
 }
-.h3headerse{
+.headerSecond{
     margin: 0;
     font-size: 2rem;
     margin-bottom: 1.5rem;
     font-weight: 700;
 }
-.featurecover{
-    margin-bottom: 2rem;
+.featureCover{
+    margin-bottom: 1.8rem;
 }
-.butcover{
+.butCover{
     display: flex;
     gap: 1rem;
 }
-.inputbtncover{
+.inputBtnCover{
     width: 100%;
     display: flex;
     gap: 1rem;
 }
-.adminmailinput{
+.adminMailInput{
     outline: none;
     padding: 0.6rem 1.5rem;
     border-radius: 5px;
     border: 1px solid #ddd;
 }
 
-.adminmailinput:hover{
+.adminMailInput:hover{
 
     box-shadow: 0 0 0 4px rgba(234, 100, 217, 0.1);
   }
-  .adminmailinput:focus{
+  .adminMailInput:focus{
     outline: none;
     border: 1px solid rgba(234, 100, 216, 0.438);;
   }
-  .addmainbtn{
+  .addMainBtn{
 background-color: transparent;
     color: rgb(65, 57, 57);
     border: 1px solid #ddd;
@@ -224,7 +225,7 @@ background-color: transparent;
     font-size: 14px;
     transition: all ease-in-out 0.5s;
   }
-  .delmail{
+  .delMail{
     background-color: transparent;
     color: rgb(64, 60, 60);
     border: 1px solid #ddd;
@@ -235,13 +236,13 @@ background-color: transparent;
     transition: all ease-in-out 0.1s;
     
   }
-  .addmainbtn:hover
+  .addMainBtn:hover
   {
     background-color: #1b8b40;
     color: white;
    
   }
-  .delmail:hover
+  .delMail:hover
   {
     background-color: #f77137;
     color: white;
@@ -278,6 +279,7 @@ background-color: transparent;
     cursor: pointer;
 }
 
-.containercover{
-    padding: 2rem;
+.containerCoverAdmin
+{
+    padding: 0.5rem 2rem;
 }

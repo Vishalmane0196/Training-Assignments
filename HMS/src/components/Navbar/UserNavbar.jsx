@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import NavbarCSS from '../../style/Navbar.module.css'
+import navbarCSS from '../../style/Navbar.module.css'
 import logo from '../../assets/Doctor-Symbol-Caduceus-PNG-Picture.png'
 import { MyContext } from '../../utils/ContextApi'
 export const UserNavbar = () => {
@@ -18,13 +18,13 @@ export const UserNavbar = () => {
   }
   return (
     <>
-    <div className={NavbarCSS.container}>
-    <nav className={NavbarCSS.navbar}>
+    <div className={navbarCSS.container}>
+    <nav className={navbarCSS.navbar}>
         <div>
-            <img className={NavbarCSS.avatarlogo} src={logo} alt="logo" />
+            <img className={navbarCSS.avatarLogo} src={logo} alt="logo" />
         </div>
       
-      <button onClick={handleLogOutBtn} className={NavbarCSS.logoutbtn}>Log Out </button>
+      <button onClick={handleLogOutBtn} className={navbarCSS.logoutBtn}>Log Out </button>
      
     </nav>
   

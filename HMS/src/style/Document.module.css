@@ -2,9 +2,10 @@
 .container {
    
     width: 80%;
+    margin-top: 2rem;
   }
 
-  .fieldcoverdiv
+  .fieldCoverDiv
   {
   width: 22%;
     display: flex;
@@ -41,7 +42,7 @@
   margin-right: 0.5rem;
 }
 
-.submitbtn{
+.submitBtn{
   color: rgb(250, 250, 250);
   background-color: #3498db;
 
@@ -53,7 +54,7 @@
   outline: none;
   text-align: center;
 }
-.backbtn{
+.backBtn{
     color: rgb(250, 250, 250);
     padding: 0.6rem 2rem;
     cursor: pointer;
@@ -73,14 +74,14 @@
     border-radius: 5px;
     border: 1px solid #ccc;
   }
-  .btnstye{
+  .btnStyle{
     display: flex;
     justify-content: right;
     position: relative;
     gap: 0.8rem;
     bottom: 0rem;
   }
-  .uploadbtn{
+  .uploadBtn{
     padding: 0.5rem 0.5rem;
     width: 36%;
     margin: 5px;
@@ -91,18 +92,18 @@
     cursor: pointer ;
   }
 
-  .uploadbtn:hover {
+  .uploadBtn:hover {
     background-color: #becde0;
   }
   
-  .uploadbtn:disabled {
+  .uploadBtn:disabled {
     background-color: lightgreen;
     cursor: not-allowed;
     width: 40%;
   }
 
   
-.deletebtn {
+.deleteBtn {
   padding: 6px 10px;
   font-size: 14px;
   font-weight: bold;
@@ -115,7 +116,7 @@
   transition: background-color 0.3s ease;
 }
 
-.deletebtn:hover {
+.deleteBtn:hover {
   background-color: darkred;
 }
 

@@ -16,7 +16,7 @@
      right: 42%;
      color: #a0a0a0;
 }
-.googlebtn{
+.googleBtn{
     position: relative;
     display: flex;
     flex-direction: column;
@@ -24,7 +24,7 @@
     margin-bottom: 1.5rem;
 }
 
- .ordiv{
+ .orDiv{
     margin-top: 1rem;
     display: flex;
     justify-content: space-between;
@@ -50,21 +50,21 @@ h2 {
     font-size: 14px;
     color: #888;
 }
-.inputgroup {
+.inputGroup {
     margin-bottom: 0;
 }
-.inputgroupp {
+.inputGroupp {
     width: 47%;
     margin-bottom: 0;
 }
-.labell {
+.labelL {
     font-weight: 600;
     font-size: 1.1rem;
     display: block;
     margin-bottom: 5px;
     color: rgb(30, 30, 71);
 }
-.inputt{
+.inputT{
     width: 100%;
     padding: 1rem;
     border: 1px solid #ddd;
@@ -81,7 +81,7 @@ h2 {
     color: #888;
     text-decoration: none;
 }
-.signinbtn {
+.signInBtn {
     width: 100%;
     padding: 1rem;
     background: rgba(17, 17, 33, 0.947);
@@ -94,10 +94,10 @@ h2 {
     margin-top: 1rem;
     
 }
-.signinbtn > pre{
+.signInBtn > pre{
     margin:  0;
 }
-.signbtndiv{
+.signBtnDiv{
     width: 100%;
     display: flex;
     justify-content: center;
@@ -111,23 +111,23 @@ h2 {
     color: #0073e6;
     text-decoration: none;
 }
-.inputt:hover{
+.inputT:hover{
     box-shadow: 0 0 0 4px rgba(234, 100, 217, 0.1);
     
 }
-.inputt:focus{
+.inputT:focus{
     outline: none;
     border: 1px solid rgba(234, 100, 216, 0.438);;
 }
-.inputtt:hover{
+.inpuTTT:hover{
     box-shadow: 0 0 0 4px rgba(234, 100, 217, 0.1);
     
 }
-.inputtt:focus{
+.inpuTTT:focus{
     outline: none;
     border: 1px solid rgba(234, 100, 216, 0.438);;
 }
-.signinbtn:hover
+.signInBtn:hover
 {
   background-color:  rgba(23, 23, 54, 0.947);
 }
@@ -135,13 +135,13 @@ h2 {
 .FLwrapper{
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     
 }
 ::placeholder{
     color: #888888b2;
 }
-.inputtt{
+.inpuTTT{
     width: 100%;
     padding: 1rem;
     border: 1px solid #ddd;
@@ -169,3 +169,19 @@ h2 {
     border: none;
 }
 
+.forgetCover{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+ 
+   width: 100%;
+   font-size: 14px;
+}
+
+.forget{
+color: rgba(23, 23, 54, 0.947);;
+}
+
+.signinHeader{
+    margin: 0;
+}

@@ -53,18 +53,14 @@
     box-shadow: 0 0 3px 0 black;
     object-fit: cover;
   }
-  .navitem{
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .avatarlogo{
+ 
+  .avatarLogo{
     width: 45px;
     height: 45px;
     border-radius: 50%;
     object-fit: cover;
   }
-  .backimg{
+  .backImg{
     background-color: rgba(0, 0, 0, 0.274);
     height: 100%;
     width: 100%;
@@ -73,11 +69,11 @@
     align-items: center;
     text-align: left;
   }
-  .coverdiv{
+  .coverDiv{
     text-align: center;
   }
-  .coverdiv h2{
-    color: rgb(0, 238, 255);
+  .coverDiv h2{
+    color: rgb(190, 208, 210);
   }
   .button{
     margin-top: 3rem;

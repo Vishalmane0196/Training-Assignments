@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@react-oauth/google": "^0.12.1",
+    "@reduxjs/toolkit": "^2.6.1",
     "axios": "^1.8.4",
     "bcryptjs": "^3.0.2",
     "bower": "^1.8.14",
@@ -19,6 +20,7 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
     "react-paginate": "^8.3.0",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.3.0",
     "react-toastify": "^11.0.5"
   },

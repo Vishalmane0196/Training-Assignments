@@ -1,21 +1,21 @@
 import React, { useContext, useEffect } from 'react';
 import { MyContext } from '../../utils/ContextApi';
-import { Navigate, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../utils/AuthProtected';
 
-export const ProtectedRoute = ({ children, isAdmin }) => {
+export const ProtectedRoute = ({ children, isAdminProp }) => {
     const navigate = useNavigate();
     const contextData = useContext(MyContext);
-    const AuthContextApi = useContext(AuthContext);
+    const authContextApi = useContext(AuthContext);
    
     useEffect(() => {
         if (!contextData.token) {
             
            navigate('/account/user/login'); 
            
-        } else if (contextData.token &&(parseInt(AuthContextApi.isadmin) !== parseInt(isAdmin))) {
+        } else if (contextData.token &&(parseInt(authContextApi.isAdmin) !== parseInt(isAdminProp))) {
            if(
-            parseInt(AuthContextApi.isadmin) == 1
+            parseInt(authContextApi.isAdmin) == 1
            ){
             navigate('/admin/dashboard')
             }else{
@@ -23,10 +23,9 @@ export const ProtectedRoute = ({ children, isAdmin }) => {
  
            } 
         }
-    }, [contextData.token, AuthContextApi.isadmin, isAdmin, navigate]);
+    }, [contextData.token, authContextApi.isAdmin, isAdminProp, navigate]);
 
     
-    console.log("contextadmin",AuthContextApi.isadmin,"protected",isAdmin);
-    console.log("i am here");
+ 
     return children;
 };

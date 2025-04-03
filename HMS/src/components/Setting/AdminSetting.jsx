@@ -1,5 +1,5 @@
 import React, {  useContext, useRef, useState } from 'react'
-import SettingCSS from '../../style/Setting.module.css'
+import settingCSS from '../../style/Setting.module.css'
 import { DeletePopUp } from './Delete/DeletePopUp';
 import { MyContext } from '../../utils/ContextApi';
 import {Edit} from '../Setting/Edit/Edit.jsx'
@@ -19,18 +19,18 @@ export const AdminSetting = () => {
          try {
              if(type == 'edit')
              {
-                let reponse = await contextApi.axiosInstance.put('/user/addAdmin',{
+                let response = await contextApi.axiosInstance.put('/user/addAdmin',{
                   email:mailRef.current.value
                 })
-                reponse.data.status == 200 ? toast.success("Admin added") : null;
+                response.data.status == 200 ? toast.success("Admin added") : null;
 
              }
              else
              {
-               let reponse = await contextApi.axiosInstance.put('/user/removeAdmin',{
+               let response = await contextApi.axiosInstance.put('/user/removeAdmin',{
                   email:mailRef.current.value
                 })
-                reponse.data.status == 200 ? toast.success("Admin deleted") : null;
+                response.data.status == 200 ? toast.success("Admin deleted") : null;
                
              }
            
@@ -43,59 +43,59 @@ export const AdminSetting = () => {
     }
   return (
     <>
-      <div className={SettingCSS.containercover}>
-      <div className={SettingCSS.container}>
+      <div className={settingCSS.containerCoverAdmin}>
+      <div className={settingCSS.container}>
        <div >
-        <div className={SettingCSS.vertivcalLine}></div>
-        <h3 className={SettingCSS.h3headerse}>
+        <div className={settingCSS.verticalLine}></div>
+        <h3 className={settingCSS.headerSecond}>
             Admin Settings
         </h3>
        </div>
-        <div className={SettingCSS.featurecover}>
-        <h3 className={SettingCSS.h3header}>
+        <div className={settingCSS.featureCover}>
+        <h3 className={settingCSS.h3header}>
             Change personal info
         </h3>
-        <div className={SettingCSS.line}>
+        <div className={settingCSS.line}>
 
         </div>
-       <p  className={SettingCSS.p3tag} >
+       <p  className={settingCSS.p3tag} >
        You can change your email, password, and other details here.
        </p>
-       <button className={SettingCSS.editbtn} onClick={()=>{
+       <button className={settingCSS.editBtn} onClick={()=>{
         setEditProfile(true)
        }}>Edit Profile</button>
         </div>
 
        {/* Theme Toggle */}
-       <div className={SettingCSS.featurecover}>
-                <h3 className={SettingCSS.h3header}>Add or remove admin</h3>
-                <div className={SettingCSS.line}></div>
-                <p className={SettingCSS.p3tag}>To add or remove an admin, enter the user's email  here.</p>
-               <div className={SettingCSS.inputbtncover}>
-               <input type="text" ref={mailRef} className={SettingCSS.adminmailinput} placeholder='Enter Mail'/>
-                <div className={SettingCSS.butcover}>
-                  <button onClick={()=>handleAdminEmail('edit')} className={SettingCSS.addmainbtn}>Add</button>
-                  <button onClick={()=>handleAdminEmail('delete')} className={SettingCSS.delmail}>Remove</button>
+       <div className={settingCSS.featureCover}>
+                <h3 className={settingCSS.h3header}>Add or remove admin</h3>
+                <div className={settingCSS.line}></div>
+                <p className={settingCSS.p3tag}>To add or remove an admin, enter the user's email  here.</p>
+               <div className={settingCSS.inputBtnCover}>
+               <input type="text" ref={mailRef} className={settingCSS.adminMailInput} placeholder='Enter Mail'/>
+                <div className={settingCSS.butCover}>
+                  <button onClick={()=>handleAdminEmail('edit')} className={settingCSS.addMainBtn}>Add</button>
+                  <button onClick={()=>handleAdminEmail('delete')} className={settingCSS.delMail}>Remove</button>
                 </div>
                </div>
                 
             </div>
 
 
-        <div className={SettingCSS.featurecover}>
-        <h3  className={SettingCSS.h3head} >
+        <div className={settingCSS.featureCover}>
+        <h3  className={settingCSS.h3head} >
             Delete Account
         </h3>
-        <div className={SettingCSS.line}>
+        <div className={settingCSS.line}>
 
         </div>
-       <p  className={SettingCSS.p3tag} >
+       <p  className={settingCSS.p3tag} >
        Once you delete your account, there is no going back. Please be certain.
        </p>
 
        <button onClick={()=>{
          setDeleteState(true)
-       }} className={SettingCSS.deletebtn}>Delete Account</button>
+       }} className={settingCSS.deleteBtn}>Delete Account</button>
         </div>
       {editProfile && <Edit editProfile={editProfile} setEditProfile={setEditProfile} />}
       {deleteState  && <DeletePopUp deleteState={deleteState} setDeleteState ={setDeleteState}/>}

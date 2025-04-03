@@ -3,29 +3,31 @@ import "./App.css";
 import { ToastContainer } from "react-toastify";
 import { LRwrapper } from "./components/LoginRegisterWrapper/LRwrapper.jsx";
 import { AuthProtected } from "./utils/AuthProtected.jsx";
-import { Dashboard } from "./components/Dashboard/Dashboard.jsx";
+
+import {Dashboard} from './pages/Dashboard/Dashboard.jsx'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { Login } from "./components/Login/Login.jsx";
-import { Register } from "./components/Register/Register.jsx";
-import { UserDashboard } from "./components/Dashboard/UserDashboard.jsx";
+import { Login } from "./pages/Login/Login.jsx";
+import { Register } from "./pages/Register/Register.jsx";
+import { UserDashboard } from "./pages/Dashboard/UserDashboard.jsx";
 import { useState } from "react";
 import axios from "axios";
 import { MyContext } from "./utils/ContextApi.js";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute.jsx";
-import { UserPatientTable } from "./components/Table/UserPatientTable.jsx";
+import { UserPatientTable } from "./pages/Table/UserPatientTable.jsx";
 import { UserProfile } from "./components/Profile/UserProfile.jsx";
 import { Setting } from "./components/Setting/Setting.jsx";
 import { DeletePopUp } from "./components/Setting/Delete/DeletePopUp.jsx";
 import { MultiStepForm } from "./components/MultiStepForm/MultiStepForm.jsx";
-import { UserMain } from "./components/UserMain/UserMain.jsx";
-import { ViewPatient } from "./components/ViewPatient/ViewPatient.jsx";
-import { LandingPage } from "./components/LandingPage/LandingPage.jsx";
-import { Summary } from "./components/Summary/Summary.jsx";
+import { UserMain } from "./pages/UserMain/UserMain.jsx";
+import { ViewPatient } from "./pages/ViewPatient/ViewPatient.jsx";
+import { LandingPage } from "./pages/LandingPage/LandingPage.jsx";
+import { Summary } from "./pages/Summary/Summary.jsx";
 import { AdminSetting } from "./components/Setting/AdminSetting.jsx";
 import { AdminProgile } from "./components/Profile/AdminProgile.jsx";
-import { Allpatient } from "./components/AllPatient/Allpatient.jsx";
-import { AdminPatient } from "./components/AdminPatient/AdminPatient.jsx";
+import { Allpatient } from "./pages/AllPatient/Allpatient.jsx";
+import { AdminPatient } from "./pages/AdminPatient/AdminPatient.jsx";
+import { Forget } from "./pages/Forget/Forget.jsx";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -38,19 +40,22 @@ function App() {
   const axiosInstance = axios.create({
     baseURL: "http://localhost:4000/api",
     headers: {
+  
       Authorization: `${token}`,
+      Accept: 'application/json',
+       
     },
   });
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <LandingPage />,
+      element: <LandingPage/>,
     },
     {
       path: "/user/dashboard",
       element: (
-        <ProtectedRoute isAdmin={0}>
+        <ProtectedRoute isAdminProp={0}>
           {" "}
           <UserDashboard />{" "}
         </ProtectedRoute>
@@ -65,6 +70,7 @@ function App() {
               element: <UserProfile />,
             },
             {
+              
               path: "/user/dashboard/viewpatients",
               element: <UserPatientTable />,
             },
@@ -93,7 +99,7 @@ function App() {
     {
       path: "/admin/dashboard",
       element: (
-        <ProtectedRoute isAdmin={1}>
+        <ProtectedRoute isAdminProp={1}>
           {" "}
           <Dashboard />{" "}
         </ProtectedRoute>
@@ -144,6 +150,10 @@ function App() {
           path: "/account/user/login",
           element: <Login />,
         },
+        {
+          path:'/account/forget',
+          element:<Forget />
+        }
       ],
     },
   ]);

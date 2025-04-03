@@ -9,7 +9,7 @@
     scrollbar-width: none;
   }
 
-  .fieldcoverdiv
+  .fieldCoverDiv
   {
     width: 31%;
     display: flex;
@@ -58,7 +58,7 @@
   outline: none;
   text-align: center;
 }
-.sectioncover{
+.sectionCover{
     width: 100%;
    
     background-color: #dddddd68;
@@ -68,7 +68,7 @@
     padding-bottom: 2rem;
    
 }
-.sectioncover form{
+.sectionCover form{
     width: 100%;
 }
 .divv{
@@ -83,14 +83,14 @@
     border: 1px solid #ccc;
 }
 
-.textandiconcover{
+.textAndIconCover{
     width: 100%;
     display: flex;
     justify-content: space-between;
    
 }
 
-.iconcoverdivdeletedit{
+.iconCoverDivDeleteEdit{
     
     display: flex;
    gap: 2rem;
@@ -99,28 +99,28 @@
 
 }
 
-.iconcoverdivdeletedit i{
+.iconCoverDivDeleteEdit i{
     font-size: 16px;
     cursor: pointer;
     
 }
-.iconcoverdivdeletedit i:nth-child(1)
+.iconCoverDivDeleteEdit i:nth-child(1)
 {
     color: rgb(116, 87, 52);
     
 }
-.iconcoverdivdeletedit i:nth-child(2)
+.iconCoverDivDeleteEdit i:nth-child(2)
 {
     color: rgb(245, 24, 24);
 }
 
 
-.iconcoverdivdeletedit i:nth-child(1):hover
+.iconCoverDivDeleteEdit i:nth-child(1):hover
 {
     color: rgb(160, 123, 78);
     
 }
-.iconcoverdivdeletedit i:nth-child(2):hover
+.iconCoverDivDeleteEdit i:nth-child(2):hover
 {
     color: rgb(192, 63, 63);
 }
@@ -136,7 +136,7 @@
     color: black;
 }
 
-.uploadbtn{
+.uploadBtn{
   padding: 0.5rem 0.5rem;
   width: 36%;
   margin: 5px;
@@ -148,6 +148,6 @@
   background-color: #becde0;
 }
 
-.uploadbtn:hover {
+.uploadBtn:hover {
   background-color: #a0b6d3;
 }

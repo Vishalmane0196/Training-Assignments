@@ -4,6 +4,7 @@
     padding: 1rem;
     background-color: #dddddd68;
     border-radius: 10px;
+    margin: 0rem 1rem;
 }
 .h3tag{
     font-size: 22px;
@@ -30,6 +31,9 @@ border-radius: 5px;
 background-color: white;
 padding: 0.5rem;
 color: gray;
+overflow: hidden; 
+text-overflow: ellipsis; 
+white-space: nowrap;
 }
 .inputfield:hover{
 

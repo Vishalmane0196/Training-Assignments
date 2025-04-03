@@ -34,52 +34,31 @@ cursor: pointer;
     
     object-fit: cover;
   }
-  .navbarlink{
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    text-decoration: none;
-    color:#181818;
-    text-decoration: none;
-  }
-  .avatarlogo{
+ 
+  .avatarLogo{
     width: 45px;
     height: 45px;
     border-radius: 50%;
     object-fit: cover;
   }
-  .logoutbtn{
+  .logoutBtn{
     padding: 0.5rem 1rem;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s;
   }
-  .logoutbtn:hover{
+  .logoutBtn:hover{
     background-color: #181818;
     color: #fff;
   }
 
-  .navbarlink{
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    text-decoration: none;
-    padding: 0.3rem 0.5rem;
-    border-radius: 20px;
-    transition: all ease-in-out 0.2s;
-    
-  }
+  
   .active{
     background-color: #8b8b8b6d;
     color: #181818;
   }
-  .navbarlink:hover{
- background-color: #8b8b8b6d;
-    
-  }
-  .navbarlink > span {
-    font-size: 1.2rem;
-  }
+
+  
   .popup {
     position: absolute;
     top: 60px;

@@ -130,7 +130,7 @@
    
   }
 
-  .linktext{
+  .linkText{
     text-decoration: none;
     padding: 10px 0;
     cursor: pointer;
@@ -153,12 +153,12 @@
         background-color: #2ea043;
     }
    
-    .linktext:hover{
+    .linkText:hover{
         background-color: rgba(128, 128, 128, 0.242);
         border-radius: 5px;
         
     }
-  .outletcontainer{
+  .outletContainer{
     
     width: 75%;
     height: 90vh;
