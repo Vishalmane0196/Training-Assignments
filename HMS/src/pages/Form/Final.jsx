@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react'
-
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 export const Final = ({setStep,setPatientId}) => {
- useEffect(()=>{
-   localStorage.setItem('step',0);
-     localStorage.removeItem('file_preview');
+   const dispatch = useDispatch();  
+ const  resetAllValues = async() =>{
+  localStorage.removeItem('file_preview');
      localStorage.removeItem('upload_status');
-     setStep(0);
-     setPatientId(null);
+     dispatch(setStep(0));
+    await dispatch(setPatientId(null));
+ }
+ useEffect(()=>{
+  resetAllValues();
  })
   return (
     <>
@@ -15,3 +19,8 @@ export const Final = ({setStep,setPatientId}) => {
     </>
   )
 }
+
+Final.prototype = {
+  setStep: PropTypes.func,
+  setPatientId: PropTypes.func,
+};

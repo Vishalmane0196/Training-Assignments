@@ -1,16 +1,19 @@
-import React, { useContext, useEffect,  } from "react";
+import React, { useEffect,  } from "react";
 import patientCSS from "../../style/AdminPatient.module.css";
-import { MyContext } from "../../utils/ContextApi";
+import axiosInstance from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
+import { useSelector,useDispatch } from "react-redux";
+import { fetchPatientsInfo } from "../../redux/asyncThunkFuntions/user";
+
 export const AdminPatient = () => {
+    const dispatch = useDispatch();
+    const {patientList} = useSelector(state => state.patient)
     const navigate =  useNavigate();
-  const contextApi = useContext(MyContext);
+  
+
   const getData = async () => {
     try {
-      let response = await contextApi.axiosInstance.get(
-        "/patient/getPatientInfo"
-      );
-      contextApi.setAllPatients(response.data.data);
+     dispatch(fetchPatientsInfo());
     } catch (error) {
       console.error(error);
     }
@@ -18,16 +21,15 @@ export const AdminPatient = () => {
   useEffect(() => {
     getData();
   }, []);
+
   const handleAdminAllPatient  = (id)=>{
    
-        navigate(`/admin/dashboard/allpatients/patientdetails/${id}`)
+    navigate(`/admin/dashboard/allpatients/patientdetails/${id}`)
       
   } 
   const handleDeletePatient = async(id) => {
     try {
-        let response = await contextApi.axiosInstance.delete(`/patient/adminDeletePatientData?patient_id=${id}`);
-  
-        console.log(response);
+        await axiosInstance.delete(`/patient/adminDeletePatientData?patient_id=${id}`);
         getData();
       } catch (error) {
         console.log(error);
@@ -46,17 +48,19 @@ export const AdminPatient = () => {
             <p>View</p>
           </div>
           <ul className={patientCSS.ulList}>
-            {contextApi.allPatients?.map((patient) => (
+            {patientList?.map((patient) => (
               <li className={patientCSS.liList}>
                 <p>{patient.patient_id}</p>
                 <p>{patient.patient_name}</p>
                 <p>{patient.disease_type}</p>
                 <p>{patient.age}</p>
                 <p className={patientCSS.iconDiv}>
-                  <i   onClick={()=>{
+                  <i  title="view patient"
+                   onClick={()=>{
                    handleAdminAllPatient(patient.patient_id)
                   }} className="fa-solid fa-eye"></i>
                   <i
+                    title="delete patient"
                     onClick={() => {
                       handleDeletePatient(patient.patient_id);
                     }}

@@ -1,18 +1,18 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { Navbar } from "../../components/Navbar/Navbar.jsx";
 import adminCSS from "../../style/AdminDashboard.module.css";
 import { NavLink, Outlet } from "react-router-dom";
-import { MyContext } from "../../utils/ContextApi";
 
 export const Dashboard = () => {
-  const contextData = useContext(MyContext);
-  useEffect(() => {
-    const getUserInfo = async () => {
-      let response = await contextData.axiosInstance.get("user/getUser");
-      contextData.setUserInfo({ ...response.data.data[0] });
-    };
-    getUserInfo();
-  }, []);
+  
+  // useEffect(() => {
+  //   const getUserInfo = async () => {
+  //     let response = await contextData.axiosInstance.get("user/getUser");
+  //     contextData.setUserInfo({ ...response.data.data[0] });
+  //   };
+  //   getUserInfo();
+  // }, []);
+
   return (
     <>
       <Navbar />

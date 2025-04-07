@@ -1,21 +1,15 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import navbarCSS from '../../style/Navbar.module.css'
 import logo from '../../assets/Doctor-Symbol-Caduceus-PNG-Picture.png'
-import { MyContext } from '../../utils/ContextApi'
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/slices/authentication/authSlice';
 export const UserNavbar = () => {
-  const contextData = useContext(MyContext)
+  const dispatch = useDispatch();
+
   const handleLogOutBtn = () =>{
-     contextData.setToken(()=>{
-      localStorage.removeItem('token')
-       return null
-     }
-    )
-    contextData.setIsAdmin(()=>{
-      localStorage.removeItem('isAdmin')
-       return null
-     }
-    )
+       dispatch(logout());
   }
+  
   return (
     <>
     <div className={navbarCSS.container}>

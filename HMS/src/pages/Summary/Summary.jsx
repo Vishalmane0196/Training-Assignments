@@ -1,38 +1,30 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import styles from "../../style/Summary.module.css"; 
-import { MyContext } from "../../utils/ContextApi";
+import styles from "../../style/Summary.module.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deletePatient,
+  fetchAllPAtients,
+} from "../../redux/asyncThunkFuntions/admin";
+import { fetchPatientCardData } from "../../redux/asyncThunkFuntions/admin";
 
 export const Summary = () => {
-  const ContextApi = useContext(MyContext);
-  const [details, setDetails] = useState({});
-  const [patients, setAllPatients] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1); // Default 1 page
-  const itemsPerPage = 4;
+
+  const dispatch = useDispatch();
+
+  const { details, patientList, totalPages } = useSelector(
+    (state) => state.patient
+  );
   const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
-      const patientResponse = await ContextApi.axiosInstance.get(
-        `/admin/getAllInfo?page=${currentPage}&limit=${itemsPerPage}&documentSize=4`
-      );
-
-      console.log(patientResponse.data.data);
-      console.log(patientResponse.data.totalPages);
-      
-     
-      setAllPatients(patientResponse?.data?.data || []);
-      ContextApi.setAllPatients(patientResponse?.data?.data);
-      setTotalPages(Math.ceil(parseInt((patientResponse?.data?.pagination?.totalPatients/4))) || 1);
-
-      const summaryResponse = await ContextApi.axiosInstance.get(
-        "/admin/getAgeGroup"
-      );
-      setDetails(summaryResponse.data.data || {});
+      await dispatch(fetchAllPAtients(currentPage)).unwrap();
+      await dispatch(fetchPatientCardData("get")).unwrap();
     } catch (error) {
-      console.log("Error fetching data:", error);
+      console.error(error);
     }
   };
 
@@ -43,23 +35,24 @@ export const Summary = () => {
   const handlePageClick = (data) => {
     setCurrentPage(data.selected + 1);
   };
-  const handleViewPage = (id) =>{
-    navigate(`/admin/dashboard/allpatients/patientdetails/${id}`)
-  }
-const handleDeletePatient = async(id) =>{
-    try {
-      let response = await ContextApi.axiosInstance.delete(`/patient/adminDeletePatientData?patient_id=${id}`);
 
-      console.log(response);
+  const handleViewPage = (id) => {
+    navigate(`/admin/dashboard/allpatients/patientdetails/${id}`);
+  };
+
+  const handleDeletePatient = async (id) => {
+    try {
+      await dispatch(deletePatient(id));
       fetchData();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-}
+  };
   return (
     <div className={styles.dashboard}>
       <div>
         <div className={styles.summary}>
+          
           {Object.keys(details).map((key, index) => (
             <div key={index} className={styles.summaryCard}>
               <p>{key}</p>
@@ -83,14 +76,17 @@ const handleDeletePatient = async(id) =>{
                 </tr>
               </thead>
               <tbody>
-                {patients.length === 0 ? (
+                {patientList.length === 0 ? (
                   <tr>
-                    <td colSpan="5" style={{ textAlign: "center", padding: "20px" }}>
+                    <td
+                      colSpan="5"
+                      style={{ textAlign: "center", padding: "20px" }}
+                    >
                       <h3>No Patients Found</h3>
                     </td>
                   </tr>
                 ) : (
-                  patients.map((obj, index) => (
+                  patientList.map((obj, index) => (
                     <tr key={index}>
                       <td>{obj.patient_id}</td>
                       <td>{obj.patient_name}</td>
@@ -98,8 +94,16 @@ const handleDeletePatient = async(id) =>{
                       <td>{obj.age}</td>
                       <td>
                         <div className={styles.iconDiv}>
-                          <i onClick={()=>handleViewPage(obj.patient_id)} className="fa-solid fa-eye"></i>
-                          <i onClick={()=>handleDeletePatient(obj.patient_id)} className="fa-solid fa-trash"></i>
+                          <i
+                            title="view patient"
+                            onClick={() => handleViewPage(obj.patient_id)}
+                            className="fa-solid fa-eye"
+                          ></i>
+                          <i
+                            title="delete patient"
+                            onClick={() => handleDeletePatient(obj.patient_id)}
+                            className="fa-solid fa-trash"
+                          ></i>
                         </div>
                       </td>
                     </tr>

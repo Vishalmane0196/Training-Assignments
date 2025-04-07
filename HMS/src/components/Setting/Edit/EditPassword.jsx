@@ -1,43 +1,39 @@
-import React, { useContext } from "react";
+import React from "react";
 import styles from "../../../style/Edit.module.css";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { MyContext } from "../../../utils/ContextApi";
+import { useDispatch, useSelector } from "react-redux";
 
-export const EditPassword = ({ reset,setReset }) => {
-  const contextData = useContext(MyContext);
-  const {
-    register,
-    handleSubmit,
-    trigger,
-   
-  } = useForm({
+import { updatePassword } from "../../../redux/asyncThunkFuntions/user";
+
+export const EditPassword = ({ reset, setReset }) => {
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const { register, handleSubmit, trigger } = useForm({
     defaultValues: {
-      Password: contextData.userInfo.email,
-      newPassword:""
+      Password: userInfo.email,
+      newPassword: "",
     },
   });
 
   const sendDataToUpdate = async (data) => {
     try {
-      let response = await contextData.axiosInstance.put(
-        "/user/resetPassword",
-        {
-            email: contextData.userInfo.email,
-            newPassword: data.newPassword,
-        }
-      );
-      console.log(response);
+      await dispatch(
+        updatePassword({
+          email: userInfo.email,
+          newPassword: data.newPassword,
+        })
+      ).unwrap();
+
       setReset(false);
       toast.success("Password updated successfully!");
-      
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error(error);
     }
   };
   const handleUpdateData = (data) => {
-    console.log(data);
     sendDataToUpdate(data);
   };
   return (
@@ -48,16 +44,11 @@ export const EditPassword = ({ reset,setReset }) => {
             className={styles.modalContent}
             onClick={(e) => e.stopPropagation()}
           >
-            <span
-              className={styles.close}
-              onClick={() => setReset(false)}
-            >
+            <span className={styles.close} onClick={() => setReset(false)}>
               &times;
             </span>
             <h2 className={styles.h2tag}>Reset Password</h2>
             <form action="" onSubmit={handleSubmit(handleUpdateData)}>
-         
-            
               <div
                 style={{
                   display: "flex",
@@ -66,7 +57,6 @@ export const EditPassword = ({ reset,setReset }) => {
                 }}
               >
                 <label htmlFor=""> Password</label>
-                
               </div>
               <input
                 className={styles.inputTag}
@@ -81,7 +71,7 @@ export const EditPassword = ({ reset,setReset }) => {
                 type="password"
                 placeholder="Enter your Password"
               />
-              
+
               <button type="submit" className={styles.submitBtn}>
                 Reset
               </button>

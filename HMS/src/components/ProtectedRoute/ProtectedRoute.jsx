@@ -1,29 +1,30 @@
-import React, { useContext, useEffect } from 'react';
-import { MyContext } from '../../utils/ContextApi';
+import React, {useEffect } from 'react';
 import {  useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../utils/AuthProtected';
+import { useSelector } from 'react-redux';
 
 export const ProtectedRoute = ({ children, isAdminProp }) => {
     const navigate = useNavigate();
-    const contextData = useContext(MyContext);
-    const authContextApi = useContext(AuthContext);
+    const { token,
+        isAdmin,
+        isDoctor } = useSelector(state=>state.auth);
    
     useEffect(() => {
-        if (!contextData.token) {
+        if (!token) {
             
            navigate('/account/user/login'); 
            
-        } else if (contextData.token &&(parseInt(authContextApi.isAdmin) !== parseInt(isAdminProp))) {
+        } else if (token && (parseInt(isAdmin) !== parseInt(isAdminProp))) {
+           
            if(
-            parseInt(authContextApi.isAdmin) == 1
+            parseInt(isAdmin) == 1
            ){
-            navigate('/admin/dashboard')
+            navigate('/admin/dashboard/profile')
             }else{
              navigate('/user/dashboard/profile')
  
            } 
         }
-    }, [contextData.token, authContextApi.isAdmin, isAdminProp, navigate]);
+    }, [token, isAdmin, isAdminProp, navigate]);
 
     
  

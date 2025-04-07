@@ -1,35 +1,38 @@
-import React, { useContext, useState } from "react";
-import ForgetCSS from "../../style/Forget.module.css";
-import { MyContext } from "../../utils/ContextApi";
+import React, { useState } from "react";
+import forgetCSS from "../../style/Forget.module.css";
 import { toast } from "react-toastify";
 import bcrypt from "bcryptjs";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../utils/axios";
+import { forgetPassword } from "../../redux/asyncThunkFuntions/auth";
+import { useDispatch } from "react-redux";
+
 export const Forget = () => {
-  const contextAPi = useContext(MyContext);
-  const [otpInput,setOtpInput] = useState("");
+  const dispatch = useDispatch();
+  const [otpInput, setOtpInput] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [forgetEmail, setForgetEmail] = useState("");
-
   const [otp, setOtp] = useState("");
   const [changePassStatus, setChangePassStatus] = useState(false);
+
   const navigate = useNavigate();
 
   const handleChangePassword = async () => {
-    bcrypt.compare(otpInput,otp,(err, res) => {
+    bcrypt.compare(otpInput, otp, (err, res) => {
       if (res) {
         setChangePassStatus(false);
-      
+
         if (newPassword === "") {
           toast.warn("Not Allowed Password Format", { position: "top-right" });
         } else {
-          contextAPi.axiosInstance.put("/user/resetPassword", {
+          axiosInstance.put("/user/resetPassword", {
             email: forgetEmail,
             newPassword: newPassword,
           });
           toast.success("Password changed successfully!", {
             position: "top-right",
           });
-          navigate('/account/user/login')
+          navigate("/account/user/login");
         }
       } else {
         toast.error("Invalid OTP!", { position: "top-right" });
@@ -43,27 +46,29 @@ export const Forget = () => {
       navigate("/account/user/login");
       return;
     } else {
+
+      let forgetPasswordPromise = dispatch(forgetPassword(forgetEmail));
+      toast.promise(forgetPasswordPromise,{
+        pending: "Sending OTP to your email...",
+        success: "Check your email for OTP",
+        error: "Failed to send OTP",
+       
+      })
+
       try {
-        let response = await contextAPi.axiosInstance.post(
-          "/user/forgotPassword",
-          {
-            email: forgetEmail,
-          }
-        );
-
-        setOtp(response?.data?.data?.hashOtp);
-
-        toast.success(response.data.message, { position: "top-right" });
+      
+      let response =  await forgetPasswordPromise.unwrap();
+        setOtp(response?.data?.hashOtp);
         setChangePassStatus(true);
       } catch (error) {
-        toast.error(error.response.data.message);
+        console.error(error)
       }
     }
   };
   return (
     <>
-      <div className={ForgetCSS.container}>
-        <div className={ForgetCSS.cover}>
+      <div className={forgetCSS.container}>
+        <div className={forgetCSS.cover}>
           <h1>Forgot Password?</h1>
           <p>
             Enter the email address you used when you joined and we’ll send you
@@ -75,7 +80,7 @@ export const Forget = () => {
           </p>
 
           {changePassStatus ? (
-            <div className={ForgetCSS.inputCoverDiv}>
+            <div className={forgetCSS.inputCoverDiv}>
               <label htmlFor="">Enter OTP</label>
               <input
                 type="text"
@@ -84,8 +89,8 @@ export const Forget = () => {
                 placeholder="Enter One Time Password"
               />
             </div>
-           ) : (
-            <div className={ForgetCSS.inputCoverDiv}>
+          ) : (
+            <div className={forgetCSS.inputCoverDiv}>
               <label htmlFor="">Email Address</label>
               <input
                 type="email"
@@ -96,7 +101,7 @@ export const Forget = () => {
             </div>
           )}
           {changePassStatus ? (
-            <div className={ForgetCSS.inputCoverDiv}>
+            <div className={forgetCSS.inputCoverDiv}>
               <label htmlFor="">New Password</label>
               <input
                 type="text"
@@ -108,7 +113,7 @@ export const Forget = () => {
           ) : null}
           {changePassStatus ? (
             <button
-              className={ForgetCSS.submitBtn}
+              className={forgetCSS.submitBtn}
               onClick={handleChangePassword}
               type="submit"
             >
@@ -116,7 +121,7 @@ export const Forget = () => {
             </button>
           ) : (
             <button
-              className={ForgetCSS.submitBtn}
+              className={forgetCSS.submitBtn}
               onClick={handleForgetPasswordEmail}
               type="submit"
             >

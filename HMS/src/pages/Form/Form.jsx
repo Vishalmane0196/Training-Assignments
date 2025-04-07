@@ -5,29 +5,31 @@ import { FamilyInfo } from "../Form/FamilyInfo";
 import { DocumentInfo } from "./DocumentInfo";
 import { DiseaseInfo } from "./DiseaseInfo";
 import { Final } from "./Final";
+import { useSelector } from "react-redux";
+import { setStep } from "../../redux/slices/multistepform/formSlice";
+import { setPatientID } from "../../redux/slices/multistepform/formSlice";
 export const Form = () => {
-  const [step, setStep] = useState(parseInt (localStorage.getItem("step")) || 0);
-  const [patientId, setPatientId] = useState(((localStorage.getItem('patientId')) || null));
+  const {step,patientID} = useSelector(state => state.form)
   const[count,setCount] =useState(0);
   const handleMultiStepForm = (step) => {
     switch (step) {
       case 0:
         return (
           <PersonalInfo
-            patientId={patientId}
-            setPatientId={setPatientId}
+            patientId={patientID}
+            setPatientId={setPatientID}
             setStep={setStep}
             setCount={setCount}
           />
         );
       case 1:
-        return <FamilyInfo count={count} setCount={setCount} patientId={patientId} setStep={setStep} />;
+        return <FamilyInfo count={count} setCount={setCount} patientId={patientID} setStep={setStep} />;
       case 2:
-        return <DiseaseInfo count={count} setCount={setCount}  setStep={setStep} patientId={patientId} />;
+        return <DiseaseInfo count={count} setCount={setCount}  setStep={setStep} patientId={patientID} />;
       case 3:
-        return <DocumentInfo patientId={patientId} setStep={setStep} />;
+        return <DocumentInfo patientId={patientID} setStep={setStep} />;
         case 4 :
-          return <Final setStep={setStep} setPatientId={setPatientId}/>;
+          return <Final setStep={setStep} setPatientId={setPatientID}/>;
       case 5:
       default:
         return null;

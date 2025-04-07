@@ -2,17 +2,13 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import { LRwrapper } from "./components/LoginRegisterWrapper/LRwrapper.jsx";
-import { AuthProtected } from "./utils/AuthProtected.jsx";
 
-import {Dashboard} from './pages/Dashboard/Dashboard.jsx'
+import { Dashboard } from "./pages/Dashboard/Dashboard.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Login } from "./pages/Login/Login.jsx";
 import { Register } from "./pages/Register/Register.jsx";
 import { UserDashboard } from "./pages/Dashboard/UserDashboard.jsx";
-import { useState } from "react";
-import axios from "axios";
-import { MyContext } from "./utils/ContextApi.js";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import { UserPatientTable } from "./pages/Table/UserPatientTable.jsx";
 import { UserProfile } from "./components/Profile/UserProfile.jsx";
@@ -30,27 +26,10 @@ import { AdminPatient } from "./pages/AdminPatient/AdminPatient.jsx";
 import { Forget } from "./pages/Forget/Forget.jsx";
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem("token"));
-  const [isAdmin, setIsAdmin] = useState(localStorage.getItem("isAdmin"));
-  const [isDark, setIsDark] = useState(false);
-  const [userInfo, setUserInfo] = useState();
-  const secretKey = "123456789";
-  const [allPatients, setAllPatients] = useState();
-
-  const axiosInstance = axios.create({
-    baseURL: "http://localhost:4000/api",
-    headers: {
-  
-      Authorization: `${token}`,
-      Accept: 'application/json',
-       
-    },
-  });
-
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <LandingPage/>,
+      element: <LandingPage />,
     },
     {
       path: "/user/dashboard",
@@ -70,7 +49,6 @@ function App() {
               element: <UserProfile />,
             },
             {
-              
               path: "/user/dashboard/viewpatients",
               element: <UserPatientTable />,
             },
@@ -118,15 +96,14 @@ function App() {
           element: <Summary />,
         },
         {
-              path: "/admin/dashboard/allpatients/patientdetails/:id",
-              element: <Allpatient />,
-           children:[
+          path: "/admin/dashboard/allpatients/patientdetails/:id",
+          element: <Allpatient />,
+          children: [
             {
-              path:'',
-              element:<ViewPatient />
-            }
-           ]   
-
+              path: "",
+              element: <ViewPatient />,
+            },
+          ],
         },
         {
           path: "/admin/dashboard/addpatient",
@@ -134,7 +111,7 @@ function App() {
         },
         {
           path: "/admin/dashboard/mypatients",
-          element: <AdminPatient/>,
+          element: <AdminPatient />,
         },
       ],
     },
@@ -151,9 +128,9 @@ function App() {
           element: <Login />,
         },
         {
-          path:'/account/forget',
-          element:<Forget />
-        }
+          path: "/account/forget",
+          element: <Forget />,
+        },
       ],
     },
   ]);
@@ -161,27 +138,21 @@ function App() {
   return (
     <>
       <GoogleOAuthProvider clientId="926193963649-3f55lp37bopoojo4t5m7u9eb0l13bnif.apps.googleusercontent.com">
-        <MyContext.Provider
-          value={{
-            setToken,
-            token,
-            axiosInstance,
-            secretKey,
-            setIsAdmin,
-            isAdmin,
-            isDark,
-            setIsDark,
-            userInfo,
-            setUserInfo,
-            allPatients,
-            setAllPatients,
-          }}
-        >
-          <ToastContainer />
-          <AuthProtected>
-            <RouterProvider router={router}></RouterProvider>
-          </AuthProtected>
-        </MyContext.Provider>
+        <ToastContainer
+          position="top-right"
+          autoClose={1000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light" 
+          
+        />
+
+        <RouterProvider router={router}></RouterProvider>
       </GoogleOAuthProvider>
     </>
   );

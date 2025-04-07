@@ -1,21 +1,32 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import viewPatientCSS from "../../style/ViewPatient.module.css";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { MyContext } from "../../utils/ContextApi";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useRef } from "react";
 
+import axiosInstance from "../../utils/axios";
+import {
+  updateDiseaseInfo,
+  updatePersonalInfo,
+  updateFamilyInfo,
+} from "../../redux/asyncThunkFuntions/user";
+
 export const ViewPatient = () => {
+  const dispatch = useDispatch();
+  const { patientList } = useSelector((state) => state.patient);
   const param = useParams();
-  const contextData = useContext(MyContext);
+
+  const inputfield = useRef();
+
   const [patientData, setPatientData] = useState();
-  const inputfield = useRef()
   const [personalUpdate, setPersonalUpdate] = useState(false);
   const [FamilyUpdate, setFamily] = useState(false);
   const [DiseaseUpdate, setDiseaseUpdate] = useState(false);
   const [DocumentUpdate, setDocumentUpdate] = useState(false);
   const [documents, setDocuments] = useState([]);
+
   const {
     register,
     handleSubmit,
@@ -46,19 +57,24 @@ export const ViewPatient = () => {
       mother_age: patientData?.mother_age || 45,
       mother_country_origin: patientData?.mother_country_origin || "India",
       mother_name: patientData?.mother_name || "Vanita",
-      parent_bp: patientData?.parent_bp ?? "",
-      parent_cardiac_issue: patientData?.parent_cardiac_issue ?? "",
-      parent_diabetic: patientData?.parent_diabetic || "",
+      mother_diabetic: patientData?.mother_diabetic == 1 ? "true" : "false",
+      mother_cardiac_issue:
+        patientData?.mother_cardiac_issue == 1 ? "true" : "false",
+      mother_bp: patientData?.mother_bp == 1 ? "true" : "false",
+      father_diabetic: patientData?.father_diabetic == 1 ? "true" : "false",
+      father_cardiac_issue:
+        patientData?.father_cardiac_issue == 1 ? "true" : "false",
+      father_bp: patientData?.father_bp == 1 ? "true" : "false",
       patient_id: patientData?.patient_id || "",
     },
   });
-  console.log(errors);
+  
   const [selectedFiles, setSelectedFiles] = useState({});
   const handleFileChange = (e, docType) => {
-    const file = e.target.files[0]; // Get the selected file
+    const file = e.target.files[0];
     setSelectedFiles((prev) => ({
       ...prev,
-      [docType]: file, 
+      [docType]: file,
     }));
   };
   const handlePatientData = () => {
@@ -71,114 +87,99 @@ export const ViewPatient = () => {
     setDiseaseUpdate((pre) => !pre);
   };
   const handleDocumentData = () => {
-   
     setDocumentUpdate((pre) => !pre);
   };
   //------------------
   const handleUpdatePersonalData = async (data) => {
-    console.log(data);
     try {
-      let response = await contextData.axiosInstance.put(
-        "/patient/updatePersonalInfo",
-        {
-          patient_id: data.patient_id,
-          patient_name: data.patient_name,
-          date_of_birth: data.date_of_birth,
-          gender: data.gender,
-          weight: data.weight,
-          height: data.height,
-          country_of_origin: data.country_of_origin,
-          is_diabetic: data.is_diabetic == "true" ? 1 : 0,
-          cardiac_issue: data.cardiac_issue == "true" ? 1 : 0,
-          blood_pressure: data.blood_pressure == "true" ? 1 : 0,
-        }
-      );
-      console.log(response);
+      let obj = {
+        patient_id: data.patient_id,
+        patient_name: data.patient_name,
+        date_of_birth: data.date_of_birth,
+        gender: data.gender,
+        weight: data.weight,
+        height: data.height,
+        country_of_origin: data.country_of_origin,
+        is_diabetic: data.is_diabetic == "true" ? 1 : 0,
+        cardiac_issue: data.cardiac_issue == "true" ? 1 : 0,
+        blood_pressure: data.blood_pressure == "true" ? 1 : 0,
+      };
+      let response = await dispatch(updatePersonalInfo(obj));
+      
       if (response.data.status === 200) {
         toast.success("Personal Information Updated successfully!");
         setPersonalUpdate(false);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   const handleUpdateFamilyData = async (data) => {
     try {
-      let response = await contextData.axiosInstance.put(
-        "/patient/updateFamilyInfo",
-        {
-          patient_id: data.patient_id,
-          father_name: data.father_name,
-          father_age: data.father_age,
-          father_country_origin: data.father_country_origin,
-          mother_name: data.mother_name,
-          mother_age: data.mother_age,
-          mother_country_origin: data.mother_country_origin,
-          parent_bp: data.parent_bp == "true" ? 1 : 0,
-          parent_cardiac_issue: data.parent_cardiac_issue == "true" ? 1 : 0,
-          parent_diabetic: data.parent_diabetic == "true" ? 1 : 0,
-        }
-      );
-      console.log(response);
+      let obj = {
+        patient_id: data.patient_id,
+        father_name: data.father_name,
+        father_age: data.father_age,
+        father_country_origin: data.father_country_origin,
+        mother_name: data.mother_name,
+        mother_age: data.mother_age,
+        mother_country_origin: data.mother_country_origin,
+        mother_diabetic: data.mother_diabetic === "true" ? 1 : 0,
+        mother_cardiac_issue: data.mother_cardiac_issue === "true" ? 1 : 0,
+        mother_bp: data.mother_bp === "true" ? 1 : 0,
+        father_diabetic: data.father_diabetic === "true" ? 1 : 0,
+        father_cardiac_issue: data.father_cardiac_issue === "true" ? 1 : 0,
+        father_bp: data.father_bp === "true" ? 1 : 0,
+      };
+      let response = await dispatch(updateFamilyInfo(obj));
+     
       if (response.data.status === 200) {
         toast.success("Family Information Updated successfully!");
         setFamily(false);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   const handleUpdateDiseaseData = async (data) => {
-    console.log(data);
+    let obj = {
+      patient_id: data.patient_id,
+      disease_description: data.disease_description,
+      disease_type: data.disease_type,
+    };
     try {
-      let response = await contextData.axiosInstance.put(
-        "/patient/updateDiseaseInfo",
-        {
-          patient_id: data.patient_id,
-          disease_description: data.disease_description,
-          disease_type: data.disease_type,
-        }
-      );
-      console.log(response);
+      let response = await dispatch(updateDiseaseInfo(obj));
+     
       if (response.data.status === 200) {
         toast.success("Disease Information Updated successfully!");
         setDiseaseUpdate(false);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
-  const handleUpdateDocumentData = async(data) => {
+  const handleUpdateDocumentData = async (data) => {
     try {
-     
       const formData = new FormData();
       formData.append("file", selectedFiles[data]);
       formData.append("document_type", data);
-      formData.append("patient_id",patientData.patient_id);
-     
-      let response = await contextData.axiosInstance.put(
-        "/patient/updateDocument",
-        formData
-      );
-      console.log("update",response)
+      formData.append("patient_id", patientData.patient_id);
 
-           response = await contextData.axiosInstance.get('/patient/getPatientInfo');
-          contextData.setAllPatients(response.data.data);
-          setDocumentUpdate(false);
-          setSelectedFiles({});
-          inputfield.current.file[0] = null;
-        
+      await axiosInstance.put("/patient/updateDocument", formData);
+
+      setDocumentUpdate(false);
+      setSelectedFiles({});
+      inputfield.current.file[0] = null;
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   useEffect(() => {
-    let fountPatient = contextData.allPatients.find(
-      (obj) => obj.patient_id == param.id
-    );
-    console.log("found", fountPatient);
+    let id = param.id || localStorage.getItem("id");
+    localStorage.setItem("id", id);
+    let fountPatient = patientList.find((obj) => obj.patient_id == id);
     setPatientData(fountPatient);
     if (fountPatient) {
       reset({
@@ -197,7 +198,6 @@ export const ViewPatient = () => {
         bmi: fountPatient?.bmi || "",
         disease_description: fountPatient?.disease_description || "",
         disease_type: fountPatient?.disease_type || "",
-
         father_age: fountPatient?.father_age || "",
         father_country_origin: fountPatient?.father_country_origin || "India",
         father_name: fountPatient?.father_name || "Mayappa",
@@ -207,19 +207,24 @@ export const ViewPatient = () => {
         mother_age: fountPatient?.mother_age || 45,
         mother_country_origin: fountPatient?.mother_country_origin || "India",
         mother_name: fountPatient?.mother_name || "Vanita",
-        parent_bp: fountPatient?.parent_bp == 1 ? "true" : "false",
-        parent_cardiac_issue:
-          fountPatient?.parent_cardiac_issue == 1 ? "true" : "false",
-        parent_diabetic: fountPatient?.parent_diabetic == 1 ? "true" : "false",
+
+        mother_diabetic: fountPatient.mother_diabetic == 1 ? "true" : "false",
+        mother_cardiac_issue:
+          fountPatient.mother_cardiac_issue == 1 ? "true" : "false",
+        mother_bp: fountPatient.mother_bp == 1 ? "true" : "false",
+        father_diabetic: fountPatient.father_diabetic == 1 ? "true" : "false",
+        father_cardiac_issue:
+          fountPatient.father_cardiac_issue == 1 ? "true" : "false",
+        father_bp: fountPatient.father_bp == 1 ? "true" : "false",
         patient_id: fountPatient?.patient_id || "",
       });
       setDocuments(fountPatient?.documents);
     }
-  }, [param.id, reset,contextData.allPatients]);
+  }, [param.id, reset]);
 
   return (
     <>
-      {console.log("hello object", patientData)}
+     
 
       <div className={viewPatientCSS.container}>
         {/* {---------------------------} */}
@@ -719,47 +724,42 @@ export const ViewPatient = () => {
               )}
             </div>
           </div>
-          
-            <div
-              style={{ display: "flex", gap: "3rem", flexDirection: "column" }}
-            >
-              {
-                console.log(documents)
-              }
-              {documents.map((obj, key) => (
-                <div key={key} className={viewPatientCSS.fieldCoverDiv}>
-                  <label className={viewPatientCSS.fieldLabel}>
-                    {obj.document_type}
-                    <span className={viewPatientCSS.star}>*</span>
-                  </label>
-                  <input 
+
+          <div
+            style={{ display: "flex", gap: "3rem", flexDirection: "column" }}
+          >
+            {documents.map((obj, key) => (
+              <div key={key} className={viewPatientCSS.fieldCoverDiv}>
+                <label className={viewPatientCSS.fieldLabel}>
+                  {obj.document_type}
+                  <span className={viewPatientCSS.star}>*</span>
+                </label>
+                <input
                   ref={inputfield}
-                    disabled={DocumentUpdate ? false : true}
-                    className={viewPatientCSS.inputfield}      
-                    type="file"
-                    name={obj.document_type}
-                    onChange={(e) => handleFileChange(e, obj.document_type)}
-                  />
-                  <button
-                    disabled={!selectedFiles[obj.document_type] }
-                    
-                    onClick={() => {
-                      handleUpdateDocumentData(obj.document_type);
-                    }}
-                    className={viewPatientCSS.uploadBtn}
-                  >
-                    {" "}
-                    Update{" "}
-                  </button>
-                  <img
-                    src={obj.document_url}
-                    alt={obj.document_type}
-                    className={viewPatientCSS.previewImage}
-                  />
-                </div>
-              ))}
-            </div>
-          
+                  disabled={DocumentUpdate ? false : true}
+                  className={viewPatientCSS.inputfield}
+                  type="file"
+                  name={obj.document_type}
+                  onChange={(e) => handleFileChange(e, obj.document_type)}
+                />
+                <button
+                  disabled={!selectedFiles[obj.document_type]}
+                  onClick={() => {
+                    handleUpdateDocumentData(obj.document_type);
+                  }}
+                  className={viewPatientCSS.uploadBtn}
+                >
+                  {" "}
+                  Update{" "}
+                </button>
+                <img
+                  src={obj.document_url}
+                  alt={obj.document_type}
+                  className={viewPatientCSS.previewImage}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>

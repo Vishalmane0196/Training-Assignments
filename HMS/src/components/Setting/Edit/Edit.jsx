@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import styles from "../../../style/Edit.module.css";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { MyContext } from "../../../utils/ContextApi";
-
+import {useDispatch, useSelector} from 'react-redux'
+import { getUserInfo } from "../../../redux/asyncThunkFuntions/user";
+import { updateUserInfo } from "../../../redux/asyncThunkFuntions/user";
 export const Edit = ({ editProfile, setEditProfile }) => {
-  const contextData = useContext(MyContext);
+
+ const {userInfo} = useSelector(state => state.auth);
+ const dispatch =  useDispatch()
   const {
     register,
     handleSubmit,
@@ -13,30 +16,26 @@ export const Edit = ({ editProfile, setEditProfile }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      first_name: contextData.userInfo.first_name,
-      last_name: contextData.userInfo.last_name,
-      mobile_number: contextData.userInfo.mobile_number,
+      first_name: userInfo.first_name,
+      last_name: userInfo.last_name,
+      mobile_number: userInfo.mobile_number,
     },
   });
 
   const sendDataToUpdate = async (data) => {
     try {
-      let response = await contextData.axiosInstance.put(
-        "/user/updateUser",
-        data
-      );
-      console.log(response);
+      await dispatch(updateUserInfo(data)).unwrap();
+      
       setEditProfile(false);
       toast.success("Profile updated successfully!");
-      response = await contextData.axiosInstance.get("user/getUser");
-      contextData.setUserInfo({ ...response.data.data[0] });
+      dispatch(getUserInfo());
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error(error);
     }
   };
   const handleUpdateData = (data) => {
-    console.log(data);
+
     sendDataToUpdate(data);
   };
   return (

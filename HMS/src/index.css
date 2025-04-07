@@ -1,10 +1,21 @@
-
-*{
+* {
     box-sizing: border-box;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&family=Material+Symbols+Rounded&family=Material+Symbols+Sharp&display=swap");
 
-#root{
+#root {
     height: 100vh;
+}
+
+.Toastify__toast--success {
+    background-color: #ffffff !important;
+    /* Green */
+    color: rgb(114, 112, 112) !important;
+}
+
+.Toastify__toast--error {
+    background-color: #f44336 !important;
+    /* Red */
+    color: white !important;
 }

@@ -1,11 +1,13 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import navbarCSS from "../../style/Navbar.module.css";
 import logo from "../../assets/Doctor-Symbol-Caduceus-PNG-Picture.png";
 import { Link, useNavigate } from "react-router-dom";
-import { MyContext } from "../../utils/ContextApi";
+import { logout } from "../../redux/slices/authentication/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Navbar = () => {
-  const ContextData = useContext(MyContext);
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
   const popupRef = useRef(null);
@@ -14,10 +16,9 @@ export const Navbar = () => {
     setShowPopup(!showPopup);
   };
 
-
   const handleLogout = () => {
     localStorage.clear();
-    ContextData.setToken(null);
+    dispatch(logout());
     navigate("/account/user/login");
   };
 
@@ -64,22 +65,23 @@ export const Navbar = () => {
                       alt="User"
                     />
                     <h3>
-                      {ContextData.userInfo?.first_name}{" "}
-                      {ContextData.userInfo?.last_name}
+                      {userInfo?.first_name}{" "}
+                      {userInfo?.last_name}
                     </h3>
-                    <p>{ContextData.userInfo?.email}</p>
+                    <p>{userInfo?.email}</p>
                   </div>
 
                   <ul className={navbarCSS.popupOptions}>
                     <li>
-                      <Link to='/admin/dashboard/profile'>
+                      <Link to="/admin/dashboard/profile">
                         <i className="fa-solid fa-user"></i>
                         <span style={{ marginLeft: "5px" }}>Profile</span>
                       </Link>
                     </li>
                     <li onClick={handleLogout}>
                       <Link>
-                        <i className="fa-solid fa-right-from-bracket"></i> Sign Out
+                        <i className="fa-solid fa-right-from-bracket"></i> Sign
+                        Out
                       </Link>
                     </li>
                   </ul>

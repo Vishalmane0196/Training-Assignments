@@ -1,44 +1,48 @@
-import React, { useContext } from "react";
+import React from "react";
 import login from "../../style/login.module.css";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { MyContext } from "../../utils/ContextApi";
+import { registerUser } from "../../redux/asyncThunkFuntions/auth";
+import { useDispatch } from "react-redux";
+
 import { toast } from "react-toastify";
+
 export const Register = () => {
-  const contextData = useContext(MyContext);
-  const navigate   = useNavigate();
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     trigger,
     formState: { errors },
   } = useForm();
+
   const handleRegisterForm = async (data) => {
-   try {
-     let response = await contextData.axiosInstance.post("/user/register", data);
-     if(response.data.status)
-     {
-      contextData.setUserInfo({...data})
-      navigate('/account/user/login');
-      toast.success('Registration successful! Redirecting to dashboard...', { position: 'top-right' });
-     }
-   } catch (error) {
-     toast.error(`Registration failed : ${error.response.data.message}`);
-    console.log("register fail",error);
-   }
+    let registerPromise = dispatch(registerUser(data)).unwrap();
+    toast.promise(registerPromise,{
+      pending: "Loading...",
+      success: "Registration successful!",
+      error: "Registration failed : ${error.response.data.message}",
+    })
+
+    try {
+       await registerPromise
+       navigate("/account/user/login");
+    } catch (error) {
+      console.error("register fail", error);
+    }
   };
 
   const submitRegisterData = (data) => {
-    console.log(data);
+  
     handleRegisterForm(data);
   };
   return (
     <>
       <div className={login.container}>
         <div className={login.googleBtn}>
-         
-         <h2 className={login.signinHeader}>Sign Up </h2>
-         
+          <h2 className={login.signinHeader}>Sign Up </h2>
         </div>
         <form
           className={login.form}
@@ -119,7 +123,7 @@ export const Register = () => {
                 onChange(e);
                 trigger("email");
               }}
-              className={login.inputt}
+              className={login.inputT}
               placeholder="Enter your email"
             />
           </div>
@@ -132,7 +136,7 @@ export const Register = () => {
               </label>
             </div>
             <input
-              className={login.inputt}
+              className={login.inputT}
               {...register("mobile_number", {
                 required: true,
                 pattern: {
@@ -157,7 +161,7 @@ export const Register = () => {
               </label>
             </div>
             <input
-              className={login.inputt}
+              className={login.inputT}
               required
               {...register("user_password", {
                 required: true,
@@ -174,14 +178,15 @@ export const Register = () => {
           </div>
 
           <div className={login.signbtndiv}>
-            <button type="submit" className={login.signinbtn}>
+            <button type="submit" className={login.signInBtn}>
               {" "}
               <pre> Sign Up </pre>{" "}
             </button>
           </div>
 
           <div className={login.signup}>
-          Already have an account? <Link to="/account/user/login">sign in</Link>
+            Already have an account?{" "}
+            <Link to="/account/user/login">sign in</Link>
           </div>
         </form>
       </div>

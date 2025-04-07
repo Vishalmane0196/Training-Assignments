@@ -1,12 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import diseaseCSS from "../../style/Disease.module.css";
 import { useForm } from "react-hook-form";
-import { MyContext } from "../../utils/ContextApi";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import PropTypes from "prop-types";
+import {
+  addDiseaseInfo,
+  updateDiseaseInfo,
+  getDiseaseInfo,
+} from "../../redux/asyncThunkFuntions/user";
 
 export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
-  const contextData = useContext(MyContext);
-  const [DiseaseInfo, setDiseaseInfo] = useState(null);
+  const [diseaseInfo, setDiseaseInfo] = useState(null);
+  const dispatch = useDispatch();
+
   const {
     register,
     reset,
@@ -14,46 +21,41 @@ export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      disease_type: DiseaseInfo?.disease_type || "",
-      disease_description: DiseaseInfo?.disease_description || "",
+      disease_type: diseaseInfo?.disease_type || "",
+      disease_description: diseaseInfo?.disease_description || "",
     },
   });
   const handleSendToDiseaseServer = async (data) => {
     try {
-      if (DiseaseInfo) {
-        await contextData.axiosInstance.put("/patient/updateDiseaseInfo", data);
+      if (diseaseInfo) {
+        dispatch(updateDiseaseInfo(data));
         toast.success("Personal Information updated successfully!");
       } else {
-        await contextData.axiosInstance.post("/patient/addDiseaseInfo", {
-          diseaseDetails: data,
-        });
+        await dispatch(
+          addDiseaseInfo({
+            diseaseDetails: data,
+          })
+        );
 
         toast.success("Disease Information Added successfully!");
       }
-      setStep((prev) => {
-        localStorage.setItem("step", prev + 1);
-        return prev + 1;
-      });
+      dispatch(setStep(3));
       setCount((pre) => pre + 1);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error("Failed to add/update disease Information");
     }
   };
   const handleSubmitDiseaseData = (data) => {
-    console.log(data);
 
     handleSendToDiseaseServer({ ...data, patient_id: patientId });
   };
 
   const handleBackBtn = () => {
-    setStep((prev) => {
-      localStorage.setItem("step", prev - 1);
-      return prev - 1;
-    });
+    dispatch(setStep(1));
   };
   useEffect(() => {
-    const getDiseaseInfo = async () => {
+    const getDiseaseInfoFun = async () => {
       if (patientId === null) {
         return;
       } else {
@@ -61,21 +63,20 @@ export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
           return;
         }
         try {
-          let response = await contextData.axiosInstance.get(
-            `/patient/getDiseaseInfo/${patientId}`
-          );
-          setDiseaseInfo(response.data.data[0]);
+      
+          let response = await dispatch(getDiseaseInfo(patientId)).unwrap();
+         
+          setDiseaseInfo(response.data[0]);
           reset({
-            disease_type: response.data.data[0].disease_type || "",
-            disease_description:
-              response.data.data[0].disease_description || "",
+            disease_type: response.data[0].disease_type || "",
+            disease_description: response.data[0].disease_description || "",
           });
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       }
     };
-    getDiseaseInfo();
+    getDiseaseInfoFun();
   }, []);
   return (
     <>
@@ -133,7 +134,7 @@ export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
             >
               Back
             </button>
-            {DiseaseInfo ? (
+            {diseaseInfo ? (
               <button className={diseaseCSS.submitBtn} type="submit">
                 Update
               </button>
@@ -147,4 +148,11 @@ export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
       </div>
     </>
   );
+};
+
+DiseaseInfo.propTypes = {
+  setCount: PropTypes.func.isRequired,
+  setStep: PropTypes.func.isRequired,
+  setPatientId: PropTypes.func.isRequired,
+  patientID: PropTypes.any,
 };
