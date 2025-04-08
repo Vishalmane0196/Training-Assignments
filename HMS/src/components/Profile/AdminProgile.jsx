@@ -1,33 +1,25 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../style/AdminProfile.module.css";
-import axiosInstance from "../../utils/axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPatientsInfo } from "../../redux/asyncThunkFuntions/user";
+
 export const AdminProgile = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  const [totalPatient, setTotalPatient] = useState(0);
+  const { totalPatient } = useSelector((state) => state.patient);
+   const dispatch = useDispatch();
+
   const [patient, setPatient] = useState(0);
   useEffect(() => {
     const fun = async () => {
-      
-      let response = await axiosInstance.get(
-        "/patient/getAllInfo?page=1&limit=5"
-      );
-
-      let response2 = await axiosInstance.get("/patient/getPatientInfo");
-
-      
-      setTotalPatient(() => {
-        return response.data.pagination.totalPatients;
-      });
-      setPatient(response2.data.data.length);
+    
+      let response2 = await dispatch(fetchPatientsInfo("get"))
+      setPatient(response2.data.length);
     };
     fun();
   }, []);
   return (
-    <div className={styles.profilecover}>
+    <div>
       <div className={styles.profileContainer}>
-        {/* Left Section - Profile Info */}
-
         <div
           style={{
             display: "flex",

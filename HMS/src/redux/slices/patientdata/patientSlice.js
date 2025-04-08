@@ -10,6 +10,7 @@ const initialState = {
   totalPages: 0,
   itemsPerPage : 4,
   patientList: [],
+  totalPatient:0
 };
 
 const patientSlice = createSlice({
@@ -18,6 +19,7 @@ const patientSlice = createSlice({
   reducers: {
     
   },
+
   extraReducers: (builder) => {
     builder.addCase(fetchPatientsInfo.pending, (state) => {
       state.loading = true;
@@ -40,6 +42,7 @@ const patientSlice = createSlice({
       state.loading = false;
       state.patientList = action.payload?.data ;
       state.totalPages = Math.ceil( parseInt(action.payload?.pagination?.totalPatients / state.itemsPerPage ));
+      state.totalPatient = action.payload?.pagination?.totalPatients;
 
     }).addCase(fetchAllPAtients.rejected, (state, action) => {
       state.loading = false;

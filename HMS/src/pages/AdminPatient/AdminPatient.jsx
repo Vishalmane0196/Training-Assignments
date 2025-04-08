@@ -13,7 +13,7 @@ export const AdminPatient = () => {
 
   const getData = async () => {
     try {
-     dispatch(fetchPatientsInfo());
+     await dispatch(fetchPatientsInfo());
     } catch (error) {
       console.error(error);
     }
@@ -30,7 +30,7 @@ export const AdminPatient = () => {
   const handleDeletePatient = async(id) => {
     try {
         await axiosInstance.delete(`/patient/adminDeletePatientData?patient_id=${id}`);
-        getData();
+        await dispatch(fetchPatientsInfo("get"));
       } catch (error) {
         console.log(error);
       }

@@ -20,6 +20,7 @@ export const DeletePopUp = ({ deleteState, setDeleteState }) => {
         position: "top-right",
       });
     } catch (error) {
+      console.error(error)
       toast.error(`Failed to delete account : ${error.response.data.message}`);
     }
   };

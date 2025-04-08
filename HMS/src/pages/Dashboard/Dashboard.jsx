@@ -5,13 +5,7 @@ import { NavLink, Outlet } from "react-router-dom";
 
 export const Dashboard = () => {
   
-  // useEffect(() => {
-  //   const getUserInfo = async () => {
-  //     let response = await contextData.axiosInstance.get("user/getUser");
-  //     contextData.setUserInfo({ ...response.data.data[0] });
-  //   };
-  //   getUserInfo();
-  // }, []);
+
 
   return (
     <>

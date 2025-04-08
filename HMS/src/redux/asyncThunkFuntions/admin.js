@@ -39,6 +39,7 @@ export const deletePatient = createAsyncThunk(
         let response = await axiosInstance.delete(
             `/patient/adminDeletePatientData?patient_id=${id}`
           );
+          
       return response;
     } catch (error) {
       console.error("Error deleting patient:", error);

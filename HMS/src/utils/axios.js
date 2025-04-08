@@ -8,6 +8,7 @@ const axiosInstance = axios.create({
 });
 
 // Add token to headers on every request
+
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
@@ -18,7 +19,6 @@ axiosInstance.interceptors.request.use((config) => {
 
 // Handle token expiration and refresh token
 
-// handle token expiration and refresh token
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -27,12 +27,9 @@ axiosInstance.interceptors.response.use(
       error.config &&
       !error.config._isRetry
     ) {
-      // Refresh token and retry the request
       localStorage.clear();
 
-      // Navigate to login page or redirect to previous page
       window.location.href = "/account/user/login";
-      
     }
     return Promise.reject(error);
   }

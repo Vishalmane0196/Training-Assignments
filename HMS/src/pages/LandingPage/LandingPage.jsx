@@ -28,7 +28,7 @@ export const LandingPage = () => {
                   className={landingCSS.searchButton}
                   href="#"
                 >
-                 Get Started 
+                  Get Started
                 </Link>
               </div>
             </section>

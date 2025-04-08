@@ -7,9 +7,9 @@ export const UserProfile = () => {
 
   return (
     <div>
-      <div className={styles.profilecover}>
+      <div>
         <div className={styles.profileContainer}>
-          {/* Left Section - Profile Info */}
+         
 
           <div
             style={{
