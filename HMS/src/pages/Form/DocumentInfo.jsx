@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import documentCSS from "../../style/Document.module.css";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import axiosInstance from "../../utils/axios";
+import axiosInstance from "../../api/axios";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { addDocument } from "../../redux/asyncThunkFuntions/user";
@@ -23,7 +23,6 @@ export const DocumentInfo = ({ setStep, patientId }) => {
   } = useForm();
 
   const handleBackBtn = () => {
-    
     dispatch(setStep(2));
   };
 
@@ -36,15 +35,15 @@ export const DocumentInfo = ({ setStep, patientId }) => {
       formData.append("patient_id", patientId);
 
       await dispatch(addDocument(formData)).unwrap();
-        setUploadStatus((prev) => {
-          let obj = {
-            ...prev,
-            [img]: true,
-          };
-          localStorage.setItem("upload_status", JSON.stringify(obj));
-          return obj;
-        });
-      
+      setUploadStatus((prev) => {
+        let obj = {
+          ...prev,
+          [img]: true,
+        };
+        localStorage.setItem("upload_status", JSON.stringify(obj));
+        return obj;
+      });
+
       toast.success("file uploaded successfully");
     } catch (error) {
       console.error(error);
@@ -104,7 +103,7 @@ export const DocumentInfo = ({ setStep, patientId }) => {
       let response = await axiosInstance.delete("/patient/deleteDocument", {
         data: formData,
       });
-      
+
       if (response.status === 200) {
         setFileData((prev) => {
           const updatedFiles = { ...prev };
@@ -115,7 +114,7 @@ export const DocumentInfo = ({ setStep, patientId }) => {
           const updatedPreviews = { ...prev };
           delete updatedPreviews[docType];
           localStorage.setItem("file_preview", JSON.stringify(updatedPreviews));
-        
+
           return updatedPreviews;
         });
 
@@ -123,7 +122,7 @@ export const DocumentInfo = ({ setStep, patientId }) => {
           const updatedStatus = { ...prev };
           delete updatedStatus[docType];
           localStorage.setItem("upload_status", JSON.stringify(updatedStatus));
-          
+
           return updatedStatus;
         });
       }
@@ -172,8 +171,8 @@ export const DocumentInfo = ({ setStep, patientId }) => {
                       <button
                         style={
                           uploadStatus[docType]
-                            ?{ display: "flex" }  
-                            :{ display: "none" }
+                            ? { display: "flex" }
+                            : { display: "none" }
                         }
                         onClick={(e) => {
                           e.preventDefault();

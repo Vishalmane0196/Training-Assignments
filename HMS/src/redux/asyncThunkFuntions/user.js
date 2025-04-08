@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from "../../utils/axios";
+import axiosInstance from "../../api/axios";
 import { toast } from "react-toastify";
 
 export const getUserInfo = createAsyncThunk(
@@ -7,7 +7,7 @@ export const getUserInfo = createAsyncThunk(
   async (get, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get("/user/getUser");
-    
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -20,7 +20,7 @@ export const fetchPatientsInfo = createAsyncThunk(
   async (get, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get("/patient/getPatientInfo");
-      
+
       return response.data;
     } catch (error) {
       toast.error(error.response.data.message);

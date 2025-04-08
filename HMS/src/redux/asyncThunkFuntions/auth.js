@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from "../../utils/axios.js";
-
+import axiosInstance from "../../api/axios.js";
 
 //  login api
 
@@ -11,7 +10,6 @@ export const loginUser = createAsyncThunk(
       const response = await axiosInstance.post("/user/login", registerData);
       return response.data;
     } catch (error) {
-     
       return rejectWithValue(error?.response?.data?.message);
     }
   }
@@ -23,16 +21,13 @@ export const registerUser = createAsyncThunk(
   "users/register",
   async (registerData, { rejectWithValue }) => {
     try {
-      let response = await axiosInstance.post(
-        "/user/register",
-        registerData
-      );
+      let response = await axiosInstance.post("/user/register", registerData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
     }
   }
-)
+);
 
 // forget password
 
@@ -41,11 +36,11 @@ export const forgetPassword = createAsyncThunk(
   async (email, { rejectWithValue }) => {
     try {
       let response = await axiosInstance.post("/user/forgotPassword", {
-        email : email,
+        email: email,
       });
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
     }
   }
-)
+);

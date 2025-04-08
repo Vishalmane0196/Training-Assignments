@@ -152,3 +152,5 @@ export const Edit = ({ editProfile, setEditProfile }) => {
     </div>
   );
 };
+
+export default Edit;

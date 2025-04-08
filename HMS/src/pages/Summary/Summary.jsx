@@ -9,7 +9,7 @@ import {
 } from "../../redux/asyncThunkFuntions/admin";
 import { fetchPatientCardData } from "../../redux/asyncThunkFuntions/admin";
 
-export const Summary = () => {
+const Summary = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const dispatch = useDispatch();
@@ -52,7 +52,6 @@ export const Summary = () => {
     <div className={styles.dashboard}>
       <div>
         <div className={styles.summary}>
-          
           {Object.keys(details).map((key, index) => (
             <div key={index} className={styles.summaryCard}>
               <p>{key}</p>
@@ -138,3 +137,4 @@ export const Summary = () => {
     </div>
   );
 };
+export default Summary;

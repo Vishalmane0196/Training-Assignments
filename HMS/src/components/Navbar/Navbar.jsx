@@ -65,8 +65,7 @@ export const Navbar = () => {
                       alt="User"
                     />
                     <h3>
-                      {userInfo?.first_name}{" "}
-                      {userInfo?.last_name}
+                      {userInfo?.first_name} {userInfo?.last_name}
                     </h3>
                     <p>{userInfo?.email}</p>
                   </div>

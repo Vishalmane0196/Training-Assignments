@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { updatePassword } from "../../../redux/asyncThunkFuntions/user";
 
-export const EditPassword = ({ reset, setReset }) => {
+export  const EditPassword = ({ reset, setReset }) => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -82,3 +82,5 @@ export const EditPassword = ({ reset, setReset }) => {
     </div>
   );
 };
+
+export default EditPassword;

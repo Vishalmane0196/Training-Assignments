@@ -3,16 +3,15 @@ import styles from "../../style/AdminProfile.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPatientsInfo } from "../../redux/asyncThunkFuntions/user";
 
-export const AdminProgile = () => {
-  const { userInfo } = useSelector((state) => state.auth);
+const Profile = () => {
+  const { userInfo, isAdmin } = useSelector((state) => state.auth);
   const { totalPatient } = useSelector((state) => state.patient);
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const [patient, setPatient] = useState(0);
   useEffect(() => {
     const fun = async () => {
-    
-      let response2 = await dispatch(fetchPatientsInfo("get"))
+      let response2 = await dispatch(fetchPatientsInfo("get")).unwrap();
       setPatient(response2.data.length);
     };
     fun();
@@ -39,7 +38,7 @@ export const AdminProgile = () => {
                 <h2 className={styles.userName}>
                   {userInfo?.first_name} {userInfo?.last_name}
                 </h2>
-                <p className={styles.trustText}>Admin</p>
+                <p className={styles.trustText}>{isAdmin ? "Admin" : "User"}</p>
 
                 <p className={styles.trustText}>{}</p>
               </div>
@@ -69,7 +68,7 @@ export const AdminProgile = () => {
 
             <div className={styles.detailRow}>
               <p className={styles.label}>Role :</p>
-              <p className={styles.value}>Admin</p>
+              <p className={styles.value}>{isAdmin ? "Admin" : "User"}</p>
             </div>
           </div>
         </div>
@@ -80,18 +79,27 @@ export const AdminProgile = () => {
           </div>
 
           <div className={styles.detailRow}>
-            <p className={styles.label}>Total Patient : </p>
-            <p className={styles.value}>{totalPatient}</p>
-            <p className={styles.label}>Your Patient</p>
-            <p className={styles.value}>{patient}</p>
+            {isAdmin == 1 && <p className={styles.label}>Total Patient : </p>}
+            {isAdmin == 1 && <p className={styles.value}>{totalPatient}</p>}
+            <br />
+            {isAdmin == 0 && (
+              <>
+                {" "}
+                <p className={styles.label}>Your Patient</p>
+                <p className={styles.value}>{patient}</p>
+              </>
+            )}
           </div>
-
-          <div className={styles.detailRow}>
-            <p className={styles.label}>Role :</p>
-            <p className={styles.value}>Admin</p>
-          </div>
+          {isAdmin == 1 && (
+            <div className={styles.detailRow}>
+              <p className={styles.label}>Your Patient</p>
+              <p className={styles.value}>{patient}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 };
+
+export default Profile;

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchPatientsInfo } from "../../redux/asyncThunkFuntions/user";
 
-export const UserPatientTable = () => {
+ const UserPatientTable = () => {
   const dispatch = useDispatch();
   const { patientList } = useSelector((state) => state.patient);
   const navigate = useNavigate();
@@ -70,3 +70,4 @@ export const UserPatientTable = () => {
     </>
   );
 };
+export default UserPatientTable

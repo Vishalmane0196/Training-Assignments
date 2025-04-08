@@ -9,6 +9,7 @@ import {
   updateDiseaseInfo,
   getDiseaseInfo,
 } from "../../redux/asyncThunkFuntions/user";
+import { Input } from "src/components/Input/Input";
 
 export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
   const [diseaseInfo, setDiseaseInfo] = useState(null);
@@ -17,6 +18,7 @@ export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
   const {
     register,
     reset,
+    trigger,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -47,7 +49,6 @@ export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
     }
   };
   const handleSubmitDiseaseData = (data) => {
-
     handleSendToDiseaseServer({ ...data, patient_id: patientId });
   };
 
@@ -63,9 +64,8 @@ export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
           return;
         }
         try {
-      
           let response = await dispatch(getDiseaseInfo(patientId)).unwrap();
-         
+
           setDiseaseInfo(response.data[0]);
           reset({
             disease_type: response.data[0].disease_type || "",
@@ -84,41 +84,27 @@ export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
         {/* <h1 className={diseaseCSS.title}>Disease Information</h1> */}
         <form onSubmit={handleSubmit(handleSubmitDiseaseData)}>
           <div style={{ display: "flex", gap: "3rem", height: "42.5vh" }}>
-            <div className={diseaseCSS.fieldCoverDiv}>
-              <label className={diseaseCSS.fieldLabel}>
-                Disease Type <span className={diseaseCSS.star}>*</span>
-              </label>
-              <input
-                className={diseaseCSS.inputfield}
-                {...register("disease_type", { required: "Type required" })}
-                type="text"
-                placeholder="Enter Type ..."
-              />
-              <p className={diseaseCSS.fielderror}>
-                {errors.disease_type && (
-                  <span>{errors.disease_type.message}</span>
-                )}
-              </p>
-            </div>
+            <Input
+              label="Disease Type"
+              require="Disease Type"
+              register={register}
+              trigger={trigger}
+              fieldName="disease_type"
+              errors={errors}
+              type="text"
+              placeholder="Enter Disease Name."
+            />
 
-            <div className={diseaseCSS.fieldCoverDiv}>
-              <label className={diseaseCSS.fieldLabel}>
-                Disease Description <span className={diseaseCSS.star}>*</span>
-              </label>
-              <input
-                className={diseaseCSS.inputfield}
-                {...register("disease_description", {
-                  required: "Description require",
-                })}
-                type="text"
-                placeholder="Enter Description"
-              />
-              <p className={diseaseCSS.fielderror}>
-                {errors.disease_description && (
-                  <span>{errors.disease_description.message}</span>
-                )}
-              </p>
-            </div>
+            <Input
+              label="Disease Description"
+              require="Description require"
+              register={register}
+              trigger={trigger}
+              fieldName="disease_description"
+              errors={errors}
+              type="text"
+              placeholder="Enter Description."
+            />
           </div>
           <div
             style={{

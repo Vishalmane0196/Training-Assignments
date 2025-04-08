@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 
 import { toast } from "react-toastify";
 
-export const Register = () => {
+ const Register = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -193,3 +193,5 @@ export const Register = () => {
     </>
   );
 };
+
+export default Register;

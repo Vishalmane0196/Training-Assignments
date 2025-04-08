@@ -132,7 +132,7 @@
 
   .linkText{
     text-decoration: none;
-    padding: 10px 0;
+    padding: 10px 5px;
     cursor: pointer;
     color: #8b949e;
     display: inline-block;

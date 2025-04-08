@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 import personalCSS from "../../style/Personal.module.css";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { fetchCountryName } from "../../redux/asyncThunkFuntions/extra";
-
+import { Input } from "src/components/Input/Input";
 import {
   addPersonalInfo,
   getPersonalInfo,
   updatePersonalInfo,
 } from "../../redux/asyncThunkFuntions/user";
+import { Radio } from "src/components/Radio/Radio";
+import { Button } from "src/components/Button/Button";
 
 export const PersonalInfo = ({
   setCount,
@@ -19,7 +21,7 @@ export const PersonalInfo = ({
   patientId,
 }) => {
   const dispatch = useDispatch();
-  
+
   const [PersonalData, setPersonalData] = useState(null);
   const [countryName, setCountryName] = useState("");
   const [country, setCountry] = useState(null);
@@ -29,7 +31,6 @@ export const PersonalInfo = ({
     handleSubmit,
     trigger,
     reset,
-    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -63,25 +64,23 @@ export const PersonalInfo = ({
 
     try {
       if (PersonalData) {
-       await dispatch(updatePersonalInfo(formattedData));
+        await dispatch(updatePersonalInfo(formattedData));
         toast.success("Personal Information updated successfully!");
       } else {
-    
         let data2 = {
           ...data,
           is_diabetic: data.is_diabetic == 1 ? true : false,
           cardiac_issue: data.cardiac_issue == 1 ? true : false,
           blood_pressure: data.blood_pressure == 1 ? true : false,
         };
-       
-       let response = await dispatch(addPersonalInfo(data2)).unwrap();
-      
+
+        let response = await dispatch(addPersonalInfo(data2)).unwrap();
+
         toast.success("Personal Information Added successfully!");
-        
+
         dispatch(setPatientId(response.data.patient_id));
-       
       }
-     dispatch(setStep(1));
+      dispatch(setStep(1));
       setCount((pre) => pre + 1);
     } catch (error) {
       console.error(error);
@@ -120,8 +119,7 @@ export const PersonalInfo = ({
               .split("T")[0],
             gender: response.data[0].gender,
             height: response.data[0].height,
-            is_diabetic:
-              response.data[0].is_diabetic == 1 ? "true" : "false",
+            is_diabetic: response.data[0].is_diabetic == 1 ? "true" : "false",
             patient_name: response.data[0].patient_name,
             weight: response.data[0].weight,
           });
@@ -148,44 +146,26 @@ export const PersonalInfo = ({
         {/* <h1 className={personalCSS.title}>Personal Information</h1> */}
         <form onSubmit={handleSubmit(handleSubmitPersonalData)}>
           <div style={{ display: "flex", gap: "3rem" }}>
-            <div className={personalCSS.fieldCoverDiv}>
-              <label className={personalCSS.fieldLabel}>
-                Patient Name <span className={personalCSS.star}>*</span>
-              </label>
-              <input
-                className={personalCSS.inputfield}
-                {...register("patient_name", { required: "Name is required" })}
-                onChange={(e) => {
-                  setValue("patient_name", e.target.value);
-                  trigger("patient_name");
-                }}
-                type="text"
-                placeholder="Enter Full Name..."
-              />
-              <p className={personalCSS.fielderror}>
-                {errors.patient_name && (
-                  <span className="error">{errors.patient_name.message}</span>
-                )}
-              </p>
-            </div>
+            <Input
+              label="Patient Name"
+              require="Patient Name"
+              register={register}
+              trigger={trigger}
+              fieldName="patient_name"
+              errors={errors}
+              type="text"
+              placeholder="Enter Full Name."
+            />
 
-            <div className={personalCSS.fieldCoverDiv}>
-              <label className={personalCSS.fieldLabel}>
-                Birth date <span className={personalCSS.star}>*</span>
-              </label>
-              <input
-                className={personalCSS.inputfield}
-                {...register("date_of_birth", {
-                  required: "Date of birth is required",
-                })}
-                type="date"
-              />
-              <p className={personalCSS.fielderror}>
-                {errors.date_of_birth && (
-                  <span className="error">{errors.date_of_birth.message}</span>
-                )}
-              </p>
-            </div>
+            <Input
+              label="Birth Date"
+              require="Birth Date"
+              register={register}
+              trigger={trigger}
+              fieldName="date_of_birth"
+              errors={errors}
+              type="date"
+            />
 
             <div className={personalCSS.fieldCoverDiv}>
               <label className={personalCSS.fieldLabel}>
@@ -201,162 +181,75 @@ export const PersonalInfo = ({
                 <option value="other">Other</option>
               </select>
             </div>
-            <div className={personalCSS.fieldCoverDiv}>
-              <label className={personalCSS.fieldLabel}>
-                Country <span className={personalCSS.star}>*</span>
-              </label>
-              <input
-                className={personalCSS.inputfield}
-                {...register("country_of_origin", {
-                  required: true,
-                })}
-                onChange={(e) => {
-                  setCountryName(e.target.value);
-                  const { onChange } = register("country_of_origin");
-                  onChange(e);
-                  trigger("country_of_origin");
-                }}
-                type="text"
-                placeholder="Enter country."
-              />
-              <p className={personalCSS.fielderror}>
-                {country && <span className="error">{country}</span>}
-              </p>
-            </div>
+            <Input
+              label="Country"
+              require="Country Name "
+              register={register}
+              trigger={trigger}
+              fieldName="country_of_origin"
+              errors={errors}
+              type="text"
+              onChange={(e) => setCountryName(e.target.value)}
+              placeholder="Enter Country."
+            />
           </div>
 
           <div style={{ display: "flex", gap: "3rem", marginTop: "1rem" }}>
-            <div className={personalCSS.fieldCoverDiv}>
-              <label className={personalCSS.fieldLabel}>
-                Weight <span className={personalCSS.star}>*</span>
-              </label>
-              <input
-                className={personalCSS.inputfield}
-                {...register("weight", { required: "Weight is required" })}
-                type="number"
-                placeholder="Enter weight"
-              />
-              <p className={personalCSS.fielderror}>
-                {errors.weight && (
-                  <span className="error">{errors.weight.message}</span>
-                )}
-              </p>
-            </div>
+            <Input
+              label="Weight"
+              require="Weight "
+              register={register}
+              trigger={trigger}
+              fieldName="weight"
+              errors={errors}
+              type="number"
+              placeholder="Enter weight."
+              min={10}
+              max={100}
+            />
 
-            <div className={personalCSS.fieldCoverDiv}>
-              <label className={personalCSS.fieldLabel}>
-                Height <span className={personalCSS.star}>*</span>
-              </label>
-              <input
-                className={personalCSS.inputfield}
-                {...register("height", { required: "Height is required" })}
-                type="number"
-                placeholder="Enter height"
-                min="4.50"
-                max="9.90"
-                step="0.01"
-              />
-              <p className={personalCSS.fielderror}>
-                {errors.height && (
-                  <span className="error">{errors.height.message}</span>
-                )}
-              </p>
-            </div>
+            <Input
+              label="Height"
+              require="Height "
+              register={register}
+              trigger={trigger}
+              fieldName="height"
+              errors={errors}
+              type="number"
+              placeholder="Enter Height."
+              min="4.50"
+              max="9.90"
+              step="0.01"
+            />
           </div>
 
           <div style={{ display: "flex", gap: "3rem", marginTop: "1rem" }}>
-            <div className={personalCSS.fieldCoverDiv}>
-              <label className={personalCSS.fieldLabel}>
-                Blood Pressure <span className={personalCSS.star}>*</span>
-              </label>
-              <label>
-                <input
-                  {...register("blood_pressure", {
-                    required: "Blood pressure is required",
-                  })}
-                  type="radio"
-                  value="true"
-                />{" "}
-                Yes
-              </label>
-              <label>
-                <input
-                  {...register("blood_pressure", {
-                    required: "Blood pressure is required",
-                  })}
-                  type="radio"
-                  value="false"
-                />{" "}
-                No
-              </label>
-              <p className={personalCSS.fielderror}>
-                {errors.blood_pressure && (
-                  <span className="error">{errors.blood_pressure.message}</span>
-                )}
-              </p>
-            </div>
+            <Radio
+              label="Blood Pressure"
+              require="Blood Pressure"
+              register={register}
+              fieldName="blood_pressure"
+              errors={errors}
+              type="radio"
+            />
 
-            <div className={personalCSS.fieldCoverDiv}>
-              <label className={personalCSS.fieldLabel}>
-                Diabetic <span className={personalCSS.star}>*</span>
-              </label>
-              <label>
-                <input
-                  {...register("is_diabetic", {
-                    required: " Diabetic field is required",
-                  })}
-                  type="radio"
-                  value="true"
-                />{" "}
-                Yes
-              </label>
-              <label>
-                <input
-                  {...register("is_diabetic", {
-                    required: "Diabetic field is required",
-                  })}
-                  type="radio"
-                  value="false"
-                />{" "}
-                No
-              </label>
-              <p className={personalCSS.fielderror}>
-                {errors.is_diabetic && (
-                  <span className="error">{errors.is_diabetic.message}</span>
-                )}
-              </p>
-            </div>
+            <Radio
+              label="Diabetic "
+              require="Diabetic Field"
+              register={register}
+              fieldName="is_diabetic"
+              errors={errors}
+              type="radio"
+            />
 
-            <div className={personalCSS.fieldCoverDiv}>
-              <label className={personalCSS.fieldLabel}>
-                Cardiac Issue <span className={personalCSS.star}>*</span>
-              </label>
-              <label>
-                <input
-                  {...register("cardiac_issue", {
-                    required: "Cardiac field is require",
-                  })}
-                  type="radio"
-                  value="true"
-                />{" "}
-                Yes
-              </label>
-              <label>
-                <input
-                  {...register("cardiac_issue", {
-                    required: "Cardiac field is require",
-                  })}
-                  type="radio"
-                  value="false"
-                />{" "}
-                No
-              </label>
-              <p className={personalCSS.fielderror}>
-                {errors.cardiac_issue && (
-                  <span className="error">{errors.cardiac_issue.message}</span>
-                )}
-              </p>
-            </div>
+            <Radio
+              label="Cardiac "
+              require="Cardiac Field"
+              register={register}
+              fieldName="cardiac_issue"
+              errors={errors}
+              type="radio"
+            />
           </div>
 
           <div
@@ -367,13 +260,9 @@ export const PersonalInfo = ({
             }}
           >
             {PersonalData ? (
-              <button className={personalCSS.submitBtn} type="submit">
-                Update
-              </button>
+              <Button text="Update" style={personalCSS.submitBtn} />
             ) : (
-              <button className={personalCSS.submitBtn} type="submit">
-                Next
-              </button>
+              <Button text="Next" style={personalCSS.submitBtn} />
             )}
           </div>
         </form>
@@ -385,9 +274,8 @@ export const PersonalInfo = ({
 // prop validation
 
 PersonalInfo.propTypes = {
-
   setCount: PropTypes.func.isRequired,
-  setStep:PropTypes.func.isRequired,
-  setPatientId:PropTypes.func.isRequired,
-  patientId:PropTypes.any
+  setStep: PropTypes.func.isRequired,
+  setPatientId: PropTypes.func.isRequired,
+  patientId: PropTypes.any,
 };

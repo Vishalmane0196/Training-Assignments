@@ -2,7 +2,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import { RouterProvider } from "react-router-dom";
-import router from "./api/Routers/Routes";
+import router from "./routes/Routes";
 
 function App() {
 

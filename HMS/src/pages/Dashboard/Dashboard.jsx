@@ -3,7 +3,7 @@ import { Navbar } from "../../components/Navbar/Navbar.jsx";
 import adminCSS from "../../style/AdminDashboard.module.css";
 import { NavLink, Outlet } from "react-router-dom";
 
-export const Dashboard = () => {
+ const Dashboard = () => {
   
 
 
@@ -75,3 +75,5 @@ export const Dashboard = () => {
     </>
   );
 };
+
+export default Dashboard;

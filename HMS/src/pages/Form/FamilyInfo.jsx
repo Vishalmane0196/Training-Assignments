@@ -9,6 +9,9 @@ import {
   getFamilyInfo,
 } from "../../redux/asyncThunkFuntions/user";
 import { useDispatch } from "react-redux";
+import { Radio } from "src/components/Radio/Radio";
+import { Button } from "src/components/Button/Button";
+import { Input } from "src/components/Input/Input";
 export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
   const [FamilyData, setFamilyData] = useState(null);
   const dispatch = useDispatch();
@@ -16,6 +19,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
     register,
     handleSubmit,
     reset,
+    trigger,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -25,7 +29,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
       mother_name: FamilyData?.mother_name || "",
       mother_country_origin: FamilyData?.mother_country_origin || "",
       mother_age: FamilyData?.mother_age || "",
-     
+
       mother_diabetic: FamilyData?.mother_diabetic || "",
       mother_cardiac_issue: FamilyData?.mother_cardiac_issue || "",
       mother_bp: FamilyData?.mother_bp || "",
@@ -51,7 +55,6 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
 
     try {
       if (FamilyData) {
-    
         dispatch(updateFamilyInfo(formattedData));
         toast.success("Family Information updated successfully!");
       } else {
@@ -83,7 +86,6 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
   };
 
   const handleSubmitPersonalData = (data) => {
-    
     handleSendFamilyInfoServer(data);
   };
 
@@ -101,7 +103,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
 
         try {
           let response = await dispatch(getFamilyInfo(patientId)).unwrap();
-        
+
           if (response.data[0]) {
             setFamilyData(response.data[0]);
           }
@@ -139,60 +141,40 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
         {/* <h1 className={familyCSS.title}>Family Information</h1> */}
         <form onSubmit={handleSubmit(handleSubmitPersonalData)}>
           <div style={{ display: "flex", gap: "3rem" }}>
-            <div className={familyCSS.fieldCoverDiv}>
-              <label className={familyCSS.fieldLabel}>
-                Father Name <span className={familyCSS.star}>*</span>
-              </label>
-              <input
-                className={familyCSS.inputfield}
-                {...register("father_name", {
-                  required: "Father name is required",
-                })}
-                type="text"
-                placeholder="Enter Full Name..."
-              />
-              <p className={familyCSS.fielderror}>
-                {errors.father_name && (
-                  <span>{errors.father_name.message}</span>
-                )}
-              </p>
-            </div>
+            <Input
+              label="Father Name"
+              require="Father Name"
+              register={register}
+              trigger={trigger}
+              fieldName="father_name"
+              errors={errors}
+              type="text"
+              placeholder="Enter Father Name."
+            />
 
-            <div className={familyCSS.fieldCoverDiv}>
-              <label className={familyCSS.fieldLabel}>
-                Father Country <span className={familyCSS.star}>*</span>
-              </label>
-              <input
-                className={familyCSS.inputfield}
-                {...register("father_country_origin", {
-                  required: "Country is required",
-                })}
-                type="text"
-                placeholder="Enter Country"
-              />
-              <p className={familyCSS.fielderror}>
-                {errors.father_country_origin && (
-                  <span>{errors.father_country_origin.message}</span>
-                )}
-              </p>
-            </div>
+            <Input
+              label="Father Country"
+              require="Country Name"
+              register={register}
+              trigger={trigger}
+              fieldName="father_country_origin"
+              errors={errors}
+              type="text"
+              placeholder="Country Name."
+            />
 
-            <div className={familyCSS.fieldCoverDiv}>
-              <label className={familyCSS.fieldLabel}>
-                Father Age <span className={familyCSS.star}>*</span>
-              </label>
-              <input
-                className={familyCSS.inputfield}
-                {...register("father_age", { required: "Age is required" })}
-                min={0}
-                max={150}
-                type="number"
-                placeholder="Enter Age."
-              />
-              <p className={familyCSS.fielderror}>
-                {errors.father_age && <span>{errors.father_age.message}</span>}
-              </p>
-            </div>
+            <Input
+              label="Father Age "
+              require="Age"
+              register={register}
+              trigger={trigger}
+              fieldName="father_age"
+              errors={errors}
+              type="number"
+              min={10}
+              max={100}
+              placeholder="Enter Age."
+            />
 
             <div className={familyCSS.fieldCoverDiv}>
               <label className={familyCSS.fieldLabel}>
@@ -214,60 +196,40 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
           </div>
 
           <div style={{ display: "flex", gap: "3rem", marginTop: "1rem" }}>
-            <div className={familyCSS.fieldCoverDiv}>
-              <label className={familyCSS.fieldLabel}>
-                Mother Name <span className={familyCSS.star}>*</span>
-              </label>
-              <input
-                className={familyCSS.inputfield}
-                {...register("mother_name", {
-                  required: "Mother name is required",
-                })}
-                type="text"
-                placeholder="Enter Full Name"
-              />
-              <p className={familyCSS.fielderror}>
-                {errors.mother_name && (
-                  <span>{errors.mother_name.message}</span>
-                )}
-              </p>
-            </div>
+            <Input
+              label="Mother Name"
+              require="Mother Name"
+              register={register}
+              trigger={trigger}
+              fieldName="mother_name"
+              errors={errors}
+              type="text"
+              placeholder="Enter Mother Name."
+            />
 
-            <div className={familyCSS.fieldCoverDiv}>
-              <label className={familyCSS.fieldLabel}>
-                Mother Country <span className={familyCSS.star}>*</span>
-              </label>
-              <input
-                className={familyCSS.inputfield}
-                {...register("mother_country_origin", {
-                  required: "Country is required",
-                })}
-                type="text"
-                placeholder="Enter Country"
-              />
-              <p className={familyCSS.fielderror}>
-                {errors.mother_country_origin && (
-                  <span>{errors.mother_country_origin.message}</span>
-                )}
-              </p>
-            </div>
+            <Input
+              label="Mother Country"
+              require="Country Name"
+              register={register}
+              trigger={trigger}
+              fieldName="mother_country_origin"
+              errors={errors}
+              type="text"
+              placeholder="Country Name."
+            />
 
-            <div className={familyCSS.fieldCoverDiv}>
-              <label className={familyCSS.fieldLabel}>
-                Mother Age <span className={familyCSS.star}>*</span>
-              </label>
-              <input
-                className={familyCSS.inputfield}
-                {...register("mother_age", { required: "Age is required" })}
-                type="number"
-                min={0}
-                max={150}
-                placeholder="Enter Age"
-              />
-              <p className={familyCSS.fielderror}>
-                {errors.mother_age && <span>{errors.mother_age.message}</span>}
-              </p>
-            </div>
+            <Input
+              label="Mother Age "
+              require="Age"
+              register={register}
+              trigger={trigger}
+              fieldName="mother_age"
+              errors={errors}
+              type="number"
+              min={10}
+              max={100}
+              placeholder="Enter Age."
+            />
 
             <div className={familyCSS.fieldCoverDiv}>
               <label className={familyCSS.fieldLabel}>
@@ -290,128 +252,40 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
           </div>
 
           <div style={{ display: "flex", gap: "3rem", marginTop: "1rem" }}>
-            <div className={familyCSS.fieldCoverDiv}>
-              <label className={familyCSS.fieldLabel}>
-                Mother Diabetic <span className={familyCSS.star}>*</span>
-              </label>
-              <div>
-                <label>Yes</label>
-                <input
-                  {...register("mother_diabetic", {
-                    required: "mother diabetic is required",
-                  })}
-                  type="radio"
-                  value="true"
-                />
-              </div>
-              <div>
-                <label>No</label>
-                <input
-                  {...register("mother_diabetic", {
-                    required: "mother diabetic is required",
-                  })}
-                  type="radio"
-                  value="false"
-                />
-              </div>
-              <p className={familyCSS.fielderror}>
-                {errors.mother_diabetic && (
-                  <span>{errors.mother_diabetic.message}</span>
-                )}
-              </p>
-            </div>
+            <Radio
+              label="Mother Diabetic "
+              require="Diabetic"
+              register={register}
+              fieldName="mother_diabetic"
+              errors={errors}
+              type="radio"
+            />
 
-            <div className={familyCSS.fieldCoverDiv}>
-              <label className={familyCSS.fieldLabel}>
-                Mother Cardiac Issue<span className={familyCSS.star}>*</span>
-              </label>
-              <div>
-                <label>Yes</label>
-                <input
-                  {...register("mother_cardiac_issue", {
-                    required: "This field is  required",
-                  })}
-                  type="radio"
-                  value="true"
-                />
-              </div>
-              <div>
-                <label>No</label>
-                <input
-                  {...register("mother_cardiac_issue", {
-                    required: "This field is  required",
-                  })}
-                  type="radio"
-                  value="false"
-                />
-              </div>
-              <p className={familyCSS.fielderror}>
-                {errors.mother_cardiac_issue && (
-                  <span>{errors.mother_cardiac_issue.message}</span>
-                )}
-              </p>
-            </div>
+            <Radio
+              label=" Mother Cardiac Issue"
+              require="Cardiac"
+              register={register}
+              fieldName="mother_cardiac_issue"
+              errors={errors}
+              type="radio"
+            />
+            <Radio
+              label="Father Diabetic"
+              require="Diabetic"
+              register={register}
+              fieldName="father_diabetic"
+              errors={errors}
+              type="radio"
+            />
 
-            <div className={familyCSS.fieldCoverDiv}>
-              <label className={familyCSS.fieldLabel}>
-                Father Diabetic <span className={familyCSS.star}>*</span>
-              </label>
-              <div>
-                <label>Yes</label>
-                <input
-                  {...register("father_diabetic", {
-                    required: "This filed is required",
-                  })}
-                  type="radio"
-                  value="true"
-                />
-              </div>
-              <div>
-                <label>No</label>
-                <input
-                  {...register("father_diabetic", {
-                    required: "This filed is required",
-                  })}
-                  type="radio"
-                  value="false"
-                />
-              </div>
-              <p className={familyCSS.fielderror}>
-                {errors.father_diabetic && (
-                  <span>{errors.father_diabetic.message}</span>
-                )}
-              </p>
-            </div>
-            <div className={familyCSS.fieldCoverDiv}>
-              <label className={familyCSS.fieldLabel}>
-                Father Cardiac Issue <span className={familyCSS.star}>*</span>
-              </label>
-              <div>
-                <label>Yes</label>
-                <input
-                  {...register("father_cardiac_issue", {
-                    required: "This field is  required",
-                  })}
-                  type="radio"
-                  value="true"
-                />
-              </div>
-              <div>
-                <label>No</label>
-                <input
-                  {...register("father_cardiac_issue", {
-                    required: "This field is  required",
-                  })}
-                  type="radio"
-                  value="false"
-                />
-              </div>
-              <p className={familyCSS.fielderror}>
-                {errors.father_cardiac_issue && (
-                  <span>{errors.father_cardiac_issue.message}</span>
-                )}
-              </p>
-            </div>
+            <Radio
+              label="Father Cardiac Issue "
+              require="Cardiac"
+              register={register}
+              fieldName="father_cardiac_issue"
+              errors={errors}
+              type="radio"
+            />
           </div>
 
           <div
@@ -421,21 +295,17 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
               marginTop: "0.5rem",
             }}
           >
-            <button
-              onClick={handleBackBtn}
-              className={familyCSS.backBtn}
+            <Button
+              text="Back"
+              style={familyCSS.backBtn}
               type="button"
-            >
-              Back
-            </button>
+              onClick={() => handleBackBtn()}
+            />
+
             {FamilyData ? (
-              <button className={familyCSS.submitBtn} type="submit">
-                Update
-              </button>
+              <Button text="Update" style={familyCSS.submitBtn} type="submit" />
             ) : (
-              <button className={familyCSS.submitBtn} type="submit">
-                Next
-              </button>
+              <Button text="Next" style={familyCSS.submitBtn} type="submit" />
             )}
           </div>
         </form>

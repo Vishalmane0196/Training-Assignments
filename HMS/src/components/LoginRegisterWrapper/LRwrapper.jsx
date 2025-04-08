@@ -4,10 +4,10 @@ import leftRightWrapperCSS from "../../style/LRwrapper.module.css";
 
 import video from "../../assets/video.mp4";
 import { Outlet } from "react-router-dom";
-export const LRwrapper = () => {
+ const LRwrapper = () => {
   return (
     <>
-    <Suspense fallback={<div>Loading...</div>}>
+
       <div className={leftRightWrapperCSS.lrWrapper}>
         <div className={leftRightWrapperCSS.lrWrapperLeftPanel}>
           <div className={leftRightWrapperCSS.titleWrapper}>
@@ -27,8 +27,8 @@ export const LRwrapper = () => {
           <Outlet />
         </div>
       </div>
-    </Suspense>
-      
     </>
   );
 };
+
+export default LRwrapper;

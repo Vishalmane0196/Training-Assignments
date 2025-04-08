@@ -10,7 +10,7 @@ import { loginUser } from "../../redux/asyncThunkFuntions/auth.js";
 import { getUserInfo } from "../../redux/asyncThunkFuntions/user.js";
 import { toast } from "react-toastify";
 
-export const Login = () => {
+ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, isAdmin, isDoctor, isLoggedIn } = useSelector(
@@ -155,3 +155,6 @@ export const Login = () => {
     </>
   );
 };
+
+
+export default Login;

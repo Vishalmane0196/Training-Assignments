@@ -3,11 +3,11 @@ import forgetCSS from "../../style/Forget.module.css";
 import { toast } from "react-toastify";
 import bcrypt from "bcryptjs";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../utils/axios";
+import axiosInstance from "../../api/axios";
 import { forgetPassword } from "../../redux/asyncThunkFuntions/auth";
 import { useDispatch } from "react-redux";
 
-export const Forget = () => {
+const Forget = () => {
   const dispatch = useDispatch();
   const [otpInput, setOtpInput] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -46,22 +46,19 @@ export const Forget = () => {
       navigate("/account/user/login");
       return;
     } else {
-
       let forgetPasswordPromise = dispatch(forgetPassword(forgetEmail));
-      toast.promise(forgetPasswordPromise,{
+      toast.promise(forgetPasswordPromise, {
         pending: "Sending OTP to your email...",
         success: "Check your email for OTP",
         error: "Failed to send OTP",
-       
-      })
+      });
 
       try {
-      
-      let response =  await forgetPasswordPromise.unwrap();
+        let response = await forgetPasswordPromise.unwrap();
         setOtp(response?.data?.hashOtp);
         setChangePassStatus(true);
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     }
   };
@@ -133,3 +130,5 @@ export const Forget = () => {
     </>
   );
 };
+
+export default Forget;

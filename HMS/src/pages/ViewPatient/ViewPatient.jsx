@@ -6,14 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useRef } from "react";
 
-import axiosInstance from "../../utils/axios";
+import axiosInstance from "../../api/axios";
 import {
   updateDiseaseInfo,
   updatePersonalInfo,
   updateFamilyInfo,
 } from "../../redux/asyncThunkFuntions/user";
 
-export const ViewPatient = () => {
+const ViewPatient = () => {
   const dispatch = useDispatch();
   const { patientList } = useSelector((state) => state.patient);
   const param = useParams();
@@ -68,7 +68,7 @@ export const ViewPatient = () => {
       patient_id: patientData?.patient_id || "",
     },
   });
-  
+
   const [selectedFiles, setSelectedFiles] = useState({});
   const handleFileChange = (e, docType) => {
     const file = e.target.files[0];
@@ -105,7 +105,7 @@ export const ViewPatient = () => {
         blood_pressure: data.blood_pressure == "true" ? 1 : 0,
       };
       let response = await dispatch(updatePersonalInfo(obj));
-      
+
       if (response.data.status === 200) {
         toast.success("Personal Information Updated successfully!");
         setPersonalUpdate(false);
@@ -132,7 +132,7 @@ export const ViewPatient = () => {
         father_bp: data.father_bp === "true" ? 1 : 0,
       };
       let response = await dispatch(updateFamilyInfo(obj));
-     
+
       if (response.data.status === 200) {
         toast.success("Family Information Updated successfully!");
         setFamily(false);
@@ -150,7 +150,7 @@ export const ViewPatient = () => {
     };
     try {
       let response = await dispatch(updateDiseaseInfo(obj));
-     
+
       if (response.data.status === 200) {
         toast.success("Disease Information Updated successfully!");
         setDiseaseUpdate(false);
@@ -224,8 +224,6 @@ export const ViewPatient = () => {
 
   return (
     <>
-     
-
       <div className={viewPatientCSS.container}>
         {/* {---------------------------} */}
 
@@ -765,3 +763,4 @@ export const ViewPatient = () => {
     </>
   );
 };
+export default ViewPatient;

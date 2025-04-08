@@ -2,7 +2,7 @@ import React from 'react'
 import userDashboardCSS from '../../style/Userdashboard.module.css'
 import { UserNavbar } from '../../components/Navbar/UserNavbar'
 import {  NavLink, Outlet }from 'react-router-dom';
-export const UserDashboard = () => {
+ const UserDashboard = () => {
     
   return (
     <>  
@@ -53,3 +53,5 @@ export const UserDashboard = () => {
     </>
   )
 }
+
+export default UserDashboard;

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import landingCSS from "../../style/LandingPage.module.css";
 import logo from "../../assets/Doctor-Symbol-Caduceus-PNG-Picture.png";
-export const LandingPage = () => {
+const LandingPage = () => {
   return (
     <>
       <div className={landingCSS.container}>
@@ -38,3 +38,5 @@ export const LandingPage = () => {
     </>
   );
 };
+
+export default LandingPage;

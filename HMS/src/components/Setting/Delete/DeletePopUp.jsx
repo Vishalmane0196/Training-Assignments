@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { logout } from "../../../redux/slices/authentication/authSlice";
 import { useDispatch } from "react-redux";
 import { deleteAccount } from "../../../redux/asyncThunkFuntions/user";
+
 export const DeletePopUp = ({ deleteState, setDeleteState }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export const DeletePopUp = ({ deleteState, setDeleteState }) => {
         position: "top-right",
       });
     } catch (error) {
-      console.error(error)
+      console.error(error);
       toast.error(`Failed to delete account : ${error.response.data.message}`);
     }
   };
@@ -66,3 +67,5 @@ export const DeletePopUp = ({ deleteState, setDeleteState }) => {
     </>
   );
 };
+
+export default DeletePopUp;

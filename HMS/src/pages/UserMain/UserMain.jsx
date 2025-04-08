@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../redux/asyncThunkFuntions/user";
 
-export const UserMain = () => {
+ const UserMain = () => {
  
   const {userInfo } = useSelector(state => state.auth)
   const navigate = useNavigate();
@@ -51,3 +51,5 @@ export const UserMain = () => {
     </>
   );
 };
+
+export default UserMain;

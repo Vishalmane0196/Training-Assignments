@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from "../../utils/axios";
+import axiosInstance from "../../api/axios";
 import { toast } from "react-toastify";
 
 export const fetchAllPAtients = createAsyncThunk(
@@ -20,10 +20,10 @@ export const fetchAllPAtients = createAsyncThunk(
 
 export const fetchPatientCardData = createAsyncThunk(
   "admin/getPatientCardData",
-  async (get,{ rejectWithValue }) => {
+  async (get, { rejectWithValue }) => {
     try {
       const summaryResponse = await axiosInstance.get("/admin/getAgeGroup");
-    
+
       return summaryResponse.data.data;
     } catch (error) {
       return rejectWithValue(error.data.message);
@@ -36,10 +36,10 @@ export const deletePatient = createAsyncThunk(
   "admin/deletePatient",
   async (id, { rejectWithValue }) => {
     try {
-        let response = await axiosInstance.delete(
-            `/patient/adminDeletePatientData?patient_id=${id}`
-          );
-          
+      let response = await axiosInstance.delete(
+        `/patient/adminDeletePatientData?patient_id=${id}`
+      );
+
       return response;
     } catch (error) {
       console.error("Error deleting patient:", error);
@@ -48,20 +48,18 @@ export const deletePatient = createAsyncThunk(
   }
 );
 
-
 // Add Admin Api
 
 export const addAdmin = createAsyncThunk(
   "admin/addAdmin",
   async (data, { rejectWithValue }) => {
     try {
-        let response = await axiosInstance.put('/user/addAdmin',{
-            email:data
-          })
+      let response = await axiosInstance.put("/user/addAdmin", {
+        email: data,
+      });
 
       return response;
     } catch (error) {
-        
       console.error("Error adding admin:", error);
       rejectWithValue(error.data.message);
     }
@@ -74,13 +72,13 @@ export const deleteAdmin = createAsyncThunk(
   "admin/deleteAdmin",
   async (id, { rejectWithValue }) => {
     try {
-        let response = await axiosInstance.put('/user/removeAdmin',{
-            email:id
-          })
-        
+      let response = await axiosInstance.put("/user/removeAdmin", {
+        email: id,
+      });
+
       return response;
     } catch (error) {
-        toast.error(error);
+      toast.error(error);
       console.error("Error deleting admin:", error);
       rejectWithValue(error.data.message);
     }

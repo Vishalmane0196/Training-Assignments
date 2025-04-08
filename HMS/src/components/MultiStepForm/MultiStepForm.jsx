@@ -1,13 +1,13 @@
-import React from 'react'
-import { Form } from '../../pages/Form/Form.jsx';
-export const MultiStepForm = () => {
-  
+import React from "react";
+import { Form } from "../../pages/Form/Form.jsx";
+const MultiStepForm = () => {
   return (
     <>
-     <div style={{width:"100%"}}>
-      <Form/>
-
-     </div>
+      <div style={{ width: "100%" }}>
+        <Form />
+      </div>
     </>
-  )
-}
+  );
+};
+
+export default MultiStepForm;

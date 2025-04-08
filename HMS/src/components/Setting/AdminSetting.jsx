@@ -7,7 +7,7 @@ import { addAdmin } from "../../redux/asyncThunkFuntions/admin.js";
 import { deleteAdmin } from "../../redux/asyncThunkFuntions/admin.js";
 import { useDispatch } from "react-redux";
 
-export const AdminSetting = () => {
+const AdminSetting = () => {
   const [deleteState, setDeleteState] = useState(false);
   const [editProfile, setEditProfile] = useState(false);
   const dispatch = useDispatch();
@@ -115,3 +115,5 @@ export const AdminSetting = () => {
     </>
   );
 };
+
+export default AdminSetting;
