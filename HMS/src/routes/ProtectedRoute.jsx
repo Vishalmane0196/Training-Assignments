@@ -6,7 +6,7 @@ export const ProtectedRoute = ({ children, isAdminProp }) => {
     const navigate = useNavigate();
     const { token,
         isAdmin } = useSelector(state=>state.auth);
-   
+   console.log("token",token,"isdmin",isAdmin,"prop",isAdminProp)
     useEffect(() => {
         if (!token) {
             
@@ -26,6 +26,6 @@ export const ProtectedRoute = ({ children, isAdminProp }) => {
     }, [token, isAdmin, isAdminProp, navigate]);
 
     
- 
+  
     return children;
 };

@@ -52,10 +52,10 @@ export const updatePersonalInfo = createAsyncThunk(
         "/patient/updatePersonalInfo",
         data
       );
-      toast.success("Personal Information Updated successfully!");
+   
       return response.data;
     } catch (error) {
-      toast.error(error.response.data.message);
+      
       return rejectWithValue(error.response.data);
     }
   }

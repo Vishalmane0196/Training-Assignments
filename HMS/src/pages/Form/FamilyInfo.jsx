@@ -175,7 +175,6 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
               max={100}
               placeholder="Enter Age."
             />
-
             <div className={familyCSS.fieldCoverDiv}>
               <label className={familyCSS.fieldLabel}>
                 Father BP <span className={familyCSS.star}>*</span>

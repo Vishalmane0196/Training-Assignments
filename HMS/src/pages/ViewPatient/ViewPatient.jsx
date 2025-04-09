@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import viewPatientCSS from "../../style/ViewPatient.module.css";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useRef } from "react";
+import { Input } from "src/components/Input/Input";
+import { Radio } from "src/components/Radio/Radio";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import axiosInstance from "../../api/axios";
 import {
@@ -14,6 +20,7 @@ import {
 } from "../../redux/asyncThunkFuntions/user";
 
 const ViewPatient = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { patientList } = useSelector((state) => state.patient);
   const param = useParams();
@@ -21,42 +28,21 @@ const ViewPatient = () => {
   const inputfield = useRef();
 
   const [patientData, setPatientData] = useState();
-  const [personalUpdate, setPersonalUpdate] = useState(false);
-  const [FamilyUpdate, setFamily] = useState(false);
-  const [DiseaseUpdate, setDiseaseUpdate] = useState(false);
-  const [DocumentUpdate, setDocumentUpdate] = useState(false);
+  const [personalUpdate, setPersonalUpdate] = useState(true);
+  const [FamilyUpdate, setFamily] = useState(true);
+  const [DiseaseUpdate, setDiseaseUpdate] = useState(true);
+  const [DocumentUpdate, setDocumentUpdate] = useState(true);
   const [documents, setDocuments] = useState([]);
 
   const {
     register,
     handleSubmit,
     trigger,
-    setValue,
     reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      patient_name: patientData?.patient_name || "",
-      date_of_birth: patientData?.date_of_birth || "",
-      gender: patientData?.gender || "",
-      weight: patientData?.weight || "",
-      height: patientData?.height || "",
-      country_of_origin: patientData?.country_of_origin || "",
-      is_diabetic: patientData?.is_diabetic ?? "",
-      cardiac_issue: patientData?.cardiac_issue ?? "",
-      blood_pressure: patientData?.blood_pressure ?? "",
-      bmi: patientData?.bmi || "",
-      disease_description: patientData?.disease_description || "",
-      disease_type: patientData?.disease_type || "",
-      father_age: patientData?.father_age || "",
-      father_country_origin: patientData?.father_country_origin || "India",
-      father_name: patientData?.father_name || "Mayappa",
-      first_name: patientData?.first_name || "Vikrant",
-      last_name: patientData?.last_name || "Bhadange",
-      mobile_number: patientData?.mobile_number || "1234567890",
-      mother_age: patientData?.mother_age || 45,
-      mother_country_origin: patientData?.mother_country_origin || "India",
-      mother_name: patientData?.mother_name || "Vanita",
+      ...patientData,
       mother_diabetic: patientData?.mother_diabetic == 1 ? "true" : "false",
       mother_cardiac_issue:
         patientData?.mother_cardiac_issue == 1 ? "true" : "false",
@@ -77,18 +63,7 @@ const ViewPatient = () => {
       [docType]: file,
     }));
   };
-  const handlePatientData = () => {
-    setPersonalUpdate((pre) => !pre);
-  };
-  const handleFamilyData = () => {
-    setFamily((pre) => !pre);
-  };
-  const handleDiseaseData = () => {
-    setDiseaseUpdate((pre) => !pre);
-  };
-  const handleDocumentData = () => {
-    setDocumentUpdate((pre) => !pre);
-  };
+
   //------------------
   const handleUpdatePersonalData = async (data) => {
     try {
@@ -104,13 +79,11 @@ const ViewPatient = () => {
         cardiac_issue: data.cardiac_issue == "true" ? 1 : 0,
         blood_pressure: data.blood_pressure == "true" ? 1 : 0,
       };
-      let response = await dispatch(updatePersonalInfo(obj));
+      await dispatch(updatePersonalInfo(obj)).unwrap();
 
-      if (response.data.status === 200) {
-        toast.success("Personal Information Updated successfully!");
-        setPersonalUpdate(false);
-      }
+      toast.success("Personal Information Updated successfully!");
     } catch (error) {
+      toast.error(error.message);
       console.error(error);
     }
   };
@@ -131,12 +104,8 @@ const ViewPatient = () => {
         father_cardiac_issue: data.father_cardiac_issue === "true" ? 1 : 0,
         father_bp: data.father_bp === "true" ? 1 : 0,
       };
-      let response = await dispatch(updateFamilyInfo(obj));
-
-      if (response.data.status === 200) {
-        toast.success("Family Information Updated successfully!");
-        setFamily(false);
-      }
+      await dispatch(updateFamilyInfo(obj)).unwrap();
+      toast.success("Family Information Updated successfully!");
     } catch (error) {
       console.error(error);
     }
@@ -149,12 +118,9 @@ const ViewPatient = () => {
       disease_type: data.disease_type,
     };
     try {
-      let response = await dispatch(updateDiseaseInfo(obj));
+      await dispatch(updateDiseaseInfo(obj)).unwrap();
 
-      if (response.data.status === 200) {
-        toast.success("Disease Information Updated successfully!");
-        setDiseaseUpdate(false);
-      }
+      toast.success("Disease Information Updated successfully!");
     } catch (error) {
       console.error(error);
     }
@@ -167,8 +133,6 @@ const ViewPatient = () => {
       formData.append("patient_id", patientData.patient_id);
 
       await axiosInstance.put("/patient/updateDocument", formData);
-
-      setDocumentUpdate(false);
       setSelectedFiles({});
       inputfield.current.file[0] = null;
     } catch (error) {
@@ -177,37 +141,22 @@ const ViewPatient = () => {
   };
 
   useEffect(() => {
-    let id = param.id || localStorage.getItem("id");
-    localStorage.setItem("id", id);
+    let id = param.id;
+    if (patientList.length == 0) {
+      navigate("/user/dashboard/viewpatients");
+    }
+    console.log(patientList);
     let fountPatient = patientList.find((obj) => obj.patient_id == id);
     setPatientData(fountPatient);
     if (fountPatient) {
       reset({
-        patient_name: fountPatient?.patient_name || "",
+        ...fountPatient,
         date_of_birth: fountPatient?.date_of_birth
           ? new Date(fountPatient.date_of_birth).toISOString().split("T")[0]
           : "",
-        gender: fountPatient?.gender || "",
-        weight: fountPatient?.weight || "",
-        height: fountPatient?.height || "",
-        country_of_origin: fountPatient?.country_of_origin || "",
         is_diabetic: fountPatient?.is_diabetic == 1 ? "true" : "false",
         cardiac_issue: fountPatient?.cardiac_issue == 1 ? "true" : "false",
         blood_pressure: fountPatient?.blood_pressure == 1 ? "true" : "false",
-        age: fountPatient?.age || "",
-        bmi: fountPatient?.bmi || "",
-        disease_description: fountPatient?.disease_description || "",
-        disease_type: fountPatient?.disease_type || "",
-        father_age: fountPatient?.father_age || "",
-        father_country_origin: fountPatient?.father_country_origin || "India",
-        father_name: fountPatient?.father_name || "Mayappa",
-        first_name: fountPatient?.first_name || "Vikrant",
-        last_name: fountPatient?.last_name || "Bhadange",
-        mobile_number: fountPatient?.mobile_number || "1234567890",
-        mother_age: fountPatient?.mother_age || 45,
-        mother_country_origin: fountPatient?.mother_country_origin || "India",
-        mother_name: fountPatient?.mother_name || "Vanita",
-
         mother_diabetic: fountPatient.mother_diabetic == 1 ? "true" : "false",
         mother_cardiac_issue:
           fountPatient.mother_cardiac_issue == 1 ? "true" : "false",
@@ -216,7 +165,6 @@ const ViewPatient = () => {
         father_cardiac_issue:
           fountPatient.father_cardiac_issue == 1 ? "true" : "false",
         father_bp: fountPatient.father_bp == 1 ? "true" : "false",
-        patient_id: fountPatient?.patient_id || "",
       });
       setDocuments(fountPatient?.documents);
     }
@@ -227,538 +175,507 @@ const ViewPatient = () => {
       <div className={viewPatientCSS.container}>
         {/* {---------------------------} */}
 
-        <div
-          className={viewPatientCSS.sectionCover}
-          style={
-            personalUpdate
-              ? { backgroundColor: "#84a89a68" }
-              : { backgroundColor: "#dddddd68" }
-          }
-        >
-          <div className={viewPatientCSS.textAndIconCover}>
-            <h1 className={viewPatientCSS.title}>Personal Information</h1>
-            <div className={viewPatientCSS.iconCoverDivDeleteEdit}>
-              {personalUpdate ? (
-                <i
-                  onClick={() => {
-                    handleSubmit(handleUpdatePersonalData)();
-                  }}
-                  class="fa-solid fa-floppy-disk"
-                ></i>
-              ) : (
-                <i onClick={handlePatientData} class="fa-solid fa-pencil"></i>
-              )}
-            </div>
-          </div>
-          <form>
-            <div style={{ display: "flex", gap: "3rem" }}>
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Patient Name <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <input
-                  disabled={personalUpdate ? false : true}
-                  className={viewPatientCSS.inputfield}
-                  {...register("patient_name")}
-                  onChange={(e) => {
-                    setValue("patient_name", e.target.value);
-                    trigger("patient_name");
-                  }}
-                  type="text"
-                  placeholder="Enter Full Name..."
-                />
-              </div>
-
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Birth date <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <input
-                  disabled={personalUpdate ? false : true}
-                  className={viewPatientCSS.inputfield}
-                  {...register("date_of_birth")}
-                  type="date"
-                />
-              </div>
-
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Gender <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <select
-                  disabled={personalUpdate ? false : true}
-                  className={viewPatientCSS.inputfield}
-                  {...register("gender")}
-                >
-                  <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-            </div>
-
-            <div style={{ display: "flex", gap: "3rem", marginTop: "1rem" }}>
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Weight <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <input
-                  disabled={personalUpdate ? false : true}
-                  className={viewPatientCSS.inputfield}
-                  {...register("weight")}
-                  type="number"
-                  placeholder="Enter weight"
-                />
-              </div>
-
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Height <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <input
-                  disabled={personalUpdate ? false : true}
-                  className={viewPatientCSS.inputfield}
-                  {...register("height")}
-                  type="number"
-                  placeholder="Enter height"
-                />
-              </div>
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Country <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <input
-                  disabled={personalUpdate ? false : true}
-                  className={viewPatientCSS.inputfield}
-                  {...register("country_of_origin")}
-                  onChange={(e) => {
-                    const { onChange } = register("country_of_origin");
-                    onChange(e);
-                    trigger("country_of_origin");
-                  }}
-                  type="text"
-                  placeholder="Enter country."
-                />
-              </div>
-            </div>
-
-            <div style={{ display: "flex", gap: "3rem", marginTop: "1rem" }}>
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Blood Pressure <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <label>
-                  <input
-                    disabled={personalUpdate ? false : true}
-                    {...register("blood_pressure")}
-                    type="radio"
-                    value="true"
-                  />{" "}
-                  Yes
-                </label>
-                <label>
-                  <input
-                    {...register("blood_pressure")}
-                    type="radio"
-                    value="false"
-                  />{" "}
-                  No
-                </label>
-              </div>
-
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Diabetic <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <label>
-                  <input
-                    disabled={personalUpdate ? false : true}
-                    {...register("is_diabetic")}
-                    type="radio"
-                    value="true"
-                  />{" "}
-                  Yes
-                </label>
-                <label>
-                  <input
-                    disabled={personalUpdate ? false : true}
-                    {...register("is_diabetic")}
-                    type="radio"
-                    value="false"
-                  />{" "}
-                  No
-                </label>
-              </div>
-
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Cardiac Issue <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <label>
-                  <input
-                    disabled={personalUpdate ? false : true}
-                    {...register("cardiac_issue")}
-                    type="radio"
-                    value="true"
-                  />{" "}
-                  Yes
-                </label>
-                <label>
-                  <input
-                    disabled={personalUpdate ? false : true}
-                    {...register("cardiac_issue")}
-                    type="radio"
-                    value="false"
-                  />{" "}
-                  No
-                </label>
-              </div>
-            </div>
-          </form>
-        </div>
-        {/* ---------------- */}
-
-        <div
-          className={viewPatientCSS.sectionCover}
-          style={
-            FamilyUpdate
-              ? { backgroundColor: "#84a89a68" }
-              : { backgroundColor: "#dddddd68" }
-          }
-        >
-          <div className={viewPatientCSS.textAndIconCover}>
-            <h1 className={viewPatientCSS.title}>Family Information</h1>
-            <div className={viewPatientCSS.iconCoverDivDeleteEdit}>
-              {FamilyUpdate ? (
-                <i
-                  onClick={() => {
-                    handleSubmit(handleUpdateFamilyData)();
-                  }}
-                  class="fa-solid fa-floppy-disk"
-                ></i>
-              ) : (
-                <i onClick={handleFamilyData} class="fa-solid fa-pencil"></i>
-              )}
-            </div>
-          </div>
-          <form>
-            <div style={{ display: "flex", gap: "3rem" }}>
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Father Name <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <input
-                  disabled={FamilyUpdate ? false : true}
-                  className={viewPatientCSS.inputfield}
-                  {...register("father_name", {
-                    required: "Name is required",
-                  })}
-                  onChange={(e) => {
-                    setValue("father_name", e.target.value);
-                    trigger("father_name");
-                  }}
-                  type="text"
-                  placeholder="Enter Full Name..."
-                />
-              </div>
-
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Father Country<span className={viewPatientCSS.star}>*</span>
-                </label>
-                <input
-                  disabled={FamilyUpdate ? false : true}
-                  className={viewPatientCSS.inputfield}
-                  {...register("father_country_origin", {
-                    required: "Country Required",
-                  })}
-                  onChange={(e) => {
-                    setValue("father_country_origin", e.target.value);
-                    trigger("father_country_origin");
-                  }}
-                  type="text"
-                />
-              </div>
-
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Age <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <input
-                  disabled={FamilyUpdate ? false : true}
-                  className={viewPatientCSS.inputfield}
-                  {...register("father_age", {
-                    required: true,
-                  })}
-                  onChange={(e) => {
-                    const { onChange } = register("father_age");
-                    onChange(e);
-                    trigger("father_age");
-                  }}
-                  type="number"
-                  placeholder="Enter age."
-                />
-              </div>
-            </div>
-
-            <div style={{ display: "flex", gap: "3rem", marginTop: "2rem" }}>
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Mother Name <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <input
-                  disabled={FamilyUpdate ? false : true}
-                  className={viewPatientCSS.inputfield}
-                  {...register("mother_name", {
-                    required: "mother_name is required",
-                  })}
-                  type="text"
-                  placeholder="Enter mother name"
-                  onChange={(e) => {
-                    setValue("mother_name", e.target.value);
-                    trigger("mother_name");
-                  }}
-                />
-              </div>
-
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Mother Country <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <input
-                  disabled={FamilyUpdate ? false : true}
-                  className={viewPatientCSS.inputfield}
-                  {...register("mother_country_origin", {
-                    required: "Country is required",
-                  })}
-                  type="text"
-                  placeholder="Enter mother_country_origin"
-                  onChange={(e) => {
-                    setValue("mother_country_origin", e.target.value);
-                    trigger("mother_country_origin");
-                  }}
-                />
-              </div>
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Mother Age <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <input
-                  disabled={FamilyUpdate ? false : true}
-                  className={viewPatientCSS.inputfield}
-                  {...register("mother_age", {
-                    required: "mother_age is required",
-                  })}
-                  type="number"
-                  placeholder="Enter mother_age"
-                  onChange={(e) => {
-                    setValue("mother_age", e.target.value);
-                    trigger("mother_age");
-                  }}
-                />
-              </div>
-            </div>
-
-            <div style={{ display: "flex", gap: "3rem", marginTop: "2rem" }}>
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Blood Pressure <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <label>
-                  <input
-                    disabled={FamilyUpdate ? false : true}
-                    {...register("parent_bp")}
-                    type="radio"
-                    value="true"
-                  />{" "}
-                  Yes
-                </label>
-                <label>
-                  <input
-                    disabled={FamilyUpdate ? false : true}
-                    {...register("parent_bp")}
-                    type="radio"
-                    value="false"
-                  />{" "}
-                  No
-                </label>
-              </div>
-
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Parent Cardiac <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <label>
-                  <input
-                    disabled={FamilyUpdate ? false : true}
-                    {...register("parent_cardiac_issue")}
-                    type="radio"
-                    value="true"
-                  />{" "}
-                  Yes
-                </label>
-                <label>
-                  <input
-                    disabled={FamilyUpdate ? false : true}
-                    {...register("parent_cardiac_issue")}
-                    type="radio"
-                    value="false"
-                  />{" "}
-                  No
-                </label>
-              </div>
-
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Parent Diabetic <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <label>
-                  <input
-                    disabled={FamilyUpdate ? false : true}
-                    {...register("parent_diabetic")}
-                    type="radio"
-                    value="true"
-                  />{" "}
-                  Yes
-                </label>
-                <label>
-                  <input
-                    disabled={FamilyUpdate ? false : true}
-                    {...register("parent_diabetic")}
-                    type="radio"
-                    value="false"
-                  />{" "}
-                  No
-                </label>
-              </div>
-            </div>
-          </form>
-        </div>
-        {/* ---------------- */}
-        <div
-          className={viewPatientCSS.sectionCover}
-          style={
-            DiseaseUpdate
-              ? { backgroundColor: "#84a89a68" }
-              : { backgroundColor: "#dddddd68" }
-          }
-        >
-          <div className={viewPatientCSS.textAndIconCover}>
-            <h1 className={viewPatientCSS.title}>Disease Information</h1>
-            <div className={viewPatientCSS.iconCoverDivDeleteEdit}>
-              {DiseaseUpdate ? (
-                <i
-                  onClick={() => {
-                    handleSubmit(handleUpdateDiseaseData)();
-                  }}
-                  class="fa-solid fa-floppy-disk"
-                ></i>
-              ) : (
-                <i onClick={handleDiseaseData} class="fa-solid fa-pencil"></i>
-              )}
-            </div>
-          </div>
-          <form>
-            <div style={{ display: "flex", gap: "3rem", marginBottom: "2rem" }}>
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Disease Name <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <input
-                  disabled={DiseaseUpdate ? false : true}
-                  className={viewPatientCSS.inputfield}
-                  {...register("disease_type")}
-                  onChange={(e) => {
-                    setValue("disease_type", e.target.value);
-                    trigger("disease_type");
-                  }}
-                  type="text"
-                  placeholder="Enter disease_type Name..."
-                />
-              </div>
-
-              <div className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  Disease Description{" "}
-                  <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <input
-                  disabled={DiseaseUpdate ? false : true}
-                  className={viewPatientCSS.inputfield}
-                  {...register("disease_description")}
-                  type="text"
-                  placeholder="Enter disease_description"
-                  onChange={(e) => {
-                    setValue("disease_description", e.target.value);
-                    trigger("disease_description");
-                  }}
-                />
-              </div>
-            </div>
-          </form>
-        </div>
-
-        {/* ---------------- */}
-
-        <div
-          className={viewPatientCSS.sectionCover}
-          style={
-            DocumentUpdate
-              ? { backgroundColor: "#84a89a68" }
-              : { backgroundColor: "#dddddd68" }
-          }
-        >
-          <div className={viewPatientCSS.textAndIconCover}>
-            <h1 className={viewPatientCSS.title}>Document Information</h1>
-            <div className={viewPatientCSS.iconCoverDivDeleteEdit}>
-              {DocumentUpdate ? (
-                <i
-                  onClick={handleDocumentData}
-                  class="fa-solid fa-floppy-disk"
-                ></i>
-              ) : (
-                <i onClick={handleDocumentData} class="fa-solid fa-pencil"></i>
-              )}
-            </div>
-          </div>
-
-          <div
-            style={{ display: "flex", gap: "3rem", flexDirection: "column" }}
+        <Accordion expanded>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            sx={{
+              fontSize: "1.5rem",
+              fontWeight: 600,
+              padding: "1rem 1rem 1rem 1rem",
+            }}
           >
-            {documents.map((obj, key) => (
-              <div key={key} className={viewPatientCSS.fieldCoverDiv}>
-                <label className={viewPatientCSS.fieldLabel}>
-                  {obj.document_type}
-                  <span className={viewPatientCSS.star}>*</span>
-                </label>
-                <input
-                  ref={inputfield}
-                  disabled={DocumentUpdate ? false : true}
-                  className={viewPatientCSS.inputfield}
-                  type="file"
-                  name={obj.document_type}
-                  onChange={(e) => handleFileChange(e, obj.document_type)}
-                />
-                <button
-                  disabled={!selectedFiles[obj.document_type]}
-                  onClick={() => {
-                    handleUpdateDocumentData(obj.document_type);
-                  }}
-                  className={viewPatientCSS.uploadBtn}
-                >
-                  {" "}
-                  Update{" "}
-                </button>
-                <img
-                  src={obj.document_url}
-                  alt={obj.document_type}
-                  className={viewPatientCSS.previewImage}
-                />
+            Personal Information
+          </AccordionSummary>
+          <AccordionDetails>
+            <div
+              className={viewPatientCSS.sectionCover}
+              style={
+                personalUpdate
+                  ? { backgroundColor: "#dddddd68" }
+                  : { backgroundColor: "#dddddd68" }
+              }
+            >
+              <div className={viewPatientCSS.textAndIconCover}>
+                <h1 className={viewPatientCSS.title}>Personal Information</h1>
+                <div className={viewPatientCSS.iconCoverDivDeleteEdit}>
+                  {personalUpdate ? (
+                    <i
+                      title="save changes"
+                      onClick={() => {
+                        handleSubmit(handleUpdatePersonalData)();
+                      }}
+                      class="fa-solid fa-floppy-disk"
+                    ></i>
+                  ) : (
+                    <i title="edit" class="fa-solid fa-pencil"></i>
+                  )}
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
+              <form>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <Input
+                    label="Patient Name"
+                    require="Patient Name"
+                    register={register}
+                    trigger={trigger}
+                    fieldName="patient_name"
+                    errors={errors}
+                    type="text"
+                    placeholder="Enter Full Name."
+                  />
+
+                  <Input
+                    label="Birth Date"
+                    require="Birth Date"
+                    register={register}
+                    trigger={trigger}
+                    fieldName="date_of_birth"
+                    errors={errors}
+                    type="date"
+                  />
+
+                  <div className={viewPatientCSS.fieldCoverDiv}>
+                    <label className={viewPatientCSS.fieldLabel}>
+                      Gender <span className={viewPatientCSS.star}>*</span>
+                    </label>
+                    <select
+                      disabled={personalUpdate ? false : true}
+                      className={viewPatientCSS.inputfield}
+                      {...register("gender")}
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginTop: "1rem",
+                  }}
+                >
+                  <Input
+                    label="Weight"
+                    require="Weight "
+                    register={register}
+                    trigger={trigger}
+                    fieldName="weight"
+                    errors={errors}
+                    type="number"
+                    placeholder="Enter weight."
+                    min={10}
+                    max={100}
+                  />
+
+                  <Input
+                    label="Height"
+                    require="Height "
+                    register={register}
+                    trigger={trigger}
+                    fieldName="height"
+                    errors={errors}
+                    type="number"
+                    placeholder="Enter Height."
+                    min="4.50"
+                    max="9.90"
+                    step="0.01"
+                  />
+
+                  <Input
+                    label="Country"
+                    require="Country Name "
+                    register={register}
+                    trigger={trigger}
+                    fieldName="country_of_origin"
+                    errors={errors}
+                    type="text"
+                    placeholder="Enter Country."
+                  />
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginTop: "1rem",
+                  }}
+                >
+                  <Radio
+                    label="Blood Pressure"
+                    require="Blood Pressure"
+                    register={register}
+                    fieldName="blood_pressure"
+                    errors={errors}
+                    type="radio"
+                  />
+
+                  <Radio
+                    label="Diabetic "
+                    require="Diabetic Field"
+                    register={register}
+                    fieldName="is_diabetic"
+                    errors={errors}
+                    type="radio"
+                  />
+
+                  <Radio
+                    label="Cardiac "
+                    require="Cardiac Field"
+                    register={register}
+                    fieldName="cardiac_issue"
+                    errors={errors}
+                    type="radio"
+                  />
+                </div>
+              </form>
+            </div>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            sx={{
+              fontSize: "1.5rem",
+              fontWeight: 600,
+              padding: "1rem 1rem 1rem 1rem",
+            }}
+          >
+            Family Information
+          </AccordionSummary>
+          <AccordionDetails>
+            <div
+              className={viewPatientCSS.sectionCover}
+              style={
+                FamilyUpdate
+                  ? { backgroundColor: "#dddddd68" }
+                  : { backgroundColor: "#dddddd68" }
+              }
+            >
+              <div className={viewPatientCSS.textAndIconCover}>
+                <h1 className={viewPatientCSS.title}>Family Information</h1>
+                <div className={viewPatientCSS.iconCoverDivDeleteEdit}>
+                  {FamilyUpdate ? (
+                    <i
+                      onClick={() => {
+                        handleSubmit(handleUpdateFamilyData)();
+                      }}
+                      class="fa-solid fa-floppy-disk"
+                    ></i>
+                  ) : (
+                    <i class="fa-solid fa-pencil"></i>
+                  )}
+                </div>
+              </div>
+              <form>
+                <div style={{ display: "flex", gap: "3rem" }}>
+                  <Input
+                    label="Father Name"
+                    require="Father Name"
+                    register={register}
+                    trigger={trigger}
+                    fieldName="father_name"
+                    errors={errors}
+                    type="text"
+                    placeholder="Enter Father Name."
+                  />
+
+                  <Input
+                    label="Father Country"
+                    require="Country Name"
+                    register={register}
+                    trigger={trigger}
+                    fieldName="father_country_origin"
+                    errors={errors}
+                    type="text"
+                    placeholder="Country Name."
+                  />
+
+                  <Input
+                    label="Father Age "
+                    require="Age"
+                    register={register}
+                    trigger={trigger}
+                    fieldName="father_age"
+                    errors={errors}
+                    type="number"
+                    min={10}
+                    max={100}
+                    placeholder="Enter Age."
+                  />
+                  <div className={viewPatientCSS.fieldCoverDiv}>
+                    <label className={viewPatientCSS.fieldLabel}>
+                      Father BP <span className={viewPatientCSS.star}>*</span>
+                    </label>
+                    <select
+                      className={viewPatientCSS.inputfield}
+                      {...register("father_bp", {
+                        required: "Blood pressure is required",
+                      })}
+                    >
+                      <option value="true">True</option>
+                      <option value="false">False</option>
+                    </select>
+                    <p className={viewPatientCSS.fielderror}>
+                      {errors.father_bp && (
+                        <span>{errors.father_bp.message}</span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  style={{ display: "flex", gap: "3rem", marginTop: "2rem" }}
+                >
+                  <Input
+                    label="Mother Name"
+                    require="Mother Name"
+                    register={register}
+                    trigger={trigger}
+                    fieldName="mother_name"
+                    errors={errors}
+                    type="text"
+                    placeholder="Enter Mother Name."
+                  />
+
+                  <Input
+                    label="Mother Country"
+                    require="Country Name"
+                    register={register}
+                    trigger={trigger}
+                    fieldName="mother_country_origin"
+                    errors={errors}
+                    type="text"
+                    placeholder="Country Name."
+                  />
+
+                  <Input
+                    label="Mother Age "
+                    require="Age"
+                    register={register}
+                    trigger={trigger}
+                    fieldName="mother_age"
+                    errors={errors}
+                    type="number"
+                    min={10}
+                    max={100}
+                    placeholder="Enter Age."
+                  />
+
+                  <div className={viewPatientCSS.fieldCoverDiv}>
+                    <label className={viewPatientCSS.fieldLabel}>
+                      Mother BP <span className={viewPatientCSS.star}>*</span>
+                    </label>
+                    <select
+                      className={viewPatientCSS.inputfield}
+                      {...register("mother_bp", {
+                        required: "Blood pressure is required",
+                      })}
+                    >
+                      <option value="true">True</option>
+                      <option value="false">False</option>
+                    </select>
+
+                    <p className={viewPatientCSS.fielderror}>
+                      {errors.mother_bp && (
+                        <span>{errors.mother_bp.message}</span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  style={{ display: "flex", gap: "3rem", marginTop: "2rem" }}
+                >
+                  <Radio
+                    label="Mother Diabetic "
+                    require="Diabetic"
+                    register={register}
+                    fieldName="mother_diabetic"
+                    errors={errors}
+                    type="radio"
+                  />
+
+                  <Radio
+                    label=" Mother Cardiac Issue"
+                    require="Cardiac"
+                    register={register}
+                    fieldName="mother_cardiac_issue"
+                    errors={errors}
+                    type="radio"
+                  />
+                  <Radio
+                    label="Father Diabetic"
+                    require="Diabetic"
+                    register={register}
+                    fieldName="father_diabetic"
+                    errors={errors}
+                    type="radio"
+                  />
+
+                  <Radio
+                    label="Father Cardiac Issue "
+                    require="Cardiac"
+                    register={register}
+                    fieldName="father_cardiac_issue"
+                    errors={errors}
+                    type="radio"
+                  />
+                </div>
+              </form>
+            </div>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            sx={{
+              fontSize: "1.5rem",
+              fontWeight: 600,
+              padding: "1rem 1rem 1rem 1rem",
+            }}
+          >
+            Disease Information
+          </AccordionSummary>
+          <AccordionDetails>
+            <div
+              className={viewPatientCSS.sectionCover}
+              style={
+                DiseaseUpdate
+                  ? { backgroundColor: "#dddddd68" }
+                  : { backgroundColor: "#dddddd68" }
+              }
+            >
+              <div className={viewPatientCSS.textAndIconCover}>
+                <h1 className={viewPatientCSS.title}>Disease Information</h1>
+                <div className={viewPatientCSS.iconCoverDivDeleteEdit}>
+                  {DiseaseUpdate ? (
+                    <i
+                      onClick={() => {
+                        handleSubmit(handleUpdateDiseaseData)();
+                      }}
+                      class="fa-solid fa-floppy-disk"
+                    ></i>
+                  ) : (
+                    <i class="fa-solid fa-pencil"></i>
+                  )}
+                </div>
+              </div>
+              <form>
+                <div
+                  style={{ display: "flex", gap: "3rem", marginBottom: "2rem" }}
+                >
+                  <Input
+                    label="Disease Type"
+                    require="Disease Type"
+                    register={register}
+                    trigger={trigger}
+                    fieldName="disease_type"
+                    errors={errors}
+                    type="text"
+                    placeholder="Enter Disease Name."
+                  />
+
+                  <Input
+                    label="Disease Description"
+                    require="Description require"
+                    register={register}
+                    trigger={trigger}
+                    fieldName="disease_description"
+                    errors={errors}
+                    type="text"
+                    placeholder="Enter Description."
+                  />
+                </div>
+              </form>
+            </div>
+          </AccordionDetails>
+        </Accordion>
+        {/* ---------------- */}
+
+        {/* ---------------- */}
+
+        {/* ---------------- */}
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            sx={{
+              fontSize: "1.5rem",
+              fontWeight: 600,
+              padding: "1rem 1rem 1rem 1rem",
+            }}
+          >
+            Document Information
+          </AccordionSummary>
+          <AccordionDetails>
+            <div
+              className={viewPatientCSS.sectionCover}
+              style={
+                DocumentUpdate
+                  ? { backgroundColor: "#dddddd68" }
+                  : { backgroundColor: "#dddddd68" }
+              }
+            >
+              <div className={viewPatientCSS.textAndIconCover}>
+                <h1 className={viewPatientCSS.title}>Document Information</h1>
+                <div className={viewPatientCSS.iconCoverDivDeleteEdit}>
+                  {DocumentUpdate ? (
+                    <i class="fa-solid fa-floppy-disk"></i>
+                  ) : (
+                    <i class="fa-solid fa-pencil"></i>
+                  )}
+                </div>
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  gap: "3rem",
+                  flexDirection: "column",
+                }}
+              >
+                {documents.map((obj, key) => (
+                  <div key={key} className={viewPatientCSS.fieldCoverDiv}>
+                    <label className={viewPatientCSS.fieldLabel}>
+                      {obj.document_type}
+                      <span className={viewPatientCSS.star}>*</span>
+                    </label>
+                    <input
+                      ref={inputfield}
+                      disabled={DocumentUpdate ? false : true}
+                      className={viewPatientCSS.inputfield}
+                      type="file"
+                      name={obj.document_type}
+                      onChange={(e) => handleFileChange(e, obj.document_type)}
+                    />
+                    <button
+                      disabled={!selectedFiles[obj.document_type]}
+                      onClick={() => {
+                        handleUpdateDocumentData(obj.document_type);
+                      }}
+                      className={viewPatientCSS.uploadBtn}
+                    >
+                      {" "}
+                      Update{" "}
+                    </button>
+                    <img
+                      src={obj.document_url}
+                      alt={obj.document_type}
+                      className={viewPatientCSS.previewImage}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AccordionDetails>
+        </Accordion>
       </div>
     </>
   );

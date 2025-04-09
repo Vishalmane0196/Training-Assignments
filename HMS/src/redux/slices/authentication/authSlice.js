@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginUser } from "../../asyncThunkFuntions/auth";
 import { getUserInfo } from "../../asyncThunkFuntions/user";
+
 const initialState = {
   isLoggedIn:0,
   token: null,
@@ -23,6 +24,7 @@ const authSlice = createSlice({
          state.userInfo = {};
          state.error = null;
          state.isLoggedIn = 0;
+
     } ,
   },
   extraReducers: (builder) => {

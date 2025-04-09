@@ -1,13 +1,20 @@
 import React, { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import Profile from "src/components/Profile/Profile";
+// import Profile from "src/components/Profile/Profile";
 import { ProtectedRoute } from "src/routes/ProtectedRoute.jsx";
+import { Loading } from "src/components/Loading/Loading";
+
+const delayForDemo = (promise, time = 1000) => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(promise), time);
+  });
+};
 
 const LRwrapper = lazy(() =>
   import("src/components/LoginRegisterWrapper/LRwrapper.jsx")
 );
 const Dashboard = lazy(() => import("src/pages/Dashboard/Dashboard.jsx"));
-const Login = lazy(() => import("src/pages/Login/Login.jsx"));
+const Login = lazy(() => delayForDemo(import("src/pages/Login/Login.jsx")));
 const Register = lazy(() => import("src/pages/Register/Register.jsx"));
 const UserDashboard = lazy(() =>
   import("src/pages/Dashboard/UserDashboard.jsx")
@@ -15,9 +22,7 @@ const UserDashboard = lazy(() =>
 const UserPatientTable = lazy(() =>
   import("src/pages/Table/UserPatientTable.jsx")
 );
-const UserProfile = lazy(() =>
-  import("src/components/Profile/UserProfile.jsx")
-);
+
 const Setting = lazy(() => import("src/components/Setting/Setting.jsx"));
 const DeletePopUp = lazy(() =>
   import("src/components/Setting/Delete/DeletePopUp.jsx")
@@ -32,26 +37,18 @@ const Summary = lazy(() => import("src/pages/Summary/Summary.jsx"));
 const AdminSetting = lazy(() =>
   import("src/components/Setting/AdminSetting.jsx")
 );
-const AdminProgile = lazy(() =>
-  import("src/components/Profile/Profile.jsx")
-);
+const Profile = lazy(() => import("src/components/Profile/Profile.jsx"));
 const Allpatient = lazy(() => import("src/pages/AllPatient/Allpatient.jsx"));
 const AdminPatient = lazy(() =>
   import("src/pages/AdminPatient/AdminPatient.jsx")
 );
 const Forget = lazy(() => import("src/pages/Forget/Forget.jsx"));
 
-const FallbackLoader = () => (
-  <div>
-    <span>Loading...</span>
-  </div>
-);
-
 const Router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Suspense fallback={<FallbackLoader />}>
+      <Suspense fallback={<Loading />}>
         <LandingPage />
       </Suspense>
     ),
@@ -59,8 +56,8 @@ const Router = createBrowserRouter([
   {
     path: "/user/dashboard",
     element: (
-      <Suspense fallback={<FallbackLoader />}>
-        <ProtectedRoute>
+      <Suspense fallback={<Loading />}>
+        <ProtectedRoute isAdminProp={0}>
           <UserDashboard />
         </ProtectedRoute>
       </Suspense>
@@ -68,7 +65,11 @@ const Router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <UserMain />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <UserMain />
+          </Suspense>
+        ),
         children: [
           {
             path: "/user/dashboard/profile",
@@ -96,15 +97,19 @@ const Router = createBrowserRouter([
       },
       {
         path: "/user/dashboard/addpatient",
-        element: <MultiStepForm />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <MultiStepForm />
+          </Suspense>
+        ),
       },
     ],
   },
   {
     path: "/admin/dashboard",
     element: (
-      <Suspense fallback={<FallbackLoader />}>
-        <ProtectedRoute isAdminProp>
+      <Suspense fallback={<Loading />}>
+        <ProtectedRoute isAdminProp={1}>
           <Dashboard />
         </ProtectedRoute>
       </Suspense>
@@ -112,7 +117,7 @@ const Router = createBrowserRouter([
     children: [
       {
         path: "/admin/dashboard/profile",
-        element: <AdminProgile />,
+        element: <Profile />,
       },
       {
         path: "/admin/dashboard/setting",
@@ -145,7 +150,7 @@ const Router = createBrowserRouter([
   {
     path: "/account",
     element: (
-      <Suspense fallback={<FallbackLoader />}>
+      <Suspense fallback={<Loading />}>
         <LRwrapper />
       </Suspense>
     ),
@@ -156,7 +161,11 @@ const Router = createBrowserRouter([
       },
       {
         path: "/account/user/login",
-        element: <Login />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Login />
+          </Suspense>
+        ),
       },
       {
         path: "/account/forget",

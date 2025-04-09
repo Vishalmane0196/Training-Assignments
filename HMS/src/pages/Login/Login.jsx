@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
  const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, isAdmin, isDoctor, isLoggedIn } = useSelector(
+  const {  isAdmin, isDoctor, isLoggedIn } = useSelector(
     (state) => state.auth
   );
 
@@ -66,10 +66,6 @@ import { toast } from "react-toastify";
     if (!isLoggedIn) return;
     handleNavigate();
   }, [isAdmin, isDoctor,isLoggedIn]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
   return (
     <>
       <div className={login.container}>
