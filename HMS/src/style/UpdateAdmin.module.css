@@ -1,0 +1,109 @@
+/* ProductTable.module.css */
+
+.container {
+    background-color: white;
+    color: black;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    height: 90vh;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.addBtn {
+    background-color: rgb(7, 133, 7);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.filterGroup {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background-color: #1e293b;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.icon {
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.search {
+    /* margin: 20px 0; */
+    margin: 0; 
+    padding: 8px 12px;
+    width:31%;
+    border-radius: 5px;
+    border: none;
+    /* background-color: #edebeb; */
+    color: rgb(17, 15, 15);
+    outline: none;
+    /* visibility: hidden; */
+}
+
+.table {
+    width: 100%;
+    border-collapse:collapse;
+}
+
+.table th,
+.table td {
+    padding: 18px;
+    text-align: left;
+    color: #080808;
+}
+
+
+
+.table tr {
+    border-bottom: 1px solid #dddd;
+}
+
+thead{
+    background-color: #dddd;
+    
+}
+.item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.active {
+    background-color: #064e3b;
+    color: #34d399;
+}
+
+.disabled {
+    background-color: #1e293b;
+    color: #94a3b8;
+}
+.delete{
+    background-color: rgb(244, 53, 53);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}

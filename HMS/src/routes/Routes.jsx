@@ -1,14 +1,17 @@
 import React, { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-// import Profile from "src/components/Profile/Profile";
+
 import { ProtectedRoute } from "src/routes/ProtectedRoute.jsx";
 import { Loading } from "src/components/Loading/Loading";
 import ErrorBoundary from "src/components/ErrorBoundary/ErrorBoundary";
+
 const delayForDemo = (promise, time = 1000) => {
   return new Promise((resolve) => {
     setTimeout(() => resolve(promise), time);
   });
 };
+
+const UpdateAdmin = lazy(() => import("src/pages/AdminSetting/UpdateAdmin"));
 const Appointment = lazy(() => import("src/pages/Appointment/Appointment"));
 const LRwrapper = lazy(() =>
   import("src/components/LoginRegisterWrapper/LRwrapper.jsx")
@@ -85,7 +88,7 @@ const Router = createBrowserRouter([
             path: "/user/dashboard/viewpatients/patientdetails/:id",
             element: <ViewPatient />,
           },
-          
+
           {
             path: "/user/dashboard/setting",
             element: <Setting />,
@@ -134,6 +137,11 @@ const Router = createBrowserRouter([
         element: <AdminSetting />,
       },
       {
+        
+        path: "/admin/dashboard/setting/accessControl",
+        element: <UpdateAdmin access={"Admin"}/>,
+      },
+      {
         path: "/admin/dashboard/allpatients",
         element: <Summary />,
       },
@@ -146,6 +154,10 @@ const Router = createBrowserRouter([
             element: <ViewPatient />,
           },
         ],
+      },
+      {
+        path: "/admin/dashboard/manageDoctor",
+        element: <UpdateAdmin access={"doctor"} />,
       },
       {
         path: "/admin/dashboard/addpatient",

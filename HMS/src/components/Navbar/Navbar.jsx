@@ -77,6 +77,11 @@ export const Navbar = () => {
                         <span style={{ marginLeft: "5px" }}>Profile</span>
                       </Link>
                     </li>
+                    <li>
+                      <Link to="/admin/dashboard/setting">
+                        <i class="fa-solid fa-gear"></i> Settings
+                      </Link>
+                    </li>
                     <li onClick={handleLogout}>
                       <Link>
                         <i className="fa-solid fa-right-from-bracket"></i> Sign

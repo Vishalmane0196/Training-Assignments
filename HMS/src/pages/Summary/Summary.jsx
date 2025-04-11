@@ -42,7 +42,7 @@ const Summary = () => {
 
   const handleDeletePatient = async (id) => {
     try {
-      await dispatch(deletePatient(id));
+      await dispatch(deletePatient(id)).unwrap();
       fetchData();
     } catch (error) {
       console.error(error);

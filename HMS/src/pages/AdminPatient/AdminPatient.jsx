@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import patientCSS from "../../style/AdminPatient.module.css";
-import axiosInstance from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPatientsInfo } from "../../redux/asyncThunkFuntions/user";
-
+import { deletePatient } from "src/redux/asyncThunkFuntions/admin";
 const AdminPatient = () => {
   const dispatch = useDispatch();
   const { patientList } = useSelector((state) => state.patient);
@@ -26,9 +25,7 @@ const AdminPatient = () => {
   };
   const handleDeletePatient = async (id) => {
     try {
-      await axiosInstance.delete(
-        `/patient/adminDeletePatientData?patient_id=${id}`
-      );
+      await dispatch(deletePatient(id));
       await dispatch(fetchPatientsInfo("get"));
     } catch (error) {
       console.log(error);
@@ -47,6 +44,9 @@ const AdminPatient = () => {
             <p>View</p>
           </div>
           <ul className={patientCSS.ulList}>
+            {
+              patientList.length == 0 ? <p>No Patient Record Found</p> : null
+            }
             {patientList?.map((patient) => (
               <li className={patientCSS.liList}>
                 <p>{patient.patient_id}</p>

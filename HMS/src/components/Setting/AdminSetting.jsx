@@ -1,33 +1,17 @@
-import React, { useRef, useState } from "react";
+import React, {  useState } from "react";
 import settingCSS from "../../style/Setting.module.css";
 import { DeletePopUp } from "./Delete/DeletePopUp";
 import { Edit } from "../Setting/Edit/Edit.jsx";
-import { toast } from "react-toastify";
-import { addAdmin } from "../../redux/asyncThunkFuntions/admin.js";
-import { deleteAdmin } from "../../redux/asyncThunkFuntions/admin.js";
-import { useDispatch } from "react-redux";
+
+import { useNavigate } from "react-router-dom";
 
 const AdminSetting = () => {
+  const navigate = useNavigate();
   const [deleteState, setDeleteState] = useState(false);
   const [editProfile, setEditProfile] = useState(false);
-  const dispatch = useDispatch();
-  const mailRef = useRef(null);
 
-  const handleAdminEmail = async (type) => {
-    if (mailRef.current.value == "") {
-      toast.error("Please enter email address");
-      return;
-    }
-    try {
-      if (type == "edit") {
-        dispatch(addAdmin(mailRef.current.value));
-      } else {
-        dispatch(deleteAdmin(mailRef.current.value));
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error(error.response.data.message);
-    }
+  const handleAdminEmail =  () => {
+       navigate('/admin/dashboard/setting/accessControl');
   };
   return (
     <>
@@ -55,31 +39,21 @@ const AdminSetting = () => {
 
           {/* Theme Toggle */}
           <div className={settingCSS.featureCover}>
-            <h3 className={settingCSS.h3header}>Add or remove admin</h3>
+            <h3 className={settingCSS.h3header}>Control admin access</h3>
             <div className={settingCSS.line}></div>
             <p className={settingCSS.p3tag}>
-              To add or remove an admin, enter the user's email here.
+            You can modify admin access, including adding or removing administrators.
             </p>
             <div className={settingCSS.inputBtnCover}>
-              <input
-                type="text"
-                ref={mailRef}
-                className={settingCSS.adminMailInput}
-                placeholder="Enter Mail"
-              />
+              
               <div className={settingCSS.butCover}>
                 <button
-                  onClick={() => handleAdminEmail("edit")}
-                  className={settingCSS.addMainBtn}
+                  onClick={() => handleAdminEmail()}
+                  className={settingCSS.editBtn}
                 >
-                  Add
+                  Manage Admins
                 </button>
-                <button
-                  onClick={() => handleAdminEmail("delete")}
-                  className={settingCSS.delMail}
-                >
-                  Remove
-                </button>
+              
               </div>
             </div>
           </div>

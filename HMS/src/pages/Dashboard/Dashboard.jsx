@@ -54,15 +54,16 @@ import { NavLink, Outlet } from "react-router-dom";
             </li>
             <li>
               <NavLink
-                to="/admin/dashboard/setting"
+                to="/admin/dashboard/manageDoctor"
                 className={({ isActive }) => {
                   return isActive ? adminCSS.active : adminCSS.linkText;
                 }}
               >
-                <i class="fa-solid fa-gear"></i>{" "}
-                <span style={{ marginLeft: "0.5rem" }}>Settings </span>
+                <i class="fa-solid fa-stethoscope"></i> {" "}
+                <span style={{ marginLeft: "0.5rem" }}>Doctor Overview </span>
               </NavLink>
             </li>
+          
            
           </ul>
         </aside>

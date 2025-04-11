@@ -37,10 +37,10 @@ export const deletePatient = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       let response = await axiosInstance.delete(
-        `/patient/adminDeletePatientData?patient_id=${id}`
+        `/admin/adminDeletePatientData?patient_id=${id}`
       );
 
-      return response;
+      return response.data;
     } catch (error) {
       console.error("Error deleting patient:", error);
       rejectWithValue(error.data.message);
@@ -54,7 +54,7 @@ export const addAdmin = createAsyncThunk(
   "admin/addAdmin",
   async (data, { rejectWithValue }) => {
     try {
-      let response = await axiosInstance.put("/user/addAdmin", {
+      let response = await axiosInstance.put("/admin/addAdmin", {
         email: data,
       });
 
@@ -72,15 +72,41 @@ export const deleteAdmin = createAsyncThunk(
   "admin/deleteAdmin",
   async (id, { rejectWithValue }) => {
     try {
-      let response = await axiosInstance.put("/user/removeAdmin", {
+      let response = await axiosInstance.put("/admin/removeAdmin", {
         email: id,
       });
 
-      return response;
+      return response.data;
     } catch (error) {
       toast.error(error);
       console.error("Error deleting admin:", error);
       rejectWithValue(error.data.message);
+    }
+  }
+);
+
+export const fetchAllAdmins = createAsyncThunk(
+  "admin/getAllAdmins",
+  async (rejectWithValue) => {
+    try {
+      let response = await axiosInstance.get("/admin/getAdmin");
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const addDoctor = createAsyncThunk(
+  "admin/addDoctor",
+  async (data, { rejectWithValue }) => {
+    try {
+      let response = await axiosInstance.post("/admin/addDoctor", data);
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
