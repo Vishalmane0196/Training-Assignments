@@ -1,5 +1,5 @@
 .tableContainer {
-   
+
     margin: 16px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -10,7 +10,8 @@
 }
 
 .table-wrapper {
-    height: 60vh; /* Set the desired height */
+    height: 71vh;
+    /* Set the desired height */
     overflow-y: auto;
     display: block;
     scrollbar-width: none;
@@ -24,21 +25,26 @@ table {
 thead {
     position: sticky;
     top: 0;
-    
+
     z-index: 10;
-    
-    background-color:rgb(238, 238, 238);
+
+    background-color: rgb(238, 238, 238);
 }
 
-th, td {
+th,
+td {
     border-bottom: 1px solid #ddd;
     padding: 20px;
     text-align: left;
 
 }
 
+td {
+    /* text-align: center; */
+}
+
 th {
-   
+
     cursor: pointer;
 }
 
@@ -46,21 +52,32 @@ th {
     background-color: #b9b7b7;
     color: black;
 } */
-.footerDiv{
-   padding: 26px;
-   border-top: 1px solid #ddd;;
+.footerDiv {
+    padding: 26px;
+    border-top: 1px solid #ddd;
+    ;
 }
-.iconDiv{
+
+.iconDiv {
     display: flex;
     width: 100%;
-    
-   
+
+
 }
+
 .iconDiv i {
-    
+
     text-align: center;
     align-self: center;
     color: rgb(93, 108, 121);
     cursor: pointer;
 }
 
+.bookBtn {
+    padding: 0.6rem 1.2rem;
+    background-color: #238636;
+    color: #ffffff;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}

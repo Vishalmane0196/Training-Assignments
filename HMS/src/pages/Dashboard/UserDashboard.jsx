@@ -1,12 +1,14 @@
 import React from 'react'
 import userDashboardCSS from '../../style/Userdashboard.module.css'
-import { UserNavbar } from '../../components/Navbar/UserNavbar'
 import {  NavLink, Outlet }from 'react-router-dom';
+import { logout } from 'src/redux/slices/authentication/authSlice';
+import { useDispatch } from 'react-redux';
+import { Button } from 'src/components/Button/Button';
  const UserDashboard = () => {
-    
+    const dispatch = useDispatch();
   return (
     <>  
-       <UserNavbar/>
+    
         <div className={userDashboardCSS.container}>
         {/* <!-- Sidebar --> */}
         <aside className={userDashboardCSS.sidebar}>
@@ -42,6 +44,7 @@ import {  NavLink, Outlet }from 'react-router-dom';
                </li>
 
             </ul>
+            <Button text={"Log Out"} style={userDashboardCSS.logout} onClick={()=>{dispatch(logout())}}/>
         </aside>
 
         {/* <!-- Main Content --> */}

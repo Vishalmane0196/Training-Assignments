@@ -245,3 +245,16 @@ export const deleteAccount = createAsyncThunk(
     }
   }
 );
+
+export const getDoctor = createAsyncThunk(
+  'book/getDoctor',
+  async(rejectWithValue)=>{
+    try {
+      let response = await axiosInstance.get('/user/getDoctors')
+      return response.data
+    } catch (error) {
+      return rejectWithValue(error.response.data.message) 
+    }
+    
+  }
+)

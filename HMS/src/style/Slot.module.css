@@ -1,0 +1,118 @@
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalContent {
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 8px;
+    width: 70%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+.container {
+    border: 0.0625rem solid #eee;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    font-family: sans-serif;
+    background: #fff;
+    width: 100%;
+    max-width: 68.75rem; /* 1100px */
+    margin: auto;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .theaterInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    flex: 1;
+  }
+  
+  .icons {
+    display: flex;
+    gap: 0.9375rem;
+    margin-top: 0.625rem;
+  }
+  
+  .icon {
+    display: flex;
+    align-items: center;
+    gap: 0.3125rem;
+    font-size: 0.875rem;
+  }
+  
+  .icon img {
+    height: 1.125rem;
+    width: 1.125rem;
+  }
+  
+ 
+  
+  .slotsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr)); /* 120px */
+    gap: 0.9375rem;
+    margin-top: 1.25rem;
+  }
+  
+  .slot {
+    border: 0.0625rem solid #ccc;
+    padding: 0.625rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    cursor: pointer;
+    color: #0c8c4e;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    background-color: #f9f9f9;
+  }
+  
+  .slot:hover {
+    background-color: #e0fce8;
+    border-color: #0c8c4e;
+  }
+  
+  .slotSubText {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 0.25rem;
+  }
+  
+ .bookBtnCover{
+   width: 100%;
+   display: flex;
+   justify-content: right;
+ }
+ .bookBtn{
+  padding: 0.6rem 1.2rem;
+  background-color: #238636;
+  color: #ffffff;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+ }

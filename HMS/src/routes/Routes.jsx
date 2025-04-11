@@ -3,13 +3,13 @@ import { createBrowserRouter } from "react-router-dom";
 // import Profile from "src/components/Profile/Profile";
 import { ProtectedRoute } from "src/routes/ProtectedRoute.jsx";
 import { Loading } from "src/components/Loading/Loading";
-
+import ErrorBoundary from "src/components/ErrorBoundary/ErrorBoundary";
 const delayForDemo = (promise, time = 1000) => {
   return new Promise((resolve) => {
     setTimeout(() => resolve(promise), time);
   });
 };
-
+const Appointment = lazy(() => import("src/pages/Appointment/Appointment"));
 const LRwrapper = lazy(() =>
   import("src/components/LoginRegisterWrapper/LRwrapper.jsx")
 );
@@ -58,7 +58,9 @@ const Router = createBrowserRouter([
     element: (
       <Suspense fallback={<Loading />}>
         <ProtectedRoute isAdminProp={0}>
-          <UserDashboard />
+          <ErrorBoundary>
+            <UserDashboard />
+          </ErrorBoundary>
         </ProtectedRoute>
       </Suspense>
     ),
@@ -83,6 +85,7 @@ const Router = createBrowserRouter([
             path: "/user/dashboard/viewpatients/patientdetails/:id",
             element: <ViewPatient />,
           },
+          
           {
             path: "/user/dashboard/setting",
             element: <Setting />,
@@ -103,6 +106,10 @@ const Router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: "/user/dashboard/viewpatients/bookAppointment",
+        element: <Appointment />,
+      },
     ],
   },
   {
@@ -110,7 +117,10 @@ const Router = createBrowserRouter([
     element: (
       <Suspense fallback={<Loading />}>
         <ProtectedRoute isAdminProp={1}>
-          <Dashboard />
+          <ErrorBoundary>
+            {" "}
+            <Dashboard />
+          </ErrorBoundary>
         </ProtectedRoute>
       </Suspense>
     ),

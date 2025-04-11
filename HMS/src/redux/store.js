@@ -5,12 +5,13 @@ import formReducer from "./slices/multistepform/formSlice.js";
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import logger from 'redux-logger';
+import bookReducer from './slices/appointment/bookSlice.js'
 
 const persistConfig = {
   key: "root",
   storage,
   // Specify the reducers you want to persist
-  whitelist: ["auth", "form"],
+  whitelist: ["auth", "form","book"],
   blacklist: ["patient"],
 
   // In this example, we persist the 'user' reducer
@@ -19,6 +20,7 @@ const rootReducer  = combineReducers({
   auth: authReducer,
   patient: patientReducer,
   form: formReducer,
+  book:bookReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer );
