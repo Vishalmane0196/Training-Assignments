@@ -2,25 +2,31 @@ import React from "react";
 import doctorCSS from "../../style/Doctor.module.css";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { setBookDoctorId } from "src/redux/slices/appointment/bookSlice";
-export const Doctor = ({ name,specialist,id,setBook}) => {
+import { setBookDoctor } from "src/redux/slices/appointment/bookSlice";
+export const Doctor = ({ outTime, inTime, name, specialist, id, setBook }) => {
   const dispatch = useDispatch();
-  const handleDoctorBookId = () =>{
+  const handleDoctorBookId = () => {
     setBook(true);
-    dispatch(setBookDoctorId(id))
-  }
+    dispatch(
+      setBookDoctor({ inTime: inTime, id: id,specialist:specialist ,name: name, outTime: outTime })
+    );
+  };
   return (
     <>
       <div className={doctorCSS.card} onClick={handleDoctorBookId}>
         <div className={doctorCSS.leftSection}>
           <div className={doctorCSS.avatarCover}>
-            <img src='https://png.pngtree.com/png-clipart/20230813/original/pngtree-flat-illustration-of-a-male-doctor-avatar-upper-body-in-youth-vector-picture-image_10580735.png' className={doctorCSS.avatar} alt="" />
+            <img
+              src="https://png.pngtree.com/png-clipart/20230813/original/pngtree-flat-illustration-of-a-male-doctor-avatar-upper-body-in-youth-vector-picture-image_10580735.png"
+              className={doctorCSS.avatar}
+              alt=""
+            />
           </div>
           <div className={doctorCSS.info}>
             {" "}
             <h2>{name}</h2>
             <h3>{specialist}</h3>
-            <p>Time: 10:00 am - 06:00 pm</p>
+            <p>{`Time: ${inTime.slice(0, 5)}  - ${outTime.slice(0, 5)} `}</p>
           </div>
         </div>
         <div></div>
@@ -29,9 +35,11 @@ export const Doctor = ({ name,specialist,id,setBook}) => {
   );
 };
 
-Doctor.prototype ={
-  name:PropTypes.string.isRequired,
-  specialist : PropTypes.string.isRequired,
-  id:PropTypes.number.isRequired,
-  setBook : PropTypes.func
-}
+Doctor.prototype = {
+  name: PropTypes.string.isRequired,
+  specialist: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  setBook: PropTypes.func,
+  outTime: PropTypes.string,
+  inTime: PropTypes.string,
+};

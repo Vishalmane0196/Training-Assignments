@@ -17,7 +17,7 @@
 
 .title {
     display: grid;
-    grid-template-columns: repeat(5, minmax(100px, 1fr));
+    grid-template-columns: repeat(6, minmax(100px, 1fr));
     background-color: rgb(218, 218, 218);
     justify-content: space-between;
     padding: 0px 20px 0px 20px;
@@ -38,7 +38,7 @@
 
 .liList {
     display: grid;
-    grid-template-columns: repeat(5, minmax(100px, 1fr));
+    grid-template-columns: repeat(6, minmax(100px, 1fr));
     background-color: rgb(238, 238, 238);
     justify-content: space-between;
     padding: 0px 20px 0px 20px;
@@ -51,9 +51,16 @@
     /* text-align: center; */
 }
 
+.p {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
 .iconDiv {
     display: flex;
     gap: 3rem;
+    align-items: center;
 }
 
 .iconDiv>i:nth-child(1) {
@@ -64,4 +71,15 @@
 .iconDiv>i:nth-child(2) {
     color: rgb(245, 82, 82);
     cursor: pointer;
+}
+
+.bookBtn {
+    padding: 0.6rem 1.2rem;
+    background-color: #238636;
+    color: #ffffff;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    width: 64%;
+    align-self: center;
 }

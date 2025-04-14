@@ -1,18 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import styles from "src/style/Calender.module.css";
 
-const Calendar = () => {
-  const [selectedDate, setSelectedDate] = useState(dayjs());
+const Calendar = ({ setDate }) => {
+  const [selectedDate, setSelectedDate] = useState(
+    dayjs().format("YYYY-MM-DD")
+  );
 
-
-const today = dayjs();
-const days = Array.from({ length: 7 }, (_, i) => today.add(i, "day"));
+  const today = dayjs();
+  const days = Array.from({ length: 7 }, (_, i) => today.add(i, "day"));
 
   const handleSelectDate = (date) => {
-    console.log("date",date)
-    setSelectedDate(date);
+    setSelectedDate(date.format("YYYY-MM-DD"));
+    setDate(date.format("YYYY-MM-DD"));
   };
+
+  useEffect(() => {
+    setDate(dayjs().format("YYYY-MM-DD"));
+  }, []);
 
   return (
     <div className={styles.calendar}>

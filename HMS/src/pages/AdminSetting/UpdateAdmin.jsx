@@ -5,24 +5,30 @@ import { deleteAdmin } from "../../redux/asyncThunkFuntions/admin.js";
 import { fetchAllAdmins } from "../../redux/asyncThunkFuntions/admin.js";
 import { useDispatch } from "react-redux";
 import { Button } from "src/components/Button/Button.jsx";
-
+import { getDoctor } from "src/redux/asyncThunkFuntions/user.js";
 import AddDoctorAdminComponent from "src/components/AddDoctorAdmin/AddDoctorAdminComponent.jsx";
+import { deleteDoctor } from "../../redux/asyncThunkFuntions/admin.js";
 
-const UpdateAdmin = ({access}) => {
+const UpdateAdmin = ({ access }) => {
   const [addAdminToggle, setAddAdminToggle] = useState(false);
   const [admins, setAdmins] = useState([]);
 
   const dispatch = useDispatch();
   const handleDeleteAdmin = async (email) => {
     try {
-      await dispatch(deleteAdmin(email)).unwrap();
-      setAdmins((pre) =>
-        pre.map((obj) =>
-          obj.email == email
-            ? { ...obj, ["status"]: "inactive", ["role"]: "User" }
-            : obj
-        )
-      );
+      if (access == "doctor") {
+        await dispatch(deleteDoctor(email)).unwrap();
+       fetchDoctors()
+      } else {
+        await dispatch(deleteAdmin(email)).unwrap();
+        setAdmins((pre) =>
+          pre.map((obj) =>
+            obj.email == email
+              ? { ...obj, ["status"]: "inactive", ["role"]: "User" }
+              : obj
+          )
+        );
+      }
     } catch (error) {
       toast.error(error);
     }
@@ -44,18 +50,20 @@ const UpdateAdmin = ({access}) => {
       toast.error(error);
     }
   };
-  const fetchDoctors = async ()=>{
-
-  }
-  useEffect(() => {
-    if(access == "doctor")
-    {
-      fetchDoctors();
+  const fetchDoctors = async () => {
+    try {
+      let response = await dispatch(getDoctor()).unwrap();
+      setAdmins(response.data);
+    } catch (error) {
+      toast.error(error);
     }
-    else{
+  };
+  useEffect(() => {
+    if (access == "doctor") {
+      fetchDoctors();
+    } else {
       fetchAdmins();
     }
-    
   }, [access]);
 
   return (
@@ -64,74 +72,75 @@ const UpdateAdmin = ({access}) => {
         <h2>{access == "doctor" ? "Manage Doctors" : "Manage Admins"} </h2>
         <div className={styles.actions}>
           <button className={styles.addBtn} onClick={handleToggle}>
-            
-            {access == "doctor" ? "Add Doctor" : "Add Admin"} 
+            {access == "doctor" ? "Add Doctor" : "Add Admin"}
           </button>
         </div>
       </div>
-      <div  className={styles.search}>
-        {/* <input
-          type="text"
-          onChange={(e)=>{setSearch(e.target.value)}}
-          placeholder="Search Admin."
-          className={styles.search}
-        /> */}
+      <div className={styles.search}>
+      
       </div>
 
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Id </th>
-            <th>Email </th>
-            <th>Role </th>
-            <th>Status </th>
-            <th>Action </th>
-          </tr>
-        </thead>
-        <tbody>
-          {admins.map((admin, index) => (
-            <tr key={index}>
-              <td>
-                <div className={styles.item}>{index + 1}</div>
-              </td>
-              <td>{admin?.email}</td>
-              <td>{admin?.role}</td>
-              <td>
-                {" "}
-                <span
-                  className={`${styles.status} ${
-                    admin?.status == "active" ? styles.active : styles.disabled
-                  }`}
-                >
-                  {admin?.status}
-                </span>
-              </td>
+      <div className={styles.tableWrapper}>
+  <table className={styles.table}>
+    <thead>
+      <tr>
+        <th>{access == "doctor" ? "Name" : "Id"}</th>
+        <th>{access == "doctor" ? "specialization" : "Email"}</th>
+        <th>{access == "doctor" ? "doctorInTime" : "Role"}</th>
+        <th>{access == "doctor" ? "doctorOutTime" : "Status"}</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {admins.map((admin, index) => (
+        <tr key={index}>
+          <td>
+            <div className={styles.item}>
+              {access == "doctor" ? admin?.name : index + 1}
+            </div>
+          </td>
+          <td>{access == "doctor" ? admin?.specialization : admin?.email}</td>
+          <td>{access == "doctor" ? admin?.doctorInTime : admin?.role}</td>
+          <td>
+            <span
+              className={
+                access == "doctor"
+                  ? null
+                  : `${styles.status} ${
+                      admin?.status == "active" ? styles.active : styles.disabled
+                    }`
+              }
+            >
+              {access == "doctor" ? admin?.doctorOutTime : admin?.status}
+            </span>
+          </td>
+          <td>
+            <Button
+              style={styles.delete}
+              type={"button"}
+              onClick={() => {
+                handleDeleteAdmin(
+                  access == "doctor" ? admin?.doctor_id : admin.email
+                );
+              }}
+              disabled={admin?.status == "inactive"}
+              text={admin?.status == "inactive" ? "Removed" : "Remove"}
+            />
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
 
-              <td>
-                {" "}
-                <Button
-                  style={styles.delete}
-                  type={"button"}
-                  onClick={() => {
-                    handleDeleteAdmin(admin.email);
-                  }}
-                  disabled ={admin?.status == 'inactive'}
-                  text={admin?.status == 'inactive' ? "Removed" : "Remove"}
-                />{" "}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
       {addAdminToggle && (
         <AddDoctorAdminComponent
-          fetchData={access == 'doctor' ?  fetchDoctors : fetchAdmins}
-          control={access == 'doctor' ?  true : false}
+          fetchData={access == "doctor" ? fetchDoctors : fetchAdmins}
+          control={access == "doctor" ? true : false}
           onPopup={addAdminToggle}
           setPopupOff={setAddAdminToggle}
         />
       )}
-
     </div>
   );
 };

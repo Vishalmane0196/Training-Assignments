@@ -97,6 +97,19 @@ export const fetchAllAdmins = createAsyncThunk(
     }
   }
 );
+export const deleteDoctor = createAsyncThunk(
+  "admin/deleteDoctor",
+  async (id, { rejectWithValue }) => {
+    try {
+      let response = await axiosInstance.delete(
+        `/admin/deleteDoctor?doctor_id=${id}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
 
 export const addDoctor = createAsyncThunk(
   "admin/addDoctor",
@@ -107,6 +120,20 @@ export const addDoctor = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const getAppointments = createAsyncThunk(
+  "admin/getAppointments",
+  async (rejectWithValues) => {
+    try {
+      let response = await axiosInstance.get(
+        "/admin/displayAppointmentRequest"
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValues(error.response.data.message);
     }
   }
 );

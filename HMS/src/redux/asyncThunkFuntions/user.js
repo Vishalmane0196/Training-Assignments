@@ -52,10 +52,9 @@ export const updatePersonalInfo = createAsyncThunk(
         "/patient/updatePersonalInfo",
         data
       );
-   
+
       return response.data;
     } catch (error) {
-      
       return rejectWithValue(error.response.data);
     }
   }
@@ -247,14 +246,31 @@ export const deleteAccount = createAsyncThunk(
 );
 
 export const getDoctor = createAsyncThunk(
-  'book/getDoctor',
-  async(rejectWithValue)=>{
+  "book/getDoctor",
+  async (rejectWithValue) => {
     try {
-      let response = await axiosInstance.get('/user/getDoctors')
-      return response.data
+      let response = await axiosInstance.get("/user/getDoctors");
+      return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message) 
+      return rejectWithValue(error.response.data.message);
     }
-    
   }
-)
+);
+
+export const fetchDoctorSlots = createAsyncThunk(
+  "user/getSlots",
+  async (data, { rejectWithValue }) => {
+    try {
+      console.log(data);
+      let response = await axiosInstance.post(
+        `/user/showAvailability?doctor_id=${data.doctorId}`,
+        { data: data.date }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+

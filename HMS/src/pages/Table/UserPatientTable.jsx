@@ -45,7 +45,7 @@ const UserPatientTable = () => {
             <tbody>
               {patientList.length === 0 ? (
                 <tr>
-                  <td colSpan="5">No patients found.</td>
+                  <td colSpan="6">No patients found.</td>
                 </tr>
               ) : null}
 

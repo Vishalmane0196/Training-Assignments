@@ -3,10 +3,7 @@ import { Navbar } from "../../components/Navbar/Navbar.jsx";
 import adminCSS from "../../style/AdminDashboard.module.css";
 import { NavLink, Outlet } from "react-router-dom";
 
- const Dashboard = () => {
-  
-
-
+const Dashboard = () => {
   return (
     <>
       <Navbar />
@@ -18,14 +15,15 @@ import { NavLink, Outlet } from "react-router-dom";
             <i className="fa-solid fa-window-maximize "></i> Dashboard
           </h2>
           <ul className={adminCSS.ulLink}>
-          <li>
+            <span className={adminCSS.menuHeader}>Menu</span>
+            <li>
               <NavLink
                 to="/admin/dashboard/addpatient"
                 className={({ isActive }) => {
                   return isActive ? adminCSS.active : adminCSS.linkText;
                 }}
               >
-                <i class="fa-solid fa-plus"></i>  {" "}
+                <i class="fa-solid fa-plus"></i>{" "}
                 <span style={{ marginLeft: "0.5rem" }}>Add Patient </span>
               </NavLink>
             </li>
@@ -40,7 +38,7 @@ import { NavLink, Outlet } from "react-router-dom";
                 <span style={{ marginLeft: "0.5rem" }}> All Patients </span>
               </NavLink>
             </li>
-           
+
             <li>
               <NavLink
                 to="/admin/dashboard/mypatients"
@@ -48,10 +46,13 @@ import { NavLink, Outlet } from "react-router-dom";
                   return isActive ? adminCSS.active : adminCSS.linkText;
                 }}
               >
-                <i class="fa-solid fa-window-restore"></i>  {" "}
+                <i class="fa-solid fa-window-restore"></i>{" "}
                 <span style={{ marginLeft: "0.5rem" }}>My Patient </span>
               </NavLink>
             </li>
+            <span className={adminCSS.menuHeader}>Manage</span>
+            <br />
+
             <li>
               <NavLink
                 to="/admin/dashboard/manageDoctor"
@@ -59,12 +60,21 @@ import { NavLink, Outlet } from "react-router-dom";
                   return isActive ? adminCSS.active : adminCSS.linkText;
                 }}
               >
-                <i class="fa-solid fa-stethoscope"></i> {" "}
+                <i class="fa-solid fa-stethoscope"></i>{" "}
                 <span style={{ marginLeft: "0.5rem" }}>Doctor Overview </span>
               </NavLink>
             </li>
-          
-           
+            <li>
+              <NavLink
+                to="/admin/dashboard/manageAppointment"
+                className={({ isActive }) => {
+                  return isActive ? adminCSS.active : adminCSS.linkText;
+                }}
+              >
+                <i class="fa-regular fa-calendar-check"></i>{" "}
+                <span style={{ marginLeft: "0.5rem" }}>Appointments </span>
+              </NavLink>
+            </li>
           </ul>
         </aside>
 

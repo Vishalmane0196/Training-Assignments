@@ -137,9 +137,8 @@ const Router = createBrowserRouter([
         element: <AdminSetting />,
       },
       {
-        
         path: "/admin/dashboard/setting/accessControl",
-        element: <UpdateAdmin access={"Admin"}/>,
+        element: <UpdateAdmin access={"Admin"} />,
       },
       {
         path: "/admin/dashboard/allpatients",
@@ -160,12 +159,20 @@ const Router = createBrowserRouter([
         element: <UpdateAdmin access={"doctor"} />,
       },
       {
+        path: "/admin/dashboard/manageAppointment",
+        element: <AdminPatient access={"appointment"} />,
+      },
+      {
+        path: "/admin/dashboard/viewpatients/bookAppointment",
+        element: <Appointment />,
+      },
+      {
         path: "/admin/dashboard/addpatient",
         element: <MultiStepForm />,
       },
       {
         path: "/admin/dashboard/mypatients",
-        element: <AdminPatient />,
+        element: <AdminPatient access={""} />,
       },
     ],
   },
