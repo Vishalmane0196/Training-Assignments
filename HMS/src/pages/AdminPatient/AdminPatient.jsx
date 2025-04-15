@@ -7,6 +7,7 @@ import { setBookPatientId } from "src/redux/slices/appointment/bookSlice";
 import {
   deletePatient,
   getAppointments,
+  changeAppointmentStatus,
 } from "src/redux/asyncThunkFuntions/admin";
 import { toast } from "react-toastify";
 import { Button } from "src/components/Button/Button";
@@ -26,7 +27,6 @@ const AdminPatient = ({ access }) => {
   const getAppointment = async () => {
     try {
       await dispatch(getAppointments()).unwrap();
-      
     } catch (error) {
       toast.error(error);
     }
@@ -36,13 +36,6 @@ const AdminPatient = ({ access }) => {
     dispatch(setBookPatientId(id));
     navigate("/admin/dashboard/viewpatients/bookAppointment");
   };
-  useEffect(() => {
-    if (access == "appointment") {
-      getAppointment();
-    } else {
-      getData();
-    }
-  }, [access]);
 
   const handleAdminAllPatient = (id) => {
     navigate(`/admin/dashboard/allpatients/patientdetails/${id}`);
@@ -55,6 +48,25 @@ const AdminPatient = ({ access }) => {
       console.log(error);
     }
   };
+  const handleAppointmentStatus = async (id, status) => {
+    try {
+      await dispatch(
+        changeAppointmentStatus({ id: id, status: status })
+      ).unwrap();
+      getAppointment();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    if (access == "appointment") {
+      getAppointment();
+    } else {
+      getData();
+    }
+  }, [access]);
+
   return (
     <>
       <div className={patientCSS.containerCover}>
@@ -76,28 +88,91 @@ const AdminPatient = ({ access }) => {
             {patientList.length == 0 ? <p>No Record Found</p> : null}
             {patientList?.map((patient) => (
               <li className={patientCSS.liList}>
-                <p className={patientCSS.p}>{patient.patient_id}</p>
-                <p className={patientCSS.p}>{patient.patient_name}</p>
-                <p className={patientCSS.p}>{patient.disease_type}</p>
-                <p className={patientCSS.p}>{patient.age}</p>
+                <p className={patientCSS.p}>
+                  {access == "appointment"
+                    ? patient.patient_name
+                    : patient.patient_id}
+                </p>
+                <p className={patientCSS.p}>
+                  {access == "appointment"
+                    ? patient.disease_type
+                    : patient.patient_name}
+                </p>
+                <p className={patientCSS.p}>
+                  {access == "appointment" ? patient.age : patient.disease_type}
+                </p>
+                <p className={patientCSS.p}>
+                  {access == "appointment"
+                    ? patient.appointment_time
+                    : patient.age}
+                </p>
 
                 <p className={patientCSS.iconDiv}>
-                  <i
-                    title="view patient"
-                    onClick={() => {
-                      handleAdminAllPatient(patient.patient_id);
-                    }}
-                    className="fa-solid fa-eye"
-                  ></i>
-                  <i
-                    title="delete patient"
-                    onClick={() => {
-                      handleDeletePatient(patient.patient_id);
-                    }}
-                    className="fa-solid fa-trash"
-                  ></i>
+                  {access == "appointment" ? (
+                    patient.appointment_id ? (
+                      new Date(patient?.appointment_date)
+                        .toISOString()
+                        .slice(2, 10)
+                    ) : (
+                      ""
+                    )
+                  ) : (
+                    <>
+                      <i
+                        title="view patient"
+                        onClick={() => {
+                          handleAdminAllPatient(patient.patient_id);
+                        }}
+                        className="fa-solid fa-eye"
+                      ></i>
+                      <i
+                        title="delete patient"
+                        onClick={() => {
+                          handleDeletePatient(patient.patient_id);
+                        }}
+                        className="fa-solid fa-trash"
+                      ></i>
+                    </>
+                  )}
                 </p>
-                {access == "appointment" ? null : (
+                {access == "appointment" ? (
+                  <div className={`${patientCSS.selectTag} ${patient.status}`}>
+                    <select
+                      name=""
+                      value={patient?.status}
+                      onChange={(e) =>
+                        handleAppointmentStatus(
+                          patient?.appointment_id,
+                          e.target.value
+                        )
+                      }
+                      className={patientCSS[patient.status]}
+                      id=""
+                    >
+                      <option
+                        className={patientCSS.Scheduled}
+                        value="Scheduled"
+                      >
+                        Schedule
+                      </option>
+                      <option className={patientCSS.Pending} value="Pending">
+                        Pending
+                      </option>
+                      <option
+                        className={patientCSS.Completed}
+                        value="Completed"
+                      >
+                        Completed
+                      </option>
+                      <option
+                        className={patientCSS.Cancelled}
+                        value="Cancelled"
+                      >
+                        Cancelled
+                      </option>
+                    </select>
+                  </div>
+                ) : (
                   <Button
                     text="Book Now"
                     style={patientCSS.bookBtn}

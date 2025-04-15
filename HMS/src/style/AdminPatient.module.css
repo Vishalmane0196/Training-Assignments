@@ -83,3 +83,50 @@
     width: 64%;
     align-self: center;
 }
+
+.selectTag {
+    display: flex;
+    align-items: center;
+
+}
+
+.selectTag>select {
+    padding: 0.4rem;
+    outline: none;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid rgba(117, 117, 117, 0.121);
+}
+
+.selectTag>select>option {
+    padding: 0.2rem;
+    border-bottom: 1px solid gray;
+}
+
+.Pending {
+    color: rgb(206, 54, 54);
+
+}
+
+.Scheduled {
+    color: rgba(181, 179, 65, 0.89);
+
+}
+
+.Completed {
+    color: rgba(98, 181, 65, 0.767);
+
+
+}
+
+.Cancelled {
+    color: rgba(125, 125, 125, 0.904);
+
+}
+.selectTag>select:hover {
+    background-color: rgba(128, 128, 128, 0.194);
+}

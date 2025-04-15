@@ -1,0 +1,119 @@
+/* PatientList.module.css */
+.container {
+    padding: 20px;
+    padding-top: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+h2 {
+
+    font-size: 2rem;
+    margin: 0;
+    margin-bottom: 1rem;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filters input,
+.filters select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.tableWrapper {
+    overflow-x: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 50px 100px 100px 160px 220px 140px 220px 120px 100px;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.header {
+    background-color: #6c2bd9;
+    color: white;
+    font-weight: bold;
+}
+
+.activeRow {
+    background-color: #e8e8e8;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.actions button {
+    background-color: #ff6b6b;
+    border: none;
+    padding: 6px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.actions button:nth-child(1) {
+    background-color: #f0932b;
+}
+
+.actions button:nth-child(3) {
+    background-color: #7f8c8d;
+}
+
+.addBtn {
+    padding: 0.6rem 1.2rem;
+    background-color: #238636;
+    color: #ffffff;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.formDiv {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.medicineDuration {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.labelDiv {
+    margin-bottom: 0.5rem;
+}
+
+.labelHead {
+    margin-right: 1rem;
+}
+
+.labelOption {
+    margin-right: 1rem;
+}
+
+.labelOption>pre {
+    display: inline-block;
+    margin: 0;
+}
+
+.labelDiv>input {
+    margin-right: 1rem;
+}
+
+.marginCheck {
+    margin-right: 2.3rem;
+}

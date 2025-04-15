@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPatientsInfo } from "../../redux/asyncThunkFuntions/user";
 
 const Profile = () => {
-  const { userInfo, isAdmin } = useSelector((state) => state.auth);
+  const { userInfo, isAdmin, isDoctor } = useSelector((state) => state.auth);
   const { totalPatient } = useSelector((state) => state.patient);
   const dispatch = useDispatch();
 
@@ -38,9 +38,11 @@ const Profile = () => {
                 <h2 className={styles.userName}>
                   {userInfo?.first_name} {userInfo?.last_name}
                 </h2>
-                <p className={styles.trustText}>{isAdmin ? "Admin" : "User"}</p>
+                <p className={styles.trustText}>
+                  {isAdmin ? "Admin" : isDoctor ? "Doctor" : "User"}
+                </p>
 
-                <p className={styles.trustText}>{}</p>
+                <p className={styles.trustText}></p>
               </div>
             </div>
           </div>
@@ -68,7 +70,9 @@ const Profile = () => {
 
             <div className={styles.detailRow}>
               <p className={styles.label}>Role :</p>
-              <p className={styles.value}>{isAdmin ? "Admin" : "User"}</p>
+              <p className={styles.value}>
+                {isAdmin ? "Admin" : isDoctor ? "Doctor" : "User"}
+              </p>
             </div>
           </div>
         </div>

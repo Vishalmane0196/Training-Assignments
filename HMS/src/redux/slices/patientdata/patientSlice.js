@@ -3,6 +3,7 @@ import { fetchPatientsInfo } from "../../asyncThunkFuntions/user";
 import { fetchAllPAtients } from "../../asyncThunkFuntions/admin";
 import { fetchPatientCardData } from "../../asyncThunkFuntions/admin";
 import { getAppointments } from "../../asyncThunkFuntions/admin";
+import { getDoctorAppointmentsList } from "src/redux/asyncThunkFuntions/doctor";
 
 const initialState = {
   loading: false,
@@ -75,6 +76,14 @@ const patientSlice = createSlice({
       .addCase(getAppointments.fulfilled, (state, actions) => {
         state.patientList = actions.payload.data;
         state.loading = false;
+      });
+    builder
+      .addCase(getDoctorAppointmentsList.pending, (state) => {
+        state.loading = false;
+      })
+      .addCase(getDoctorAppointmentsList.fulfilled, (state, action) => {
+        console.log(action.payload.data);
+        state.patientList = action.payload.data;
       });
   },
 });

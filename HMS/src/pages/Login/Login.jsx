@@ -10,12 +10,10 @@ import { loginUser } from "../../redux/asyncThunkFuntions/auth.js";
 import { getUserInfo } from "../../redux/asyncThunkFuntions/user.js";
 import { toast } from "react-toastify";
 
- const Login = () => {
+const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {  isAdmin, isDoctor, isLoggedIn } = useSelector(
-    (state) => state.auth
-  );
+  const { isAdmin, isDoctor, isLoggedIn } = useSelector((state) => state.auth);
 
   const {
     register,
@@ -30,10 +28,9 @@ import { toast } from "react-toastify";
 
   const handleNavigate = () => {
     if (isAdmin == 1) {
-     
       navigate("/admin/dashboard/allpatients");
     } else if (isDoctor == 1) {
-      navigate("/doctor/dashboard");
+      navigate("/doctor/dashboard/profile");
     } else {
       navigate("/user/dashboard/profile");
     }
@@ -65,7 +62,7 @@ import { toast } from "react-toastify";
   useEffect(() => {
     if (!isLoggedIn) return;
     handleNavigate();
-  }, [isAdmin, isDoctor,isLoggedIn]);
+  }, [isAdmin, isDoctor, isLoggedIn]);
   return (
     <>
       <div className={login.container}>
@@ -151,6 +148,5 @@ import { toast } from "react-toastify";
     </>
   );
 };
-
 
 export default Login;

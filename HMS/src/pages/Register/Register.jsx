@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 
 import { toast } from "react-toastify";
 
- const Register = () => {
+const Register = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -20,22 +20,23 @@ import { toast } from "react-toastify";
 
   const handleRegisterForm = async (data) => {
     let registerPromise = dispatch(registerUser(data)).unwrap();
-    toast.promise(registerPromise,{
+
+    toast.promise(registerPromise, {
       pending: "Loading...",
       success: "Registration successful!",
-      error: "Registration failed : ${error.response.data.message}",
-    })
+      error: "",
+    });
 
     try {
-       await registerPromise
-       navigate("/account/user/login");
+      await registerPromise;
+      navigate("/account/user/login");
     } catch (error) {
       console.error("register fail", error);
+      toast.error(error);
     }
   };
 
   const submitRegisterData = (data) => {
-  
     handleRegisterForm(data);
   };
   return (

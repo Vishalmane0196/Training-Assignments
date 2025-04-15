@@ -1,26 +1,26 @@
-import React, {  useEffect } from "react";
+import React, { useEffect } from "react";
 import userDashboardCSS from "../../style/Userdashboard.module.css";
 import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../redux/asyncThunkFuntions/user";
 
- const UserMain = () => {
- 
-  const {userInfo } = useSelector(state => state.auth)
+const UserMain = () => {
+  const { userInfo, isDoctor } = useSelector((state) => state.auth);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const getUserInfoFun = async () => {
-     dispatch(getUserInfo());
+      dispatch(getUserInfo());
     };
     getUserInfoFun();
   }, []);
 
   return (
     <>
-      <main  className={userDashboardCSS.content}>
+      <main className={userDashboardCSS.content}>
         {/* <!-- User Profile Section --> */}
         <div className={userDashboardCSS.profile}>
           <div className={userDashboardCSS.profileDiv}>
@@ -30,15 +30,19 @@ import { getUserInfo } from "../../redux/asyncThunkFuntions/user";
               alt="User Profile"
             />
             <div>
-              <h2 >
-                {userInfo?.first_name}
+              <h2>
+                {isDoctor
+                  ? ` Dr. ${userInfo?.first_name}`
+                  : userInfo?.first_name}
               </h2>
               <p>Your personal account</p>
             </div>
           </div>
           <button
             onClick={() => {
-              navigate("/user/dashboard/addpatient/");
+              isDoctor
+                ? navigate("/doctor/dashboard/addpatient/")
+                : navigate("/user/dashboard/addpatient/");
             }}
             className={userDashboardCSS.addPatientBtn}
           >

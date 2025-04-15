@@ -80,17 +80,22 @@ export const DocumentInfo = ({ setStep, patientId }) => {
   };
 
   const handleUploadUpdateDocument = async (docType, file) => {
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("document_type", docType);
-      formData.append("patient_id", patientId);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("document_type", docType);
+    formData.append("patient_id", patientId);
 
-      await dispatch(updateDocument(formData));
-      toast.success("file Updated successfully");
+    let documentUpdate = dispatch(updateDocument(formData)).unwrap();
+
+    toast.promise(documentUpdate, {
+      pending: "Uploading Document...",
+      success: "Uploaded successfully.",
+      error: "Failed to upload the document.",
+    });
+    try {
+      await documentUpdate;
     } catch (error) {
       console.error(error);
-      toast.error("error updating file");
     }
   };
 

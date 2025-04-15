@@ -5,39 +5,71 @@ import { motion } from "motion/react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { fetchDoctorSlots } from "src/redux/asyncThunkFuntions/user";
-export const Slot = ({ doctors, date, book, setBook }) => {
+import { bookAppointment } from "src/redux/asyncThunkFuntions/user";
+export const Slot = ({ date, book, setBook }) => {
   const [slots, setSlots] = useState([]);
+  const [timeSlot, setTimeSlot] = useState();
   const dispatch = useDispatch();
-
+  const [time, setTime] = useState(null);
   const { patientId, selectedDoctor } = useSelector((state) => state.book);
 
-  const showTimes = [
-    { time: "10:00:00 AM" },
-    { time: "10:30:00 AM" },
-    { time: "11:00:00 AM" },
-    { time: "11:30:00 AM" },
-    { time: "12:00:00 PM" },
-    { time: "12:30:00 PM" },
-    { time: "13:00:00 PM" },
-    { time: "13:30:00 PM" },
-    { time: "14:00:00 PM" },
-    { time: "14:30:00 PM" },
-    { time: "15:00:00 PM" },
-    { time: "15:30:00 PM" },
-    { time: "16:00:00 PM" },
-    { time: "16:30:00 PM" },
-  ];
+  const generateTimeSlots = (startTime, endTime, intervalMinutes) => {
+    const slots = [];
+
+    let [startHour, startMin, startSec] = startTime.split(":").map(Number);
+    let [endHour, endMin, endSec] = endTime.split(":").map(Number);
+
+    const start = new Date();
+    start.setHours(startHour, startMin, startSec, 0);
+
+    const end = new Date();
+    end.setHours(endHour, endMin, endSec, 0);
+
+    while (start < end) {
+      const endSlot = new Date(start.getTime() + intervalMinutes * 60000);
+      if (endSlot > end) break;
+
+      const format = (date) => date.toTimeString().slice(0, 8);
+
+      slots.push(`${format(start)} - ${format(endSlot)}`);
+      start.setTime(endSlot.getTime());
+    }
+
+    return slots;
+  };
+
   const fetchDoctorAvailableSlots = async () => {
     try {
       let res = await dispatch(
         fetchDoctorSlots({
           date: date,
           patientId: patientId,
-          doctorId: selectedDoctor.Id,
+          doctorId: selectedDoctor.id,
         })
       ).unwrap();
-      console.log(res);
-      setSlots(res.bookedSlots);
+
+      setSlots(() => {
+        setTimeSlot(
+          generateTimeSlots(res.data.doctorInTime, res.data.doctorOutTime, 30)
+        );
+        return res.data.timeSlot;
+      });
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+  const handleAppointment = async () => {
+    try {
+      await dispatch(
+        bookAppointment({
+          date: date,
+          patient_id: patientId,
+          doctor_id: selectedDoctor.id,
+          time: time.slice(0, 8),
+        })
+      ).unwrap();
+      setBook(false);
+      toast.success("Appointment confirmed successfully.");
     } catch (error) {
       toast.error(error);
     }
@@ -67,7 +99,7 @@ export const Slot = ({ doctors, date, book, setBook }) => {
                   <div className={styles.theaterInfo}>
                     <div>
                       <div style={{ fontWeight: "600", fontSize: "18px" }}>
-                        {selectedDoctor.name}
+                        {`Dr. ${selectedDoctor.name}`}
                       </div>
                       <div className={styles.icons}>
                         <div className={styles.icon}>
@@ -92,17 +124,38 @@ export const Slot = ({ doctors, date, book, setBook }) => {
                 </div>
 
                 <div className={styles.slotsGrid}>
-                  {showTimes.map((slot, idx) => (
-                    <div key={idx} className={styles.slot}>
-                      {slot.time}
-                      {slot?.tag && (
-                        <div className={styles.slotSubText}>{slot?.tag}</div>
-                      )}
-                    </div>
-                  ))}
+                  {console.log(slots)}
+                  {console.log(timeSlot)}
+
+                  {timeSlot?.map((slot, idx) =>
+                    slots.includes(slot.slice(0, 8)) ? (
+                      <div key={idx} className={styles.disabled}>
+                        {slot.slice(0, 8)}
+                      </div>
+                    ) : (
+                      <div
+                        key={idx}
+                        onClick={() => {
+                          setTime(slot);
+                        }}
+                        className={
+                          time == slot
+                            ? `${styles.selectedTime} `
+                            : `${styles.slot} `
+                        }
+                      >
+                        {slot.slice(0, 8)}
+                      </div>
+                    )
+                  )}
                 </div>
                 <div className={styles.bookBtnCover}>
-                  <button className={styles.bookBtn}>Book Now</button>
+                  <button
+                    onClick={handleAppointment}
+                    className={styles.bookBtn}
+                  >
+                    Book Now
+                  </button>
                 </div>
               </div>
             </div>
@@ -114,7 +167,6 @@ export const Slot = ({ doctors, date, book, setBook }) => {
 };
 
 Slot.prototype = {
-  doctors: PropTypes.object,
   date: PropTypes.string,
   book: PropTypes.any,
   setBook: PropTypes.func,

@@ -8,7 +8,13 @@ export const Doctor = ({ outTime, inTime, name, specialist, id, setBook }) => {
   const handleDoctorBookId = () => {
     setBook(true);
     dispatch(
-      setBookDoctor({ inTime: inTime, id: id,specialist:specialist ,name: name, outTime: outTime })
+      setBookDoctor({
+        inTime: inTime,
+        id: id,
+        specialist: specialist,
+        name: name,
+        outTime: outTime,
+      })
     );
   };
   return (
@@ -24,7 +30,7 @@ export const Doctor = ({ outTime, inTime, name, specialist, id, setBook }) => {
           </div>
           <div className={doctorCSS.info}>
             {" "}
-            <h2>{name}</h2>
+            <h2>{`Dr. ${name}`}</h2>
             <h3>{specialist}</h3>
             <p>{`Time: ${inTime.slice(0, 5)}  - ${outTime.slice(0, 5)} `}</p>
           </div>

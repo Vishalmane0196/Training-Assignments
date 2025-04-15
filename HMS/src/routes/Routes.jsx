@@ -11,6 +11,7 @@ const delayForDemo = (promise, time = 1000) => {
   });
 };
 
+const Prescription = lazy(() => import("src/pages/Prescription/Prescription"));
 const UpdateAdmin = lazy(() => import("src/pages/AdminSetting/UpdateAdmin"));
 const Appointment = lazy(() => import("src/pages/Appointment/Appointment"));
 const LRwrapper = lazy(() =>
@@ -60,7 +61,7 @@ const Router = createBrowserRouter([
     path: "/user/dashboard",
     element: (
       <Suspense fallback={<Loading />}>
-        <ProtectedRoute isAdminProp={0}>
+        <ProtectedRoute isAdminProp={0} isDoctorProp={0}>
           <ErrorBoundary>
             <UserDashboard />
           </ErrorBoundary>
@@ -119,7 +120,7 @@ const Router = createBrowserRouter([
     path: "/admin/dashboard",
     element: (
       <Suspense fallback={<Loading />}>
-        <ProtectedRoute isAdminProp={1}>
+        <ProtectedRoute isAdminProp={1} isDoctorProp={0}>
           <ErrorBoundary>
             {" "}
             <Dashboard />
@@ -173,6 +174,73 @@ const Router = createBrowserRouter([
       {
         path: "/admin/dashboard/mypatients",
         element: <AdminPatient access={""} />,
+      },
+    ],
+  },
+  {
+    path: "doctor/dashboard",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <ProtectedRoute isDoctorProp={1} isAdminProp={0}>
+          <ErrorBoundary>
+            {" "}
+            <UserDashboard access={"doctor"} />
+          </ErrorBoundary>
+        </ProtectedRoute>
+      </Suspense>
+    ),
+    children: [
+      {
+        path: "",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <UserMain />
+          </Suspense>
+        ),
+        children: [
+          {
+            path: "/doctor/dashboard/profile",
+            element: <Profile />,
+          },
+          {
+            path: "/doctor/dashboard/viewpatients",
+            element: <UserPatientTable />,
+          },
+          {
+            path: "/doctor/dashboard/viewpatients/patientdetails/:id",
+            element: <ViewPatient />,
+          },
+          {
+            path: "/doctor/dashboard/viewAppointment",
+            element: <UserPatientTable access={"doctor"} />,
+          },
+          {
+            path: "/doctor/dashboard/prescription",
+            element: <Prescription />,
+          },
+          {
+            path: "/doctor/dashboard/setting",
+            element: <Setting access="doctor" />,
+            children: [
+              {
+                path: "/doctor/dashboard/setting/deleteaccount",
+                element: <DeletePopUp />,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: "/doctor/dashboard/addpatient",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <MultiStepForm />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/doctor/dashboard/viewpatients/bookAppointment",
+        element: <Appointment />,
       },
     ],
   },

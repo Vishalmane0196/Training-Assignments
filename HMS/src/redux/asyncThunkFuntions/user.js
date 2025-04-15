@@ -264,7 +264,7 @@ export const fetchDoctorSlots = createAsyncThunk(
       console.log(data);
       let response = await axiosInstance.post(
         `/user/showAvailability?doctor_id=${data.doctorId}`,
-        { data: data.date }
+        { date: data.date }
       );
       return response.data;
     } catch (error) {
@@ -273,4 +273,14 @@ export const fetchDoctorSlots = createAsyncThunk(
   }
 );
 
-
+export const bookAppointment = createAsyncThunk(
+  "user/bookAppointment",
+  async (data, { rejectWithValue }) => {
+    try {
+      let response = await axiosInstance.post("/user/bookAppointment", data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);

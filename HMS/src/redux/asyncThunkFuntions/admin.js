@@ -137,3 +137,17 @@ export const getAppointments = createAsyncThunk(
     }
   }
 );
+
+export const changeAppointmentStatus = createAsyncThunk(
+  "admin/changeStatus",
+  async (data, { rejectWithValue }) => {
+    try {
+      let response = await axiosInstance.put(
+        `/admin/changeStatus?status=${data.status}&appointment_id=${data.id}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);

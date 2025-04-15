@@ -2,30 +2,48 @@ import React from "react";
 import styles from "../../../style/Edit.module.css";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../../redux/asyncThunkFuntions/user";
 import { updateUserInfo } from "../../../redux/asyncThunkFuntions/user";
-export const Edit = ({ editProfile, setEditProfile }) => {
+import InputComponent from "src/components/Input/InputComponent";
+import { updateDoctorProfile } from "src/redux/asyncThunkFuntions/doctor";
 
- const {userInfo} = useSelector(state => state.auth);
- const dispatch =  useDispatch()
+export const Edit = ({ editProfile, setEditProfile }) => {
+  const { userInfo, isDoctor } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     trigger,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      first_name: userInfo.first_name,
-      last_name: userInfo.last_name,
-      mobile_number: userInfo.mobile_number,
-    },
+    defaultValues:
+      isDoctor == 1
+        ? {
+            name: "",
+            specialization: "",
+            contact_number: "",
+            doctorInTime: "",
+            doctorOutTime: "",
+          }
+        : {
+            first_name: userInfo.first_name,
+            last_name: userInfo.last_name,
+            mobile_number: userInfo.mobile_number,
+          },
   });
 
   const sendDataToUpdate = async (data) => {
     try {
-      await dispatch(updateUserInfo(data)).unwrap();
-      
+      if (isDoctor) {
+        console.log(data);
+
+        await dispatch(updateDoctorProfile(data)).unwrap();
+      } else {
+        await dispatch(updateUserInfo(data)).unwrap();
+      }
+
       setEditProfile(false);
       toast.success("Profile updated successfully!");
       dispatch(getUserInfo());
@@ -35,7 +53,6 @@ export const Edit = ({ editProfile, setEditProfile }) => {
     }
   };
   const handleUpdateData = (data) => {
-
     sendDataToUpdate(data);
   };
   return (
@@ -54,7 +71,6 @@ export const Edit = ({ editProfile, setEditProfile }) => {
             </span>
             <h2 className={styles.h2tag}>Update Profile</h2>
             <form action="" onSubmit={handleSubmit(handleUpdateData)}>
-         
               <div
                 style={{
                   display: "flex",
@@ -62,86 +78,150 @@ export const Edit = ({ editProfile, setEditProfile }) => {
                   alignItems: "center",
                 }}
               >
-                <label htmlFor=""> First Name</label>
-                {errors.first_name && <span>{errors.first_name.message}</span>}
-              </div>
-              <input
-                className={styles.inputTag}
-                {...register("first_name", {
-                  required: true,
-                  maxLength: 20,
-                  pattern: {
-                    value: /^[A-Za-z]+$/,
-                    message: "Invalid format",
-                  },
-                })}
-                onChange={(e) => {
-                  const { onChange } = register("first_name");
-                  onChange(e);
-                  trigger("first_name");
-                }}
-                type="text"
-                placeholder="Enter your First Name"
-              />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <label htmlFor=""> Last Name</label>
-                {errors.last_name && <span>{errors.last_name.message}</span>}
-              </div>
-              <input
-                className={styles.inputTag}
-                {...register("last_name", {
-                  required: true,
-
-                  pattern: {
-                    value: /^[A-Za-z]+$/,
-                    message: "Invalid format",
-                  },
-                })}
-                onChange={(e) => {
-                  const { onChange } = register("last_name");
-                  onChange(e);
-                  trigger("last_name");
-                }}
-                type="text"
-                placeholder="Enter your Last Name"
-              />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <label htmlFor=""> Mobile Number</label>
-                {errors.mobile_number && (
-                  <span>{errors.mobile_number.message}</span>
+                <label htmlFor="">
+                  {isDoctor == 1 ? "Name" : "First Name"}{" "}
+                </label>
+                {errors[isDoctor == 1 ? "name" : "first_name "] && (
+                  <span>
+                    {errors[isDoctor == 1 ? "name" : "first_name "].message}
+                  </span>
                 )}
               </div>
-              <input
-                className={styles.inputTag}
-                {...register("mobile_number", {
-                  required: true,
-                  maxLength: 20,
-                  pattern: {
-                    value: /^[0-9]{10}$/,
-                    message: "Invalid format",
-                  },
-                })}
-                onChange={(e) => {
-                  const { onChange } = register("mobile_number");
-                  onChange(e);
-                  trigger("mobile_number");
+              <InputComponent
+                require={isDoctor == 1 ? "Name" : "First Name"}
+                register={register}
+                trigger={trigger}
+                fieldName={isDoctor == 1 ? "name" : "first_name"}
+                type={"text"}
+                style={styles.inputTag}
+                pattern={{
+                  value: /^[A-Za-z]/,
+                  message: "Invalid format",
                 }}
-                type="number"
-                placeholder="Enter your number"
+                placeholder={
+                  isDoctor == 1 ? "Enter Your Name" : "Enter Your First Name"
+                }
               />
-              
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <label htmlFor="">
+                  {isDoctor == 1 ? "Specialization" : "Last Name"}{" "}
+                </label>
+                {errors[isDoctor == 1 ? "specialization" : "last_name"] && (
+                  <span>
+                    {errors[isDoctor ? "specialization" : "last_name"].message}
+                  </span>
+                )}
+              </div>
+
+              <InputComponent
+                require={isDoctor == 1 ? "specialization" : "Last Name"}
+                register={register}
+                trigger={trigger}
+                fieldName={isDoctor == 1 ? "specialization" : "last_name"}
+                type={"text"}
+                style={styles.inputTag}
+                pattern={{
+                  value: /^[A-Za-z]/,
+                  message: "Invalid format",
+                }}
+                placeholder={
+                  isDoctor == 1
+                    ? "Enter Specialization"
+                    : "Enter Your Last Name"
+                }
+              />
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <label htmlFor="">
+                  {" "}
+                  {isDoctor ? "Contact Number" : "Mobile Number"}
+                </label>
+                {errors[isDoctor ? "contact_number" : "mobile_number"] && (
+                  <span>
+                    {
+                      errors[isDoctor ? "contact_number" : "mobile_number"]
+                        .message
+                    }
+                  </span>
+                )}
+              </div>
+              <InputComponent
+                require={isDoctor == 1 ? "Phone Number" : "Phone Number"}
+                register={register}
+                trigger={trigger}
+                fieldName={isDoctor == 1 ? "contact_number" : "mobile_number"}
+                type={"number"}
+                style={styles.inputTag}
+                pattern={{
+                  value: /^[0-9]{10}$/,
+                  message: "Invalid format",
+                }}
+                placeholder={
+                  isDoctor == 1
+                    ? "Enter Contact number"
+                    : "Enter  Contact Number"
+                }
+              />
+              {isDoctor ? (
+                <>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor="">doctorInTime</label>
+                    {errors.doctorInTime && (
+                      <span>{errors.doctorInTime.message}</span>
+                    )}
+                  </div>
+
+                  <InputComponent
+                    require={"doctorInTime"}
+                    register={register}
+                    trigger={trigger}
+                    fieldName={"doctorInTime"}
+                    type={"time"}
+                    style={styles.inputTag}
+                  />
+
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor=""> doctorOutTime</label>
+                    {errors.doctorOutTime && (
+                      <span>{errors.doctorOutTime.message}</span>
+                    )}
+                  </div>
+                  <InputComponent
+                    require={"doctorOutTime"}
+                    register={register}
+                    trigger={trigger}
+                    fieldName={"doctorOutTime"}
+                    type={"time"}
+                    style={styles.inputTag}
+                  />
+                </>
+              ) : null}
+
               <button type="submit" className={styles.submitBtn}>
                 Update Profile
               </button>
