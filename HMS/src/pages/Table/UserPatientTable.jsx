@@ -7,6 +7,7 @@ import { Button } from "src/components/Button/Button";
 import { setBookPatientId } from "src/redux/slices/appointment/bookSlice";
 import { getDoctorAppointmentsList } from "src/redux/asyncThunkFuntions/doctor";
 const UserPatientTable = ({ access }) => {
+  
   const dispatch = useDispatch();
   const { patientList } = useSelector((state) => state.patient);
   const { isDoctor } = useSelector((state) => state.auth);
@@ -77,7 +78,7 @@ const UserPatientTable = ({ access }) => {
                     {access == "doctor" ? obj?.appointment_id : obj.patient_id}
                   </td>
                   <td> {obj?.patient_name}</td>
-                  <td>{obj.disease_type}</td>
+                  <td>{obj.disease_types}</td>
                   <td>
                     {access == "doctor"
                       ? obj?.appointment_time
@@ -110,7 +111,9 @@ const UserPatientTable = ({ access }) => {
                       style={tableCSS.bookBtn}
                       onClick={() => {
                         access == "doctor"
-                          ? navigate("/doctor/dashboard/prescription")
+                          ? navigate(
+                              `/doctor/dashboard/prescription/${obj.appointment_id}`
+                            )
                           : handleBookAppointment(obj.patient_id);
                       }}
                     />

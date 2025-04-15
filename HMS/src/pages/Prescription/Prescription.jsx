@@ -1,50 +1,18 @@
 import React, { useState } from "react";
 import styles from "src/style/Prescription.module.css";
-import { FaEdit, FaTrash, FaEllipsisV } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 import { Button } from "src/components/Button/Button";
 import { useForm } from "react-hook-form";
-
-const patients = [
-  {
-    sl: "01",
-    date: "01/01/2020",
-    id: "0001",
-    name: "Shamitra Dutta",
-    email: "shamitra.dutta@gmail.com",
-    contact: "01676044462",
-    address: "T-7, Nurjahan Road, Mohammadpur",
-    desc: "Fever",
-  },
-  {
-    sl: "02",
-    date: "02/01/2020",
-    id: "0002",
-    name: "Mosharraf Hossain",
-    email: "mosharraf@gmail.com",
-    contact: "01676044461",
-    address: "T-9, Tajmohol Road, Mohammadpur",
-    desc: "Back Pain",
-  },
-  {
-    sl: "03",
-    date: "03/01/2020",
-    id: "0003",
-    name: "Likhon Kormokar",
-    email: "likhon@gmail.com",
-    contact: "01676044463",
-    address: "Bijoy Sarani, Dhaka",
-    desc: "Corona",
-  },
-];
-
+import { useDispatch } from "react-redux";
+import { addPrescription } from "src/redux/asyncThunkFuntions/doctor";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 const Prescription = () => {
+  const param = useParams();
   const [prescription, setPrescription] = useState({});
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
+  const [prescriptionSample, setPrescriptionSample] = useState([]);
+  const dispatch = useDispatch();
+  const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       medicine: "",
       capacity: "",
@@ -59,13 +27,87 @@ const Prescription = () => {
   });
   const handleSubmitData = (data) => {
     console.log(data);
+    setPrescriptionSample((pre) => {
+      let y = [...pre];
+      y.push(data);
+      return y;
+    });
     setPrescription((pre) => {
-      let medicine = [...pre.medicines].push(data.medicine);
-      let capacity = [...pre.capacity].push(data.capacity);
-      let doces = [...pre.dosage].push(data.dose);
-      
+      let medicine = [...(pre.medicines || []), data.medicine];
+      let capacity = [...(pre.capacity || []), data.capacity];
+      let dosage = [...(pre.dosage || []), data.dose];
+
+      let morning = [
+        ...(pre.morning || []),
+        data.beforeMorning && data.afterMorning
+          ? "both"
+          : data.beforeMorning
+          ? "before meal"
+          : data.afterMorning
+          ? "after meal"
+          : "none",
+      ];
+
+      let afternoon = [
+        ...(pre.afternoon || []),
+        data.beforeAfternoon && data.afterAfternoon
+          ? "both"
+          : data.beforeAfternoon
+          ? "before meal"
+          : data.afterAfternoon
+          ? "after meal"
+          : "none",
+      ];
+
+      let evening = [
+        ...(pre.evening || []),
+        data.beforeNight && data.afterNight
+          ? "both"
+          : data.beforeNight
+          ? "before meal"
+          : data.afterNight
+          ? "after meal"
+          : "none",
+      ];
+
+      return {
+        appointment_id: param.id,
+        medicines: medicine,
+        capacity: capacity,
+        dosage: dosage,
+        morning: morning,
+        afternoon: afternoon,
+        evening: evening,
+      };
     });
     reset();
+  };
+
+  const handleDelete = (indexToDelete) => {
+    const newSample = prescriptionSample.filter(
+      (_, index) => index !== indexToDelete
+    );
+    setPrescriptionSample(newSample);
+
+    setPrescription((prev) => {
+      return {
+        medicines: prev.medicines?.filter((_, i) => i !== indexToDelete) || [],
+        capacity: prev.capacity?.filter((_, i) => i !== indexToDelete) || [],
+        dosage: prev.dosage?.filter((_, i) => i !== indexToDelete) || [],
+        morning: prev.morning?.filter((_, i) => i !== indexToDelete) || [],
+        afternoon: prev.afternoon?.filter((_, i) => i !== indexToDelete) || [],
+        evening: prev.evening?.filter((_, i) => i !== indexToDelete) || [],
+      };
+    });
+  };
+
+  const handlePrescriptionData = async () => {
+    try {
+      await dispatch(addPrescription(prescription)).unwrap();
+    } catch (error) {
+      toast.error(error)
+      console.error(error);
+    }
   };
   return (
     <div className={styles.container}>
@@ -74,7 +116,9 @@ const Prescription = () => {
         <form action="" onSubmit={handleSubmit(handleSubmitData)}>
           <div className={styles.formDiv}>
             <div>
-              <label htmlFor="">Medicine</label>
+              <label htmlFor="" className={styles.headerLabelMain}>
+                Medicine
+              </label>
               <br />
               <input
                 {...register("medicine", {
@@ -85,7 +129,9 @@ const Prescription = () => {
               />
             </div>
             <div>
-              <label htmlFor="">Capacity</label>
+              <label htmlFor="" className={styles.headerLabelMain}>
+                Capacity
+              </label>
               <br />
               <input
                 {...register("capacity", {
@@ -97,7 +143,9 @@ const Prescription = () => {
             </div>
 
             <div>
-              <label htmlFor="">Dose</label>
+              <label htmlFor="" className={styles.headerLabelMain}>
+                Dose
+              </label>
               <br />
               <select {...register("dose", { required: true })} name="" id="">
                 <option value="one">1</option>
@@ -162,42 +210,54 @@ const Prescription = () => {
       </div>
       <div className={styles.tableWrapper}>
         <div className={`${styles.row} ${styles.header}`}>
-          <div>#SL</div>
-          <div>Date</div>
-          <div>Patient ID</div>
-          <div>Name</div>
-          <div>Email</div>
-          <div>Contact</div>
-          <div>Address</div>
-          <div>Desc</div>
+          <div>Id</div>
+          <div>Medicine</div>
+          <div>Capacity</div>
+          <div>Dosage</div>
+          <div>Before Meal</div>
+          <div>After Meal</div>
           <div>Action</div>
         </div>
-        {patients.map((patient, index) => (
-          <div
-            key={patient.id}
-            className={`${styles.row} ${index === 1 ? styles.activeRow : ""}`}
-          >
-            <div>{patient.sl}</div>
-            <div>{patient.date}</div>
-            <div>{patient.id}</div>
-            <div>{patient.name}</div>
-            <div>{patient.email}</div>
-            <div>{patient.contact}</div>
-            <div>{patient.address}</div>
-            <div>{patient.desc}</div>
+        {console.log(prescription)}
+        {console.log(prescriptionSample)}
+
+        {prescriptionSample?.map((prescriptionSampleData, index) => (
+          <div key={prescriptionSampleData.id} className={`${styles.row} `}>
+            {" "}
+            <div>{index}</div>
+            <div>{prescriptionSampleData.medicine}</div>
+            <div>{prescriptionSampleData.capacity}</div>
+            <div>{prescriptionSampleData.dose}</div>
+            <div>{`${Number(prescriptionSampleData.beforeMorning)}-${Number(
+              prescriptionSampleData.beforeAfternoon
+            )}-${Number(prescriptionSampleData.beforeNight)}`}</div>
+            <div>{`${Number(prescriptionSampleData.afterMorning)}-${Number(
+              prescriptionSampleData.afterAfternoon
+            )}-${Number(prescriptionSampleData.afterNight)}`}</div>
             <div className={styles.actions}>
-              <button>
-                <FaEdit />
-              </button>
-              <button>
+              <button
+                onClick={() => {
+                  handleDelete(index);
+                }}
+              >
                 <FaTrash />
-              </button>
-              <button>
-                <FaEllipsisV />
               </button>
             </div>
           </div>
         ))}
+      </div>
+      <div
+        disabled={prescriptionSample.length == 0 ? true : false}
+        className={styles.btnCover}
+      >
+        <Button
+          onClick={() => {
+            handlePrescriptionData();
+          }}
+          text={"Submit Prescription"}
+          type={"submit"}
+          style={styles.submitBtn}
+        />
       </div>
     </div>
   );

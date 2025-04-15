@@ -24,25 +24,30 @@ h2 {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    margin-top: 0.4rem;
 }
 
 .tableWrapper {
     overflow-x: auto;
     border: 1px solid #ddd;
     border-radius: 8px;
+    height: 42vh;
 }
 
 .row {
     display: grid;
-    grid-template-columns: 50px 100px 100px 160px 220px 140px 220px 120px 100px;
+    grid-template-columns: repeat(7, minmax(100px, 1fr));
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #eee;
 }
 
 .header {
+    position:sticky;
     background-color: #6c2bd9;
     color: white;
+    z-index: 5;
+    top: 0;
     font-weight: bold;
 }
 
@@ -52,7 +57,8 @@ h2 {
 
 .actions {
     display: flex;
-    gap: 8px;
+    justify-content: left;
+    padding-left: 2rem;
 }
 
 .actions button {
@@ -116,4 +122,21 @@ h2 {
 
 .marginCheck {
     margin-right: 2.3rem;
+}
+
+.submitBtn{
+    padding: 0.6rem 1.2rem;
+    background-color: #238636;
+    color: #ffffff;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    margin-top: 2rem;
+  align-items:start;
+}
+
+.btnCover{
+    display: flex;
+    width: 100%;
+    justify-content: right;
 }

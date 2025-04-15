@@ -21,9 +21,7 @@ const AddDoctorAdminComponent = ({
   } = useForm({
     defaultValues: control
       ? {
-          name: "",
           specialization: "",
-          contact_number: "",
           email: "",
           doctorInTime: "",
           doctorOutTime: "",
@@ -71,7 +69,7 @@ const AddDoctorAdminComponent = ({
               {control == true ? (
                 <div>
                   {" "}
-                  <div
+                  {/* <div
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
@@ -93,7 +91,7 @@ const AddDoctorAdminComponent = ({
                       message: "Invalid format",
                     }}
                     placeholder="Enter Doctor Name"
-                  />
+                  /> */}
                   <div
                     style={{
                       display: "flex",
@@ -119,7 +117,7 @@ const AddDoctorAdminComponent = ({
                     }}
                     placeholder="Specialization."
                   />
-                  <div
+                  {/* <div
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
@@ -143,7 +141,7 @@ const AddDoctorAdminComponent = ({
                       message: "Invalid format",
                     }}
                     placeholder="Enter contact number."
-                  />
+                  /> */}
                   <div
                     style={{
                       display: "flex",

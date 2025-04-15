@@ -5,9 +5,7 @@ export const getDoctorAppointmentsList = createAsyncThunk(
   "doctor/Appointment",
   async (id, { rejectWithValue }) => {
     try {
-      let response = await axiosInstance.get(
-        `/doctor/displayAppointments?doctor_id=${id}`
-      );
+      let response = await axiosInstance.get(`/doctor/displayAppointments`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
@@ -26,5 +24,17 @@ export const updateDoctorProfile = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response.data.message);
     }
-  } 
+  }
+);
+
+export const addPrescription = createAsyncThunk(
+  "doctor/addPrescription",
+  async (data, { rejectWithValue }) => {
+    try {
+      let response = await axiosInstance.post("/doctor/addPriscription", data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
 );

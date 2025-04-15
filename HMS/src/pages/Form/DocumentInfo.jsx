@@ -27,14 +27,21 @@ export const DocumentInfo = ({ setStep, patientId }) => {
   };
 
   const handleUploadDocument = async (img, file) => {
+    const formData = new FormData();
+
+    formData.append("file", file);
+    formData.append("document_type", img);
+    formData.append("patient_id", patientId);
+
+    let documentUpdate = dispatch(addDocument(formData)).unwrap();
+
+    toast.promise(documentUpdate, {
+      pending: "Uploading Document...",
+      success: "Uploaded successfully.",
+      error: "Failed to upload the document.",
+    });
     try {
-      const formData = new FormData();
-
-      formData.append("file", file);
-      formData.append("document_type", img);
-      formData.append("patient_id", patientId);
-
-      await dispatch(addDocument(formData)).unwrap();
+      await documentUpdate;
       setUploadStatus((prev) => {
         let obj = {
           ...prev,
@@ -43,8 +50,6 @@ export const DocumentInfo = ({ setStep, patientId }) => {
         localStorage.setItem("upload_status", JSON.stringify(obj));
         return obj;
       });
-
-      toast.success("file uploaded successfully");
     } catch (error) {
       console.error(error);
       toast.error("Error uploading file");
@@ -171,23 +176,6 @@ export const DocumentInfo = ({ setStep, patientId }) => {
                       alt={docType}
                       className={documentCSS.previewImage}
                     />
-
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <button
-                        style={
-                          uploadStatus[docType]
-                            ? { display: "flex" }
-                            : { display: "none" }
-                        }
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleDeleteFile(docType);
-                        }}
-                        className={documentCSS.deleteBtn}
-                      >
-                        Delete
-                      </button>
-                    </div>
                   </div>
                 )}
 
