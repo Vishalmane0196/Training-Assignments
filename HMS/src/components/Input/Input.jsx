@@ -6,9 +6,9 @@ export const Input = ({
   register,
   trigger,
   fieldName,
-
   errors,
   type,
+  setCountryError,
   placeholder,
   ...rest
 }) => {
@@ -23,6 +23,9 @@ export const Input = ({
           {...register(fieldName, { required: `${require} is required` })}
           onChange={(e) => {
             const { onChange } = register(fieldName);
+            {
+              setCountryError ? setCountryError(e.target.value) : null;
+            }
             onChange(e);
             trigger(fieldName);
           }}

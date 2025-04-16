@@ -128,9 +128,7 @@ export const getAppointments = createAsyncThunk(
   "admin/getAppointments",
   async (rejectWithValues) => {
     try {
-      let response = await axiosInstance.get(
-        "/admin/displayAppointmentRequest"
-      );
+      let response = await axiosInstance.get("/admin/appointments");
       return response.data;
     } catch (error) {
       return rejectWithValues(error.response.data.message);

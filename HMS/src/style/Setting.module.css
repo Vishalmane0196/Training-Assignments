@@ -7,7 +7,7 @@
     width: 100%;
     border-radius: 15px;
     padding-left: 1rem;
-     
+     margin-bottom: 1rem;
     position: relative;
 }
 
@@ -19,7 +19,7 @@
     font-weight: 500;
 }
 .editBtn{
-    background-color: #238636;
+    background-color: #2ea043;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -48,7 +48,7 @@
   
     font-weight: 400;
     margin-top: 0px;
-    margin-bottom: 0.7rem;
+    margin-bottom: 1rem;
 }
 
 .deleteBtn {

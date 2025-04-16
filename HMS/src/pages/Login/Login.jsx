@@ -38,6 +38,9 @@ const Login = () => {
 
   const handleSubmitLoginData = async (data) => {
     try {
+      if (data.user_password) {
+        data.user_password = btoa(data.user_password);
+      }
       await dispatch(loginUser(data)).unwrap();
       await dispatch(getUserInfo("get")).unwrap();
     } catch (error) {

@@ -74,7 +74,8 @@ const patientSlice = createSlice({
         state.error = null;
       })
       .addCase(getAppointments.fulfilled, (state, actions) => {
-        state.patientList = actions.payload.data;
+        console.log(actions.payload);
+        state.patientList = actions.payload.data.appointments;
         state.loading = false;
       });
     builder

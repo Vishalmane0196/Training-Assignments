@@ -16,13 +16,14 @@ const Prescription = () => {
     defaultValues: {
       medicine: "",
       capacity: "",
-      dose: "one",
+      dose: "",
       beforeMorning: false,
       beforeAfternoon: false,
       beforeNight: false,
       afterMorning: false,
       afterAfternoon: false,
       afterNight: false,
+      duration: "",
     },
   });
   const handleSubmitData = (data) => {
@@ -71,7 +72,8 @@ const Prescription = () => {
       ];
 
       return {
-        appointment_id: param.id,
+        courseDuration: parseInt(data.duration),
+        appointment_id: parseInt(param.id),
         medicines: medicine,
         capacity: capacity,
         dosage: dosage,
@@ -105,98 +107,111 @@ const Prescription = () => {
     try {
       await dispatch(addPrescription(prescription)).unwrap();
     } catch (error) {
-      toast.error(error)
+      toast.error(error);
       console.error(error);
     }
   };
   return (
     <div className={styles.container}>
-      <h2>Prescriptions </h2>
+      <h2>Create Prescription</h2>
       <div className={styles.filters}>
         <form action="" onSubmit={handleSubmit(handleSubmitData)}>
           <div className={styles.formDiv}>
-            <div>
-              <label htmlFor="" className={styles.headerLabelMain}>
-                Medicine
-              </label>
-              <br />
-              <input
-                {...register("medicine", {
-                  required: true,
-                })}
-                type="text"
-                placeholder="Medicine Name"
-              />
-            </div>
-            <div>
-              <label htmlFor="" className={styles.headerLabelMain}>
-                Capacity
-              </label>
-              <br />
-              <input
-                {...register("capacity", {
-                  required: true,
-                })}
-                type="text"
-                placeholder="Capacity "
-              />
-            </div>
-
-            <div>
-              <label htmlFor="" className={styles.headerLabelMain}>
-                Dose
-              </label>
-              <br />
-              <select {...register("dose", { required: true })} name="" id="">
-                <option value="one">1</option>
-                <option value="half">1/2</option>
-              </select>
-            </div>
-            <div className={styles.medicineDuration}>
-              <div className={styles.labelDiv}>
-                <label htmlFor="" className={styles.labelHead}>
-                  Before Meal
+            <div className={styles.topDiv}>
+              <div>
+                <label htmlFor="" className={styles.headerLabelMain}>
+                  Medicine
                 </label>
-
-                <label htmlFor="" className={styles.labelOption}>
-                  <pre> Morning</pre>
+                <br />
+                <input
+                  {...register("medicine", {
+                    required: true,
+                  })}
+                  type="text"
+                  placeholder="Medicine Name"
+                />
+              </div>
+              <div>
+                <label htmlFor="" className={styles.headerLabelMain}>
+                  Capacity
                 </label>
-                <input {...register("beforeMorning")} type="checkbox" />
-
-                <label htmlFor="" className={styles.labelOption}>
-                  <pre>Afternoon</pre>
-                </label>
-                <input {...register("beforeAfternoon")} type="checkbox" />
-
-                <label htmlFor="" className={styles.labelOption}>
-                  <pre>Night</pre>
-                </label>
-                <input {...register("beforeNight")} type="checkbox" />
+                <br />
+                <input
+                  {...register("capacity", {
+                    required: true,
+                  })}
+                  type="text"
+                  placeholder="Capacity "
+                />
               </div>
 
-              <div className={styles.labelDiv}>
-                <label
-                  htmlFor=""
-                  className={`${styles.labelHead} ${styles.marginCheck}`}
-                >
-                  After Meal
+              <div>
+                <label htmlFor="" className={styles.headerLabelMain}>
+                  Dose
                 </label>
-
-                <label htmlFor="" className={styles.labelOption}>
-                  <pre>Morning</pre>
+                <br />
+                <input {...register("dose", { required: true })} placeholder="Enter Dosage"></input>
+              </div>
+              <div>
+                <label htmlFor="" className={styles.headerLabelMain}>
+                  Duration
                 </label>
+                <br />
+                <input
+                  {...register("duration", { required: true })}
+                  type="number"
+                  placeholder="Enter Duration"
+                ></input>
+              </div>
+            </div>
 
-                <input {...register("afterMorning")} type="checkbox" />
+            <div>
+              <div className={styles.medicineDuration}>
+                <div className={styles.labelDiv}>
+                  <label htmlFor="" className={styles.labelHead}>
+                    Before Meal
+                  </label>
 
-                <label htmlFor="" className={styles.labelOption}>
-                  <pre>Afternoon</pre>
-                </label>
-                <input {...register("afterAfternoon")} type="checkbox" />
+                  <label htmlFor="" className={styles.labelOption}>
+                    <pre> Morning</pre>
+                  </label>
+                  <input {...register("beforeMorning")} type="checkbox" />
 
-                <label htmlFor="" className={styles.labelOption}>
-                  <pre>Night</pre>
-                </label>
-                <input {...register("afterNight")} type="checkbox" />
+                  <label htmlFor="" className={styles.labelOption}>
+                    <pre>Afternoon</pre>
+                  </label>
+                  <input {...register("beforeAfternoon")} type="checkbox" />
+
+                  <label htmlFor="" className={styles.labelOption}>
+                    <pre>Night</pre>
+                  </label>
+                  <input {...register("beforeNight")} type="checkbox" />
+                </div>
+
+                <div className={styles.labelDiv}>
+                  <label
+                    htmlFor=""
+                    className={`${styles.labelHead} ${styles.marginCheck}`}
+                  >
+                    After Meal
+                  </label>
+
+                  <label htmlFor="" className={styles.labelOption}>
+                    <pre>Morning</pre>
+                  </label>
+
+                  <input {...register("afterMorning")} type="checkbox" />
+
+                  <label htmlFor="" className={styles.labelOption}>
+                    <pre>Afternoon</pre>
+                  </label>
+                  <input {...register("afterAfternoon")} type="checkbox" />
+
+                  <label htmlFor="" className={styles.labelOption}>
+                    <pre>Night</pre>
+                  </label>
+                  <input {...register("afterNight")} type="checkbox" />
+                </div>
               </div>
             </div>
           </div>

@@ -7,9 +7,9 @@
 
 h2 {
 
-    font-size: 2rem;
+    font-size: 1.4rem;
     margin: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
 .filters {
@@ -31,7 +31,7 @@ h2 {
     overflow-x: auto;
     border: 1px solid #ddd;
     border-radius: 8px;
-    height: 42vh;
+    height: 32vh;
 }
 
 .row {
@@ -43,9 +43,9 @@ h2 {
 }
 
 .header {
-    position:sticky;
-    background-color: #6c2bd9;
-    color: white;
+    position: sticky;
+    background-color: rgb(238, 238, 238);
+    color: black;
     z-index: 5;
     top: 0;
     font-weight: bold;
@@ -80,7 +80,7 @@ h2 {
 
 .addBtn {
     padding: 0.6rem 1.2rem;
-    background-color: #238636;
+    background-color: #2ea043;
     color: #ffffff;
     border-radius: 6px;
     border: none;
@@ -89,8 +89,14 @@ h2 {
 
 .formDiv {
     display: flex;
-    gap: 2rem;
+    flex-direction: column;
+    gap: 0.8rem;
     margin-bottom: 1rem;
+}
+
+.topDiv {
+    display: flex;
+    gap: 2rem;
 }
 
 .medicineDuration {
@@ -124,18 +130,18 @@ h2 {
     margin-right: 2.3rem;
 }
 
-.submitBtn{
+.submitBtn {
     padding: 0.6rem 1.2rem;
-    background-color: #238636;
+    background-color: #2ea043;
     color: #ffffff;
     border-radius: 6px;
     border: none;
     cursor: pointer;
     margin-top: 2rem;
-  align-items:start;
+    align-items: start;
 }
 
-.btnCover{
+.btnCover {
     display: flex;
     width: 100%;
     justify-content: right;

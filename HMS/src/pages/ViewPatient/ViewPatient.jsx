@@ -666,7 +666,9 @@ const ViewPatient = () => {
                       Update{" "}
                     </button>
                     <img
-                      src={obj.document_url}
+                      src={`${import.meta.env.VITE_CLOUDINARY_BASE_URL}${
+                        obj.document_url
+                      }`}
                       alt={obj.document_type}
                       className={viewPatientCSS.previewImage}
                     />

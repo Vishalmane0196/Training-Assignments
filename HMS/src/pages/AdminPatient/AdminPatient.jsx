@@ -79,7 +79,7 @@ const AdminPatient = ({ access }) => {
           <div className={patientCSS.title}>
             <p>{access == "appointment" ? "Patient Name" : "Patient ID"}</p>
             <p>{access == "appointment" ? "Disease Type" : "Patient Name"}</p>
-            <p> {access == "appointment" ? "Age" : "Disease Type"} </p>
+            <p> {access == "appointment" ? "Doctor" : "Disease Type"} </p>
             <p>{access == "appointment" ? "Time" : "Age"}</p>
             <p> {access == "appointment" ? "Date" : "view"} </p>
             <p>{access == "appointment" ? "Status" : "Book Slot"}</p>
@@ -99,7 +99,9 @@ const AdminPatient = ({ access }) => {
                     : patient.patient_name}
                 </p>
                 <p className={patientCSS.p}>
-                  {access == "appointment" ? patient.age : patient.disease_type}
+                  {access == "appointment"
+                    ? patient.name
+                    : patient.disease_type}
                 </p>
                 <p className={patientCSS.p}>
                   {access == "appointment"
@@ -174,11 +176,15 @@ const AdminPatient = ({ access }) => {
                   </div>
                 ) : (
                   <Button
-                    text="Book Now"
+                    text={patient.status == null ? "Book Now" : patient.status}
                     style={patientCSS.bookBtn}
-                    onClick={() => {
-                      handleBookAppointment(patient.patient_id);
-                    }}
+                    onClick={
+                      patient.status == null
+                        ? () => {
+                            handleBookAppointment(patient.patient_id);
+                          }
+                        : null
+                    }
                   />
                 )}
               </li>

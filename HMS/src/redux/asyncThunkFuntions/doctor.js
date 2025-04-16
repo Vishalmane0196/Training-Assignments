@@ -31,7 +31,7 @@ export const addPrescription = createAsyncThunk(
   "doctor/addPrescription",
   async (data, { rejectWithValue }) => {
     try {
-      let response = await axiosInstance.post("/doctor/addPriscription", data);
+      let response = await axiosInstance.post("/doctor/addPrescription", data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message);

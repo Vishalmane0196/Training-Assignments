@@ -37,6 +37,9 @@ const Register = () => {
   };
 
   const submitRegisterData = (data) => {
+    if (data.user_password) {
+      data.user_password = btoa(data.user_password);
+    }
     handleRegisterForm(data);
   };
   return (

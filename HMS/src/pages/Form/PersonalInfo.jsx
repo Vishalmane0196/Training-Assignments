@@ -31,6 +31,7 @@ export const PersonalInfo = ({
     handleSubmit,
     trigger,
     reset,
+    setError,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -46,12 +47,26 @@ export const PersonalInfo = ({
     },
   });
   const checkCountyValid = async () => {
-    if (!countryName) {
-      return;
+    if (!countryName) return;
+
+    try {
+      const response = await dispatch(fetchCountryName(countryName)).unwrap();
+      if (Array.isArray(response) && response.length > 0) {
+        setCountry(response[0]);
+      } else {
+        setError("country_of_origin", {
+          type: "manual",
+          message: "Invalid Country Name",
+        });
+      }
+    } catch (error) {
+      setError("country_of_origin", {
+        type: "manual",
+        message: error || "Invalid Country Name",
+      });
     }
-    let response = await dispatch(fetchCountryName(countryName));
-    setCountry(response?.data);
   };
+
   const handleSendPersonalInfoServer = async (data) => {
     const formattedData = {
       ...data,
@@ -143,7 +158,9 @@ export const PersonalInfo = ({
   return (
     <>
       <div className={personalCSS.container}>
-        {/* <h1 className={personalCSS.title}>Personal Information</h1> */}
+        {console.log(errors)}
+        {console.log(country)}
+
         <form onSubmit={handleSubmit(handleSubmitPersonalData)}>
           <div style={{ display: "flex", gap: "3rem" }}>
             <Input
@@ -189,7 +206,8 @@ export const PersonalInfo = ({
               fieldName="country_of_origin"
               errors={errors}
               type="text"
-              onChange={(e) => setCountryName(e.target.value)}
+              setCountryError={setCountryName}
+              
               placeholder="Enter Country."
             />
           </div>
