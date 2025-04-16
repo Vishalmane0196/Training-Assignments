@@ -38,6 +38,7 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.isAdmin = action.payload?.admin_message == 1 ? 1 : 0;
         state.isDoctor = action.payload?.doctor_message == 1 ? 1 : 0;
+
         state.isLoggedIn = 1;
       })
       .addCase(loginUser.rejected, (state) => {

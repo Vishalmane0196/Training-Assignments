@@ -55,13 +55,13 @@ export const PersonalInfo = ({
         setCountry(response[0]);
       } else {
         setError("country_of_origin", {
-          type: "manual",
+          type: "required",
           message: "Invalid Country Name",
         });
       }
     } catch (error) {
       setError("country_of_origin", {
-        type: "manual",
+        type: "required",
         message: error || "Invalid Country Name",
       });
     }

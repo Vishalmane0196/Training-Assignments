@@ -104,8 +104,14 @@ const Prescription = () => {
   };
 
   const handlePrescriptionData = async () => {
+    let promise = dispatch(addPrescription(prescription)).unwrap();
+    toast.promise(promise, {
+      pending: "Uploading Prescription...",
+      success: "SuccessFully Uploaded",
+      error: "Error Uploading",
+    });
     try {
-      await dispatch(addPrescription(prescription)).unwrap();
+      await promise;
     } catch (error) {
       toast.error(error);
       console.error(error);
@@ -150,7 +156,10 @@ const Prescription = () => {
                   Dose
                 </label>
                 <br />
-                <input {...register("dose", { required: true })} placeholder="Enter Dosage"></input>
+                <input
+                  {...register("dose", { required: true })}
+                  placeholder="Enter Dosage"
+                ></input>
               </div>
               <div>
                 <label htmlFor="" className={styles.headerLabelMain}>

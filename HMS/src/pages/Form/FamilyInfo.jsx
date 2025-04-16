@@ -14,6 +14,7 @@ import { Button } from "src/components/Button/Button";
 import { Input } from "src/components/Input/Input";
 export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
   const [FamilyData, setFamilyData] = useState(null);
+  
   const dispatch = useDispatch();
   const {
     register,
@@ -32,10 +33,10 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
 
       mother_diabetic: FamilyData?.mother_diabetic || "",
       mother_cardiac_issue: FamilyData?.mother_cardiac_issue || "",
-      mother_bp: FamilyData?.mother_bp || "",
+      mother_bp: FamilyData?.mother_bp || "false",
       father_diabetic: FamilyData?.father_diabetic || "",
       father_cardiac_issue: FamilyData?.father_cardiac_issue || "",
-      father_bp: FamilyData?.father_bp || "",
+      father_bp: FamilyData?.father_bp || "false",
     },
   });
 

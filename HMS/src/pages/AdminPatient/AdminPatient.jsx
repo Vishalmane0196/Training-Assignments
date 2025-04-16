@@ -176,10 +176,14 @@ const AdminPatient = ({ access }) => {
                   </div>
                 ) : (
                   <Button
-                    text={patient.status == null ? "Book Now" : patient.status}
+                    text={
+                      patient.appointment_status == null
+                        ? "Book Now"
+                        : patient.appointment_status
+                    }
                     style={patientCSS.bookBtn}
                     onClick={
-                      patient.status == null
+                      patient.appointment_status == null
                         ? () => {
                             handleBookAppointment(patient.patient_id);
                           }
