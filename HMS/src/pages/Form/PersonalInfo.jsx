@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import personalCSS from "../../style/Personal.module.css";
 import { useForm } from "react-hook-form";
@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { fetchCountryName } from "../../redux/asyncThunkFuntions/extra";
 import { Input } from "src/components/Input/Input";
+import _ from "lodash";
+
 import {
   addPersonalInfo,
   getPersonalInfo,
@@ -23,17 +25,16 @@ export const PersonalInfo = ({
   const dispatch = useDispatch();
 
   const [PersonalData, setPersonalData] = useState(null);
-  const [countryName, setCountryName] = useState("");
-  const [country, setCountry] = useState(null);
 
   const {
     register,
     handleSubmit,
     trigger,
     reset,
-    setError,
     formState: { errors },
   } = useForm({
+    mode: "onSubmit", // or 'onChange' or 'onSubmit'
+    reValidateMode: "onBlur",
     defaultValues: {
       patient_name: PersonalData?.patient_name || "",
       date_of_birth: PersonalData?.date_of_birth || "",
@@ -46,26 +47,21 @@ export const PersonalInfo = ({
       blood_pressure: PersonalData?.blood_pressure ?? "",
     },
   });
-  const checkCountyValid = async () => {
-    if (!countryName) return;
 
-    try {
-      const response = await dispatch(fetchCountryName(countryName)).unwrap();
-      if (Array.isArray(response) && response.length > 0) {
-        setCountry(response[0]);
-      } else {
-        setError("country_of_origin", {
-          type: "required",
-          message: "Invalid Country Name",
-        });
+  const validateCountry = useCallback(
+    _.debounce(async (value) => {
+      try {
+        const response = await dispatch(fetchCountryName(value)).unwrap();
+
+        return Array.isArray(response) && response.length > 0
+          ? true
+          : "Invalid Country Name";
+      } catch (e) {
+        return "Invalid Country Name";
       }
-    } catch (error) {
-      setError("country_of_origin", {
-        type: "required",
-        message: error || "Invalid Country Name",
-      });
-    }
-  };
+    }, 2000),
+    []
+  );
 
   const handleSendPersonalInfoServer = async (data) => {
     const formattedData = {
@@ -146,20 +142,10 @@ export const PersonalInfo = ({
     getPersonalData();
   }, []);
 
-  useEffect(() => {
-    // debouncing
-    const debouncingFunction = setTimeout(() => {
-      checkCountyValid();
-    }, 3000);
-
-    return () => clearTimeout(debouncingFunction);
-  }, [countryName]);
-
   return (
     <>
       <div className={personalCSS.container}>
         {console.log(errors)}
-        {console.log(country)}
 
         <form onSubmit={handleSubmit(handleSubmitPersonalData)}>
           <div style={{ display: "flex", gap: "3rem" }}>
@@ -181,6 +167,7 @@ export const PersonalInfo = ({
               trigger={trigger}
               fieldName="date_of_birth"
               errors={errors}
+              max={new Date().toISOString().split("T")[0]}
               type="date"
             />
 
@@ -205,9 +192,8 @@ export const PersonalInfo = ({
               trigger={trigger}
               fieldName="country_of_origin"
               errors={errors}
+              validate={validateCountry}
               type="text"
-              setCountryError={setCountryName}
-              
               placeholder="Enter Country."
             />
           </div>

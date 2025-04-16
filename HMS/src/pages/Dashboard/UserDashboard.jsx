@@ -31,7 +31,7 @@ const UserDashboard = ({ access }) => {
                 }}
               >
                 <i class="fa-solid fa-user"></i>{" "}
-                <span style={{ marginLeft: "0.5rem" }}> profile</span>
+                <span style={{ marginLeft: "0.5rem" }}> Profile</span>
               </NavLink>
             </li>
             <li>

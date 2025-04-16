@@ -108,25 +108,26 @@
 }
 
 .Pending {
-    color: rgb(206, 54, 54);
+    color: rgb(163, 32, 32);
 
 }
 
 .Scheduled {
-    color: rgba(181, 179, 65, 0.89);
+    color: rgba(145, 143, 44, 0.89);
 
 }
 
 .Completed {
-    color: rgba(98, 181, 65, 0.767);
+    color: rgb(68, 155, 34);
 
 
 }
 
 .Cancelled {
-    color: rgba(125, 125, 125, 0.904);
+    color: rgba(125, 125, 125, 0.911);
 
 }
+
 .selectTag>select:hover {
     background-color: rgba(128, 128, 128, 0.194);
 }

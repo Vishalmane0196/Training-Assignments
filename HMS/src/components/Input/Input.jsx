@@ -8,7 +8,7 @@ export const Input = ({
   fieldName,
   errors,
   type,
-  setCountryError,
+  validate,
   placeholder,
   ...rest
 }) => {
@@ -20,12 +20,12 @@ export const Input = ({
         </label>
         <input
           className={personalCSS.inputfield}
-          {...register(fieldName, { required: `${require} is required` })}
+          {...register(fieldName, {
+            required: `${require} is required`,
+            validate: validate || "",
+          })}
           onChange={(e) => {
             const { onChange } = register(fieldName);
-            {
-              setCountryError ? setCountryError(e.target.value) : null;
-            }
             onChange(e);
             trigger(fieldName);
           }}

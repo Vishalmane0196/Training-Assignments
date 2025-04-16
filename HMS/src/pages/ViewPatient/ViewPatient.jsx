@@ -135,6 +135,7 @@ const ViewPatient = () => {
       await axiosInstance.put("/patient/updateDocument", formData);
       setSelectedFiles({});
       inputfield.current.file[0] = null;
+      toast.success("Document Updated Successfully");
     } catch (error) {
       console.error(error);
     }

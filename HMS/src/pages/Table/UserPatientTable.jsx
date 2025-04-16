@@ -106,7 +106,9 @@ const UserPatientTable = ({ access }) => {
                     <Button
                       text={
                         access == "doctor"
-                          ? "Add Prescription"
+                          ? obj.prescription_id
+                            ? "Edit Prescription"
+                            : "Add Prescription"
                           : obj.appointment_status == null
                           ? "Book Now"
                           : obj.appointment_status
@@ -117,7 +119,7 @@ const UserPatientTable = ({ access }) => {
                           ? () => {
                               access == "doctor"
                                 ? navigate(
-                                    `/doctor/dashboard/prescription/${obj.appointment_id}`
+                                    `/doctor/dashboard/prescription?id=${obj.appointment_id}&edit=${obj.prescription_id}`
                                   )
                                 : handleBookAppointment(obj.patient_id);
                             }

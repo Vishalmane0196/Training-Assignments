@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import familyCSS from "../../style/Family.module.css";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import _ from "lodash";
 import PropTypes from "prop-types";
 import {
   addFamilyInfo,
@@ -12,9 +13,10 @@ import { useDispatch } from "react-redux";
 import { Radio } from "src/components/Radio/Radio";
 import { Button } from "src/components/Button/Button";
 import { Input } from "src/components/Input/Input";
+import { fetchCountryName } from "src/redux/asyncThunkFuntions/extra";
 export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
   const [FamilyData, setFamilyData] = useState(null);
-  
+
   const dispatch = useDispatch();
   const {
     register,
@@ -40,6 +42,20 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
     },
   });
 
+  const validateCountry = useCallback(
+    _.debounce(async (value) => {
+      try {
+        const response = await dispatch(fetchCountryName(value)).unwrap();
+
+        return Array.isArray(response) && response.length > 0
+          ? true
+          : "Invalid Country Name";
+      } catch (e) {
+        return "Invalid Country Name";
+      }
+    }, 2000),
+    []
+  );
   const handleSendFamilyInfoServer = async (data) => {
     const formattedData = {
       ...data,
@@ -160,6 +176,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
               trigger={trigger}
               fieldName="father_country_origin"
               errors={errors}
+              validate={validateCountry}
               type="text"
               placeholder="Country Name."
             />
@@ -214,6 +231,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
               trigger={trigger}
               fieldName="mother_country_origin"
               errors={errors}
+              validate={validateCountry}
               type="text"
               placeholder="Country Name."
             />

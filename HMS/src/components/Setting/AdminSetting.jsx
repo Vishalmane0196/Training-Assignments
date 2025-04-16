@@ -1,17 +1,19 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import settingCSS from "../../style/Setting.module.css";
 import { DeletePopUp } from "./Delete/DeletePopUp";
 import { Edit } from "../Setting/Edit/Edit.jsx";
 
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const AdminSetting = () => {
   const navigate = useNavigate();
   const [deleteState, setDeleteState] = useState(false);
   const [editProfile, setEditProfile] = useState(false);
+  const { isSuper } = useSelector((state) => state.auth);
 
-  const handleAdminEmail =  () => {
-       navigate('/admin/dashboard/setting/accessControl');
+  const handleAdminEmail = () => {
+    navigate("/admin/dashboard/setting/accessControl");
   };
   return (
     <>
@@ -42,10 +44,10 @@ const AdminSetting = () => {
             <h3 className={settingCSS.h3header}>Control admin access</h3>
             <div className={settingCSS.line}></div>
             <p className={settingCSS.p3tag}>
-            You can modify admin access, including adding or removing administrators.
+              You can modify admin access, including adding or removing
+              administrators.
             </p>
             <div className={settingCSS.inputBtnCover}>
-              
               <div className={settingCSS.butCover}>
                 <button
                   onClick={() => handleAdminEmail()}
@@ -53,12 +55,10 @@ const AdminSetting = () => {
                 >
                   Manage Admins
                 </button>
-              
               </div>
             </div>
           </div>
-
-          <div className={settingCSS.featureCover}>
+          {isSuper == 1 ? null : <div className={settingCSS.featureCover}>
             <h3 className={settingCSS.h3head}>Delete Account</h3>
             <div className={settingCSS.line}></div>
             <p className={settingCSS.p3tag}>
@@ -74,7 +74,8 @@ const AdminSetting = () => {
             >
               Delete Account
             </button>
-          </div>
+          </div> }
+         
           {editProfile && (
             <Edit editProfile={editProfile} setEditProfile={setEditProfile} />
           )}

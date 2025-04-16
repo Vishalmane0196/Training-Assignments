@@ -215,7 +215,7 @@ const Router = createBrowserRouter([
             element: <UserPatientTable access={"doctor"} />,
           },
           {
-            path: "/doctor/dashboard/prescription/:id",
+            path: "/doctor/dashboard/prescription",
             element: <Prescription />,
           },
           {

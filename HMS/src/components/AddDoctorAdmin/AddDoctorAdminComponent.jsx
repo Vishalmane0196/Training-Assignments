@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "src/style/Edit.module.css";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import InputComponent from "../Input/InputComponent";
 import { addAdmin } from "../../redux/asyncThunkFuntions/admin.js";
+import {
+  getAllAdminEmails,
+  getAllDoctorEmails,
+} from "../../redux/asyncThunkFuntions/admin.js";
 import { addDoctor } from "../../redux/asyncThunkFuntions/admin.js";
 const AddDoctorAdminComponent = ({
   fetchData,
@@ -12,6 +16,7 @@ const AddDoctorAdminComponent = ({
   onPopup,
   setPopupOff,
 }) => {
+  const [options, setOptions] = useState([]);
   const dispatch = useDispatch();
   const {
     register,
@@ -51,6 +56,25 @@ const AddDoctorAdminComponent = ({
   const handleUpdateData = (data) => {
     sendDataToUpdate(data);
   };
+  const getAllAdminEmailsFun = async () => {
+    try {
+      let response = await dispatch(getAllAdminEmails()).unwrap();
+      setOptions(response.data);
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+  const getAllDoctorEmailsFun = async () => {
+    try {
+      let response = await dispatch(getAllDoctorEmails()).unwrap();
+      setOptions(response.data);
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+  useEffect(() => {
+    control ? getAllDoctorEmailsFun() : getAllAdminEmailsFun();
+  }, []);
   return (
     <div>
       {onPopup && (
@@ -69,29 +93,6 @@ const AddDoctorAdminComponent = ({
               {control == true ? (
                 <div>
                   {" "}
-                  {/* <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <label htmlFor="">Doctor Name</label>
-                    {errors.name && <span>{errors.name.message}</span>}
-                  </div>
-                  <InputComponent
-                    require="Name"
-                    register={register}
-                    trigger={trigger}
-                    fieldName="name"
-                    type="text"
-                    style={styles.inputTag}
-                    pattern={{
-                      value: /^[A-Za-z]/,
-                      message: "Invalid format",
-                    }}
-                    placeholder="Enter Doctor Name"
-                  /> */}
                   <div
                     style={{
                       display: "flex",
@@ -117,31 +118,6 @@ const AddDoctorAdminComponent = ({
                     }}
                     placeholder="Specialization."
                   />
-                  {/* <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <label htmlFor=""> Mobile Number</label>
-                    {errors.contact_number && (
-                      <span>{errors.contact_number.message}</span>
-                    )}
-                  </div>
-                  <InputComponent
-                    require="Contact Number"
-                    register={register}
-                    trigger={trigger}
-                    fieldName="contact_number"
-                    type="text"
-                    style={styles.inputTag}
-                    pattern={{
-                      value: /^[0-9]{10}$/,
-                      message: "Invalid format",
-                    }}
-                    placeholder="Enter contact number."
-                  /> */}
                   <div
                     style={{
                       display: "flex",
@@ -165,7 +141,7 @@ const AddDoctorAdminComponent = ({
                       value: /^[0-9]/,
                       message: "Invalid format",
                     }}
-                    placeholder="Time"
+                    placeholder="In Time."
                   />
                   <div
                     style={{
@@ -205,17 +181,18 @@ const AddDoctorAdminComponent = ({
                 <label htmlFor=""> Email </label>
                 {errors.email && <span>{errors.email.message}</span>}
               </div>
-              <InputComponent
-                require="Email"
-                register={register}
-                trigger={trigger}
-                fieldName="email"
-                type="email"
-                style={styles.inputTag}
-                placeholder={
-                  control ? "Enter Doctor Email." : "Enter Admin Email."
-                }
-              />
+              <select
+                className={styles.inputTag}
+                {...register("email", { required: true })}
+              >
+                {options.map((obj) => {
+                  return (
+                    <option value={control ? obj.id : obj.email}>
+                      {obj.email}
+                    </option>
+                  );
+                })}
+              </select>
 
               <button type="submit" className={styles.submitBtn}>
                 {control == true ? "Add Doctor" : "Add Admin"}

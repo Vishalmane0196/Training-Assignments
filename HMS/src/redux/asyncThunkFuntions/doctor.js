@@ -38,3 +38,18 @@ export const addPrescription = createAsyncThunk(
     }
   }
 );
+
+export const updatePrescription = createAsyncThunk(
+  "doctor/updatePrescription",
+  async (data, { rejectWithValue }) => {
+    try {
+      let response = await axiosInstance.put(
+        "/doctor/updatePrescription",
+        data
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);

@@ -96,6 +96,7 @@ const Login = () => {
                   message: "Invalid email format",
                 },
               })}
+              tabindex="0"
               type="text"
               onChange={(e) => {
                 const { onChange } = register("email");
@@ -111,7 +112,7 @@ const Login = () => {
             <div className={login.labelError}>
               <div className={login.forgetCover}>
                 <label className={login.labelL}>Password </label>
-                <Link to="/account/forget" className={login.forget}>
+                <Link tabIndex={-1} to="/account/forget" className={login.forget}>
                   {" "}
                   Forgot?{" "}
                 </Link>
@@ -127,6 +128,7 @@ const Login = () => {
               {...register("user_password", {
                 required: true,
               })}
+              tabindex="0"
               onChange={(e) => {
                 const { onChange } = register("user_password");
                 onChange(e);

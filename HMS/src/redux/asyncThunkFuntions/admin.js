@@ -84,6 +84,28 @@ export const deleteAdmin = createAsyncThunk(
     }
   }
 );
+export const getAllAdminEmails = createAsyncThunk(
+  "admin/getAllAdminEmails",
+  async (rejectWithValue) => {
+    try {
+      let response = await axiosInstance.get("/admin/getEmailsForAdmin");
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+export const getAllDoctorEmails = createAsyncThunk(
+  "admin/getAllDoctorEmails",
+  async (rejectWithValue) => {
+    try {
+      let response = await axiosInstance.get("/admin/getEmailsForDoctor");
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
 
 export const fetchAllAdmins = createAsyncThunk(
   "admin/getAllAdmins",
@@ -115,7 +137,14 @@ export const addDoctor = createAsyncThunk(
   "admin/addDoctor",
   async (data, { rejectWithValue }) => {
     try {
-      let response = await axiosInstance.post("/admin/addDoctor", data);
+      let response = await axiosInstance.post(
+        `/admin/addDoctor?id=${data.email}`,
+        {
+          specialization: data.specialization,
+          doctorInTime: data.doctorInTime,
+          doctorOutTime: data.doctorOutTime,
+        }
+      );
 
       return response.data;
     } catch (error) {

@@ -4,11 +4,16 @@ import { FaTrash } from "react-icons/fa";
 import { Button } from "src/components/Button/Button";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { addPrescription } from "src/redux/asyncThunkFuntions/doctor";
-import { useParams } from "react-router-dom";
+import {
+  addPrescription,
+  updatePrescription,
+} from "src/redux/asyncThunkFuntions/doctor";
+import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 const Prescription = () => {
-  const param = useParams();
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
+  const edit = searchParams.get("edit");
   const [prescription, setPrescription] = useState({});
   const [prescriptionSample, setPrescriptionSample] = useState([]);
   const dispatch = useDispatch();
@@ -73,7 +78,7 @@ const Prescription = () => {
 
       return {
         courseDuration: parseInt(data.duration),
-        appointment_id: parseInt(param.id),
+        appointment_id: parseInt(id),
         medicines: medicine,
         capacity: capacity,
         dosage: dosage,
@@ -104,7 +109,11 @@ const Prescription = () => {
   };
 
   const handlePrescriptionData = async () => {
-    let promise = dispatch(addPrescription(prescription)).unwrap();
+    let promise = dispatch(
+      edit !== null
+        ? updatePrescription(prescription)
+        : addPrescription(prescription)
+    ).unwrap();
     toast.promise(promise, {
       pending: "Uploading Prescription...",
       success: "SuccessFully Uploaded",
@@ -242,8 +251,6 @@ const Prescription = () => {
           <div>After Meal</div>
           <div>Action</div>
         </div>
-        {console.log(prescription)}
-        {console.log(prescriptionSample)}
 
         {prescriptionSample?.map((prescriptionSampleData, index) => (
           <div key={prescriptionSampleData.id} className={`${styles.row} `}>

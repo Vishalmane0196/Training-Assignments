@@ -9,8 +9,8 @@ import { useSelector } from "react-redux";
 import { setStep } from "../../redux/slices/multistepform/formSlice";
 import { setPatientID } from "../../redux/slices/multistepform/formSlice";
 export const Form = () => {
-  const {step,patientID} = useSelector(state => state.form)
-  const[count,setCount] =useState(0);
+  const { step, patientID } = useSelector((state) => state.form);
+  const [count, setCount] = useState(0);
   const handleMultiStepForm = (step) => {
     switch (step) {
       case 0:
@@ -23,13 +23,27 @@ export const Form = () => {
           />
         );
       case 1:
-        return <FamilyInfo count={count} setCount={setCount} patientId={patientID} setStep={setStep} />;
+        return (
+          <FamilyInfo
+            count={count}
+            setCount={setCount}
+            patientId={patientID}
+            setStep={setStep}
+          />
+        );
       case 2:
-        return <DiseaseInfo count={count} setCount={setCount}  setStep={setStep} patientId={patientID} />;
+        return (
+          <DiseaseInfo
+            count={count}
+            setCount={setCount}
+            setStep={setStep}
+            patientId={patientID}
+          />
+        );
       case 3:
         return <DocumentInfo patientId={patientID} setStep={setStep} />;
-        case 4 :
-          return <Final setStep={setStep} setPatientId={setPatientID}/>;
+      case 4:
+        return <Final setStep={setStep} setPatientId={setPatientID} />;
       case 5:
       default:
         return null;
@@ -40,19 +54,23 @@ export const Form = () => {
     <>
       <div className={formCSS.container}>
         <div className={formCSS.stepCover}>
-          {["Personal Info", "Family Info","Disease Info", "File Upload", "Completed"].map(
-            (label, index) => (
-              <div
-                key={index}
-                className={`${formCSS.step} ${
-                  step >= index ? formCSS.active : ""
-                }`}
-              >
-                <h3 className={formCSS.stepNo}>{index + 1}</h3>
-                <p className={formCSS.stepDetail}>{label}</p>
-              </div>
-            )
-          )}
+          {[
+            "Personal Info",
+            "Family Info",
+            "Disease Info",
+            "File Upload",
+            "Completed",
+          ].map((label, index) => (
+            <div
+              key={index}
+              className={`${formCSS.step} ${
+                step >= index ? formCSS.active : ""
+              }`}
+            >
+              <h3 className={formCSS.stepNo}>{index + 1}</h3>
+              <p className={formCSS.stepDetail}>{label}</p>
+            </div>
+          ))}
         </div>
         <div className={formCSS.line}> </div>
         {handleMultiStepForm(step)}

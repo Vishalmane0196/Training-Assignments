@@ -7,6 +7,7 @@ const initialState = {
   token: null,
   isAdmin: 0,
   isDoctor: 0,
+  isSuper: 0,
   loading: false,
   error: null,
   userInfo: {},
@@ -38,6 +39,7 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.isAdmin = action.payload?.admin_message == 1 ? 1 : 0;
         state.isDoctor = action.payload?.doctor_message == 1 ? 1 : 0;
+        state.isSuper = action.payload?.superAdmin_message == 1 ? 1 : 0;
 
         state.isLoggedIn = 1;
       })
