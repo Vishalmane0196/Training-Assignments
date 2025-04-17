@@ -2,7 +2,6 @@ import React from "react";
 import { Navbar } from "../../components/Navbar/Navbar.jsx";
 import adminCSS from "../../style/AdminDashboard.module.css";
 import { NavLink, Outlet } from "react-router-dom";
-
 const Dashboard = () => {
   return (
     <>

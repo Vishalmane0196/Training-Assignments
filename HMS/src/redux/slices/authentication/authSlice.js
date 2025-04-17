@@ -36,17 +36,19 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         localStorage.setItem("token", action.payload.token);
         let obj = jwtDecode(action.payload.token);
+        console.log(obj);
+
         state.loading = false;
         state.token = action.payload.token;
-        state.isAdmin = obj.admin_message == 1 ? 1 : 0;
-        state.isDoctor = obj.doctor_message == 1 ? 1 : 0;
-        state.isSuper = obj.superAdmin_message == 1 ? 1 : 0;
-
+        state.isAdmin = obj.admin == 1 ? 1 : 0;
+        state.isDoctor = obj.doctor == 1 ? 1 : 0;
+        state.isSuper = obj.superAdmin == 1 ? 1 : 0;
+        state.userInfo = { ...obj };
+        console.log(state.userInfo);
         state.isLoggedIn = 1;
       })
       .addCase(loginUser.rejected, (state) => {
         state.loading = false;
-        // state.error = action.error.response.data.message;
       });
     // --------------------------------------
     builder

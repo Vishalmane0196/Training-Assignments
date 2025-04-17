@@ -1,0 +1,53 @@
+.noData {
+    color: #707070;
+    width: 200px;
+    /* height: 70px; */
+    padding: 8px;
+    font-size: 12px;
+    line-height: 16px;
+    position: absolute;
+    z-index: 2;
+    top: 1rem;
+    right: 10rem;
+    animation: noData 0.8s infinite;
+
+    will-change: transform;
+}
+
+.noData>p {
+    margin: 0;
+    color: rgb(253, 230, 115);
+}
+
+.faWarning {
+    float: left;
+    margin-right: 12px;
+    height: 40px;
+    margin-top: 6px;
+    font-size: 2em;
+    color: #CC3C15;
+}
+
+.arrow {
+    position: absolute;
+    right: -10px;
+    rotate: 180deg;
+    top: 10px;
+    color: #756d6da1;
+    font-size: 2em;
+    z-index: 5;
+}
+
+@keyframes noData {
+    0% {
+        transform: translateX(0%);
+    }
+
+    50% {
+        transform: translateX(1%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}

@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../redux/asyncThunkFuntions/user";
-
+import { Note } from "src/components/FloatingNote/Note";
 const UserMain = () => {
   const { userInfo, isDoctor } = useSelector((state) => state.auth);
-
+  const { patientID } = useSelector((state) => state.form);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -51,6 +51,8 @@ const UserMain = () => {
         </div>
 
         <Outlet />
+
+        {patientID !== null && <Note />}
       </main>
     </>
   );
