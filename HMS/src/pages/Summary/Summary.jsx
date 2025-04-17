@@ -8,8 +8,10 @@ import {
   fetchAllPAtients,
 } from "../../redux/asyncThunkFuntions/admin";
 import { fetchPatientCardData } from "../../redux/asyncThunkFuntions/admin";
-
+import DeletePopUp from "src/components/Setting/Delete/DeletePopUp";
 const Summary = () => {
+  const [deleteState, setState] = useState(false);
+  const [id, setID] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
   const dispatch = useDispatch();
@@ -40,14 +42,6 @@ const Summary = () => {
     navigate(`/admin/dashboard/allpatients/patientdetails/${id}`);
   };
 
-  const handleDeletePatient = async (id) => {
-    try {
-      await dispatch(deletePatient(id)).unwrap();
-      fetchData();
-    } catch (error) {
-      console.error(error);
-    }
-  };
   return (
     <div className={styles.dashboard}>
       <div>
@@ -100,7 +94,10 @@ const Summary = () => {
                           ></i>
                           <i
                             title="delete patient"
-                            onClick={() => handleDeletePatient(obj.patient_id)}
+                            onClick={() => {
+                              setID(obj.patient_id);
+                              setState(true);
+                            }}
                             className="fa-solid fa-trash"
                           ></i>
                         </div>
@@ -134,6 +131,15 @@ const Summary = () => {
           breakLinkClassName={styles.pageLink}
         />
       </div>
+      {deleteState && (
+        <DeletePopUp
+          deleteFunction={deletePatient}
+          id={id}
+          functionCall={fetchData}
+          deleteState={deleteState}
+          setDeleteState={setState}
+        />
+      )}
     </div>
   );
 };

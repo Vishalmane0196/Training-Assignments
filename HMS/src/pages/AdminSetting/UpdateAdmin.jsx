@@ -8,30 +8,22 @@ import { Button } from "src/components/Button/Button.jsx";
 import { getDoctor } from "src/redux/asyncThunkFuntions/user.js";
 import AddDoctorAdminComponent from "src/components/AddDoctorAdmin/AddDoctorAdminComponent.jsx";
 import { deleteDoctor } from "../../redux/asyncThunkFuntions/admin.js";
-
+import DeletePopUp from "src/components/Setting/Delete/DeletePopUp.jsx";
 const UpdateAdmin = ({ access }) => {
+  const [deleteState, setState] = useState(false);
+  const [id, setID] = useState(null);
   const [addAdminToggle, setAddAdminToggle] = useState(false);
   const [admins, setAdmins] = useState([]);
 
   const dispatch = useDispatch();
-  const handleDeleteAdmin = async (email) => {
-    try {
-      if (access == "doctor") {
-        await dispatch(deleteDoctor(email)).unwrap();
-       fetchDoctors()
-      } else {
-        await dispatch(deleteAdmin(email)).unwrap();
-        setAdmins((pre) =>
-          pre.map((obj) =>
-            obj.email == email
-              ? { ...obj, ["status"]: "inactive", ["role"]: "User" }
-              : obj
-          )
-        );
-      }
-    } catch (error) {
-      toast.error(error);
-    }
+  const handleDeleteAdmin = () => {
+    setAdmins((pre) =>
+      pre.map((obj) =>
+        obj.email == id
+          ? { ...obj, ["status"]: "inactive", ["role"]: "User" }
+          : obj
+      )
+    );
   };
   const handleToggle = () => {
     setAddAdminToggle((pre) => !pre);
@@ -76,62 +68,69 @@ const UpdateAdmin = ({ access }) => {
           </button>
         </div>
       </div>
-      <div className={styles.search}>
-      
-      </div>
+      <div className={styles.search}></div>
 
       <div className={styles.tableWrapper}>
-  <table className={styles.table}>
-    <thead>
-      <tr>
-        <th>{access == "doctor" ? "Name" : "Id"}</th>
-        <th>{access == "doctor" ? "specialization" : "Email"}</th>
-        <th>{access == "doctor" ? "doctorInTime" : "Role"}</th>
-        <th>{access == "doctor" ? "doctorOutTime" : "Status"}</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      {admins.map((admin, index) => (
-        <tr key={index}>
-          <td>
-            <div className={styles.item}>
-              {access == "doctor" ? admin?.name : index + 1}
-            </div>
-          </td>
-          <td>{access == "doctor" ? admin?.specialization : admin?.email}</td>
-          <td>{access == "doctor" ? admin?.doctorInTime : admin?.role}</td>
-          <td>
-            <span
-              className={
-                access == "doctor"
-                  ? null
-                  : `${styles.status} ${
-                      admin?.status == "active" ? styles.active : styles.disabled
-                    }`
-              }
-            >
-              {access == "doctor" ? admin?.doctorOutTime : admin?.status}
-            </span>
-          </td>
-          <td>
-            <Button
-              style={styles.delete}
-              type={"button"}
-              onClick={() => {
-                handleDeleteAdmin(
-                  access == "doctor" ? admin?.doctor_id : admin.email
-                );
-              }}
-              disabled={admin?.status == "inactive"}
-              text={admin?.status == "inactive" ? "Removed" : "Remove"}
-            />
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>{access == "doctor" ? "Name" : "Id"}</th>
+              <th>{access == "doctor" ? "specialization" : "Email"}</th>
+              <th>{access == "doctor" ? "doctorInTime" : "Role"}</th>
+              <th>{access == "doctor" ? "doctorOutTime" : "Status"}</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {admins.map((admin, index) => (
+              <tr key={index}>
+                <td>
+                  <div className={styles.item}>
+                    {access == "doctor" ? admin?.name : index + 1}
+                  </div>
+                </td>
+                <td>
+                  {access == "doctor" ? admin?.specialization : admin?.email}
+                </td>
+                <td>
+                  {access == "doctor" ? admin?.doctorInTime : admin?.role}
+                </td>
+                <td>
+                  <span
+                    className={
+                      access == "doctor"
+                        ? null
+                        : `${styles.status} ${
+                            admin?.status == "active"
+                              ? styles.active
+                              : styles.disabled
+                          }`
+                    }
+                  >
+                    {access == "doctor" ? admin?.doctorOutTime : admin?.status}
+                  </span>
+                </td>
+                <td>
+                  <Button
+                    style={styles.delete}
+                    type={"button"}
+                    onClick={() => {
+                      setState((pre) => {
+                        access == "doctor"
+                          ? setID(admin?.doctor_id)
+                          : setID(admin.email);
+                        return true;
+                      });
+                    }}
+                    disabled={admin?.status == "inactive"}
+                    text={admin?.status == "inactive" ? "Removed" : "Remove"}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {addAdminToggle && (
         <AddDoctorAdminComponent
@@ -139,6 +138,15 @@ const UpdateAdmin = ({ access }) => {
           control={access == "doctor" ? true : false}
           onPopup={addAdminToggle}
           setPopupOff={setAddAdminToggle}
+        />
+      )}
+      {deleteState && (
+        <DeletePopUp
+          deleteFunction={access == "doctor" ? deleteDoctor : deleteAdmin}
+          id={id}
+          functionCall={access == "doctor" ? fetchDoctors : handleDeleteAdmin}
+          deleteState={deleteState}
+          setDeleteState={setState}
         />
       )}
     </div>

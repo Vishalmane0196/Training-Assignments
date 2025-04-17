@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import patientCSS from "../../style/AdminPatient.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,8 +11,10 @@ import {
 } from "src/redux/asyncThunkFuntions/admin";
 import { toast } from "react-toastify";
 import { Button } from "src/components/Button/Button";
-
+import DeletePopUp from "src/components/Setting/Delete/DeletePopUp";
 const AdminPatient = ({ access }) => {
+  const [deleteState, setState] = useState(false);
+  const [id, setID] = useState(null);
   const dispatch = useDispatch();
   const { patientList } = useSelector((state) => state.patient);
   const navigate = useNavigate();
@@ -40,14 +42,7 @@ const AdminPatient = ({ access }) => {
   const handleAdminAllPatient = (id) => {
     navigate(`/admin/dashboard/allpatients/patientdetails/${id}`);
   };
-  const handleDeletePatient = async (id) => {
-    try {
-      await dispatch(deletePatient(id));
-      await dispatch(fetchPatientsInfo("get"));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   const handleAppointmentStatus = async (id, status) => {
     try {
       await dispatch(
@@ -130,7 +125,8 @@ const AdminPatient = ({ access }) => {
                       <i
                         title="delete patient"
                         onClick={() => {
-                          handleDeletePatient(patient.patient_id);
+                          setID(patient.patient_id);
+                          setState(true);
                         }}
                         className="fa-solid fa-trash"
                       ></i>
@@ -195,6 +191,15 @@ const AdminPatient = ({ access }) => {
             ))}
           </ul>
         </div>
+        {deleteState && (
+          <DeletePopUp
+            deleteFunction={deletePatient}
+            id={id}
+            functionCall={fetchPatientsInfo}
+            deleteState={deleteState}
+            setDeleteState={setState}
+          />
+        )}
       </div>
     </>
   );

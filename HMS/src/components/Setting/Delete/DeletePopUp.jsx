@@ -6,23 +6,36 @@ import { logout } from "../../../redux/slices/authentication/authSlice";
 import { useDispatch } from "react-redux";
 import { deleteAccount } from "../../../redux/asyncThunkFuntions/user";
 
-export const DeletePopUp = ({ deleteState, setDeleteState }) => {
+export const DeletePopUp = ({
+  deleteFunction = null,
+  id,
+  deleteState,
+  setDeleteState,
+  functionCall,
+}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleDeleteAccount = async () => {
     try {
-      await dispatch(deleteAccount("delete")).unwrap();
-      setDeleteState(false);
-      localStorage.clear();
-      dispatch(logout());
-      navigate("/account/user/login");
-      toast.success("Account deleted successfully! Redirecting to login...", {
-        position: "top-right",
-      });
+      if (deleteFunction !== null) {
+        await dispatch(deleteFunction(id)).unwrap();
+        functionCall();
+        setDeleteState(false);
+        toast.success("Record Deleted Successfully");
+      } else {
+        await dispatch(deleteAccount("delete")).unwrap();
+        setDeleteState(false);
+        localStorage.clear();
+        dispatch(logout());
+        navigate("/account/user/login");
+        toast.success("Account deleted successfully! Redirecting to login...", {
+          position: "top-right",
+        });
+      }
     } catch (error) {
       console.error(error);
-      toast.error(`Failed to delete account : ${error.response.data.message}`);
+      toast.error(`Failed to delete : ${error.response.data.message}`);
     }
   };
 
