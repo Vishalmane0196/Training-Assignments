@@ -24,6 +24,7 @@ const UpdateAdmin = ({ access }) => {
           : obj
       )
     );
+
   };
   const handleToggle = () => {
     setAddAdminToggle((pre) => !pre);
@@ -144,6 +145,7 @@ const UpdateAdmin = ({ access }) => {
         <DeletePopUp
           deleteFunction={access == "doctor" ? deleteDoctor : deleteAdmin}
           id={id}
+          access={"doctor"}
           functionCall={access == "doctor" ? fetchDoctors : handleDeleteAdmin}
           deleteState={deleteState}
           setDeleteState={setState}

@@ -19,20 +19,27 @@ h2 {
 .summaryCard {
     flex: 1;
     background: #fff;
-    padding: 20px;
+    padding:0rem  2rem;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .summaryCard p {
-    font-size: 14px;
+    display: inline;
+    font-size: 1rem;
     color: gray;
+    text-align: center;
 }
 
 .summaryCard h3 {
     font-size: 24px;
     font-weight: bold;
+    display: inline;
+
 }
 
 
@@ -109,7 +116,7 @@ h2 {
 }
 
 .table-wrapper {
-    height: 48vh;
+    height: 60vh;
     overflow-y: auto;
     display: block;
     scrollbar-width: none;
