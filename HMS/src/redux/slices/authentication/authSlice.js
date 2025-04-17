@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginUser } from "../../asyncThunkFuntions/auth";
 import { getUserInfo } from "../../asyncThunkFuntions/user";
-
+import { jwtDecode } from "jwt-decode";
 const initialState = {
   isLoggedIn: 0,
   token: null,
@@ -35,11 +35,12 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         localStorage.setItem("token", action.payload.token);
+        let obj = jwtDecode(action.payload.token);
         state.loading = false;
         state.token = action.payload.token;
-        state.isAdmin = action.payload?.admin_message == 1 ? 1 : 0;
-        state.isDoctor = action.payload?.doctor_message == 1 ? 1 : 0;
-        state.isSuper = action.payload?.superAdmin_message == 1 ? 1 : 0;
+        state.isAdmin = obj.admin_message == 1 ? 1 : 0;
+        state.isDoctor = obj.doctor_message == 1 ? 1 : 0;
+        state.isSuper = obj.superAdmin_message == 1 ? 1 : 0;
 
         state.isLoggedIn = 1;
       })
