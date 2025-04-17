@@ -166,7 +166,6 @@ export const DocumentInfo = ({ setStep, patientId }) => {
                   type="file"
                   name={docType}
                   accept=".jpg, .jpeg, .png"
-                  // Disable after upload
                 />
 
                 {filePreviews[docType] && (
