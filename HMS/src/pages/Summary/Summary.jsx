@@ -117,7 +117,7 @@ const Summary = () => {
           breakLabel={"..."}
           pageCount={totalPages}
           marginPagesDisplayed={2}
-          pageRangeDisplayed={6}
+          pageRangeDisplayed={5}
           onPageChange={handlePageClick}
           containerClassName={styles.pagination}
           pageClassName={styles.pageItem}
