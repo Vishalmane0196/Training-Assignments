@@ -5,10 +5,12 @@ import { FamilyInfo } from "../Form/FamilyInfo";
 import { DocumentInfo } from "./DocumentInfo";
 import { DiseaseInfo } from "./DiseaseInfo";
 import { Final } from "./Final";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setStep } from "../../redux/slices/multistepform/formSlice";
 import { setPatientID } from "../../redux/slices/multistepform/formSlice";
+import { toast } from "react-toastify";
 export const Form = () => {
+  const dispatch = useDispatch();
   const { step, patientID } = useSelector((state) => state.form);
   const [count, setCount] = useState(0);
   const handleMultiStepForm = (step) => {
@@ -61,15 +63,27 @@ export const Form = () => {
             "File Upload",
             "Completed",
           ].map((label, index) => (
-            <div
-              key={index}
-              className={`${formCSS.step} ${
-                step >= index ? formCSS.active : ""
-              }`}
+            <label
+              htmlFor={index}
+              onClick={() => {
+                if (count >= index) {
+                  dispatch(setStep(index));
+                } else {
+                  toast.warn("Complete previous form.");
+                }
+              }}
             >
-              <h3 className={formCSS.stepNo}>{index + 1}</h3>
-              <p className={formCSS.stepDetail}>{label}</p>
-            </div>
+              <div
+                id={index}
+                key={index}
+                className={`${formCSS.step} ${
+                  step >= index ? formCSS.active : ""
+                }`}
+              >
+                <h3 className={formCSS.stepNo}>{index + 1}</h3>
+                <p className={formCSS.stepDetail}>{label}</p>
+              </div>
+            </label>
           ))}
         </div>
         <div className={formCSS.line}> </div>
