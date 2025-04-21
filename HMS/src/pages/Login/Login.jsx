@@ -117,7 +117,7 @@ const Login = () => {
                 {loginStatus ? (
                   <Link
                     tabIndex={-1}
-                    to={`/account/forget/:${}`}
+                    to={`/account/forget/`}
                     className={login.forget}
                   >
                     {" "}
