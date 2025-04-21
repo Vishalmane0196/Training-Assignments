@@ -21,7 +21,11 @@ export const DeletePopUp = ({
   const handleDeleteAccount = async () => {
     try {
       if (deleteFunction !== null) {
-        await dispatch(deleteFunction(id)).unwrap();
+        await dispatch(
+          deleteFunction(
+            access == "appointment" ? { ...id, ["reason"]: msg } : id
+          )
+        ).unwrap();
 
         if (access !== "doctor") {
           setDeleteState(false);
@@ -90,22 +94,62 @@ export const DeletePopUp = ({
                       </span>
                       <br />
                       <br />
-
-                      <input type="radio" value="Doctor Unavailability" />
-                      <span>Doctor Unavailability</span>
+                      <label htmlFor="1">
+                        <input
+                          id="1"
+                          type="radio"
+                          name="msg"
+                          checked={msg == "Doctor Unavailability"}
+                          onClick={(e) => setMsg(e.target.value)}
+                          value="Doctor Unavailability"
+                        />
+                        <span>Doctor Unavailability</span>
+                      </label>
                       <br />
-                      <input type="radio" value="Overbooking or Long Delays" />
-                      <span>Overbooking or Long Delays</span>
+                      <label htmlFor="2">
+                        <input
+                          id="2"
+                          type="radio"
+                          name="msg"
+                          checked={msg == "Overbooking or Long Delays"}
+                          onClick={(e) => setMsg(e.target.value)}
+                          value="Overbooking or Long Delays"
+                        />
+                        <span>Overbooking or Long Delays</span>
+                      </label>
                       <br />
-                      <input type="radio" value="Doctor's Health Issues" />
-                      <span>Doctor's Health Issues</span>
+                      <label htmlFor="3">
+                        <input
+                          id="3"
+                          type="radio"
+                          name="msg"
+                          checked={msg == "Doctor's Health Issues"}
+                          onClick={(e) => setMsg(e.target.value)}
+                          value="Doctor's Health Issues"
+                        />
+                        <span>Doctor's Health Issues</span>
+                      </label>
                       <br />
-                      <input type="radio" value="Change in Doctor's Schedule" />
-                      <span>Change in Doctor's Schedule</span>
+                      <label htmlFor="4">
+                        <input
+                          id="4"
+                          type="radio"
+                          onClick={(e) => setMsg(e.target.value)}
+                          name="msg"
+                          checked={msg == "Change in Doctor's Schedule"}
+                          value="Change in Doctor's Schedule"
+                        />
+                        <span>Change in Doctor's Schedule</span>
+                      </label>
                       <br />
                       <span>Other Reason ?</span>
                       <br />
-                        <textarea  cols={40} rows={5} onChange={ (e)=>setMsg(e.target.value)}></textarea>
+                      <textarea
+                        name="msg"
+                        cols={40}
+                        rows={5}
+                        onChange={(e) => setMsg(e.target.value)}
+                      ></textarea>
                     </div>
                     <div className={settingCSS.trashRight}>
                       <img src={deleteHero} alt="" />

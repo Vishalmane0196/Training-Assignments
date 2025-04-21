@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPatientsInfo } from "../../redux/asyncThunkFuntions/user";
 import { setBookPatientId } from "src/redux/slices/appointment/bookSlice";
+import { changeAppointmentStatusToCancel } from "src/redux/asyncThunkFuntions/admin";
 import {
   deletePatient,
   getAppointments,
@@ -12,6 +13,7 @@ import {
 import { toast } from "react-toastify";
 import { Button } from "src/components/Button/Button";
 import DeletePopUp from "src/components/Setting/Delete/DeletePopUp";
+import { NoRecord } from "src/components/NoRecord/NoRecord";
 const AdminPatient = ({ access }) => {
   const [deleteState, setState] = useState(false);
   const [id, setID] = useState(null);
@@ -45,7 +47,18 @@ const AdminPatient = ({ access }) => {
 
   const changeStatus = async (data) => {
     try {
-      await dispatch(changeAppointmentStatus(data)).unwrap();
+      if (data?.status == "Cancelled") {
+        let y = dispatch(changeAppointmentStatusToCancel(data)).unwrap();
+        toast.promise(y, {
+          pending: "Cancelling Appointment...",
+          success: "Cancelled Successfully",
+          error: "Error while Cancelling",
+        });
+        await y;
+      } else {
+        await dispatch(changeAppointmentStatus(data)).unwrap();
+      }
+
       getAppointment();
       setState(false);
     } catch (error) {
@@ -57,7 +70,7 @@ const AdminPatient = ({ access }) => {
       setID({ id: id, status: status });
       setState(true);
     } else {
-      changeStatus(id, status);
+      changeStatus({id:id, status:status});
     }
   };
 
@@ -87,7 +100,7 @@ const AdminPatient = ({ access }) => {
             <p>{access == "appointment" ? "Status" : "Book Slot"}</p>
           </div>
           <ul className={patientCSS.ulList}>
-            {patientList.length == 0 ? <p>No Record Found</p> : null}
+            {patientList.length == 0 ? <NoRecord /> : null}
             {patientList?.map((patient) => (
               <li className={patientCSS.liList}>
                 <p className={patientCSS.p}>
@@ -169,7 +182,7 @@ const AdminPatient = ({ access }) => {
                             className={patientCSS.Scheduled}
                             value="Scheduled"
                           >
-                            Schedule
+                            Scheduled
                           </option>
                           <option
                             className={patientCSS.Pending}
