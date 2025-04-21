@@ -9,6 +9,7 @@ import { getDoctor } from "src/redux/asyncThunkFuntions/user.js";
 import AddDoctorAdminComponent from "src/components/AddDoctorAdmin/AddDoctorAdminComponent.jsx";
 import { deleteDoctor } from "../../redux/asyncThunkFuntions/admin.js";
 import DeletePopUp from "src/components/Setting/Delete/DeletePopUp.jsx";
+import { NoRecord } from "src/components/NoRecord/NoRecord.jsx";
 const UpdateAdmin = ({ access }) => {
   const [deleteState, setState] = useState(false);
   const [id, setID] = useState(null);
@@ -24,7 +25,6 @@ const UpdateAdmin = ({ access }) => {
           : obj
       )
     );
-
   };
   const handleToggle = () => {
     setAddAdminToggle((pre) => !pre);
@@ -83,6 +83,7 @@ const UpdateAdmin = ({ access }) => {
             </tr>
           </thead>
           <tbody>
+            {admins.length == 0 ? <NoRecord /> : null}
             {admins.map((admin, index) => (
               <tr key={index}>
                 <td>

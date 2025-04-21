@@ -55,8 +55,8 @@ export const Slot = ({ date, book, setBook }) => {
           generateTimeSlots(res.data.doctorInTime, res.data.doctorOutTime, 30)
         );
         return [
-          ...(res.data.pendingSlot || []),
-          ...(res.data.scheduleSlot || []),
+          ...(res.data.pendingSlots || []),
+          ...(res.data.scheduleSlots || []),
         ];
       });
     } catch (error) {

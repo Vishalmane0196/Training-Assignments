@@ -70,7 +70,7 @@ const AdminPatient = ({ access }) => {
       setID({ id: id, status: status });
       setState(true);
     } else {
-      changeStatus({id:id, status:status});
+      changeStatus({ id: id, status: status });
     }
   };
 
