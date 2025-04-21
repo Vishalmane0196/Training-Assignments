@@ -18,6 +18,7 @@ const Login = () => {
 
   const {
     register,
+    getValues,
     handleSubmit,
     trigger,
     formState: { errors },
@@ -117,7 +118,7 @@ const Login = () => {
                 {loginStatus ? (
                   <Link
                     tabIndex={-1}
-                    to={`/account/forget/`}
+                    to={`/account/forget/${btoa(getValues("email"))}`}
                     className={login.forget}
                   >
                     {" "}

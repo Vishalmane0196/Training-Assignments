@@ -207,7 +207,7 @@ export const PersonalInfo = ({
               fieldName="weight"
               errors={errors}
               type="number"
-              placeholder="Enter weight."
+              placeholder="Enter in kg."
               min={10}
               max={100}
             />
@@ -220,7 +220,7 @@ export const PersonalInfo = ({
               fieldName="height"
               errors={errors}
               type="number"
-              placeholder="Enter Height."
+              placeholder="Enter in feet."
               min="4.50"
               max="9.90"
               step="0.01"

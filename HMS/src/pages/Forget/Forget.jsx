@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import forgetCSS from "../../style/Forget.module.css";
 import { toast } from "react-toastify";
 import bcrypt from "bcryptjs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../api/axios";
 import { forgetPassword } from "../../redux/asyncThunkFuntions/auth";
 import { useDispatch } from "react-redux";
@@ -11,7 +11,8 @@ const Forget = () => {
   const dispatch = useDispatch();
   const [otpInput, setOtpInput] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [forgetEmail, setForgetEmail] = useState("");
+  const param = useParams();
+  const [forgetEmail, setForgetEmail] = useState(atob(param.email));
   const [otp, setOtp] = useState("");
   const [changePassStatus, setChangePassStatus] = useState(false);
 

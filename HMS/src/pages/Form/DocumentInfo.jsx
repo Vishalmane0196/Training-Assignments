@@ -149,15 +149,14 @@ export const DocumentInfo = ({ setStep, patientId }) => {
         <form>
           <div style={{ display: "flex", gap: "3rem", height: "45vh" }}>
             {[
-              "Adhar Front",
-              "Adhar Back",
+              "Aadhaar Front",
+              "Aadhaar Back",
               "Insurance Front",
               "Insurance Back",
             ].map((docType) => (
               <div key={docType} className={documentCSS.fieldCoverDiv}>
                 <label className={documentCSS.fieldLabel}>
                   {docType.replace(/([A-Z])/g, " $1")}{" "}
-                  <span className={documentCSS.star}>*</span>
                 </label>
                 <input
                   className={documentCSS.inputfield}
