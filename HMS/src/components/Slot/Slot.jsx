@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 export const Slot = ({ date, book, setBook }) => {
   const navigate = useNavigate();
   const [slots, setSlots] = useState([]);
-  const [timeSlot, setTimeSlot] = useState();
+  const [timeSlot, setTimeSlot] = useState([]);
+  const [pendingSlot, setPendingSlot] = useState([]);
   const dispatch = useDispatch();
   const [time, setTime] = useState(null);
   const { patientId, selectedDoctor } = useSelector((state) => state.book);
@@ -54,10 +55,8 @@ export const Slot = ({ date, book, setBook }) => {
         setTimeSlot(
           generateTimeSlots(res.data.doctorInTime, res.data.doctorOutTime, 30)
         );
-        return [
-          ...(res.data.pendingSlots || []),
-          ...(res.data.scheduleSlots || []),
-        ];
+        setPendingSlot(res.data.pendingSlots || []);
+        return [...(res.data.scheduleSlots || [])];
       });
     } catch (error) {
       toast.error(error);
@@ -128,17 +127,10 @@ export const Slot = ({ date, book, setBook }) => {
                     </div>
                   </div>
                 </div>
-
+                <h4>Available Slots</h4>
                 <div className={styles.slotsGrid}>
-                  {console.log(slots)}
-                  {console.log(timeSlot)}
-
                   {timeSlot?.map((slot, idx) =>
-                    slots.includes(slot.slice(0, 8)) ? (
-                      <div key={idx} className={styles.disabled}>
-                        {slot.slice(0, 8)}
-                      </div>
-                    ) : (
+                    slots.includes(slot.slice(0, 8)) ? null : ( // </div> //   {slot.slice(0, 8)} // <div key={idx} className={styles.disabled}>
                       <div
                         key={idx}
                         onClick={() => {
@@ -155,6 +147,31 @@ export const Slot = ({ date, book, setBook }) => {
                     )
                   )}
                 </div>
+                {console.log(pendingSlot)}
+                {pendingSlot.length !== 0 ? (
+                  <>
+                    <h4>Tentative Slots</h4>
+                    <div className={styles.slotsGrid}>
+                      {timeSlot?.map((slot, idx) =>
+                        pendingSlot?.includes(slot.slice(0, 8)) ? (
+                          <div
+                            key={idx}
+                            onClick={() => {
+                              setTime(slot);
+                            }}
+                            className={
+                              time == slot
+                                ? `${styles.selectedTime} `
+                                : `${styles.slot} `
+                            }
+                          >
+                            {slot.slice(0, 8)}
+                          </div>
+                        ) : null
+                      )}
+                    </div>
+                  </>
+                ) : null}
                 <div className={styles.bookBtnCover}>
                   <button
                     onClick={handleAppointment}

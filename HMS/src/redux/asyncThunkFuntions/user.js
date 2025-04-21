@@ -284,3 +284,17 @@ export const bookAppointment = createAsyncThunk(
     }
   }
 );
+
+export const searchDoctor = createAsyncThunk(
+  "user/searchDoctor",
+  async (data, { rejectWithValue }) => {
+    try {
+      let response = await axiosInstance.get(
+        `/user/searchDoctor?keyword=${data}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);

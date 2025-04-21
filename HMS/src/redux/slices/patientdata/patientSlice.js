@@ -82,7 +82,6 @@ const patientSlice = createSlice({
         state.loading = false;
       })
       .addCase(getDoctorAppointmentsList.fulfilled, (state, action) => {
-        console.log(action.payload.data);
         state.patientList = action.payload.data;
       });
   },

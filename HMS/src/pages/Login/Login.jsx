@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { GoogleLogin } from "@react-oauth/google";
 import login from "../../style/login.module.css";
@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loginStatus, setLoginStatus] = useState(false);
   const { isAdmin, isDoctor, isLoggedIn } = useSelector((state) => state.auth);
 
   const {
@@ -44,7 +45,8 @@ const Login = () => {
       await dispatch(loginUser(data)).unwrap();
       await dispatch(getUserInfo("get")).unwrap();
     } catch (error) {
-      toast.error(`Login failed : ${error}`);
+      toast.error(`Login failed `);
+      setLoginStatus(true);
     }
   };
   const errorMessage = (error) => {
@@ -112,10 +114,16 @@ const Login = () => {
             <div className={login.labelError}>
               <div className={login.forgetCover}>
                 <label className={login.labelL}>Password </label>
-                <Link tabIndex={-1} to="/account/forget" className={login.forget}>
-                  {" "}
-                  Forgot?{" "}
-                </Link>
+                {loginStatus ? (
+                  <Link
+                    tabIndex={-1}
+                    to={`/account/forget/:${}`}
+                    className={login.forget}
+                  >
+                    {" "}
+                    Forgot?{" "}
+                  </Link>
+                ) : null}
               </div>
               <label className={login.error}>
                 {errors.user_password && errors.user_password.message}

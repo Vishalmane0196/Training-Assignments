@@ -185,9 +185,11 @@ const AdminPatient = ({ access }) => {
                             Scheduled
                           </option>
                           <option
+                            disabled
                             className={patientCSS.Pending}
                             value="Pending"
                           >
+                          
                             Pending
                           </option>
                           <option

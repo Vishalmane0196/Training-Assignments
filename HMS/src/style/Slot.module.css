@@ -11,6 +11,10 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.slotDiv {
+  width: 100%;
+}
+
 .modalContent {
   background-color: white;
   color: black;
@@ -36,8 +40,7 @@
   font-family: sans-serif;
   background: #fff;
   width: 100%;
-  max-width: 68.75rem;
-  /* 1100px */
+
   margin: auto;
 }
 

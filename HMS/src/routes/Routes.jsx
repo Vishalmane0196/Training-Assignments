@@ -265,7 +265,7 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/account/forget",
+        path: "/account/forget/:email",
         element: <Forget />,
       },
     ],
