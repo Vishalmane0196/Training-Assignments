@@ -6,7 +6,9 @@ import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { fetchDoctorSlots } from "src/redux/asyncThunkFuntions/user";
 import { bookAppointment } from "src/redux/asyncThunkFuntions/user";
+import { useNavigate } from "react-router-dom";
 export const Slot = ({ date, book, setBook }) => {
+  const navigate = useNavigate();
   const [slots, setSlots] = useState([]);
   const [timeSlot, setTimeSlot] = useState();
   const dispatch = useDispatch();
@@ -52,7 +54,10 @@ export const Slot = ({ date, book, setBook }) => {
         setTimeSlot(
           generateTimeSlots(res.data.doctorInTime, res.data.doctorOutTime, 30)
         );
-        return res.data.timeSlot;
+        return [
+          ...(res.data.pendingSlot || []),
+          ...(res.data.scheduleSlot || []),
+        ];
       });
     } catch (error) {
       toast.error(error);
@@ -69,6 +74,7 @@ export const Slot = ({ date, book, setBook }) => {
         })
       ).unwrap();
       setBook(false);
+      navigate("/admin/dashboard/mypatients");
       toast.success("Appointment confirmed successfully.");
     } catch (error) {
       toast.error(error);

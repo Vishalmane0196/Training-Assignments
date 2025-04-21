@@ -10,7 +10,7 @@ const initialState = {
   error: null,
   details: [],
   totalPages: 0,
-  itemsPerPage: 4,
+  itemsPerPage: 5,
   patientList: [],
   totalPatient: 0,
 };
@@ -44,9 +44,8 @@ const patientSlice = createSlice({
         state.loading = false;
         state.patientList = action.payload?.data;
         state.totalPages = Math.ceil(
-          parseInt(
-            action.payload?.pagination?.totalPatients / state.itemsPerPage
-          )
+          parseInt(action.payload?.pagination?.totalPatients) /
+            parseInt(state.itemsPerPage)
         );
         state.totalPatient = action.payload?.pagination?.totalPatients;
       })

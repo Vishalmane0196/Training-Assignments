@@ -10,8 +10,10 @@ export const Final = ({ setStep, setPatientId }) => {
     await dispatch(setPatientId(null));
   };
   useEffect(() => {
-    resetAllValues();
-  },[]);
+    setTimeout(() => {
+      resetAllValues();
+    }, 2000);
+  }, []);
   return (
     <>
       <h1>Form Submitted Successfully!</h1>

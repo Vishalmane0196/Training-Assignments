@@ -43,14 +43,21 @@ const AdminPatient = ({ access }) => {
     navigate(`/admin/dashboard/allpatients/patientdetails/${id}`);
   };
 
-  const handleAppointmentStatus = async (id, status) => {
+  const changeStatus = async (data) => {
     try {
-      await dispatch(
-        changeAppointmentStatus({ id: id, status: status })
-      ).unwrap();
+      await dispatch(changeAppointmentStatus(data)).unwrap();
       getAppointment();
+      setState(false);
     } catch (error) {
       console.error(error);
+    }
+  };
+  const handleAppointmentStatus = async (id, status) => {
+    if (status == "Cancelled") {
+      setID({ id: id, status: status });
+      setState(true);
+    } else {
+      changeStatus(id, status);
     }
   };
 
@@ -147,27 +154,43 @@ const AdminPatient = ({ access }) => {
                       className={patientCSS[patient.status]}
                       id=""
                     >
-                      <option
-                        className={patientCSS.Scheduled}
-                        value="Scheduled"
-                      >
-                        Schedule
-                      </option>
-                      <option className={patientCSS.Pending} value="Pending">
-                        Pending
-                      </option>
-                      <option
-                        className={patientCSS.Completed}
-                        value="Completed"
-                      >
-                        Completed
-                      </option>
-                      <option
-                        className={patientCSS.Cancelled}
-                        value="Cancelled"
-                      >
-                        Cancelled
-                      </option>
+                      {patient?.status == "Cancelled" ||
+                      patient?.status == "Completed" ? (
+                        <option
+                          className={patientCSS.Cancelled}
+                          value={`${patient?.status}`}
+                        >
+                          {patient?.status}
+                        </option>
+                      ) : (
+                        <>
+                          {" "}
+                          <option
+                            className={patientCSS.Scheduled}
+                            value="Scheduled"
+                          >
+                            Schedule
+                          </option>
+                          <option
+                            className={patientCSS.Pending}
+                            value="Pending"
+                          >
+                            Pending
+                          </option>
+                          <option
+                            className={patientCSS.Completed}
+                            value="Completed"
+                          >
+                            Completed
+                          </option>
+                          <option
+                            className={patientCSS.Cancelled}
+                            value="Cancelled"
+                          >
+                            Cancelled
+                          </option>
+                        </>
+                      )}
                     </select>
                   </div>
                 ) : (
@@ -193,11 +216,14 @@ const AdminPatient = ({ access }) => {
         </div>
         {deleteState && (
           <DeletePopUp
-            deleteFunction={deletePatient}
+            deleteFunction={
+              access == "appointment" ? changeStatus : deletePatient
+            }
             id={id}
-            functionCall={fetchPatientsInfo}
+            functionCall={access == "appointment" ? getAppointment : getData}
             deleteState={deleteState}
             setDeleteState={setState}
+            access={access}
           />
         )}
       </div>

@@ -1,24 +1,22 @@
-
-
-
 /* -------------------------------- */
 
 .container {
     width: 100%;
     border-radius: 15px;
     padding-left: 1rem;
-     margin-bottom: 1rem;
+    margin-bottom: 1rem;
     position: relative;
 }
 
 
-.header{
+.header {
     margin: 0;
     font-size: 24px;
     margin-bottom: 10px;
     font-weight: 500;
 }
-.editBtn{
+
+.editBtn {
     background-color: #2ea043;
     color: white;
     border: none;
@@ -26,9 +24,10 @@
     border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
-   
+
 }
-.editBtn:hover{
+
+.editBtn:hover {
     background-color: #4caf50;
     color: white;
     border: none;
@@ -45,14 +44,14 @@
 }
 
 .p3tag {
-  
+
     font-weight: 400;
     margin-top: 0px;
     margin-bottom: 1rem;
 }
 
 .deleteBtn {
- 
+
     background-color: #e56056;
     color: white;
     border: none;
@@ -62,19 +61,19 @@
     font-size: 14px;
     margin-bottom: 1rem;
 }
-.deleteBtn:hover{
+
+.deleteBtn:hover {
     background-color: #f98d8d;
     color: white;
     border: none;
 
 }
 
-.overlay{
+.overlay {
     width: 105.4%;
     height: 90vh;
     background-color: rgba(0, 0, 0, 0.598);
-    display: flex
-;
+    display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
@@ -83,36 +82,76 @@
     left: -2rem;
 }
 
-.popup{
-    width: 25rem;
-    height: 35vh;
+.trash {
+    display: flex;
+    width: 100%;
+
+}
+
+.trashLeft {
+    width: 100%;
+}
+
+.trashLeft>input {
+    margin-bottom: 1.5rem;
+}
+
+.trashLeft>span {
+    color: black;
+
+}
+
+.trashRight {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    display: none;
+}
+
+.trashLeft>textarea {
+    max-height: 15vh;
+    max-width: 100%;
+
+}
+
+.trashRight>img {
+    width: 30%;
+    display: none;
+}
+
+.popup {
+    /* width: 25rem; */
+    /* height: 35vh; */
     background-color: white;
     border-radius: 10px;
     padding: 20px;
-    display: flex
-;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
-.btnContainer{
+
+.btnContainer {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
     gap: 0.4rem;
 }
-.popUph2{
+
+.popUph2 {
     margin-top: 0.5rem;
     color: black;
 }
-.btnContainerCancel{
+
+.btnContainerCancel {
     background-color: transparent;
     color: rgb(46, 42, 42);
     cursor: pointer;
     border: none;
     border-radius: 5px;
     padding: 0.6rem 2rem;
-    background-color: #c0bdbdcf; 
+    background-color: #c0bdbdcf;
     margin-bottom: 1rem;
 }
 
@@ -158,11 +197,11 @@
     transition: 0.3s;
 }
 
-input:checked + .slider {
-    background-color:white; 
+input:checked+.slider {
+    background-color: white;
 }
 
-input:checked + .slider::before {
+input:checked+.slider::before {
     transform: translateX(26px);
 }
 
@@ -171,7 +210,7 @@ input:checked + .slider::before {
     margin-left: 10px;
     font-size: 14px;
     font-weight: bold;
-  
+
     color: black;
 }
 
@@ -179,44 +218,52 @@ input:checked + .slider::before {
     margin-left: 10px;
     font-size: 14px;
     font-weight: bold;
-    
+
     color: rgb(255, 255, 255);
 }
-.headerSecond{
+
+.headerSecond {
     margin: 0;
     font-size: 2rem;
     margin-bottom: 1.5rem;
     font-weight: 700;
 }
-.featureCover{
+
+.featureCover {
     margin-bottom: 1.7rem;
 }
-.butCover{
+
+.butCover {
     display: flex;
     gap: 1rem;
 }
-.inputBtnCover{
+
+.inputBtnCover {
     width: 100%;
     display: flex;
     gap: 1rem;
 }
-.adminMailInput{
+
+.adminMailInput {
     outline: none;
     padding: 0.6rem 1.5rem;
     border-radius: 5px;
     border: 1px solid #ddd;
 }
 
-.adminMailInput:hover{
+.adminMailInput:hover {
 
     box-shadow: 0 0 0 4px rgba(234, 100, 217, 0.1);
-  }
-  .adminMailInput:focus{
+}
+
+.adminMailInput:focus {
     outline: none;
-    border: 1px solid rgba(234, 100, 216, 0.438);;
-  }
-  .addMainBtn{
-background-color: transparent;
+    border: 1px solid rgba(234, 100, 216, 0.438);
+    ;
+}
+
+.addMainBtn {
+    background-color: transparent;
     color: rgb(65, 57, 57);
     border: 1px solid #ddd;
     padding: 0.6rem 2rem;
@@ -224,8 +271,9 @@ background-color: transparent;
     cursor: pointer;
     font-size: 14px;
     transition: all ease-in-out 0.5s;
-  }
-  .delMail{
+}
+
+.delMail {
     background-color: transparent;
     color: rgb(64, 60, 60);
     border: 1px solid #ddd;
@@ -234,21 +282,22 @@ background-color: transparent;
     cursor: pointer;
     font-size: 14px;
     transition: all ease-in-out 0.1s;
-    
-  }
-  .addMainBtn:hover
-  {
+
+}
+
+.addMainBtn:hover {
     background-color: #1b8b40;
     color: white;
-   
-  }
-  .delMail:hover
-  {
+
+}
+
+.delMail:hover {
     background-color: #f77137;
     color: white;
-   
-  }
-  .modal {
+
+}
+
+.modal {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -264,9 +313,9 @@ background-color: transparent;
 .modalContent {
     background-color: #1e1e1e;
     color: white;
-   
+
     border-radius: 8px;
-  
+
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     position: relative;
 }
@@ -279,7 +328,10 @@ background-color: transparent;
     cursor: pointer;
 }
 
-.containerCoverAdmin
-{
+.containerCoverAdmin {
     padding: 0.5rem 2rem;
+}
+
+.popup h3 {
+    color: black;
 }

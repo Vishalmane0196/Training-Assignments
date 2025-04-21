@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import settingCSS from "../../../style/Setting.module.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { logout } from "../../../redux/slices/authentication/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAccount } from "../../../redux/asyncThunkFuntions/user";
-
+import deleteHero from "src/assets/delete.png";
 export const DeletePopUp = ({
   deleteFunction = null,
   id,
@@ -14,6 +14,7 @@ export const DeletePopUp = ({
   functionCall,
   access,
 }) => {
+  let [msg, setMsg] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
@@ -21,19 +22,20 @@ export const DeletePopUp = ({
     try {
       if (deleteFunction !== null) {
         await dispatch(deleteFunction(id)).unwrap();
-        functionCall();
+
         if (access !== "doctor") {
+          setDeleteState(false);
+          functionCall();
+
           return;
         } else {
-          console.log("here i am ");
-
           if (userInfo?.email == id) {
-            console.log("aat nahi aalo");
-
             dispatch(logout());
             navigate("/account/user/login");
           }
         }
+
+        functionCall();
         setDeleteState(false);
 
         toast.success("Record Deleted Successfully");
@@ -68,9 +70,49 @@ export const DeletePopUp = ({
               &times;
             </span>
             <div className={settingCSS.popup}>
-              <p className={settingCSS.popUph2}>
-                Are you sure you want to delete?
-              </p>
+              <h3>
+                {access == "appointment"
+                  ? "Appointment Cancellation"
+                  : "Final Confirmation Required"}
+              </h3>
+              {access == "appointment" ? null : (
+                <p className={settingCSS.popUph2}>
+                  Once confirmed, this operation cannot be undone. Proceed only
+                  if you're confident with the decision.
+                </p>
+              )}
+              {access == "appointment" && (
+                <>
+                  <div className={settingCSS.trash}>
+                    <div className={settingCSS.trashLeft}>
+                      <span className={settingCSS.popUph2}>
+                        Clarification on Appointment Cancellation?
+                      </span>
+                      <br />
+                      <br />
+
+                      <input type="radio" value="Doctor Unavailability" />
+                      <span>Doctor Unavailability</span>
+                      <br />
+                      <input type="radio" value="Overbooking or Long Delays" />
+                      <span>Overbooking or Long Delays</span>
+                      <br />
+                      <input type="radio" value="Doctor's Health Issues" />
+                      <span>Doctor's Health Issues</span>
+                      <br />
+                      <input type="radio" value="Change in Doctor's Schedule" />
+                      <span>Change in Doctor's Schedule</span>
+                      <br />
+                      <span>Other Reason ?</span>
+                      <br />
+                        <textarea  cols={40} rows={5} onChange={ (e)=>setMsg(e.target.value)}></textarea>
+                    </div>
+                    <div className={settingCSS.trashRight}>
+                      <img src={deleteHero} alt="" />
+                    </div>
+                  </div>
+                </>
+              )}
               <div className={settingCSS.btnContainer}>
                 <button
                   onClick={() => {
