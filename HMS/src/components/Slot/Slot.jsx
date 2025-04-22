@@ -56,7 +56,7 @@ export const Slot = ({ date, book, setBook }) => {
           generateTimeSlots(res.data.doctorInTime, res.data.doctorOutTime, 30)
         );
         setPendingSlot(res.data.pendingSlots || []);
-        return [...(res.data.scheduleSlots || [])];
+        return [...(res.data.scheduleSlots || []),...(res.data.pendingSlots || [])];
       });
     } catch (error) {
       toast.error(error);
@@ -130,7 +130,7 @@ export const Slot = ({ date, book, setBook }) => {
                 <h4>Available Slots</h4>
                 <div className={styles.slotsGrid}>
                   {timeSlot?.map((slot, idx) =>
-                    slots.includes(slot.slice(0, 8)) ? null : ( // </div> //   {slot.slice(0, 8)} // <div key={idx} className={styles.disabled}>
+                    slots.includes(slot.slice(0, 8)) ? null : (
                       <div
                         key={idx}
                         onClick={() => {
@@ -147,24 +147,15 @@ export const Slot = ({ date, book, setBook }) => {
                     )
                   )}
                 </div>
-                {console.log(pendingSlot)}
+
                 {pendingSlot.length !== 0 ? (
                   <>
                     <h4>Tentative Slots</h4>
                     <div className={styles.slotsGrid}>
                       {timeSlot?.map((slot, idx) =>
                         pendingSlot?.includes(slot.slice(0, 8)) ? (
-                          <div
-                            key={idx}
-                            onClick={() => {
-                              setTime(slot);
-                            }}
-                            className={
-                              time == slot
-                                ? `${styles.selectedTime} `
-                                : `${styles.slot} `
-                            }
-                          >
+                          <div key={idx} className={styles.disabled}>
+                            {" "}
                             {slot.slice(0, 8)}
                           </div>
                         ) : null

@@ -164,13 +164,13 @@ export const DeletePopUp = ({
                   }}
                   className={settingCSS.btnContainerCancel}
                 >
-                  Cancel
+                 {access == "appointment" ? "Close" : "Cancel"} 
                 </button>
                 <button
                   onClick={handleDeleteAccount}
                   className={settingCSS.deleteBtn}
                 >
-                  Delete
+                {access == "appointment" ? "Proceed" : "Delete"}  
                 </button>
               </div>
             </div>
