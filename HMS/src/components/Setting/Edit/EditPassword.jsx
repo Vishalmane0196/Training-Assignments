@@ -6,13 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { updatePassword } from "../../../redux/asyncThunkFuntions/user";
 
-export  const EditPassword = ({ reset, setReset }) => {
+export const EditPassword = ({ reset, setReset }) => {
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.auth);
 
   const { register, handleSubmit, trigger } = useForm({
     defaultValues: {
-      Password: userInfo.email,
+      oldPassword: "",
       newPassword: "",
     },
   });
@@ -21,7 +20,7 @@ export  const EditPassword = ({ reset, setReset }) => {
     try {
       await dispatch(
         updatePassword({
-          email: userInfo.email,
+          oldPassword: data.oldPassword,
           newPassword: data.newPassword,
         })
       ).unwrap();
@@ -34,7 +33,15 @@ export  const EditPassword = ({ reset, setReset }) => {
     }
   };
   const handleUpdateData = (data) => {
-    sendDataToUpdate(data);
+    if (data.newPassword !== data.checkPassword) {
+      toast.warn("Password doesn't match");
+      return;
+    }
+    if (data.newPassword && data.oldPassword) {
+      data.newPassword = btoa(data.newPassword);
+      data.oldPassword = btoa(data.oldPassword);
+      sendDataToUpdate(data);
+    }
   };
   return (
     <div>
@@ -56,7 +63,29 @@ export  const EditPassword = ({ reset, setReset }) => {
                   alignItems: "center",
                 }}
               >
-                <label htmlFor=""> Password</label>
+                <label htmlFor=""> Old Password</label>
+              </div>
+              <input
+                className={styles.inputTag}
+                {...register("oldPassword", {
+                  required: true,
+                })}
+                onChange={(e) => {
+                  const { onChange } = register("oldPassword");
+                  onChange(e);
+                  trigger("oldPassword");
+                }}
+                type="password"
+                placeholder="Enter your Password"
+              />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <label htmlFor="">New Password</label>
               </div>
               <input
                 className={styles.inputTag}
@@ -71,7 +100,28 @@ export  const EditPassword = ({ reset, setReset }) => {
                 type="password"
                 placeholder="Enter your Password"
               />
-
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <label htmlFor="">Confirm Password</label>
+              </div>
+              <input
+                className={styles.inputTag}
+                {...register("checkPassword", {
+                  required: true,
+                })}
+                onChange={(e) => {
+                  const { onChange } = register("checkPassword");
+                  onChange(e);
+                  trigger("checkPassword");
+                }}
+                type="password"
+                placeholder="Enter your Password"
+              />
               <button type="submit" className={styles.submitBtn}>
                 Reset
               </button>

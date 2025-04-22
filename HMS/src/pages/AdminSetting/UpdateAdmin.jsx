@@ -83,7 +83,14 @@ const UpdateAdmin = ({ access }) => {
             </tr>
           </thead>
           <tbody>
-            {admins.length == 0 ? <NoRecord /> : null}
+            {admins.length == 0 ? (
+              <tr>
+                {" "}
+                <td colSpan={5}>
+                  <NoRecord />{" "}
+                </td>
+              </tr>
+            ) : null}
             {admins.map((admin, index) => (
               <tr key={index}>
                 <td>

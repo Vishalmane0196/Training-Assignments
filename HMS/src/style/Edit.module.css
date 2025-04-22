@@ -11,12 +11,22 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+.coverLeftRight{
+    display: flex;
+    justify-content: space-between;
+}
+.coverLeft{
+    width: 47%;
+}
+.coverRight{
+    width: 47%;
+}
 .modalContent {
     background-color: #1e1e1e;
     color: white;
     padding: 20px;
     border-radius: 8px;
-    width: 40%;
+    width: 50%;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     position: relative;
 }

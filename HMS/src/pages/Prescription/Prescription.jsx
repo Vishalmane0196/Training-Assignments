@@ -8,7 +8,7 @@ import {
   addPrescription,
   updatePrescription,
 } from "src/redux/asyncThunkFuntions/doctor";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 const Prescription = () => {
   const [searchParams] = useSearchParams();
@@ -17,6 +17,7 @@ const Prescription = () => {
   const [prescription, setPrescription] = useState({});
   const [prescriptionSample, setPrescriptionSample] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       medicine: "",
@@ -121,6 +122,7 @@ const Prescription = () => {
     });
     try {
       await promise;
+      navigate("/doctor/dashboard/viewAppointment");
     } catch (error) {
       toast.error(error);
       console.error(error);
@@ -243,7 +245,7 @@ const Prescription = () => {
       </div>
       <div className={styles.tableWrapper}>
         <div className={`${styles.row} ${styles.header}`}>
-          <div>Id</div>
+          <div>Sr.No</div>
           <div>Medicine</div>
           <div>Capacity</div>
           <div>Dosage</div>

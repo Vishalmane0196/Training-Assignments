@@ -221,7 +221,7 @@ export const PersonalInfo = ({
               errors={errors}
               type="number"
               placeholder="Enter in feet."
-              min="4.50"
+              min="1"
               max="9.90"
               step="0.01"
             />

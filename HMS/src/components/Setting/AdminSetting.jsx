@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import settingCSS from "../../style/Setting.module.css";
 import { DeletePopUp } from "./Delete/DeletePopUp";
 import { Edit } from "../Setting/Edit/Edit.jsx";
-
+import EditPassword from "./Edit/EditPassword";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -10,6 +10,7 @@ const AdminSetting = () => {
   const navigate = useNavigate();
   const [deleteState, setDeleteState] = useState(false);
   const [editProfile, setEditProfile] = useState(false);
+  const [reset, setReset] = useState(false);
   const { isSuper } = useSelector((state) => state.auth);
 
   const handleAdminEmail = () => {
@@ -58,24 +59,41 @@ const AdminSetting = () => {
               </div>
             </div>
           </div>
-          {isSuper == 1 ? null : <div className={settingCSS.featureCover}>
-            <h3 className={settingCSS.h3head}>Delete Account</h3>
+          <div className={settingCSS.featureCover}>
+            <h3 className={settingCSS.header}>Reset Password</h3>
             <div className={settingCSS.line}></div>
             <p className={settingCSS.p3tag}>
-              Once you delete your account, there is no going back. Please be
-              certain.
+              Please enter the password you wish to change.
             </p>
-
             <button
+              className={settingCSS.editBtn}
               onClick={() => {
-                setDeleteState(true);
+                setReset(true);
               }}
-              className={settingCSS.deleteBtn}
             >
-              Delete Account
+              Reset
             </button>
-          </div> }
-         
+          </div>
+          {isSuper == 1 ? null : (
+            <div className={settingCSS.featureCover}>
+              <h3 className={settingCSS.h3head}>Delete Account</h3>
+              <div className={settingCSS.line}></div>
+              <p className={settingCSS.p3tag}>
+                Once you delete your account, there is no going back. Please be
+                certain.
+              </p>
+
+              <button
+                onClick={() => {
+                  setDeleteState(true);
+                }}
+                className={settingCSS.deleteBtn}
+              >
+                Delete Account
+              </button>
+            </div>
+          )}
+
           {editProfile && (
             <Edit editProfile={editProfile} setEditProfile={setEditProfile} />
           )}
@@ -85,6 +103,7 @@ const AdminSetting = () => {
               setDeleteState={setDeleteState}
             />
           )}
+          {reset && <EditPassword reset={reset} setReset={setReset} />}
         </div>
       </div>
     </>

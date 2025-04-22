@@ -106,6 +106,60 @@ const Register = () => {
               />
             </div>
           </div>
+          <div className={login.FLwrapper}>
+            <div className={login.inputGroupp}>
+              <div className={login.labelError}>
+                <label className={login.labelL}> Mobile </label>
+                <label className={login.error}>
+                  {errors.mobile_number && errors.mobile_number.message}
+                </label>
+              </div>
+              <input
+                className={login.inpuTTT}
+                {...register("mobile_number", {
+                  required: true,
+                  maxLength: 20,
+                  pattern: {
+                    value: /^[0-9]{10}$/,
+                    message: "Invalid format",
+                  },
+                })}
+                onChange={(e) => {
+                  const { onChange } = register("mobile_number");
+                  onChange(e);
+                  trigger("mobile_number");
+                }}
+                type="number"
+                placeholder="Enter your phone"
+              />
+            </div>
+            <div className={login.inputGroupp}>
+              <div className={login.labelError}>
+                <label className={login.labelL}> Emp Code </label>
+                <label className={login.error}>
+                  {errors.userCode && errors.userCode.message}
+                </label>
+              </div>
+              <input
+                className={login.inpuTTT}
+                {...register("userCode", {
+                  required: true,
+                  maxLength: 10,
+                  pattern: {
+                    value: /^[A-Za-z0-9]+$/,
+                    message: "Invalid format",
+                  },
+                })}
+                onChange={(e) => {
+                  const { onChange } = register("userCode");
+                  onChange(e);
+                  trigger("userCode");
+                }}
+                type="text"
+                placeholder="Enter code (e.g. DR123)"
+              />
+            </div>
+          </div>
           <div className={login.inputgroup}>
             <div className={login.labelError}>
               <label className={login.labelL}> Email</label>
@@ -132,31 +186,6 @@ const Register = () => {
             />
           </div>
 
-          <div className={login.inputgroup}>
-            <div className={login.labelError}>
-              <label className={login.labelL}>Mobile </label>
-              <label className={login.error}>
-                {errors.mobile_number && errors.mobile_number.message}
-              </label>
-            </div>
-            <input
-              className={login.inputT}
-              {...register("mobile_number", {
-                required: true,
-                pattern: {
-                  value: /^[0-9]{10}$/,
-                  message: "Invalid phone number format",
-                },
-              })}
-              onChange={(e) => {
-                const { onChange } = register("mobile_number");
-                onChange(e);
-                trigger("mobile_number");
-              }}
-              type="number"
-              placeholder="Enter your phone"
-            />
-          </div>
           <div className={login.inputgroup}>
             <div className={login.labelError}>
               <label className={login.labelL}>Password </label>

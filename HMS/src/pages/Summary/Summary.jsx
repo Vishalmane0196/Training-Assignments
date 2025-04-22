@@ -81,7 +81,7 @@ const Summary = () => {
                 ) : (
                   patientList.map((obj, index) => (
                     <tr key={index}>
-                      <td>{index}</td>
+                      <td>{index+1}</td>
                       <td>{obj.patient_name}</td>
                       <td>{obj.disease_type}</td>
                       <td>{obj.age}</td>

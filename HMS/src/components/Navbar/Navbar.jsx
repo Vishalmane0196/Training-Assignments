@@ -49,6 +49,7 @@ export const Navbar = () => {
           <section className={navbarCSS.main}></section>
 
           <section className={navbarCSS.profile}>
+            <h3>Admin</h3>
             <img
               className={navbarCSS.avatar}
               src="https://ud2.spinehrm.in/SUD/ELLICI/UserData/EmpPhotoes/EmpPhoto.jpg"

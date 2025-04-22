@@ -137,14 +137,17 @@ export const addDoctor = createAsyncThunk(
   "admin/addDoctor",
   async (data, { rejectWithValue }) => {
     try {
-      let response = await axiosInstance.post(
-        `/admin/addDoctor?id=${data.email}`,
-        {
-          specialization: data.specialization,
-          doctorInTime: data.doctorInTime,
-          doctorOutTime: data.doctorOutTime,
-        }
-      );
+      let response = await axiosInstance.post(`/admin/addDoctor`, {
+        specialization: data.specialization,
+        doctorInTime: data.doctorInTime,
+        doctorOutTime: data.doctorOutTime,
+        email: data.email,
+
+        contact_number: data.contact_number,
+        user_password: data.user_password,
+        first_name: data.first_name,
+        last_name: data.last_name,
+      });
 
       return response.data;
     } catch (error) {

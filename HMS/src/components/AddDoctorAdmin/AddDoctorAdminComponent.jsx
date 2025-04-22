@@ -30,6 +30,10 @@ const AddDoctorAdminComponent = ({
           email: "",
           doctorInTime: "",
           doctorOutTime: "",
+          user_password: "",
+          first_name: "",
+          last_name: "",
+          contact_number: "",
         }
       : {
           email: "",
@@ -92,32 +96,110 @@ const AddDoctorAdminComponent = ({
             <form action="" onSubmit={handleSubmit(handleUpdateData)}>
               {control == true ? (
                 <div>
-                  {" "}
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <label htmlFor="">Specialization</label>
-                    {errors.specialization && (
-                      <span>{errors.specialization.message}</span>
-                    )}
+                  <div className={styles.coverLeftRight}>
+                    <div className={styles.coverLeft}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <label htmlFor=""> First Name </label>
+                        {errors.first_name && (
+                          <span>{errors.first_name.message}</span>
+                        )}
+                      </div>
+
+                      <InputComponent
+                        require="first name "
+                        register={register}
+                        trigger={trigger}
+                        fieldName="first_name"
+                        type="text"
+                        style={styles.inputTag}
+                        placeholder="Enter First Name"
+                      />
+                    </div>
+                    <div className={styles.coverRight}>
+                      {" "}
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <label htmlFor=""> Last Name </label>
+                        {errors.last_name && (
+                          <span>{errors.last_name.message}</span>
+                        )}
+                      </div>
+                      <InputComponent
+                        require="last name "
+                        register={register}
+                        trigger={trigger}
+                        fieldName="last_name"
+                        type="text"
+                        style={styles.inputTag}
+                        placeholder="Enter Last Name"
+                      />
+                    </div>
                   </div>
-                  <InputComponent
-                    require="Specialization"
-                    register={register}
-                    trigger={trigger}
-                    fieldName="specialization"
-                    type="text"
-                    style={styles.inputTag}
-                    pattern={{
-                      value: /^[A-Za-z]+$/,
-                      message: "Invalid format",
-                    }}
-                    placeholder="Specialization."
-                  />
+                  <div className={styles.coverLeftRight}>
+                    <div className={styles.coverLeft}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <label htmlFor="">Specialization</label>
+                        {errors.specialization && (
+                          <span>{errors.specialization.message}</span>
+                        )}
+                      </div>
+                      <InputComponent
+                        require="Specialization"
+                        register={register}
+                        trigger={trigger}
+                        fieldName="specialization"
+                        type="text"
+                        style={styles.inputTag}
+                        pattern={{
+                          value: /^[A-Za-z]+$/,
+                          message: "Invalid format",
+                        }}
+                        placeholder="Specialization."
+                      />
+                    </div>
+                    <div className={styles.coverRight}>
+                      {" "}
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <label htmlFor=""> Contact Number </label>
+                        {errors.contact_number && (
+                          <span>{errors.contact_number.message}</span>
+                        )}
+                      </div>
+                      <InputComponent
+                        require="number "
+                        register={register}
+                        trigger={trigger}
+                        fieldName="contact_number"
+                        type="number"
+                        style={styles.inputTag}
+                        placeholder="Enter Phone Number"
+                      />
+                    </div>
+                  </div>
+
                   <div
                     style={{
                       display: "flex",
@@ -181,19 +263,39 @@ const AddDoctorAdminComponent = ({
                 <label htmlFor=""> Email </label>
                 {errors.email && <span>{errors.email.message}</span>}
               </div>
-              <select
-                className={styles.inputTag}
-                {...register("email", { required: true })}
-              >
-                {options.map((obj) => {
-                  return (
-                    <option value={control ? obj.id : obj.email}>
-                      {obj.email}
-                    </option>
-                  );
-                })}
-              </select>
 
+              <InputComponent
+                require="Email "
+                register={register}
+                trigger={trigger}
+                fieldName="email"
+                type="email"
+                style={styles.inputTag}
+                placeholder="Enter Email"
+              />
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <label htmlFor=""> Password </label>
+                {errors.user_password && (
+                  <span>{errors.user_password.message}</span>
+                )}
+              </div>
+
+              <InputComponent
+                require="password "
+                register={register}
+                trigger={trigger}
+                fieldName="user_password"
+                type="password"
+                style={styles.inputTag}
+                placeholder="Enter Password"
+              />
               <button type="submit" className={styles.submitBtn}>
                 {control == true ? "Add Doctor" : "Add Admin"}
               </button>

@@ -92,7 +92,7 @@ const AdminPatient = ({ access }) => {
               : "Admin Patient Details"}
           </h1>
           <div className={patientCSS.title}>
-            <p>{access == "appointment" ? "Patient Name" : "Patient ID"}</p>
+            <p>{access == "appointment" ? "Patient Name" : "Sr. No"}</p>
             <p>{access == "appointment" ? "Disease Type" : "Patient Name"}</p>
             <p> {access == "appointment" ? "Doctor" : "Disease Type"} </p>
             <p>{access == "appointment" ? "Time" : "Age"}</p>

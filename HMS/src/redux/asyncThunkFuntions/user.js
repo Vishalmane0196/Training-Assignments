@@ -222,7 +222,7 @@ export const updatePassword = createAsyncThunk(
   "/user/resetPassword",
   async (data, { rejectWithValue }) => {
     try {
-      let response = await axiosInstance.put("/user/resetPassword", data);
+      let response = await axiosInstance.put("/user/changePassword", data);
 
       return response.data;
     } catch (error) {
