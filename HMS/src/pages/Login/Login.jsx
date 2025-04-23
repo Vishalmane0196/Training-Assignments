@@ -92,7 +92,7 @@ const Login = () => {
         <form className={login.form} onSubmit={handleSubmit(submitLoginData)}>
           <div className={login.inputGroup}>
             <div className={login.labelError}>
-              <label className={login.labelL}> Email or ID</label>
+              <label className={login.labelL}> Email or UserID</label>
               <label className={login.error}>
                 {errors.email && errors.email.message}
               </label>
