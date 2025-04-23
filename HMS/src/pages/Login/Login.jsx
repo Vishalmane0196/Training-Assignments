@@ -43,7 +43,13 @@ const Login = () => {
       if (data.user_password) {
         data.user_password = btoa(data.user_password);
       }
-      await dispatch(loginUser(data)).unwrap();
+      await dispatch(
+        loginUser(
+          data.email.includes("@")
+            ? { email: data.email, user_password: data.user_password }
+            : { userCode: data.email, user_password: data.user_password }
+        )
+      ).unwrap();
       await dispatch(getUserInfo("get")).unwrap();
     } catch (error) {
       toast.error(`Login failed `);
@@ -86,7 +92,7 @@ const Login = () => {
         <form className={login.form} onSubmit={handleSubmit(submitLoginData)}>
           <div className={login.inputGroup}>
             <div className={login.labelError}>
-              <label className={login.labelL}> Email</label>
+              <label className={login.labelL}> Email or ID</label>
               <label className={login.error}>
                 {errors.email && errors.email.message}
               </label>
@@ -95,8 +101,9 @@ const Login = () => {
               {...register("email", {
                 required: true,
                 pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Invalid email format",
+                  value:
+                    /^((ID|SI)-\d{4}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/,
+                  message: "Invalid  format",
                 },
               })}
               tabindex="0"
@@ -107,7 +114,7 @@ const Login = () => {
                 trigger("email");
               }}
               className={login.inputT}
-              placeholder="Enter your email"
+              placeholder="Enter your email or ID"
             />
           </div>
 
