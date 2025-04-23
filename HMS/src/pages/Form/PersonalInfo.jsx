@@ -181,6 +181,7 @@ export const PersonalInfo = ({
               <Controller
                 control={control}
                 name="gender"
+                rules={{ required: "Gender is required" }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <Select
                     onBlur={onBlur}
@@ -194,6 +195,11 @@ export const PersonalInfo = ({
                   />
                 )}
               />
+              <p className={personalCSS.fielderror}>
+                {errors.gender && (
+                  <span className="error">{errors.gender.message}</span>
+                )}
+              </p>
             </div>
             <Input
               label="Country"

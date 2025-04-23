@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import styles from "src/style/Select.module.css";
 
-export const Select = ({ value, onChange,options }) => {
+export const Select = ({ value, onChange, options }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showSubMenu, setShowSubMenu] = useState(false);
   const subMenuTimeoutRef = useRef(null);
@@ -50,19 +50,19 @@ export const Select = ({ value, onChange,options }) => {
                 <div className={styles.mainOptionsSecond}>
                   <div
                     className={styles.mainOption}
-                    onClick={() => handleChange("L")}
+                    onClick={() => handleChange("Non Binary")}
                   >
                     Non Binary
                   </div>
                   <div
                     className={styles.mainOption}
-                    onClick={() => handleChange("G")}
+                    onClick={() => handleChange("Trans")}
                   >
                     Trans
                   </div>
                   <div
                     className={styles.mainOption}
-                    onClick={() => handleChange("B")}
+                    onClick={() => handleChange("Asexual Spectrum")}
                   >
                     Asexual Spectrum
                   </div>
