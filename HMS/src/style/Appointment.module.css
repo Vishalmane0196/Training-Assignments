@@ -5,17 +5,20 @@
     scrollbar-width: none;
     padding-top: 1rem;
     height: 90vh;
-    
+
 }
 
 .search {
 
-    border-radius: 0.2rem;
+
     outline: none;
     border: none;
     display: flex;
     justify-content: left;
     align-items: center;
+    flex-direction: row-reverse;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.305);
+    margin-bottom: 0.5rem;
 }
 
 .noRecord {
@@ -26,28 +29,27 @@
 
 .searchInput {
     padding: 0.45rem;
-    border-radius: 0.5rem;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
     outline: none;
-    border: none;
-    border: 1px solid rgba(185, 184, 184, 0.253);
-    border-right: none;
-    margin-bottom: 0.5rem;
-    
+   
+    transition: all 0.3s;
+    border: 3px solid white;
 }
 
 .search i {
     border-radius: 0.5rem;
     padding: 0.4rem;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     color: rgb(112, 111, 111);
-    border: 1px solid rgba(185, 184, 184, 0.253);
-    border-left: none;
-    margin-bottom: 0.5rem;
+    border-right: none;
+    margin-bottom: 0.4rem;
     padding-top: 0.49rem;
 
+}
+
+.searchInput:focus {
+    border-image: linear-gradient(to left,
+            rgb(27, 197, 174)) 0 0 100% 0 / 0px 0px 3px 0px stretch;
 }
 
 .container>h1 {
