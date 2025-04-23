@@ -24,10 +24,10 @@ export const Slot = ({ date, book, setBook }) => {
 
     const start = new Date();
     start.setHours(startHour, startMin, startSec, 0);
-
+    console.log(start);
     const end = new Date();
     end.setHours(endHour, endMin, endSec, 0);
-
+    console.log(end);
     while (start < end) {
       const endSlot = new Date(start.getTime() + intervalMinutes * 60000);
       if (endSlot > end) break;
@@ -56,7 +56,13 @@ export const Slot = ({ date, book, setBook }) => {
           generateTimeSlots(res.data.doctorInTime, res.data.doctorOutTime, 30)
         );
         setPendingSlot(res.data.pendingSlots || []);
-        return [...(res.data.scheduleSlots || []),...(res.data.pendingSlots || [])];
+        console.log(
+          generateTimeSlots(res.data.doctorInTime, res.data.doctorOutTime, 30)
+        );
+        return [
+          ...(res.data.scheduleSlots || []),
+          ...(res.data.pendingSlots || []),
+        ];
       });
     } catch (error) {
       toast.error(error);
@@ -93,7 +99,7 @@ export const Slot = ({ date, book, setBook }) => {
             transition={{ duration: 0.3 }}
             className={styles.modalContent}
             onClick={(e) => e.stopPropagation()}
-         >
+          >
             <span className={styles.close} onClick={() => setBook(false)}>
               &times;
             </span>
@@ -129,6 +135,7 @@ export const Slot = ({ date, book, setBook }) => {
                 </div>
                 <h4>Available Slots</h4>
                 <div className={styles.slotsGrid}>
+                  {console.log(timeSlot)}
                   {timeSlot?.map((slot, idx) =>
                     slots.includes(slot.slice(0, 8)) ? null : (
                       <div

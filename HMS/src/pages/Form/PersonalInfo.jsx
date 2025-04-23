@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { fetchCountryName } from "../../redux/asyncThunkFuntions/extra";
+import { Select } from "src/components/Select/Select";
 import { Input } from "src/components/Input/Input";
 import _ from "lodash";
 
@@ -175,7 +176,8 @@ export const PersonalInfo = ({
               <label className={personalCSS.fieldLabel}>
                 Gender <span className={personalCSS.star}>*</span>
               </label>
-              <select
+              <Select />
+              {/* <select
                 className={personalCSS.inputfield}
                 {...register("gender", { required: "Gender is required" })}
               >
@@ -183,7 +185,7 @@ export const PersonalInfo = ({
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>
-              </select>
+              </select> */}
             </div>
             <Input
               label="Country"
