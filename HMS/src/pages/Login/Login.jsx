@@ -102,7 +102,7 @@ const Login = () => {
                 required: true,
                 pattern: {
                   value:
-                    /^((DR|ADM)-\d{4}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/,
+                    /^((DR|ADM)\d{3}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/,
                   message: "Invalid  format",
                 },
               })}
