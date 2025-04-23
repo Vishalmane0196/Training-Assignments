@@ -1,40 +1,77 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styles from "src/style/Select.module.css";
-export const Select = ({ value, onChange, options }) => {
-  const [status, setStatus] = useState(false);
+
+export const Select = ({ value, onChange,options }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [showSubMenu, setShowSubMenu] = useState(false);
+  const subMenuTimeoutRef = useRef(null);
+
   const handleChange = (option) => {
     onChange(option);
-    setStatus(false);
+    setIsOpen(false);
+    setShowSubMenu(false);
   };
+
+  const handleOtherEnter = () => {
+    clearTimeout(subMenuTimeoutRef.current);
+    setShowSubMenu(true);
+  };
+
+  const handleOtherLeave = () => {
+    subMenuTimeoutRef.current = setTimeout(() => setShowSubMenu(false), 300);
+  };
+
   return (
-    <>
-      <div className={styles.container}>
-        <div className={styles.main} onClick={() => setStatus(true)}>
-          {value || "Select Gender"}
-          {status && (
-            <div className={styles.mainOptions}>
-              <div
-                className={styles.mainOption}
-                onClick={() => handleChange("Male")}
-              >
-                Male{" "}
-              </div>
-              <div
-                className={styles.mainOption}
-                onClick={() => handleChange("Female")}
-              >
-                Female
-              </div>
-              <div
-                className={styles.mainOption}
-               
-              >
-                Other
-              </div>
+    <div className={styles.container}>
+      <div className={styles.main} onClick={() => setIsOpen(!isOpen)}>
+        {value || "Select Gender"}
+
+        {isOpen && (
+          <div className={styles.mainOptions}>
+            <div
+              className={styles.mainOption}
+              onClick={() => handleChange("Male")}
+            >
+              Male
             </div>
-          )}
-        </div>
+            <div
+              className={styles.mainOption}
+              onClick={() => handleChange("Female")}
+            >
+              Female
+            </div>
+            <div
+              className={`${styles.mainOption} ${styles.other}`}
+              onMouseEnter={handleOtherEnter}
+              onMouseLeave={handleOtherLeave}
+            >
+              Other
+              {showSubMenu && (
+                <div className={styles.mainOptionsSecond}>
+                  <div
+                    className={styles.mainOption}
+                    onClick={() => handleChange("L")}
+                  >
+                    Non Binary
+                  </div>
+                  <div
+                    className={styles.mainOption}
+                    onClick={() => handleChange("G")}
+                  >
+                    Trans
+                  </div>
+                  <div
+                    className={styles.mainOption}
+                    onClick={() => handleChange("B")}
+                  >
+                    Asexual Spectrum
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 };

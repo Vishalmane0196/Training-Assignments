@@ -54,9 +54,7 @@ export const addAdmin = createAsyncThunk(
   "admin/addAdmin",
   async (data, { rejectWithValue }) => {
     try {
-      let response = await axiosInstance.put("/admin/addAdmin", {
-        email: data,
-      });
+      let response = await axiosInstance.post("/admin/addAdmin", data);
 
       return response;
     } catch (error) {

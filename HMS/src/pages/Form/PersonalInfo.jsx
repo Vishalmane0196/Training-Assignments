@@ -8,6 +8,7 @@ import { fetchCountryName } from "../../redux/asyncThunkFuntions/extra";
 import { Select } from "src/components/Select/Select";
 import { Input } from "src/components/Input/Input";
 import _ from "lodash";
+import { Controller } from "react-hook-form";
 
 import {
   addPersonalInfo,
@@ -32,6 +33,7 @@ export const PersonalInfo = ({
     handleSubmit,
     trigger,
     reset,
+    control,
     formState: { errors },
   } = useForm({
     mode: "onSubmit", // or 'onChange' or 'onSubmit'
@@ -176,16 +178,22 @@ export const PersonalInfo = ({
               <label className={personalCSS.fieldLabel}>
                 Gender <span className={personalCSS.star}>*</span>
               </label>
-              <Select />
-              {/* <select
-                className={personalCSS.inputfield}
-                {...register("gender", { required: "Gender is required" })}
-              >
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select> */}
+              <Controller
+                control={control}
+                name="gender"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Select
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                    options={[
+                      "Male",
+                      "Female",
+                      { other: ["Non Binary", "Trans", "Asexual", "Bisexual"] },
+                    ]}
+                  />
+                )}
+              />
             </div>
             <Input
               label="Country"

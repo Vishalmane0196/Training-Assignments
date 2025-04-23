@@ -37,6 +37,9 @@ const AddDoctorAdminComponent = ({
         }
       : {
           email: "",
+          first_name: "",
+          last_name: "",
+          mobile_number: "",
         },
   });
 
@@ -46,7 +49,7 @@ const AddDoctorAdminComponent = ({
       if (control) {
         response = await dispatch(addDoctor(data)).unwrap();
       } else {
-        response = await dispatch(addAdmin(data.email)).unwrap();
+        response = await dispatch(addAdmin(data)).unwrap();
       }
       fetchData();
       setPopupOff(false);
@@ -94,58 +97,83 @@ const AddDoctorAdminComponent = ({
               {control == true ? " Register Doctor" : "Invite Admin"}
             </h2>
             <form action="" onSubmit={handleSubmit(handleUpdateData)}>
+              <div className={styles.coverLeftRight}>
+                <div className={styles.coverLeft}>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor=""> First Name </label>
+                    {errors.first_name && (
+                      <span>{errors.first_name.message}</span>
+                    )}
+                  </div>
+
+                  <InputComponent
+                    require="first name "
+                    register={register}
+                    trigger={trigger}
+                    fieldName="first_name"
+                    type="text"
+                    style={styles.inputTag}
+                    placeholder="Enter First Name"
+                  />
+                </div>
+                <div className={styles.coverRight}>
+                  {" "}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor=""> Last Name </label>
+                    {errors.last_name && (
+                      <span>{errors.last_name.message}</span>
+                    )}
+                  </div>
+                  <InputComponent
+                    require="last name "
+                    register={register}
+                    trigger={trigger}
+                    fieldName="last_name"
+                    type="text"
+                    style={styles.inputTag}
+                    placeholder="Enter Last Name"
+                  />
+                </div>
+              </div>
+              {control == true ? null : (
+                <>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor=""> Contact Number </label>
+                    {errors.contact_number && (
+                      <span>{errors.contact_number.message}</span>
+                    )}
+                  </div>
+                  <InputComponent
+                    require="number "
+                    register={register}
+                    trigger={trigger}
+                    fieldName="contact_number"
+                    type="number"
+                    style={styles.inputTag}
+                    placeholder="Enter Phone Number"
+                  />
+                </>
+              )}
               {control == true ? (
                 <div>
-                  <div className={styles.coverLeftRight}>
-                    <div className={styles.coverLeft}>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
-                      >
-                        <label htmlFor=""> First Name </label>
-                        {errors.first_name && (
-                          <span>{errors.first_name.message}</span>
-                        )}
-                      </div>
-
-                      <InputComponent
-                        require="first name "
-                        register={register}
-                        trigger={trigger}
-                        fieldName="first_name"
-                        type="text"
-                        style={styles.inputTag}
-                        placeholder="Enter First Name"
-                      />
-                    </div>
-                    <div className={styles.coverRight}>
-                      {" "}
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
-                      >
-                        <label htmlFor=""> Last Name </label>
-                        {errors.last_name && (
-                          <span>{errors.last_name.message}</span>
-                        )}
-                      </div>
-                      <InputComponent
-                        require="last name "
-                        register={register}
-                        trigger={trigger}
-                        fieldName="last_name"
-                        type="text"
-                        style={styles.inputTag}
-                        placeholder="Enter Last Name"
-                      />
-                    </div>
-                  </div>
                   <div className={styles.coverLeftRight}>
                     <div className={styles.coverLeft}>
                       <div
