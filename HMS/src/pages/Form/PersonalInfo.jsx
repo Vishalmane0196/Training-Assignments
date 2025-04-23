@@ -200,7 +200,7 @@ export const PersonalInfo = ({
 
           <div style={{ display: "flex", gap: "3rem", marginTop: "1rem" }}>
             <Input
-              label="Weight"
+              label="Weight ( kg )"
               require="Weight "
               register={register}
               trigger={trigger}
@@ -213,7 +213,7 @@ export const PersonalInfo = ({
             />
 
             <Input
-              label="Height"
+              label="Height ( feet )"
               require="Height "
               register={register}
               trigger={trigger}

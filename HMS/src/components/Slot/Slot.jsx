@@ -93,7 +93,7 @@ export const Slot = ({ date, book, setBook }) => {
             transition={{ duration: 0.3 }}
             className={styles.modalContent}
             onClick={(e) => e.stopPropagation()}
-          >
+         >
             <span className={styles.close} onClick={() => setBook(false)}>
               &times;
             </span>

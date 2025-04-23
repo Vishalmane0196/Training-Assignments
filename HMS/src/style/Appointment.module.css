@@ -9,8 +9,6 @@
 }
 
 .search {
-
-
     outline: none;
     border: none;
     display: flex;
@@ -19,6 +17,7 @@
     flex-direction: row-reverse;
     border-bottom: 1px solid rgba(128, 128, 128, 0.305);
     margin-bottom: 0.5rem;
+    position: relative;
 }
 
 .noRecord {
@@ -30,10 +29,24 @@
 .searchInput {
     padding: 0.45rem;
     outline: none;
-   
+    font-size: 1rem;
     transition: all 0.3s;
-    border: 3px solid white;
+    border: none;
 }
+
+.search::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background-color: #007bff;
+    width: 0;
+    transition: width 0.3s ease-in;
+    z-index: 1;
+}
+
+
 
 .search i {
     border-radius: 0.5rem;
@@ -47,9 +60,9 @@
 
 }
 
-.searchInput:focus {
-    border-image: linear-gradient(to left,
-            rgb(27, 197, 174)) 0 0 100% 0 / 0px 0px 3px 0px stretch;
+
+.search:focus-within::before {
+    width: 200px;
 }
 
 .container>h1 {
@@ -71,4 +84,10 @@
 
 .line {
     border-bottom: 1px solid gray;
+}
+
+@keyframes fillcolor {
+    to {
+        width: 30px;
+    }
 }
