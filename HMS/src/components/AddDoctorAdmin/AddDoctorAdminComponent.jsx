@@ -219,10 +219,7 @@ const AddDoctorAdminComponent = ({
                     fieldName="doctorInTime"
                     type="time"
                     style={styles.inputTag}
-                    pattern={{
-                      value: /^[0-9]/,
-                      message: "Invalid format",
-                    }}
+                    pattern={"(0[1-9]|1[0-2]):[0-5][0-9] (AM|PM)"}
                     placeholder="In Time."
                   />
                   <div
@@ -244,10 +241,7 @@ const AddDoctorAdminComponent = ({
                     fieldName="doctorOutTime"
                     type="time"
                     style={styles.inputTag}
-                    pattern={{
-                      value: /^[0-9]/,
-                      message: "Invalid format",
-                    }}
+                    pattern={"(0[1-9]|1[0-2]):[0-5][0-9] (AM|PM)"}
                     placeholder="Out Time."
                   />
                 </div>
