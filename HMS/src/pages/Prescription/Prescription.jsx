@@ -32,9 +32,9 @@ const Prescription = () => {
   });
   const handleSubmitData = (data) => {
     console.log(data);
-    data.Morning = data.Morning == "true" ? true : false;
-    data.Afternoon = data.Afternoon == "true" ? true : false;
-    data.Night = data.Night == "true" ? true : false;
+    // data.Morning = data.Morning == "true" ? true : false;
+    // data.Afternoon = data.Afternoon == "true" ? true : false;
+    // data.Night = data.Night == "true" ? true : false;
 
     setPrescriptionSample((pre) => {
       let y = [...pre];
@@ -49,17 +49,29 @@ const Prescription = () => {
 
       let morning = [
         ...(pre.morning || []),
-        data.Morning ? "before meal" : "after meal",
+        data.Morning == "true"
+          ? "before meal"
+          : data.Morning == ""
+          ? false
+          : "after meal",
       ];
 
       let afternoon = [
         ...(pre.afternoon || []),
-        data.Afternoon ? "before meal" : "after meal",
+        data.Afternoon == "true"
+          ? "before meal"
+          : data.Afternoon == ""
+          ? false
+          : "after meal",
       ];
 
       let evening = [
         ...(pre.evening || []),
-        data.Night ? "before meal" : "after meal",
+        data.Night == "true"
+          ? "before meal"
+          : data.Night == ""
+          ? false
+          : "after meal",
       ];
 
       return {
@@ -180,32 +192,17 @@ const Prescription = () => {
                   <label htmlFor="" className={styles.labelOption}>
                     <pre> Morning</pre>
                   </label>
-                  <input
-                    {...register("Morning")}
-                    value={true}
-                    required
-                    type="radio"
-                  />
+                  <input {...register("Morning")} value={true} type="radio" />
 
                   <label htmlFor="" className={styles.labelOption}>
                     <pre>Afternoon</pre>
                   </label>
-                  <input
-                    {...register("Afternoon")}
-                    value={true}
-                    required
-                    type="radio"
-                  />
+                  <input {...register("Afternoon")} value={true} type="radio" />
 
                   <label htmlFor="" className={styles.labelOption}>
                     <pre>Night</pre>
                   </label>
-                  <input
-                    {...register("Night")}
-                    value={true}
-                    required
-                    type="radio"
-                  />
+                  <input {...register("Night")} value={true} type="radio" />
                 </div>
 
                 <div className={styles.labelDiv}>
@@ -267,13 +264,45 @@ const Prescription = () => {
             <div>{prescriptionSampleData.capacity}</div>
             <div>{prescriptionSampleData.dose}</div>
             <div>
-              {`${Number(prescriptionSampleData.Morning)}-${Number(
-                prescriptionSampleData.Afternoon
-              )}-${Number(prescriptionSampleData.Night)}`}
+              {`${Number(
+                prescriptionSampleData.Morning == ""
+                  ? 0
+                  : prescriptionSampleData.Morning == "true"
+                  ? true
+                  : false
+              )}-${Number(
+                prescriptionSampleData.Afternoon == ""
+                  ? 0
+                  : prescriptionSampleData.Afternoon == "true"
+                  ? true
+                  : false
+              )}-${Number(
+                prescriptionSampleData.Night == ""
+                  ? 0
+                  : prescriptionSampleData.Night == "true"
+                  ? true
+                  : false
+              )}`}
             </div>
-            <div>{`${Number(!prescriptionSampleData.Morning)}-${Number(
-              !prescriptionSampleData.Afternoon
-            )}-${Number(!prescriptionSampleData.Night)}`}</div>
+            <div>{`${Number(
+              prescriptionSampleData.Morning == ""
+                ? 0
+                : prescriptionSampleData.Morning == "false"
+                ? true
+                : false
+            )}-${Number(
+              prescriptionSampleData.Afternoon == ""
+                ? 0
+                : prescriptionSampleData.Afternoon == "false"
+                ? true
+                : false
+            )}-${Number(
+              prescriptionSampleData.Night == ""
+                ? 0
+                : prescriptionSampleData.Night == "false"
+                ? true
+                : false
+            )}`}</div>
             <div className={styles.actions}>
               <button
                 onClick={() => {
