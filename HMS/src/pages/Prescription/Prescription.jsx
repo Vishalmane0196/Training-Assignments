@@ -14,6 +14,7 @@ const Prescription = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
   const edit = searchParams.get("edit");
+  console.log(edit);
   const [prescription, setPrescription] = useState({});
   const [prescriptionSample, setPrescriptionSample] = useState([]);
   const dispatch = useDispatch();
@@ -23,22 +24,24 @@ const Prescription = () => {
       medicine: "",
       capacity: "",
       dose: "",
-      beforeMorning: false,
-      beforeAfternoon: false,
-      beforeNight: false,
-      afterMorning: false,
-      afterAfternoon: false,
-      afterNight: false,
+      Morning: "",
+      Afternoon: "",
+      Night: "",
       duration: "",
     },
   });
   const handleSubmitData = (data) => {
     console.log(data);
+    data.Morning = data.Morning == "true" ? true : false;
+    data.Afternoon = data.Afternoon == "true" ? true : false;
+    data.Night = data.Night == "true" ? true : false;
+
     setPrescriptionSample((pre) => {
       let y = [...pre];
       y.push(data);
       return y;
     });
+
     setPrescription((pre) => {
       let medicine = [...(pre.medicines || []), data.medicine];
       let capacity = [...(pre.capacity || []), data.capacity];
@@ -46,35 +49,17 @@ const Prescription = () => {
 
       let morning = [
         ...(pre.morning || []),
-        data.beforeMorning && data.afterMorning
-          ? "both"
-          : data.beforeMorning
-          ? "before meal"
-          : data.afterMorning
-          ? "after meal"
-          : "none",
+        data.Morning ? "before meal" : "after meal",
       ];
 
       let afternoon = [
         ...(pre.afternoon || []),
-        data.beforeAfternoon && data.afterAfternoon
-          ? "both"
-          : data.beforeAfternoon
-          ? "before meal"
-          : data.afterAfternoon
-          ? "after meal"
-          : "none",
+        data.Afternoon ? "before meal" : "after meal",
       ];
 
       let evening = [
         ...(pre.evening || []),
-        data.beforeNight && data.afterNight
-          ? "both"
-          : data.beforeNight
-          ? "before meal"
-          : data.afterNight
-          ? "after meal"
-          : "none",
+        data.Night ? "before meal" : "after meal",
       ];
 
       return {
@@ -111,7 +96,7 @@ const Prescription = () => {
 
   const handlePrescriptionData = async () => {
     let promise = dispatch(
-      edit !== null
+      edit !== "null"
         ? updatePrescription(prescription)
         : addPrescription(prescription)
     ).unwrap();
@@ -195,17 +180,32 @@ const Prescription = () => {
                   <label htmlFor="" className={styles.labelOption}>
                     <pre> Morning</pre>
                   </label>
-                  <input {...register("beforeMorning")} type="checkbox" />
+                  <input
+                    {...register("Morning")}
+                    value={true}
+                    required
+                    type="radio"
+                  />
 
                   <label htmlFor="" className={styles.labelOption}>
                     <pre>Afternoon</pre>
                   </label>
-                  <input {...register("beforeAfternoon")} type="checkbox" />
+                  <input
+                    {...register("Afternoon")}
+                    value={true}
+                    required
+                    type="radio"
+                  />
 
                   <label htmlFor="" className={styles.labelOption}>
                     <pre>Night</pre>
                   </label>
-                  <input {...register("beforeNight")} type="checkbox" />
+                  <input
+                    {...register("Night")}
+                    value={true}
+                    required
+                    type="radio"
+                  />
                 </div>
 
                 <div className={styles.labelDiv}>
@@ -220,17 +220,21 @@ const Prescription = () => {
                     <pre>Morning</pre>
                   </label>
 
-                  <input {...register("afterMorning")} type="checkbox" />
+                  <input {...register("Morning")} value={false} type="radio" />
 
                   <label htmlFor="" className={styles.labelOption}>
                     <pre>Afternoon</pre>
                   </label>
-                  <input {...register("afterAfternoon")} type="checkbox" />
+                  <input
+                    {...register("Afternoon")}
+                    value={false}
+                    type="radio"
+                  />
 
                   <label htmlFor="" className={styles.labelOption}>
                     <pre>Night</pre>
                   </label>
-                  <input {...register("afterNight")} type="checkbox" />
+                  <input {...register("Night")} value={false} type="radio" />
                 </div>
               </div>
             </div>
@@ -257,16 +261,19 @@ const Prescription = () => {
         {prescriptionSample?.map((prescriptionSampleData, index) => (
           <div key={prescriptionSampleData.id} className={`${styles.row} `}>
             {" "}
+            {console.log(prescriptionSampleData)}
             <div>{index}</div>
             <div>{prescriptionSampleData.medicine}</div>
             <div>{prescriptionSampleData.capacity}</div>
             <div>{prescriptionSampleData.dose}</div>
-            <div>{`${Number(prescriptionSampleData.beforeMorning)}-${Number(
-              prescriptionSampleData.beforeAfternoon
-            )}-${Number(prescriptionSampleData.beforeNight)}`}</div>
-            <div>{`${Number(prescriptionSampleData.afterMorning)}-${Number(
-              prescriptionSampleData.afterAfternoon
-            )}-${Number(prescriptionSampleData.afterNight)}`}</div>
+            <div>
+              {`${Number(prescriptionSampleData.Morning)}-${Number(
+                prescriptionSampleData.Afternoon
+              )}-${Number(prescriptionSampleData.Night)}`}
+            </div>
+            <div>{`${Number(!prescriptionSampleData.Morning)}-${Number(
+              !prescriptionSampleData.Afternoon
+            )}-${Number(!prescriptionSampleData.Night)}`}</div>
             <div className={styles.actions}>
               <button
                 onClick={() => {
