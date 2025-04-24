@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { PersonalInfo } from "./PersonalInfo";
 import formCSS from "../../style/Form.module.css";
 import { FamilyInfo } from "../Form/FamilyInfo";
@@ -9,10 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setStep } from "../../redux/slices/multistepform/formSlice";
 import { setPatientID } from "../../redux/slices/multistepform/formSlice";
 import { toast } from "react-toastify";
+import { setCount } from "../../redux/slices/multistepform/formSlice";
 export const Form = () => {
   const dispatch = useDispatch();
-  const { step, patientID } = useSelector((state) => state.form);
-  const [count, setCount] = useState(0);
+  const { step, patientID, count } = useSelector((state) => state.form);
   const handleMultiStepForm = (step) => {
     switch (step) {
       case 0:
@@ -45,7 +45,13 @@ export const Form = () => {
       case 3:
         return <DocumentInfo patientId={patientID} setStep={setStep} />;
       case 4:
-        return <Final setStep={setStep} setPatientId={setPatientID} />;
+        return (
+          <Final
+            setStep={setStep}
+            setPatientId={setPatientID}
+            setCount={setCount}
+          />
+        );
       case 5:
       default:
         return null;

@@ -93,10 +93,9 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
           })
         );
         toast.success("Family Information Added successfully!");
+        dispatch(setCount(2));
       }
       dispatch(setStep(2));
-
-      setCount((pre) => pre + 1);
     } catch (error) {
       console.error(error);
     }

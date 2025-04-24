@@ -3,41 +3,39 @@ import viewPatientCSS from "../../style/ViewPatient.module.css";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { useRef } from "react";
 import { Input } from "src/components/Input/Input";
 import { Radio } from "src/components/Radio/Radio";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
-import axiosInstance from "../../api/axios";
+import { Controller } from "react-hook-form";
 import {
-  updateDiseaseInfo,
-  updatePersonalInfo,
-  updateFamilyInfo,
-} from "../../redux/asyncThunkFuntions/user";
+  setPatientID,
+  setCount,
+  setStep,
+} from "src/redux/slices/multistepform/formSlice";
+
+import { Select } from "src/components/Select/Select";
 
 const ViewPatient = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { isAdmin, isDoctor } = useSelector((state) => state.auth);
   const { patientList } = useSelector((state) => state.patient);
+
   const param = useParams();
-
-  const inputfield = useRef();
-
   const [patientData, setPatientData] = useState();
-  const [personalUpdate, setPersonalUpdate] = useState(true);
-  const [FamilyUpdate, setFamily] = useState(true);
-  const [DiseaseUpdate, setDiseaseUpdate] = useState(true);
-  const [DocumentUpdate, setDocumentUpdate] = useState(true);
+  const [personalUpdate, setPersonalUpdate] = useState(false);
+  const [FamilyUpdate, setFamily] = useState(false);
+  const [DiseaseUpdate, setDiseaseUpdate] = useState(false);
+  const [DocumentUpdate, setDocumentUpdate] = useState(false);
   const [documents, setDocuments] = useState([]);
 
   const {
     register,
-    handleSubmit,
     trigger,
+    control,
     reset,
     formState: { errors },
   } = useForm({
@@ -55,98 +53,81 @@ const ViewPatient = () => {
     },
   });
 
-  const [selectedFiles, setSelectedFiles] = useState({});
-  const handleFileChange = (e, docType) => {
-    const file = e.target.files[0];
-    setSelectedFiles((prev) => ({
-      ...prev,
-      [docType]: file,
-    }));
-  };
-
   //------------------
-  const handleUpdatePersonalData = async (data) => {
-    try {
-      let obj = {
-        patient_id: data.patient_id,
-        patient_name: data.patient_name,
-        date_of_birth: data.date_of_birth,
-        gender: data.gender,
-        weight: data.weight,
-        height: data.height,
-        country_of_origin: data.country_of_origin,
-        is_diabetic: data.is_diabetic == "true" ? 1 : 0,
-        cardiac_issue: data.cardiac_issue == "true" ? 1 : 0,
-        blood_pressure: data.blood_pressure == "true" ? 1 : 0,
+  const handleUpdatePersonalData = () => {
+    documentToLocal();
+    dispatch(setPatientID(parseInt(param.id)));
+    dispatch(setStep(0));
+    dispatch(setCount(3));
+    isAdmin
+      ? navigate("/admin/dashboard/addpatient")
+      : isDoctor
+      ? navigate("/doctor/dashboard/addpatient")
+      : navigate("/user/dashboard/addpatient");
+  };
+  const handleUpdateFamilyData = () => {
+    documentToLocal();
+    dispatch(setPatientID(parseInt(param.id)));
+    dispatch(setStep(1));
+    dispatch(setCount(3));
+    isAdmin
+      ? navigate("/admin/dashboard/addpatient")
+      : isDoctor
+      ? navigate("/doctor/dashboard/addpatient")
+      : navigate("/user/dashboard/addpatient");
+  };
+
+  const handleUpdateDiseaseData = () => {
+    documentToLocal();
+    dispatch(setPatientID(parseInt(param.id)));
+    dispatch(setStep(2));
+    dispatch(setCount(3));
+    isAdmin
+      ? navigate("/admin/dashboard/addpatient")
+      : isDoctor
+      ? navigate("/doctor/dashboard/addpatient")
+      : navigate("/user/dashboard/addpatient");
+  };
+  const documentToLocal = () => {
+    let object = {};
+    documents.map((obj) => {
+      object = {
+        ...object,
+        [obj.document_type]: btoa(
+          `${import.meta.env.VITE_CLOUDINARY_BASE_URL}${obj.document_url}`
+        ),
       };
-      await dispatch(updatePersonalInfo(obj)).unwrap();
+    });
+    localStorage.setItem("file_preview", JSON.stringify(object));
 
-      toast.success("Personal Information Updated successfully!");
-    } catch (error) {
-      toast.error(error.message);
-      console.error(error);
-    }
-  };
-  const handleUpdateFamilyData = async (data) => {
-    try {
-      let obj = {
-        patient_id: data.patient_id,
-        father_name: data.father_name,
-        father_age: data.father_age,
-        father_country_origin: data.father_country_origin,
-        mother_name: data.mother_name,
-        mother_age: data.mother_age,
-        mother_country_origin: data.mother_country_origin,
-        mother_diabetic: data.mother_diabetic === "true" ? 1 : 0,
-        mother_cardiac_issue: data.mother_cardiac_issue === "true" ? 1 : 0,
-        mother_bp: data.mother_bp === "true" ? 1 : 0,
-        father_diabetic: data.father_diabetic === "true" ? 1 : 0,
-        father_cardiac_issue: data.father_cardiac_issue === "true" ? 1 : 0,
-        father_bp: data.father_bp === "true" ? 1 : 0,
+    let object2 = {};
+    documents.map((obj) => {
+      object2 = {
+        ...object2,
+        [obj.document_type]: true,
       };
-      await dispatch(updateFamilyInfo(obj)).unwrap();
-      toast.success("Family Information Updated successfully!");
-    } catch (error) {
-      console.error(error);
-    }
+    });
+    console.log(object2);
+    localStorage.setItem("upload_status", JSON.stringify(object));
+  };
+  const handleUpdateDocumentData = () => {
+    documentToLocal();
+    dispatch(setPatientID(parseInt(param.id)));
+    dispatch(setStep(3));
+    dispatch(setCount(3));
+
+    isAdmin
+      ? navigate("/admin/dashboard/addpatient")
+      : isDoctor
+      ? navigate("/doctor/dashboard/addpatient")
+      : navigate("/user/dashboard/addpatient");
   };
 
-  const handleUpdateDiseaseData = async (data) => {
-    let obj = {
-      patient_id: data.patient_id,
-      disease_description: data.disease_description,
-      disease_type: data.disease_type,
-    };
-    try {
-      await dispatch(updateDiseaseInfo(obj)).unwrap();
-
-      toast.success("Disease Information Updated successfully!");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const handleUpdateDocumentData = async (data) => {
-    try {
-      const formData = new FormData();
-      formData.append("file", selectedFiles[data]);
-      formData.append("document_type", data);
-      formData.append("patient_id", patientData.patient_id);
-
-      await axiosInstance.put("/patient/updateDocument", formData);
-      setSelectedFiles({});
-      inputfield.current.file[0] = null;
-      toast.success("Document Updated Successfully");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
+  const getPatientData = async () => {
     let id = param.id;
     if (patientList.length == 0) {
       navigate("/user/dashboard/viewpatients");
     }
-    console.log(patientList);
     let fountPatient = patientList.find((obj) => obj.patient_id == id);
     setPatientData(fountPatient);
     if (fountPatient) {
@@ -169,13 +150,15 @@ const ViewPatient = () => {
       });
       setDocuments(fountPatient?.documents);
     }
+  };
+
+  useEffect(() => {
+    getPatientData();
   }, [param.id, reset]);
 
   return (
     <>
       <div className={viewPatientCSS.container}>
-        {/* {---------------------------} */}
-
         <Accordion expanded>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -199,17 +182,13 @@ const ViewPatient = () => {
               <div className={viewPatientCSS.textAndIconCover}>
                 <h1 className={viewPatientCSS.title}>Personal Information</h1>
                 <div className={viewPatientCSS.iconCoverDivDeleteEdit}>
-                  {personalUpdate ? (
-                    <i
-                      title="save changes"
-                      onClick={() => {
-                        handleSubmit(handleUpdatePersonalData)();
-                      }}
-                      class="fa-solid fa-floppy-disk"
-                    ></i>
-                  ) : (
-                    <i title="edit" class="fa-solid fa-pencil"></i>
-                  )}
+                  <i
+                    onClick={() => {
+                      handleUpdatePersonalData();
+                    }}
+                    title="edit"
+                    class="fa-solid fa-pencil"
+                  ></i>
                 </div>
               </div>
               <form>
@@ -241,24 +220,55 @@ const ViewPatient = () => {
                     <label className={viewPatientCSS.fieldLabel}>
                       Gender <span className={viewPatientCSS.star}>*</span>
                     </label>
-                    <select
-                      disabled={personalUpdate ? false : true}
-                      className={viewPatientCSS.inputfield}
-                      {...register("gender")}
-                    >
-                      <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
-                    </select>
+                    <Controller
+                      control={control}
+                      name="gender"
+                      rules={{ required: "Gender is required" }}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Select
+                          onBlur={onBlur}
+                          onChange={onChange}
+                          value={value}
+                          options={[
+                            "Male",
+                            "Female",
+                            {
+                              other: [
+                                "Non Binary",
+                                "Trans",
+                                "Asexual",
+                                "Bisexual",
+                              ],
+                            },
+                          ]}
+                        />
+                      )}
+                    />
+                    <p className={viewPatientCSS.fielderror}>
+                      {errors.gender && (
+                        <span className="error">{errors.gender.message}</span>
+                      )}
+                    </p>
                   </div>
+
+                  <Input
+                    label="Country"
+                    require="Country Name "
+                    register={register}
+                    trigger={trigger}
+                    fieldName="country_of_origin"
+                    errors={errors}
+                    type="text"
+                    placeholder="Enter Country."
+                  />
                 </div>
 
                 <div
                   style={{
                     display: "flex",
-                    justifyContent: "space-between",
+                    justifyContent: "left",
                     marginTop: "1rem",
+                    gap: "2rem",
                   }}
                 >
                   <Input
@@ -286,17 +296,6 @@ const ViewPatient = () => {
                     min="4.50"
                     max="9.90"
                     step="0.01"
-                  />
-
-                  <Input
-                    label="Country"
-                    require="Country Name "
-                    register={register}
-                    trigger={trigger}
-                    fieldName="country_of_origin"
-                    errors={errors}
-                    type="text"
-                    placeholder="Enter Country."
                   />
                 </div>
 
@@ -362,16 +361,12 @@ const ViewPatient = () => {
               <div className={viewPatientCSS.textAndIconCover}>
                 <h1 className={viewPatientCSS.title}>Family Information</h1>
                 <div className={viewPatientCSS.iconCoverDivDeleteEdit}>
-                  {FamilyUpdate ? (
-                    <i
-                      onClick={() => {
-                        handleSubmit(handleUpdateFamilyData)();
-                      }}
-                      class="fa-solid fa-floppy-disk"
-                    ></i>
-                  ) : (
-                    <i class="fa-solid fa-pencil"></i>
-                  )}
+                  <i
+                    onClick={() => {
+                      handleUpdateFamilyData();
+                    }}
+                    class="fa-solid fa-pencil"
+                  ></i>
                 </div>
               </div>
               <form>
@@ -557,16 +552,12 @@ const ViewPatient = () => {
               <div className={viewPatientCSS.textAndIconCover}>
                 <h1 className={viewPatientCSS.title}>Disease Information</h1>
                 <div className={viewPatientCSS.iconCoverDivDeleteEdit}>
-                  {DiseaseUpdate ? (
-                    <i
-                      onClick={() => {
-                        handleSubmit(handleUpdateDiseaseData)();
-                      }}
-                      class="fa-solid fa-floppy-disk"
-                    ></i>
-                  ) : (
-                    <i class="fa-solid fa-pencil"></i>
-                  )}
+                  <i
+                    onClick={() => {
+                      handleUpdateDiseaseData();
+                    }}
+                    class="fa-solid fa-pencil"
+                  ></i>
                 </div>
               </div>
               <form>
@@ -627,11 +618,12 @@ const ViewPatient = () => {
               <div className={viewPatientCSS.textAndIconCover}>
                 <h1 className={viewPatientCSS.title}>Document Information</h1>
                 <div className={viewPatientCSS.iconCoverDivDeleteEdit}>
-                  {DocumentUpdate ? (
-                    <i class="fa-solid fa-floppy-disk"></i>
-                  ) : (
-                    <i class="fa-solid fa-pencil"></i>
-                  )}
+                  <i
+                    onClick={() => {
+                      handleUpdateDocumentData();
+                    }}
+                    class="fa-solid fa-pencil"
+                  ></i>
                 </div>
               </div>
 
@@ -648,24 +640,7 @@ const ViewPatient = () => {
                       {obj.document_type}
                       <span className={viewPatientCSS.star}>*</span>
                     </label>
-                    <input
-                      ref={inputfield}
-                      disabled={DocumentUpdate ? false : true}
-                      className={viewPatientCSS.inputfield}
-                      type="file"
-                      name={obj.document_type}
-                      onChange={(e) => handleFileChange(e, obj.document_type)}
-                    />
-                    <button
-                      disabled={!selectedFiles[obj.document_type]}
-                      onClick={() => {
-                        handleUpdateDocumentData(obj.document_type);
-                      }}
-                      className={viewPatientCSS.uploadBtn}
-                    >
-                      {" "}
-                      Update{" "}
-                    </button>
+
                     <img
                       src={`${import.meta.env.VITE_CLOUDINARY_BASE_URL}${
                         obj.document_url

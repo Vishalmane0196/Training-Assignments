@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import documentCSS from "../../style/Document.module.css";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import axiosInstance from "../../api/axios";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { addDocument } from "../../redux/asyncThunkFuntions/user";
@@ -71,8 +70,9 @@ export const DocumentInfo = ({ setStep, patientId }) => {
     setFilePreviews((prev) => {
       let obj = {
         ...prev,
-        [name]: fileURL,
+        [name]: btoa(fileURL),
       };
+
       localStorage.setItem("file_preview", JSON.stringify(obj));
       return obj;
     });
@@ -104,45 +104,6 @@ export const DocumentInfo = ({ setStep, patientId }) => {
     }
   };
 
-  const handleDeleteFile = async (docType) => {
-    const formData = new FormData();
-    formData.append("document_type", docType);
-    formData.append("patient_id", patientId);
-
-    try {
-      let response = await axiosInstance.delete("/patient/deleteDocument", {
-        data: formData,
-      });
-
-      if (response.status === 200) {
-        setFileData((prev) => {
-          const updatedFiles = { ...prev };
-          delete updatedFiles[docType];
-          return updatedFiles;
-        });
-        setFilePreviews((prev) => {
-          const updatedPreviews = { ...prev };
-          delete updatedPreviews[docType];
-          localStorage.setItem("file_preview", JSON.stringify(updatedPreviews));
-
-          return updatedPreviews;
-        });
-
-        setUploadStatus((prev) => {
-          const updatedStatus = { ...prev };
-          delete updatedStatus[docType];
-          localStorage.setItem("upload_status", JSON.stringify(updatedStatus));
-
-          return updatedStatus;
-        });
-      }
-      toast.success("file deleted successfully");
-    } catch (error) {
-      console.error(error);
-      toast.error(`error deleting file ${error.response.data.message}`);
-    }
-  };
-
   return (
     <>
       <div className={documentCSS.container}>
@@ -170,7 +131,7 @@ export const DocumentInfo = ({ setStep, patientId }) => {
                 {filePreviews[docType] && (
                   <div className={documentCSS.previewContainer}>
                     <img
-                      src={filePreviews[docType]}
+                      src={atob(filePreviews[docType])}
                       alt={docType}
                       className={documentCSS.previewImage}
                     />

@@ -98,7 +98,7 @@ export const updateFamilyInfo = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       let response = await axiosInstance.put("/patient/updateFamilyInfo", data);
-      toast.success("Family Information Updated successfully!");
+
       return response.data;
     } catch (error) {
       toast.error(error.response.data.message);

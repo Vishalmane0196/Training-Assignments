@@ -36,7 +36,7 @@ export const PersonalInfo = ({
     control,
     formState: { errors },
   } = useForm({
-    mode: "onSubmit", // or 'onChange' or 'onSubmit'
+    mode: "onSubmit",
     reValidateMode: "onBlur",
     defaultValues: {
       patient_name: PersonalData?.patient_name || "",
@@ -60,6 +60,7 @@ export const PersonalInfo = ({
           ? true
           : "Invalid Country Name";
       } catch (e) {
+        console.error(e);
         return "Invalid Country Name";
       }
     }, 2000),
@@ -93,9 +94,10 @@ export const PersonalInfo = ({
         toast.success("Personal Information Added successfully!");
 
         dispatch(setPatientId(response.data.patient_id));
+        dispatch(setCount(1));
       }
       dispatch(setStep(1));
-      setCount((pre) => pre + 1);
+      
     } catch (error) {
       console.error(error);
       toast.error("Failed to add/update Personal Information");
@@ -110,38 +112,38 @@ export const PersonalInfo = ({
     handleSendPersonalInfoServer(data);
   };
 
-  useEffect(() => {
-    const getPersonalData = async () => {
-      if (patientId == null) {
-        return;
-      } else {
-        try {
-          let response = await dispatch(getPersonalInfo(patientId)).unwrap();
+  const getPersonalData = async () => {
+    if (patientId == null) {
+      return;
+    } else {
+      try {
+        let response = await dispatch(getPersonalInfo(patientId)).unwrap();
 
-          if (response.data[0]) {
-            setPersonalData(response.data[0]);
-          }
-
-          reset({
-            blood_pressure:
-              response.data[0].blood_pressure == 1 ? "true" : "false",
-            cardiac_issue:
-              response.data[0].cardiac_issue == 1 ? "true" : "false",
-            country_of_origin: response.data[0].country_of_origin,
-            date_of_birth: new Date(response.data[0].date_of_birth)
-              .toISOString()
-              .split("T")[0],
-            gender: response.data[0].gender,
-            height: response.data[0].height,
-            is_diabetic: response.data[0].is_diabetic == 1 ? "true" : "false",
-            patient_name: response.data[0].patient_name,
-            weight: response.data[0].weight,
-          });
-        } catch (error) {
-          console.error(error);
+        if (response.data[0]) {
+          setPersonalData(response.data[0]);
         }
+
+        reset({
+          blood_pressure:
+            response.data[0].blood_pressure == 1 ? "true" : "false",
+          cardiac_issue: response.data[0].cardiac_issue == 1 ? "true" : "false",
+          country_of_origin: response.data[0].country_of_origin,
+          date_of_birth: new Date(response.data[0].date_of_birth)
+            .toISOString()
+            .split("T")[0],
+          gender: response.data[0].gender,
+          height: response.data[0].height,
+          is_diabetic: response.data[0].is_diabetic == 1 ? "true" : "false",
+          patient_name: response.data[0].patient_name,
+          weight: response.data[0].weight,
+        });
+      } catch (error) {
+        console.error(error);
       }
-    };
+    }
+  };
+
+  useEffect(() => {
     getPersonalData();
   }, []);
 

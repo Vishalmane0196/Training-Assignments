@@ -47,6 +47,7 @@ const AddDoctorAdminComponent = ({
     try {
       let response;
       if (control) {
+        console.log(data);
         response = await dispatch(addDoctor(data)).unwrap();
       } else {
         response = await dispatch(addAdmin(data)).unwrap();
@@ -60,6 +61,7 @@ const AddDoctorAdminComponent = ({
       toast.error(error);
     }
   };
+
   const handleUpdateData = (data) => {
     sendDataToUpdate(data);
   };
