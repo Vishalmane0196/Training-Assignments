@@ -16,6 +16,7 @@ const Prescription = () => {
   const edit = searchParams.get("edit");
   console.log(edit);
   const [prescription, setPrescription] = useState({});
+  const [btnState, setBtnState] = useState(false);
   const [prescriptionSample, setPrescriptionSample] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,11 +32,6 @@ const Prescription = () => {
     },
   });
   const handleSubmitData = (data) => {
-    console.log(data);
-    // data.Morning = data.Morning == "true" ? true : false;
-    // data.Afternoon = data.Afternoon == "true" ? true : false;
-    // data.Night = data.Night == "true" ? true : false;
-
     setPrescriptionSample((pre) => {
       let y = [...pre];
       y.push(data);
@@ -107,6 +103,7 @@ const Prescription = () => {
   };
 
   const handlePrescriptionData = async () => {
+    setBtnState(true);
     let promise = dispatch(
       edit !== "null"
         ? updatePrescription(prescription)
@@ -121,6 +118,7 @@ const Prescription = () => {
       await promise;
       navigate("/doctor/dashboard/viewAppointment");
     } catch (error) {
+      setBtnState(false);
       toast.error(error);
       console.error(error);
     }
@@ -320,6 +318,7 @@ const Prescription = () => {
         className={styles.btnCover}
       >
         <Button
+          disabled={btnState}
           onClick={() => {
             handlePrescriptionData();
           }}

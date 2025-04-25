@@ -17,7 +17,7 @@ const AddDoctorAdminComponent = ({
   setPopupOff,
 }) => {
   const [options, setOptions] = useState([]);
-  const [btnState, setbtnState] = useState(false);
+  const [btnState, setBtnState] = useState(false);
   const dispatch = useDispatch();
   const {
     register,
@@ -53,7 +53,7 @@ const AddDoctorAdminComponent = ({
       success: "Added Successfully",
       error: "Error While Registering...",
     });
-    setbtnState(true);
+    setBtnState(true);
     try {
       let response;
       response = await addPromise;
@@ -61,6 +61,7 @@ const AddDoctorAdminComponent = ({
       setPopupOff(false);
       console.log(response);
     } catch (error) {
+      setBtnState(false);
       console.error(error);
     }
   };

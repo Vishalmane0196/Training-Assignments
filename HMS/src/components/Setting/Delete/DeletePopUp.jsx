@@ -17,8 +17,10 @@ export const DeletePopUp = ({
   let [msg, setMsg] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [btnState, setBtnState] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
   const handleDeleteAccount = async () => {
+    if (btnState) return;
     try {
       if (deleteFunction !== null) {
         await dispatch(
@@ -26,11 +28,9 @@ export const DeletePopUp = ({
             access == "appointment" ? { ...id, ["reason"]: msg } : id
           )
         ).unwrap();
-
         if (access !== "doctor") {
           setDeleteState(false);
           functionCall();
-
           return;
         } else {
           if (userInfo?.email == id) {
@@ -38,7 +38,6 @@ export const DeletePopUp = ({
             navigate("/account/user/login");
           }
         }
-
         functionCall();
         setDeleteState(false);
 
@@ -54,6 +53,7 @@ export const DeletePopUp = ({
         });
       }
     } catch (error) {
+      setBtnState(false);
       console.error(error);
       toast.error(`Failed to delete : ${error.response.data.message}`);
     }
@@ -159,18 +159,26 @@ export const DeletePopUp = ({
               )}
               <div className={settingCSS.btnContainer}>
                 <button
+                  disabled={btnState}
                   onClick={() => {
                     setDeleteState(false);
                   }}
                   className={settingCSS.btnContainerCancel}
                 >
-                 {access == "appointment" ? "Close" : "Cancel"} 
+                  {access == "appointment" ? "Close" : "Cancel"}
                 </button>
                 <button
-                  onClick={handleDeleteAccount}
+                  disabled={btnState}
+                  onClick={() => {
+                    if (btnState) {
+                      return;
+                    } else {
+                      handleDeleteAccount();
+                    }
+                  }}
                   className={settingCSS.deleteBtn}
                 >
-                {access == "appointment" ? "Proceed" : "Delete"}  
+                  {access == "appointment" ? "Proceed" : "Delete"}
                 </button>
               </div>
             </div>

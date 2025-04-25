@@ -15,6 +15,7 @@ import { Button } from "src/components/Button/Button";
 import DeletePopUp from "src/components/Setting/Delete/DeletePopUp";
 import { NoRecord } from "src/components/NoRecord/NoRecord";
 const AdminPatient = ({ access }) => {
+  const [btnState, setBtnState] = useState(false);
   const [deleteState, setState] = useState(false);
   const [id, setID] = useState(null);
   const dispatch = useDispatch();
@@ -46,7 +47,9 @@ const AdminPatient = ({ access }) => {
   };
 
   const changeStatus = async (data) => {
+    if (btnState) return;
     try {
+      setBtnState(true);
       if (data?.status == "Cancelled") {
         let y = dispatch(changeAppointmentStatusToCancel(data)).unwrap();
         toast.promise(y, {
@@ -62,6 +65,7 @@ const AdminPatient = ({ access }) => {
       getAppointment();
       setState(false);
     } catch (error) {
+      setBtnState(false);
       console.error(error);
     }
   };

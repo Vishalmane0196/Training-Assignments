@@ -35,7 +35,7 @@ const UserMain = () => {
                   ? ` Dr. ${userInfo?.first_name}`
                   : userInfo?.first_name}
               </h2>
-              <p>Your personal account</p>
+              <p> {isDoctor ? `Doctor` : `User`}</p>
             </div>
           </div>
           <button
