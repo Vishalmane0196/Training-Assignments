@@ -8,7 +8,9 @@ export const ProtectedRoute = ({
   isDoctorProp = 0,
 }) => {
   const navigate = useNavigate();
-  const { token, isAdmin, isDoctor } = useSelector((state) => state.auth);
+  const { token, isAdmin, isDoctor, isSuper } = useSelector(
+    (state) => state.auth
+  );
 
   useEffect(() => {
     if (!token) {
@@ -17,6 +19,9 @@ export const ProtectedRoute = ({
       parseInt(isAdmin) !== parseInt(isAdminProp) ||
       parseInt(isDoctor) !== parseInt(isDoctorProp)
     ) {
+      console.log(isAdmin, isSuper, isAdminProp);
+      console.log(isDoctor, isDoctorProp);
+
       if (parseInt(isAdmin) == 1) {
         navigate("/admin/dashboard/profile");
       } else if (isDoctor == 1) {

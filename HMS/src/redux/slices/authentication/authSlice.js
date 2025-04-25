@@ -40,9 +40,9 @@ const authSlice = createSlice({
 
         state.loading = false;
         state.token = action.payload.token;
-        state.isAdmin = obj.admin == 1 ? 1 : 0;
-        state.isDoctor = obj.doctor == 1 ? 1 : 0;
-        state.isSuper = obj.superAdmin == 1 ? 1 : 0;
+        state.isAdmin = obj?.admin == 1 ? 1 : 0;
+        state.isDoctor = obj?.doctor == 1 ? 1 : 0;
+        state.isSuper = obj?.superAdmin == 1 ? 1 : 0;
         state.userInfo = { ...obj };
         console.log(state.userInfo);
         state.isLoggedIn = 1;

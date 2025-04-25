@@ -17,6 +17,7 @@ const AddDoctorAdminComponent = ({
   setPopupOff,
 }) => {
   const [options, setOptions] = useState([]);
+  const [btnState, setbtnState] = useState(false);
   const dispatch = useDispatch();
   const {
     register,
@@ -44,21 +45,23 @@ const AddDoctorAdminComponent = ({
   });
 
   const sendDataToUpdate = async (data) => {
+    let addPromise = control
+      ? dispatch(addDoctor(data)).unwrap()
+      : dispatch(addAdmin(data)).unwrap();
+    toast.promise(addPromise, {
+      pending: "Please wait while we add...",
+      success: "Added Successfully",
+      error: "Error While Registering...",
+    });
+    setbtnState(true);
     try {
       let response;
-      if (control) {
-        console.log(data);
-        response = await dispatch(addDoctor(data)).unwrap();
-      } else {
-        response = await dispatch(addAdmin(data)).unwrap();
-      }
+      response = await addPromise;
       fetchData();
       setPopupOff(false);
       console.log(response);
-      toast.success(response.data.message);
     } catch (error) {
       console.error(error);
-      toast.error(error);
     }
   };
 
@@ -320,7 +323,11 @@ const AddDoctorAdminComponent = ({
                 style={styles.inputTag}
                 placeholder="Enter Password"
               />
-              <button type="submit" className={styles.submitBtn}>
+              <button
+                type="submit"
+                disabled={btnState}
+                className={styles.submitBtn}
+              >
                 {control == true ? "Add Doctor" : "Add Admin"}
               </button>
             </form>

@@ -101,8 +101,8 @@ const AdminPatient = ({ access }) => {
           </div>
           <ul className={patientCSS.ulList}>
             {patientList.length == 0 ? <NoRecord /> : null}
-            {patientList?.map((patient) => (
-              <li className={patientCSS.liList}>
+            {patientList?.map((patient, index) => (
+              <li key={index} className={patientCSS.liList}>
                 <p className={patientCSS.p}>
                   {access == "appointment"
                     ? patient.patient_name
@@ -189,7 +189,6 @@ const AdminPatient = ({ access }) => {
                             className={patientCSS.Pending}
                             value="Pending"
                           >
-                          
                             Pending
                           </option>
                           <option
