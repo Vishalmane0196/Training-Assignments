@@ -45,6 +45,7 @@ const AddDoctorAdminComponent = ({
   });
 
   const sendDataToUpdate = async (data) => {
+    if (btnState) return;
     let addPromise = control
       ? dispatch(addDoctor(data)).unwrap()
       : dispatch(addAdmin(data)).unwrap();
