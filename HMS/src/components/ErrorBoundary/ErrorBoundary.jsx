@@ -1,6 +1,6 @@
 // src/components/ErrorBoundary.jsx
-import React from 'react';
-import errorBoundaryCSS from  'src/style/Error.module.css'
+import React from "react";
+import errorBoundaryCSS from "src/style/Error.module.css";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -23,7 +23,9 @@ class ErrorBoundary extends React.Component {
       // You can render a custom fallback UI here
       return (
         <div className={errorBoundaryCSS.errorBox}>
-          <h2 className={errorBoundaryCSS.errorTitle}>Oops! Something went wrong.</h2>
+          <h2 className={errorBoundaryCSS.errorTitle}>
+            Oops! Something went wrong.
+          </h2>
           <p>{this.state.error?.message || "Unknown error occurred."}</p>
         </div>
       );

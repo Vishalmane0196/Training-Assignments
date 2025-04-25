@@ -25,6 +25,14 @@ export const DocumentInfo = ({ setStep, patientId }) => {
     dispatch(setStep(2));
   };
 
+  const handleNextBtn = () => {
+    if (Object.keys(uploadStatus).length === 0) {
+      toast.warn("Aadhar documents are required.");
+    } else {
+      dispatch(setStep(4));
+    }
+  };
+
   const handleUploadDocument = async (img, file) => {
     const formData = new FormData();
 
@@ -107,66 +115,65 @@ export const DocumentInfo = ({ setStep, patientId }) => {
   return (
     <>
       <div className={documentCSS.container}>
-        <form>
-          <div style={{ display: "flex", gap: "3rem", height: "45vh" }}>
-            {[
-              "Aadhaar Front",
-              "Aadhaar Back",
-              "Insurance Front",
-              "Insurance Back",
-            ].map((docType) => (
-              <div key={docType} className={documentCSS.fieldCoverDiv}>
-                <label className={documentCSS.fieldLabel}>
-                  {docType.replace(/([A-Z])/g, " $1")}{" "}
-                </label>
-                <input
-                  className={documentCSS.inputfield}
-                  {...register(docType, { required: true })}
-                  onChange={handleFileChange}
-                  type="file"
-                  name={docType}
-                  accept=".jpg, .jpeg, .png"
-                />
+        <div style={{ display: "flex", gap: "3rem", height: "45vh" }}>
+          {[
+            "Aadhaar Front",
+            "Aadhaar Back",
+            "Insurance Front",
+            "Insurance Back",
+          ].map((docType) => (
+            <div key={docType} className={documentCSS.fieldCoverDiv}>
+              <label className={documentCSS.fieldLabel}>
+                {docType.replace(/([A-Z])/g, " $1")}{" "}
+                {docType == "Aadhaar Front" || docType == "Aadhaar Back" ? (
+                  <span className={documentCSS.star}>*</span>
+                ) : null}{" "}
+              </label>
+              <input
+                className={documentCSS.inputfield}
+                {...register(docType, { required: true })}
+                onChange={handleFileChange}
+                type="file"
+                name={docType}
+                accept=".jpg, .jpeg, .png"
+              />
 
-                {filePreviews[docType] && (
-                  <div className={documentCSS.previewContainer}>
-                    <img
-                      src={atob(filePreviews[docType])}
-                      alt={docType}
-                      className={documentCSS.previewImage}
-                    />
-                  </div>
-                )}
+              {filePreviews[docType] && (
+                <div className={documentCSS.previewContainer}>
+                  <img
+                    src={atob(filePreviews[docType])}
+                    alt={docType}
+                    className={documentCSS.previewImage}
+                  />
+                </div>
+              )}
 
-                {errors[docType] && (
-                  <p className={documentCSS.fielderror}>
-                    {errors[docType].message}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
+              {errors[docType] && (
+                <p className={documentCSS.fielderror}>
+                  {errors[docType].message}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
 
-          <div className={documentCSS.btnStyle}>
-            <button
-              onClick={handleBackBtn}
-              className={documentCSS.backBtn}
-              type="button"
-            >
-              Back
-            </button>
+        <div className={documentCSS.btnStyle}>
+          <button
+            onClick={handleBackBtn}
+            className={documentCSS.backBtn}
+            type="button"
+          >
+            Back
+          </button>
 
-            <button
-              onClick={() => {
-                dispatch(setStep(4));
-              }}
-              className={documentCSS.submitBtn}
-              type="submit"
-            >
-              Next
-            </button>
-          </div>
-        </form>
+          <button
+            onClick={handleNextBtn}
+            className={documentCSS.submitBtn}
+            type="submit"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </>
   );

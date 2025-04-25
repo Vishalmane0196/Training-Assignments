@@ -7,7 +7,7 @@ export const fetchAllPAtients = createAsyncThunk(
   async (currentPage, { rejectWithValue }) => {
     try {
       const patientResponse = await axiosInstance.get(
-        `/admin/getAllInfo?page=${currentPage}&limit=5`
+        `/admin/getAllInfo?page=${currentPage}&limit=8`
       );
 
       return patientResponse.data;

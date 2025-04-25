@@ -70,6 +70,7 @@ export const Form = () => {
             "Completed",
           ].map((label, index) => (
             <label
+              key={index}
               htmlFor={index}
               onClick={() => {
                 if (count >= index) {

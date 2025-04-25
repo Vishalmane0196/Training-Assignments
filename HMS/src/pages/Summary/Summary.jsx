@@ -81,7 +81,7 @@ const Summary = () => {
                 ) : (
                   patientList.map((obj, index) => (
                     <tr key={index}>
-                      <td>{index+1}</td>
+                      <td>{index + 1}</td>
                       <td>{obj.patient_name}</td>
                       <td>{obj.disease_type}</td>
                       <td>{obj.age}</td>
@@ -117,7 +117,7 @@ const Summary = () => {
           breakLabel={"..."}
           pageCount={totalPages}
           marginPagesDisplayed={2}
-          pageRangeDisplayed={4}
+          pageRangeDisplayed={2}
           onPageChange={handlePageClick}
           containerClassName={styles.pagination}
           pageClassName={styles.pageItem}
