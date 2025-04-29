@@ -125,6 +125,11 @@ const AddDoctorAdminComponent = ({
                     trigger={trigger}
                     fieldName="first_name"
                     type="text"
+                    pattern={{
+                      message: "Invalid Pattern",
+                      value: /^[A-Za-z]{2,}(?:[ '-][A-Za-z]+)*$/,
+                    }}
+                    maxLength={20}
                     style={styles.inputTag}
                     placeholder="Enter First Name"
                   />
@@ -145,10 +150,15 @@ const AddDoctorAdminComponent = ({
                   </div>
                   <InputComponent
                     require="last name "
+                    maxLength={20}
                     register={register}
                     trigger={trigger}
                     fieldName="last_name"
                     type="text"
+                    pattern={{
+                      message: "Invalid Pattern",
+                      value: /^[A-Za-z]{2,}(?:[ '-][A-Za-z]+)*$/,
+                    }}
                     style={styles.inputTag}
                     placeholder="Enter Last Name"
                   />
@@ -174,6 +184,11 @@ const AddDoctorAdminComponent = ({
                     trigger={trigger}
                     fieldName="contact_number"
                     type="number"
+                    pattern={{
+                      message: "Invalid Pattern",
+                      value: /^\d{10}$/,
+                    }}
+                    maxLength={11}
                     style={styles.inputTag}
                     placeholder="Enter Phone Number"
                   />
@@ -203,9 +218,10 @@ const AddDoctorAdminComponent = ({
                         type="text"
                         style={styles.inputTag}
                         pattern={{
-                          value: /^[A-Za-z]+$/,
+                          value: /^[A-Za-z]{2,}(?:[ '-][A-Za-z]+)*$/,
                           message: "Invalid format",
                         }}
+                        maxLength={20}
                         placeholder="Specialization."
                       />
                     </div>
@@ -235,50 +251,56 @@ const AddDoctorAdminComponent = ({
                     </div>
                   </div>
 
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <label htmlFor=""> Doctor In-Time</label>
-                    {errors.doctorInTime && (
-                      <span>{errors.doctorInTime.message}</span>
-                    )}
+                  <div className={styles.coverLeftRight}>
+                    <div className={styles.coverLeft}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <label htmlFor=""> Doctor In-Time</label>
+                        {errors.doctorInTime && (
+                          <span>{errors.doctorInTime.message}</span>
+                        )}
+                      </div>
+                      <InputComponent
+                        require="In-Time "
+                        register={register}
+                        trigger={trigger}
+                        fieldName="doctorInTime"
+                        type="time"
+                        style={styles.inputTag}
+                        pattern={"(0[1-9]|1[0-2]):[0-5][0-9] (AM|PM)"}
+                        placeholder="In Time."
+                      />
+                    </div>
+                    <div className={styles.coverRight}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <label htmlFor=""> Doctor Out-Time</label>
+                        {errors.doctorOutTime && (
+                          <span>{errors.doctorOutTime.message}</span>
+                        )}
+                      </div>
+                      <InputComponent
+                        require="Out-Time "
+                        register={register}
+                        trigger={trigger}
+                        fieldName="doctorOutTime"
+                        type="time"
+                        style={styles.inputTag}
+                        pattern={"(0[1-9]|1[0-2]):[0-5][0-9] (AM|PM)"}
+                        placeholder="Out Time."
+                      />
+                    </div>
                   </div>
-                  <InputComponent
-                    require="In-Time "
-                    register={register}
-                    trigger={trigger}
-                    fieldName="doctorInTime"
-                    type="time"
-                    style={styles.inputTag}
-                    pattern={"(0[1-9]|1[0-2]):[0-5][0-9] (AM|PM)"}
-                    placeholder="In Time."
-                  />
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <label htmlFor=""> Doctor Out-Time</label>
-                    {errors.doctorOutTime && (
-                      <span>{errors.doctorOutTime.message}</span>
-                    )}
-                  </div>
-                  <InputComponent
-                    require="Out-Time "
-                    register={register}
-                    trigger={trigger}
-                    fieldName="doctorOutTime"
-                    type="time"
-                    style={styles.inputTag}
-                    pattern={"(0[1-9]|1[0-2]):[0-5][0-9] (AM|PM)"}
-                    placeholder="Out Time."
-                  />
                 </div>
               ) : null}
 

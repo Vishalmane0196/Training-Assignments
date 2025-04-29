@@ -72,8 +72,27 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
 
     try {
       if (FamilyData) {
-        dispatch(updateFamilyInfo(formattedData));
-        toast.success("Family Information updated successfully!");
+        let obj = {
+          father_name: FamilyData.father_name,
+          father_country_origin: FamilyData.father_country_origin,
+          father_age: FamilyData.father_age,
+          mother_name: FamilyData.mother_name,
+          mother_country_origin: FamilyData.mother_country_origin,
+          mother_age: FamilyData.mother_age,
+          mother_diabetic: FamilyData.mother_diabetic,
+          mother_cardiac_issue: FamilyData.mother_cardiac_issue,
+          mother_bp: FamilyData.mother_bp,
+          father_diabetic: FamilyData.father_diabetic,
+          father_cardiac_issue: FamilyData.father_cardiac_issue,
+          father_bp: FamilyData.father_bp,
+          patient_id: patientId,
+        };
+        if (JSON.stringify(obj) == JSON.stringify(formattedData)) {
+          console.log("Updated");
+        } else {
+          dispatch(updateFamilyInfo(formattedData));
+          toast.success("Family Information updated successfully!");
+        }
       } else {
         let data2 = {
           ...data,
@@ -164,6 +183,10 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
               trigger={trigger}
               fieldName="father_name"
               errors={errors}
+              pattern={{
+                message: "Invalid Pattern",
+                value: /^[A-Za-z]{2,}(?:[ '-][A-Za-z]+)*$/,
+              }}
               type="text"
               placeholder="Enter Father Name."
             />
@@ -219,6 +242,10 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
               trigger={trigger}
               fieldName="mother_name"
               errors={errors}
+              pattern={{
+                message: "Invalid Pattern",
+                value: /^[A-Za-z]{2,}(?:[ '-][A-Za-z]+)*$/,
+              }}
               type="text"
               placeholder="Enter Mother Name."
             />

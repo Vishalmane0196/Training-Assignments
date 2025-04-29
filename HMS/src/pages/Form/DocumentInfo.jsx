@@ -26,7 +26,7 @@ export const DocumentInfo = ({ setStep, patientId }) => {
   };
 
   const handleNextBtn = () => {
-    if (Object.keys(uploadStatus).length === 0) {
+    if (Object.keys(uploadStatus).length <= 1) {
       toast.warn("Aadhar documents are required.");
     } else {
       dispatch(setStep(4));

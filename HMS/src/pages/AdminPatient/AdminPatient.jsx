@@ -108,9 +108,7 @@ const AdminPatient = ({ access }) => {
             {patientList?.map((patient, index) => (
               <li key={index} className={patientCSS.liList}>
                 <p className={patientCSS.p}>
-                  {access == "appointment"
-                    ? patient.patient_name
-                    : patient.patient_id}
+                  {access == "appointment" ? patient.patient_name : index + 1}
                 </p>
                 <p className={patientCSS.p}>
                   {access == "appointment"

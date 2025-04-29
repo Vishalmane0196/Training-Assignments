@@ -62,7 +62,7 @@
 
 
 .search:focus-within::before {
-    width: 200px;
+    width: 240px;
 }
 
 .container>h1 {

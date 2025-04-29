@@ -31,8 +31,18 @@ export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
   const handleSendToDiseaseServer = async (data) => {
     try {
       if (diseaseInfo) {
-        dispatch(updateDiseaseInfo(data));
-        toast.success("Personal Information updated successfully!");
+        console.log(data);
+        let obj = {
+          disease_type: diseaseInfo.disease_type,
+          disease_description: diseaseInfo.disease_description,
+          patient_id: patientId,
+        };
+        if (JSON.stringify(obj) == JSON.stringify(data)) {
+          console.log("Updated");
+        } else {
+          dispatch(updateDiseaseInfo(data));
+          toast.success("Personal Information updated successfully!");
+        }
       } else {
         await dispatch(
           addDiseaseInfo({
@@ -94,6 +104,10 @@ export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
               trigger={trigger}
               fieldName="disease_type"
               errors={errors}
+              pattern={{
+                message: "Invalid Pattern",
+                value: /^[A-Za-z]{2,}(?:[ '-][A-Za-z]+)*$/,
+              }}
               type="text"
               placeholder="Enter Disease Name."
             />
@@ -105,6 +119,10 @@ export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
               trigger={trigger}
               fieldName="disease_description"
               errors={errors}
+              pattern={{
+                message: "Invalid Pattern",
+                value: /^[A-Za-z]{2,}(?:[ '-][A-Za-z]+)*$/,
+              }}
               type="text"
               placeholder="Enter Description."
             />

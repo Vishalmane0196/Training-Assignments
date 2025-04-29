@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 const InputComponent = ({
   require,
@@ -31,3 +32,17 @@ const InputComponent = ({
   );
 };
 export default InputComponent;
+
+InputComponent.propTypes = {
+  require: PropTypes.string.isRequired,
+  register: PropTypes.func.isRequired,
+  trigger: PropTypes.func.isRequired,
+  fieldName: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  style: PropTypes.string,
+  pattern: PropTypes.shape({
+    value: PropTypes.instanceOf(RegExp),
+    message: PropTypes.string,
+  }),
+  placeholder: PropTypes.string,
+};

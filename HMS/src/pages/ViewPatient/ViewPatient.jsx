@@ -159,6 +159,7 @@ const ViewPatient = () => {
   return (
     <>
       <div className={viewPatientCSS.container}>
+
         <Accordion expanded>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -338,7 +339,7 @@ const ViewPatient = () => {
           </AccordionDetails>
         </Accordion>
 
-        <Accordion>
+         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             sx={{
@@ -527,9 +528,9 @@ const ViewPatient = () => {
               </form>
             </div>
           </AccordionDetails>
-        </Accordion>
+         </Accordion>
 
-        <Accordion>
+         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             sx={{
@@ -589,12 +590,8 @@ const ViewPatient = () => {
               </form>
             </div>
           </AccordionDetails>
-        </Accordion>
-        {/* ---------------- */}
+         </Accordion>
 
-        {/* ---------------- */}
-
-        {/* ---------------- */}
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -654,6 +651,7 @@ const ViewPatient = () => {
             </div>
           </AccordionDetails>
         </Accordion>
+
       </div>
     </>
   );

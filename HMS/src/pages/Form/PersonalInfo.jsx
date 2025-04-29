@@ -79,8 +79,26 @@ export const PersonalInfo = ({
 
     try {
       if (PersonalData) {
-        await dispatch(updatePersonalInfo(formattedData));
-        toast.success("Personal Information updated successfully!");
+        let obj = {
+          blood_pressure: PersonalData.blood_pressure,
+          cardiac_issue: PersonalData.cardiac_issue,
+          country_of_origin: PersonalData.country_of_origin,
+          date_of_birth: new Date(PersonalData.date_of_birth)
+            .toISOString()
+            .split("T")[0],
+          gender: PersonalData.gender,
+          height: PersonalData.height,
+          is_diabetic: PersonalData.is_diabetic,
+          patient_name: PersonalData.patient_name,
+          weight: PersonalData.weight.toString(),
+          patient_id: patientId,
+        };
+        if (JSON.stringify(obj) == JSON.stringify(formattedData)) {
+          console.log("Updated");
+        } else {
+          await dispatch(updatePersonalInfo(formattedData));
+          toast.success("Personal Information updated successfully!");
+        }
       } else {
         let data2 = {
           ...data,
@@ -97,7 +115,6 @@ export const PersonalInfo = ({
         dispatch(setCount(1));
       }
       dispatch(setStep(1));
-      
     } catch (error) {
       console.error(error);
       toast.error("Failed to add/update Personal Information");
@@ -162,6 +179,10 @@ export const PersonalInfo = ({
               fieldName="patient_name"
               errors={errors}
               type="text"
+              pattern={{
+                message: "Invalid Pattern",
+                value: /^[A-Za-z]{2,}(?:[ '-][A-Za-z]+)*$/,
+              }}
               placeholder="Enter Full Name."
             />
 
@@ -282,9 +303,19 @@ export const PersonalInfo = ({
             }}
           >
             {PersonalData ? (
-              <Button text="Update" style={personalCSS.submitBtn} />
+              <Button
+                text="Update"
+                type={"submit"}
+                ripple={personalCSS.ripple}
+                style={personalCSS.submitBtn}
+              />
             ) : (
-              <Button text="Next" style={personalCSS.submitBtn} />
+              <Button
+                text="Next"
+                type={"submit"}
+                ripple={personalCSS.ripple}
+                style={personalCSS.submitBtn}
+              />
             )}
           </div>
         </form>
