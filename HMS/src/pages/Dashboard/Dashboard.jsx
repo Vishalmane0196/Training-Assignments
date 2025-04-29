@@ -2,7 +2,9 @@ import React from "react";
 import { Navbar } from "../../components/Navbar/Navbar.jsx";
 import adminCSS from "../../style/AdminDashboard.module.css";
 import { NavLink, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Dashboard = () => {
+  const { patientID } = useSelector((state) => state.form);
   return (
     <>
       <Navbar />
@@ -22,8 +24,15 @@ const Dashboard = () => {
                   return isActive ? adminCSS.active : adminCSS.linkText;
                 }}
               >
-                <i class="fa-solid fa-plus"></i>{" "}
+                <i className="fa-solid fa-plus"></i>{" "}
                 <span style={{ marginLeft: "0.5rem" }}>Add Patient </span>
+                {console.log(window.location)}
+                {patientID !== null && (
+                  <i
+                    title="Form incomplete"
+                    className={`fa-solid fa-triangle-exclamation ${adminCSS.warning}`}
+                  ></i>
+                )}
               </NavLink>
             </li>
             <li>
