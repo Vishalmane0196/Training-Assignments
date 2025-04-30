@@ -39,7 +39,7 @@ const AdminPatient = ({ access }) => {
 
   const handleBookAppointment = (id) => {
     dispatch(setBookPatientId(id));
-    navigate("/admin/dashboard/viewpatients/bookAppointment");
+    navigate("/admin/dashboard/mypatients/viewpatients/bookAppointment");
   };
 
   const handleAdminAllPatient = (id) => {
@@ -61,14 +61,24 @@ const AdminPatient = ({ access }) => {
       } else {
         await dispatch(changeAppointmentStatus(data)).unwrap();
       }
-
       getAppointment();
       setState(false);
+      setBtnState(false);
     } catch (error) {
       setBtnState(false);
       console.error(error);
     }
   };
+
+  const deletePatientFun = async (id) => {
+    try {
+      await dispatch(deletePatient(id)).unwrap();
+      getData();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleAppointmentStatus = async (id, status) => {
     if (status == "Cancelled") {
       setID({ id: id, status: status });
@@ -146,11 +156,27 @@ const AdminPatient = ({ access }) => {
                       ></i>
                       <i
                         title="delete patient"
+                        disabled={
+                          patient?.appointment_status == "Cancelled" ||
+                          patient?.appointment_status == null
+                        }
                         onClick={() => {
-                          setID(patient.patient_id);
-                          setState(true);
+                          if (
+                            patient?.appointment_status == "Cancelled" ||
+                            patient?.appointment_status == null
+                          ) {
+                            setState(true);
+                            setID(patient.patient_id);
+                          } else {
+                            return;
+                          }
                         }}
-                        className="fa-solid fa-trash"
+                        className={`fa-solid fa-trash ${
+                          patient?.appointment_status == "Cancelled" ||
+                          patient?.appointment_status == null
+                            ? null
+                            : patientCSS.disabled
+                        }`}
                       ></i>
                     </>
                   )}
@@ -233,7 +259,7 @@ const AdminPatient = ({ access }) => {
         {deleteState && (
           <DeletePopUp
             deleteFunction={
-              access == "appointment" ? changeStatus : deletePatient
+              access == "appointment" ? changeStatus : deletePatientFun
             }
             id={id}
             functionCall={access == "appointment" ? getAppointment : getData}

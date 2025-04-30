@@ -60,106 +60,127 @@ const UpdateAdmin = ({ access }) => {
   }, [access]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h2>{access == "doctor" ? "Manage Doctors" : "Manage Admins"} </h2>
-        <div className={styles.actions}>
-          <button className={styles.addBtn} onClick={handleToggle}>
-            {access == "doctor" ? "Add Doctor" : "Add Admin"}
-          </button>
+    <>
+      {access == "doctor" ? null : (
+        <div className={styles.breadcrumbs}>
+          <div className={styles.container2}>
+            <ul className={styles.breadcrumbs__list}>
+              <li>
+                <a> Dashboard</a>
+              </li>
+              <li>
+                <a onClick={() => history.back()}>Settings</a>
+              </li>
+              <li>
+                <a>Manage Admins</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div className={styles.search}></div>
+      )}
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h2>{access == "doctor" ? "Manage Doctors" : "Manage Admins"} </h2>
+          <div className={styles.actions}>
+            <button className={styles.addBtn} onClick={handleToggle}>
+              {access == "doctor" ? "Add Doctor" : "Add Admin"}
+            </button>
+          </div>
+        </div>
+        <div className={styles.search}></div>
 
-      <div className={styles.tableWrapper}>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>{access == "doctor" ? "Name" : "Id"}</th>
-              <th>{access == "doctor" ? "specialization" : "Email"}</th>
-              <th>{access == "doctor" ? "doctorInTime" : "Role"}</th>
-              <th>{access == "doctor" ? "doctorOutTime" : "Status"}</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {admins.length == 0 ? (
+        <div className={styles.tableWrapper}>
+          <table className={styles.table}>
+            <thead>
               <tr>
-                {" "}
-                <td colSpan={5}>
-                  <NoRecord />{" "}
-                </td>
+                <th>{access == "doctor" ? "Name" : "Id"}</th>
+                <th>{access == "doctor" ? "specialization" : "Email"}</th>
+                <th>{access == "doctor" ? "doctorInTime" : "Role"}</th>
+                <th>{access == "doctor" ? "doctorOutTime" : "Status"}</th>
+                <th>Action</th>
               </tr>
-            ) : null}
-            {admins.map((admin, index) => (
-              <tr key={index}>
-                <td>
-                  <div className={styles.item}>
-                    {access == "doctor" ? admin?.name : index + 1}
-                  </div>
-                </td>
-                <td>
-                  {access == "doctor" ? admin?.specialization : admin?.email}
-                </td>
-                <td>
-                  {access == "doctor" ? admin?.doctorInTime : admin?.role}
-                </td>
-                <td>
-                  <span
-                    className={
-                      access == "doctor"
-                        ? null
-                        : `${styles.status} ${
-                            admin?.status == "active"
-                              ? styles.active
-                              : styles.disabled
-                          }`
-                    }
-                  >
-                    {access == "doctor" ? admin?.doctorOutTime : admin?.status}
-                  </span>
-                </td>
-                <td>
-                  <Button
-                    style={styles.delete}
-                    type={"button"}
-                    onClick={() => {
-                      setState((pre) => {
+            </thead>
+            <tbody>
+              {admins.length == 0 ? (
+                <tr>
+                  {" "}
+                  <td colSpan={5}>
+                    <NoRecord />{" "}
+                  </td>
+                </tr>
+              ) : null}
+              {admins.map((admin, index) => (
+                <tr key={index}>
+                  <td>
+                    <div className={styles.item}>
+                      {access == "doctor" ? admin?.name : index + 1}
+                    </div>
+                  </td>
+                  <td>
+                    {access == "doctor" ? admin?.specialization : admin?.email}
+                  </td>
+                  <td>
+                    {access == "doctor" ? admin?.doctorInTime : admin?.role}
+                  </td>
+                  <td>
+                    <span
+                      className={
                         access == "doctor"
-                          ? setID(admin?.doctor_id)
-                          : setID(admin.email);
-                        return true;
-                      });
-                    }}
-                    disabled={admin?.status == "inactive"}
-                    text={admin?.status == "inactive" ? "Removed" : "Remove"}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                          ? null
+                          : `${styles.status} ${
+                              admin?.status == "active"
+                                ? styles.active
+                                : styles.disabled
+                            }`
+                      }
+                    >
+                      {access == "doctor"
+                        ? admin?.doctorOutTime
+                        : admin?.status}
+                    </span>
+                  </td>
+                  <td>
+                    <Button
+                      style={styles.delete}
+                      type={"button"}
+                      onClick={() => {
+                        setState((pre) => {
+                          access == "doctor"
+                            ? setID(admin?.doctor_id)
+                            : setID(admin.email);
+                          return true;
+                        });
+                      }}
+                      disabled={admin?.status == "inactive"}
+                      text={admin?.status == "inactive" ? "Removed" : "Remove"}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-      {addAdminToggle && (
-        <AddDoctorAdminComponent
-          fetchData={access == "doctor" ? fetchDoctors : fetchAdmins}
-          control={access == "doctor" ? true : false}
-          onPopup={addAdminToggle}
-          setPopupOff={setAddAdminToggle}
-        />
-      )}
-      {deleteState && (
-        <DeletePopUp
-          deleteFunction={access == "doctor" ? deleteDoctor : deleteAdmin}
-          id={id}
-          access={"doctor"}
-          functionCall={access == "doctor" ? fetchDoctors : handleDeleteAdmin}
-          deleteState={deleteState}
-          setDeleteState={setState}
-        />
-      )}
-    </div>
+        {addAdminToggle && (
+          <AddDoctorAdminComponent
+            fetchData={access == "doctor" ? fetchDoctors : fetchAdmins}
+            control={access == "doctor" ? true : false}
+            onPopup={addAdminToggle}
+            setPopupOff={setAddAdminToggle}
+          />
+        )}
+        {deleteState && (
+          <DeletePopUp
+            deleteFunction={access == "doctor" ? deleteDoctor : deleteAdmin}
+            id={id}
+            access={"doctor"}
+            functionCall={access == "doctor" ? fetchDoctors : handleDeleteAdmin}
+            deleteState={deleteState}
+            setDeleteState={setState}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

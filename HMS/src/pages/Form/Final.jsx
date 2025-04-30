@@ -14,7 +14,7 @@ export const Final = ({ setStep, setPatientId, setCount }) => {
   useEffect(() => {
     setTimeout(() => {
       resetAllValues();
-    }, 2000);
+    }, 3000);
   }, []);
   return (
     <>

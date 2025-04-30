@@ -7,7 +7,7 @@ export const fetchAllPAtients = createAsyncThunk(
   async (currentPage, { rejectWithValue }) => {
     try {
       const patientResponse = await axiosInstance.get(
-        `/admin/getAllInfo?page=${currentPage}&limit=8`
+        `/admin/getAllInfo?page=${currentPage}&limit=5`
       );
 
       return patientResponse.data;
@@ -43,7 +43,7 @@ export const deletePatient = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.error("Error deleting patient:", error);
-      rejectWithValue(error.data.message);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );

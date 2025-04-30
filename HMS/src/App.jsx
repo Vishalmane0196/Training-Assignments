@@ -5,14 +5,12 @@ import { RouterProvider } from "react-router-dom";
 import router from "./routes/Routes";
 
 function App() {
-
-
   return (
     <>
       <GoogleOAuthProvider clientId={import.meta.env.VITE_clientId}>
         <ToastContainer
           position="top-right"
-          autoClose={1000}
+          autoClose={1500}
           hideProgressBar
           newestOnTop={false}
           closeOnClick
@@ -20,7 +18,7 @@ function App() {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme="light" 
+          theme="light"
         />
 
         <RouterProvider router={router}></RouterProvider>

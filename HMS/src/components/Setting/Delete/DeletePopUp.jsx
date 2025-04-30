@@ -11,7 +11,7 @@ export const DeletePopUp = ({
   id,
   deleteState,
   setDeleteState,
-  functionCall,
+  // functionCall,
   access,
 }) => {
   let [msg, setMsg] = useState();
@@ -23,14 +23,13 @@ export const DeletePopUp = ({
     if (btnState) return;
     try {
       if (deleteFunction !== null) {
-        await dispatch(
-          deleteFunction(
-            access == "appointment" ? { ...id, ["reason"]: msg } : id
-          )
-        ).unwrap();
+        deleteFunction(
+          access == "appointment" ? { ...id, ["reason"]: msg } : id
+        );
         if (access !== "doctor") {
+          setBtnState(false);
           setDeleteState(false);
-          functionCall();
+          // functionCall();
           return;
         } else {
           if (userInfo?.email == id) {
@@ -38,9 +37,9 @@ export const DeletePopUp = ({
             navigate("/account/user/login");
           }
         }
-        functionCall();
+        // functionCall();
+        setBtnState(false);
         setDeleteState(false);
-
         toast.success("Record Deleted Successfully");
       } else {
         await dispatch(deleteAccount("delete")).unwrap();
@@ -51,11 +50,12 @@ export const DeletePopUp = ({
         toast.success("Account deleted successfully! Redirecting to login...", {
           position: "top-right",
         });
+        setBtnState(false);
       }
     } catch (error) {
       setBtnState(false);
       console.error(error);
-      toast.error(`Failed to delete : ${error.response.data.message}`);
+      toast.error(`Failed to delete : ${error}`);
     }
   };
 
@@ -170,6 +170,7 @@ export const DeletePopUp = ({
                 <button
                   disabled={btnState}
                   onClick={() => {
+                    console.log(btnState);
                     if (btnState) {
                       return;
                     } else {

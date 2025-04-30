@@ -52,6 +52,21 @@ const Appointment = () => {
 
   return (
     <>
+      <div className={appointmentCSS.breadcrumbs}>
+        <div className={appointmentCSS.container2}>
+          <ul className={appointmentCSS.breadcrumbs__list}>
+            <li>
+              <a> Dashboard</a>
+            </li>
+            <li>
+              <a onClick={() => history.back()}>My Patient</a>
+            </li>
+            <li>
+              <a>Booking</a>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div className={appointmentCSS.container}>
         <h1>Booking Appointment</h1>
         <div className={appointmentCSS.line}></div>

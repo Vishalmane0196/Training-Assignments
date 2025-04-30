@@ -164,7 +164,7 @@ const Router = createBrowserRouter([
         element: <AdminPatient access={"appointment"} />,
       },
       {
-        path: "/admin/dashboard/viewpatients/bookAppointment",
+        path: "/admin/dashboard/mypatients/viewpatients/bookAppointment",
         element: <Appointment />,
       },
       {

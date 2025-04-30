@@ -108,6 +108,7 @@ export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
                 message: "Invalid Pattern",
                 value: /^[A-Za-z]{2,}(?:[ '-][A-Za-z]+)*$/,
               }}
+              maxLength={15}
               type="text"
               placeholder="Enter Disease Name."
             />

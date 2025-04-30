@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "chrome",
+        "request": "launch",
+        "name": "Debug React (Vite)",
+        "url": "http://localhost:5173",
+        "webRoot": "${workspaceFolder}/src", // Better breakpoint mapping
+        "sourceMaps": true
+      }
+    ]
+  }
+  

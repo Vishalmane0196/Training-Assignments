@@ -9,6 +9,7 @@ import {
 } from "../../redux/asyncThunkFuntions/admin";
 import { fetchPatientCardData } from "../../redux/asyncThunkFuntions/admin";
 import DeletePopUp from "src/components/Setting/Delete/DeletePopUp";
+import { toast } from "react-toastify";
 const Summary = () => {
   const [deleteState, setState] = useState(false);
   const [id, setID] = useState(null);
@@ -27,6 +28,15 @@ const Summary = () => {
       await dispatch(fetchPatientCardData("get")).unwrap();
     } catch (error) {
       console.error(error);
+    }
+  };
+  const deletePatientFun = async (id) => {
+    try {
+      await dispatch(deletePatient(id)).unwrap();
+      fetchData();
+    } catch (error) {
+      console.error(error);
+      toast.error(error);
     }
   };
 
@@ -94,11 +104,25 @@ const Summary = () => {
                           ></i>
                           <i
                             title="delete patient"
+                            disabled={
+                              obj?.status == "Cancelled" || obj?.status == null
+                            }
                             onClick={() => {
-                              setID(obj.patient_id);
-                              setState(true);
+                              if (
+                                obj?.status == "Cancelled" ||
+                                obj?.status == null
+                              ) {
+                                setID(obj.patient_id);
+                                setState(true);
+                              } else {
+                                return;
+                              }
                             }}
-                            className="fa-solid fa-trash"
+                            className={`fa-solid fa-trash ${
+                              obj?.status == "Cancelled" || obj?.status == null
+                                ? null
+                                : styles.disabled
+                            }`}
                           ></i>
                         </div>
                       </td>
@@ -133,9 +157,8 @@ const Summary = () => {
       </div>
       {deleteState && (
         <DeletePopUp
-          deleteFunction={deletePatient}
+          deleteFunction={deletePatientFun}
           id={id}
-          functionCall={fetchData}
           deleteState={deleteState}
           setDeleteState={setState}
         />

@@ -5,7 +5,7 @@
     color: black;
     padding: 20px;
     font-family: 'Segoe UI', sans-serif;
-    height: 90vh;
+    height: 82vh;
 }
 
 .header {
@@ -57,7 +57,7 @@
     /* visibility: hidden; */
 }
 .tableWrapper {
-    max-height: 70vh; /* Adjust as needed */
+    max-height: 66vh; /* Adjust as needed */
     overflow-y: auto;
     border: 1px solid #ccc;
     border-radius: 20px;
@@ -112,3 +112,63 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+/*  */
+
+
+.breadcrumbs {
+    --color-text: #5d5d5d;
+    width: 100%;
+    background: #f3f3f3;
+    padding: 5px;
+  }
+  
+  .breadcrumbs__list {
+    list-style: none;
+    margin: 0.5rem;
+    padding-left: 0.2rem;
+  }
+  
+  .breadcrumbs li {
+    display: inline;
+  }
+  
+  .breadcrumbs li:first-child a::before {
+    content: "\f015";
+    font-family: FontAwesome;
+    padding: 2px;
+  }
+  
+  .breadcrumbs li:first-child a::before,
+  .breadcrumbs li+li::before {
+    font-size: 15px;
+    color: var(--color-text);
+  }
+  
+  .breadcrumbs li+li::before {
+    padding: 8px;
+    content: "\f105";
+    font-family: FontAwesome;
+  }
+  
+  .breadcrumbs li a {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 19px;
+    color: var(--color-text);
+    text-transform: capitalize;
+    transition: color 0.24s linear;
+    cursor: pointer;
+  }
+  
+  .breadcrumbs li:nth-child(3)>a {
+    color: gray;
+    cursor: default;
+  }
+  
+  @media (hover: hover) {
+    .breadcrumbs li a:hover {
+      color: var(--primary-color);
+    }
+  }
