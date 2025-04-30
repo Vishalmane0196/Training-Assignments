@@ -43,6 +43,24 @@ const UpdateAdmin = ({ access }) => {
       toast.error(error);
     }
   };
+
+  const deleteDoctorFun = async (id) => {
+    try {
+      await dispatch(deleteDoctor(id)).unwrap();
+      fetchDoctors();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const deletePatientFun = async () => {
+    try {
+      await dispatch(deleteAdmin(id)).unwrap();
+      handleDeleteAdmin();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const fetchDoctors = async () => {
     try {
       let response = await dispatch(getDoctor()).unwrap();
@@ -171,10 +189,11 @@ const UpdateAdmin = ({ access }) => {
         )}
         {deleteState && (
           <DeletePopUp
-            deleteFunction={access == "doctor" ? deleteDoctor : deleteAdmin}
+            deleteFunction={
+              access == "doctor" ? deleteDoctorFun : deletePatientFun
+            }
             id={id}
             access={"doctor"}
-            functionCall={access == "doctor" ? fetchDoctors : handleDeleteAdmin}
             deleteState={deleteState}
             setDeleteState={setState}
           />

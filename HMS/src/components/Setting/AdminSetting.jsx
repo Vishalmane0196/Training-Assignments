@@ -22,7 +22,7 @@ const AdminSetting = () => {
         <div className={settingCSS.container}>
           <div>
             <div className={settingCSS.verticalLine}></div>
-            <h3 className={settingCSS.headerSecond}>Admin Settings</h3>
+            <h3 className={settingCSS.headerSecond}>Settings</h3>
           </div>
           <div className={settingCSS.featureCover}>
             <h3 className={settingCSS.h3header}>Change personal info</h3>
