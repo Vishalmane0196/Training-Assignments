@@ -29,7 +29,7 @@ const Setting = () => {
         </div>
 
         {/* Theme Toggle */}
-        <div className={SettingCSS.featureCover}>
+        {/* <div className={SettingCSS.featureCover}>
           <h3 className={SettingCSS.header}>Reset Password</h3>
           <div className={SettingCSS.line}></div>
           <p className={SettingCSS.p3tag}>
@@ -43,7 +43,7 @@ const Setting = () => {
           >
             Reset
           </button>
-        </div>
+        </div> */}
 
         <div className={SettingCSS.featureCover}>
           <h3 className={SettingCSS.h3head}>Delete Account</h3>

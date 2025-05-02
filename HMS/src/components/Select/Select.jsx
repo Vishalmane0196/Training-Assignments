@@ -50,21 +50,21 @@ export const Select = ({ value, onChange, options }) => {
                 <div className={styles.mainOptionsSecond}>
                   <div
                     className={styles.mainOption}
-                    onClick={() => handleChange("Non Binary")}
+                    onClick={() => handleChange("Non-binary")}
                   >
-                    Non Binary
+                    Non-Binary
                   </div>
                   <div
                     className={styles.mainOption}
-                    onClick={() => handleChange("Trans")}
+                    onClick={() => handleChange("Transgender")}
                   >
-                    Trans
+                    Transgender
                   </div>
                   <div
                     className={styles.mainOption}
-                    onClick={() => handleChange("Asexual Spectrum")}
+                    onClick={() => handleChange("Queer")}
                   >
-                    Asexual Spectrum
+                    Queer
                   </div>
                 </div>
               )}

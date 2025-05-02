@@ -1,6 +1,8 @@
 .container {
     position: relative;
     display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .main {
@@ -10,6 +12,7 @@
     cursor: pointer;
     background-color: #fff;
     position: relative;
+    
 }
 
 .main:hover {

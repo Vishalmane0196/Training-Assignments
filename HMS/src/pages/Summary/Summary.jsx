@@ -71,7 +71,7 @@ const Summary = () => {
             <table>
               <thead>
                 <tr className={styles.heading}>
-                  <th>Patient ID</th>
+                  <th>Sr. no</th>
                   <th>Patient Name</th>
                   <th>Disease Type</th>
                   <th>Age</th>

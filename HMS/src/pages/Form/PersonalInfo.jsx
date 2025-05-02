@@ -96,7 +96,7 @@ export const PersonalInfo = ({
         if (JSON.stringify(obj) == JSON.stringify(formattedData)) {
           console.log("Updated");
         } else {
-          await dispatch(updatePersonalInfo(formattedData));
+          await dispatch(updatePersonalInfo(formattedData)).unwrap();
           toast.success("Personal Information updated successfully!");
         }
       } else {
