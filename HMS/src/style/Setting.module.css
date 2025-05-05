@@ -4,7 +4,6 @@
     scrollbar-width: none;
     width: 100%;
     border-radius: 15px;
-    padding-left: 1rem;
     margin-bottom: 1rem;
     position: relative;
     height: 75vh;
@@ -255,7 +254,6 @@ input:checked+.slider::before {
 }
 
 .adminMailInput:hover {
-
     box-shadow: 0 0 0 4px rgba(234, 100, 217, 0.1);
 }
 
@@ -285,19 +283,16 @@ input:checked+.slider::before {
     cursor: pointer;
     font-size: 14px;
     transition: all ease-in-out 0.1s;
-
 }
 
 .addMainBtn:hover {
     background-color: #1b8b40;
     color: white;
-
 }
 
 .delMail:hover {
     background-color: #f77137;
     color: white;
-
 }
 
 .modal {
@@ -316,13 +311,10 @@ input:checked+.slider::before {
 .modalContent {
     background-color: #1e1e1e;
     color: white;
-
     border-radius: 8px;
-
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     position: relative;
 }
-
 .close {
     position: absolute;
     right: 10px;
@@ -330,11 +322,30 @@ input:checked+.slider::before {
     font-size: 24px;
     cursor: pointer;
 }
-
 .containerCoverAdmin {
     padding: 0.5rem 2rem;
 }
-
 .popup h3 {
+    color: black;
+}
+
+.cover {
+    width: 400px;
+    height: 200px;
+}
+
+.setHeight {
+    width: 400px;
+    height: 140px;
+    overflow: auto;
+    color: black;
+    padding: 10px;
+    border: 1px solid #ccc;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    border-radius: 5px;
+}
+.pre {
     color: black;
 }

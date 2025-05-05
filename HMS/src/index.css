@@ -6,18 +6,14 @@
 
 #root {
     height: 100vh;
-   
-
 }
 
 .Toastify__toast--success {
     background-color: #ffffff !important;
-    /* Green */
     color: rgb(114, 112, 112) !important;
 }
 
 .Toastify__toast--error {
     background-color: #f44336 !important;
-    /* Red */
     color: white !important;
 }

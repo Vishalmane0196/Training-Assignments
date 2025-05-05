@@ -11,6 +11,14 @@
     flex-direction: column;
     gap: 0.5rem;
   }
+  .eye{
+    position: relative;
+    font-size: 0.8rem;
+    left: -4rem;
+    top: 0.5rem;
+    color: #797777;
+    cursor: pointer;
+  }
 .inputfield
 {
  

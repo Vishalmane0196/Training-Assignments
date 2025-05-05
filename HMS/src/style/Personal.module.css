@@ -1,50 +1,55 @@
-
 .container {
-    background-color: transparent;
-    width: 80%;
-    margin-top: 2rem;
-  }
+  background-color: transparent;
+  width: 80%;
+  margin-top: 2rem;
+}
 
-  .fieldCoverDiv
-  {
-    width: 22%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-.inputfield
-{
+.fieldCoverDiv {
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputfield {
   outline: none;
   padding: 0.6rem 1.5rem;
   border-radius: 5px;
   border: 1px solid #ddd;
- 
+
 }
-.inputfield:hover{
+
+.inputfield:hover {
 
   box-shadow: 0 0 0 4px rgba(234, 100, 217, 0.1);
 }
-.inputfield:focus{
+
+.inputfield:focus {
   outline: none;
-  border: 1px solid rgba(234, 100, 216, 0.438);;
+  border: 1px solid rgba(234, 100, 216, 0.438);
+  ;
 }
-.star{
+
+.star {
   color: red;
 }
-.fielderror{
+
+.fielderror {
   color: rgb(244, 82, 82);
   margin: 0;
   font-size: 0.8rem;
   height: 10px;
 }
-::placeholder{
+
+::placeholder {
   color: #797777;
 }
-.labelRadio{
+
+.labelRadio {
   margin-right: 0.5rem;
 }
 
-.submitBtn{
+.submitBtn {
   color: rgb(250, 250, 250);
   background-color: #3498db;
 
@@ -55,4 +60,10 @@
   border-radius: 5px;
   outline: none;
   text-align: center;
+}
+
+input[type='date'] {
+  font-family: inherit;
+  color: #797777;
+
 }

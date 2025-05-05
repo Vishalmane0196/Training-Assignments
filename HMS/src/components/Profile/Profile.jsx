@@ -52,7 +52,7 @@ const Profile = () => {
             <div className={styles.detailRow}>
               <p className={styles.label}>First Name:</p>
               <p className={styles.value}>{userInfo?.first_name} </p>
-              <p style={{ marginLeft: "9rem" }} className={styles.label}>
+              <p style={{ marginLeft: "12rem" }} className={styles.label}>
                 Last Name:
               </p>
               <p className={styles.value}>{userInfo?.last_name}</p>
@@ -89,14 +89,14 @@ const Profile = () => {
             {isAdmin == 0 && (
               <>
                 {" "}
-                <p className={styles.label}>Your Patient</p>
+                <p className={styles.label}>Your Patients :</p>
                 <p className={styles.value}>{patient}</p>
               </>
             )}
           </div>
           {isAdmin == 1 && (
             <div className={styles.detailRow}>
-              <p className={styles.label}>Your Patient</p>
+              <p className={styles.label}>Your Patient :</p>
               <p className={styles.value}>{patient}</p>
             </div>
           )}

@@ -10,15 +10,19 @@ import {
   getDiseaseInfo,
 } from "../../redux/asyncThunkFuntions/user";
 import { Input } from "src/components/Input/Input";
+import View from "src/components/ViewDetails/View";
 
 export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
   const [diseaseInfo, setDiseaseInfo] = useState(null);
+  const [displayState, setDisplayState] = useState(false);
+
   const dispatch = useDispatch();
 
   const {
     register,
     reset,
     trigger,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -127,6 +131,13 @@ export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
               type="text"
               placeholder="Enter Description."
             />
+            <i
+              title="view discription"
+              onClick={() => {
+                setDisplayState(true);
+              }}
+              className={`fa-solid fa-eye ${diseaseCSS.eye}`}
+            ></i>
           </div>
           <div
             style={{
@@ -153,6 +164,13 @@ export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
             )}
           </div>
         </form>
+        {displayState && (
+          <View
+            data={getValues("disease_description")}
+            deleteState={displayState}
+            setDeleteState={setDisplayState}
+          />
+        )}
       </div>
     </>
   );

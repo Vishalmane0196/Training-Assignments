@@ -1,3 +1,4 @@
+import { color } from "framer-motion";
 import React, { useState, useRef } from "react";
 import styles from "src/style/Select.module.css";
 
@@ -23,7 +24,11 @@ export const Select = ({ value, onChange, ...rest }) => {
 
   return (
     <div className={styles.container} {...rest}>
-      <div className={styles.main} onClick={() => setIsOpen(!isOpen)}>
+      <div
+        className={styles.main}
+        style={value == "" ? { color: "#797777" } : { color: "black" }}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {value || "Select Gender"}
 
         {isOpen && (
