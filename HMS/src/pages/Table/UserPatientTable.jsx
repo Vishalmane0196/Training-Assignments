@@ -17,19 +17,19 @@ const UserPatientTable = ({ access }) => {
 
   const handlePatientView = (patientId) => {
     if (isDoctor) {
-      navigate(`/doctor/dashboard/viewpatients/patientdetails/${patientId}`);
+      navigate(`/dashboard/viewpatients/patientdetails/${patientId}`);
       return;
     }
-    navigate(`/user/dashboard/viewpatients/patientdetails/${patientId}`);
+    navigate(`/dashboard/viewpatients/patientdetails/${patientId}`);
   };
 
   const handleBookAppointment = (id) => {
     dispatch(setBookPatientId(id));
     if (isDoctor) {
-      navigate("/doctor/dashboard/viewpatients/bookAppointment");
+      navigate("/dashboard/viewpatients/bookAppointment");
       return;
     }
-    navigate("/user/dashboard/viewpatients/bookAppointment");
+    navigate("/dashboard/viewpatients/bookAppointment");
   };
   const getPatient = async () => {
     dispatch(await fetchPatientsInfo("get"));
@@ -66,7 +66,6 @@ const UserPatientTable = ({ access }) => {
               </tr>
             </thead>
             {patientList.length === 0 ? (
-              
               <tr>
                 <td colSpan="6">
                   <NoRecord />
@@ -120,7 +119,7 @@ const UserPatientTable = ({ access }) => {
                             ? () => {
                                 access == "doctor"
                                   ? navigate(
-                                      `/doctor/dashboard/prescription?id=${obj.appointment_id}&edit=${obj.prescription_id}`
+                                      `/dashboard/viewAppointment/prescription?id=${obj.appointment_id}&edit=${obj.prescription_id}`
                                     )
                                   : handleBookAppointment(obj.patient_id);
                               }

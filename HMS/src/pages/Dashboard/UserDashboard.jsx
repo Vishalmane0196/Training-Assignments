@@ -4,6 +4,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { logout } from "src/redux/slices/authentication/authSlice";
 import { useDispatch } from "react-redux";
 import { Button } from "src/components/Button/Button";
+import UserMain from "../UserMain/UserMain";
 const UserDashboard = ({ access }) => {
   const dispatch = useDispatch();
 
@@ -21,8 +22,8 @@ const UserDashboard = ({ access }) => {
               <NavLink
                 to={
                   access == "doctor"
-                    ? "/doctor/dashboard/profile"
-                    : "/user/dashboard/profile"
+                    ? "/dashboard/profile"
+                    : "/dashboard/profile"
                 }
                 className={({ isActive }) => {
                   return isActive
@@ -38,8 +39,8 @@ const UserDashboard = ({ access }) => {
               <NavLink
                 to={
                   access == "doctor"
-                    ? "/doctor/dashboard/viewpatients"
-                    : "/user/dashboard/viewpatients"
+                    ? "/dashboard/viewpatients"
+                    : "/dashboard/viewpatients"
                 }
                 className={({ isActive }) => {
                   return isActive
@@ -54,7 +55,7 @@ const UserDashboard = ({ access }) => {
             {access == "doctor" ? (
               <li>
                 <NavLink
-                  to="/doctor/dashboard/viewAppointment"
+                  to="/dashboard/appointment"
                   className={({ isActive }) => {
                     return isActive
                       ? userDashboardCSS.active
@@ -70,8 +71,8 @@ const UserDashboard = ({ access }) => {
               <NavLink
                 to={
                   access == "doctor"
-                    ? "/doctor/dashboard/setting"
-                    : "/user/dashboard/setting"
+                    ? "/dashboard/setting"
+                    : "/dashboard/setting"
                 }
                 className={({ isActive }) => {
                   return isActive
@@ -95,7 +96,7 @@ const UserDashboard = ({ access }) => {
 
         {/* <!-- Main Content --> */}
         <div className={userDashboardCSS.outletContainer}>
-          <Outlet />
+          <UserMain />
         </div>
       </div>
     </>

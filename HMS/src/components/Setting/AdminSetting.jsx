@@ -40,7 +40,6 @@ const AdminSetting = () => {
             </button>
           </div>
 
-          {/* Theme Toggle */}
           <div className={settingCSS.featureCover}>
             <h3 className={settingCSS.h3header}>Control admin access</h3>
             <div className={settingCSS.line}></div>
@@ -59,21 +58,7 @@ const AdminSetting = () => {
               </div>
             </div>
           </div>
-          {/* <div className={settingCSS.featureCover}>
-            <h3 className={settingCSS.header}>Reset Password</h3>
-            <div className={settingCSS.line}></div>
-            <p className={settingCSS.p3tag}>
-              Please enter the password you wish to change.
-            </p>
-            <button
-              className={settingCSS.editBtn}
-              onClick={() => {
-                setReset(true);
-              }}
-            >
-              Reset
-            </button>
-          </div> */}
+
           {isSuper == 1 ? null : (
             <div className={settingCSS.featureCover}>
               <h3 className={settingCSS.h3head}>Delete Account</h3>

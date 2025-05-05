@@ -73,13 +73,13 @@ export const Navbar = () => {
 
                   <ul className={navbarCSS.popupOptions}>
                     <li>
-                      <Link to="/admin/dashboard/profile">
+                      <Link to="/dashboard/profile">
                         <i className="fa-solid fa-user"></i>
                         <span style={{ marginLeft: "5px" }}>Profile</span>
                       </Link>
                     </li>
                     <li>
-                      <Link to="/admin/dashboard/setting">
+                      <Link to="/dashboard/setting">
                         <i class="fa-solid fa-gear"></i> Settings
                       </Link>
                     </li>

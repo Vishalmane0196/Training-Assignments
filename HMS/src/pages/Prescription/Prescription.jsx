@@ -320,9 +320,18 @@ const Prescription = () => {
         <Button
           disabled={btnState}
           onClick={() => {
+            history.back();
+          }}
+          text={"Back"}
+          type={"submit"}
+          style={styles.backBtn}
+        />
+        <Button
+          disabled={btnState}
+          onClick={() => {
             handlePrescriptionData();
           }}
-          text={"Submit Prescription"}
+          text={"Submit"}
           type={"submit"}
           style={styles.submitBtn}
         />

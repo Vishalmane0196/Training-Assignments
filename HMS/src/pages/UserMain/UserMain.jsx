@@ -41,8 +41,8 @@ const UserMain = () => {
           <button
             onClick={() => {
               isDoctor
-                ? navigate("/doctor/dashboard/addpatient/")
-                : navigate("/user/dashboard/addpatient/");
+                ? navigate("/dashboard/addpatient/")
+                : navigate("/dashboard/addpatient/");
             }}
             className={userDashboardCSS.addPatientBtn}
           >

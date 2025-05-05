@@ -12,6 +12,22 @@ h2 {
     margin-bottom: 2rem;
 }
 
+.backBtn {
+    padding: 0.6rem 1.2rem;
+    background-color: transparent;
+
+    color: #7b7676;
+    margin-right: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #7b76766b;
+    cursor: pointer;
+    margin-top: 2rem;
+    align-items: start;
+}
+.backBtn:hover{
+   background-color: #7b767634;
+}
+
 .filters {
     display: flex;
     gap: 10px;

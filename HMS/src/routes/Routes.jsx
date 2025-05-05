@@ -4,6 +4,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "src/routes/ProtectedRoute.jsx";
 import { Loading } from "src/components/Loading/Loading";
 import ErrorBoundary from "src/components/ErrorBoundary/ErrorBoundary";
+import { RoleBasedRoute } from "./RoleBasedRoute";
 
 const delayForDemo = (promise, time = 1000) => {
   return new Promise((resolve) => {
@@ -58,52 +59,39 @@ const Router = createBrowserRouter([
     ),
   },
   {
-    path: "/user/dashboard",
+    path: "/dashboard",
     element: (
       <Suspense fallback={<Loading />}>
-        <ProtectedRoute isAdminProp={0} isDoctorProp={0}>
-          <ErrorBoundary>
-            <UserDashboard />
-          </ErrorBoundary>
-        </ProtectedRoute>
+        <ErrorBoundary>
+          <ProtectedRoute></ProtectedRoute>
+        </ErrorBoundary>
       </Suspense>
     ),
     children: [
       {
-        path: "",
+        path: "/dashboard/profile",
         element: (
-          <Suspense fallback={<Loading />}>
-            <UserMain />
-          </Suspense>
+          <RoleBasedRoute
+            element={<Profile />}
+            role={["admin", "user", "doctor"]}
+          />
         ),
-        children: [
-          {
-            path: "/user/dashboard/profile",
-            element: <Profile />,
-          },
-          {
-            path: "/user/dashboard/viewpatients",
-            element: <UserPatientTable />,
-          },
-          {
-            path: "/user/dashboard/viewpatients/patientdetails/:id",
-            element: <ViewPatient />,
-          },
-
-          {
-            path: "/user/dashboard/setting",
-            element: <Setting />,
-            children: [
-              {
-                path: "/user/dashboard/setting/deleteaccount",
-                element: <DeletePopUp />,
-              },
-            ],
-          },
-        ],
       },
       {
-        path: "/user/dashboard/addpatient",
+        path: "/dashboard/viewpatients",
+        element: <UserPatientTable />,
+      },
+      {
+        path: "/dashboard/viewpatients/patientdetails/:id",
+        element: <ViewPatient />,
+      },
+
+      {
+        path: "/dashboard/setting",
+        element: <Setting />,
+      },
+      {
+        path: "/dashboard/addpatient",
         element: (
           <Suspense fallback={<Loading />}>
             <MultiStepForm />
@@ -111,42 +99,27 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/user/dashboard/viewpatients/bookAppointment",
+        path: "/dashboard/viewpatients/bookAppointment",
         element: <Appointment />,
       },
-    ],
-  },
-  {
-    path: "/admin/dashboard",
-    element: (
-      <Suspense fallback={<Loading />}>
-        <ProtectedRoute isAdminProp={1} isDoctorProp={0}>
-          <ErrorBoundary>
-            {" "}
-            <Dashboard />
-          </ErrorBoundary>
-        </ProtectedRoute>
-      </Suspense>
-    ),
-    children: [
       {
-        path: "/admin/dashboard/profile",
-        element: <Profile />,
-      },
-      {
-        path: "/admin/dashboard/setting",
-        element: <AdminSetting />,
-      },
-      {
-        path: "/admin/dashboard/setting/accessControl",
+        path: "/dashboard/setting/accessControl",
         element: <UpdateAdmin access={"Admin"} />,
       },
       {
-        path: "/admin/dashboard/allpatients",
+        path: "/dashboard/manageDoctor",
+        element: <UpdateAdmin access={"doctor"} />,
+      },
+      {
+        path: "/dashboard/manageAppointment",
+        element: <AdminPatient access={"appointment"} />,
+      },
+      {
+        path: "/dashboard/allpatients",
         element: <Summary />,
       },
       {
-        path: "/admin/dashboard/allpatients/patientdetails/:id",
+        path: "/dashboard/allpatients/patientdetails/:id",
         element: <Allpatient />,
         children: [
           {
@@ -156,91 +129,34 @@ const Router = createBrowserRouter([
         ],
       },
       {
-        path: "/admin/dashboard/manageDoctor",
-        element: <UpdateAdmin access={"doctor"} />,
-      },
-      {
-        path: "/admin/dashboard/manageAppointment",
-        element: <AdminPatient access={"appointment"} />,
-      },
-      {
-        path: "/admin/dashboard/mypatients/viewpatients/bookAppointment",
-        element: <Appointment />,
-      },
-      {
-        path: "/admin/dashboard/addpatient",
-        element: <MultiStepForm />,
-      },
-      {
-        path: "/admin/dashboard/mypatients",
-        element: <AdminPatient access={""} />,
-      },
-    ],
-  },
-  {
-    path: "doctor/dashboard",
-    element: (
-      <Suspense fallback={<Loading />}>
-        <ProtectedRoute isDoctorProp={1} isAdminProp={0}>
-          <ErrorBoundary>
-            {" "}
-            <UserDashboard access={"doctor"} />
-          </ErrorBoundary>
-        </ProtectedRoute>
-      </Suspense>
-    ),
-    children: [
-      {
-        path: "",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <UserMain />
-          </Suspense>
-        ),
+        path: "/dashboard/mypatients/patientdetails/:id",
+        element: <Allpatient />,
         children: [
           {
-            path: "/doctor/dashboard/profile",
-            element: <Profile />,
-          },
-          {
-            path: "/doctor/dashboard/viewpatients",
-            element: <UserPatientTable />,
-          },
-          {
-            path: "/doctor/dashboard/viewpatients/patientdetails/:id",
+            path: "",
             element: <ViewPatient />,
-          },
-          {
-            path: "/doctor/dashboard/viewAppointment",
-            element: <UserPatientTable access={"doctor"} />,
-          },
-          {
-            path: "/doctor/dashboard/prescription",
-            element: <Prescription />,
-          },
-          {
-            path: "/doctor/dashboard/setting",
-            element: <Setting access="doctor" />,
-            children: [
-              {
-                path: "/doctor/dashboard/setting/deleteaccount",
-                element: <DeletePopUp />,
-              },
-            ],
           },
         ],
       },
       {
-        path: "/doctor/dashboard/addpatient",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <MultiStepForm />
-          </Suspense>
-        ),
+        path: "/dashboard/mypatients/viewpatients/bookAppointment",
+        element: <Appointment />,
       },
       {
-        path: "/doctor/dashboard/viewpatients/bookAppointment",
+        path: "/dashboard/mypatients",
+        element: <AdminPatient access={""} />,
+      },
+      {
+        path: "/dashboard/viewAppointment/prescription",
+        element: <Prescription />,
+      },
+      {
+        path: "/dashboard/viewpatients/bookAppointment",
         element: <Appointment />,
+      },
+      {
+        path: "/dashboard/appointment",
+        element: <UserPatientTable access={"doctor"} />,
       },
     ],
   },

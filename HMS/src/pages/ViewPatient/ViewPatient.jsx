@@ -158,7 +158,6 @@ const ViewPatient = () => {
 
   return (
     <>
-      
       <div className={viewPatientCSS.container}>
         <Accordion expanded>
           <AccordionSummary
@@ -197,6 +196,7 @@ const ViewPatient = () => {
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <Input
+                    disabled={true}
                     label="Patient Name"
                     require="Patient Name"
                     register={register}
@@ -208,6 +208,7 @@ const ViewPatient = () => {
                   />
 
                   <Input
+                    disabled={true}
                     label="Birth Date"
                     require="Birth Date"
                     register={register}
@@ -227,6 +228,7 @@ const ViewPatient = () => {
                       rules={{ required: "Gender is required" }}
                       render={({ field: { onChange, onBlur, value } }) => (
                         <Select
+                          disabled={true}
                           onBlur={onBlur}
                           onChange={onChange}
                           value={value}
@@ -253,6 +255,7 @@ const ViewPatient = () => {
                   </div>
 
                   <Input
+                    disabled={true}
                     label="Country"
                     require="Country Name "
                     register={register}
@@ -273,6 +276,7 @@ const ViewPatient = () => {
                   }}
                 >
                   <Input
+                    disabled={true}
                     label="Weight"
                     require="Weight "
                     register={register}
@@ -286,6 +290,7 @@ const ViewPatient = () => {
                   />
 
                   <Input
+                    disabled={true}
                     label="Height"
                     require="Height "
                     register={register}
@@ -373,6 +378,7 @@ const ViewPatient = () => {
               <form>
                 <div style={{ display: "flex", gap: "3rem" }}>
                   <Input
+                    disabled={true}
                     label="Father Name"
                     require="Father Name"
                     register={register}
@@ -384,6 +390,7 @@ const ViewPatient = () => {
                   />
 
                   <Input
+                    disabled={true}
                     label="Father Country"
                     require="Country Name"
                     register={register}
@@ -395,6 +402,7 @@ const ViewPatient = () => {
                   />
 
                   <Input
+                    disabled={true}
                     label="Father Age "
                     require="Age"
                     register={register}
@@ -411,6 +419,7 @@ const ViewPatient = () => {
                       Father BP <span className={viewPatientCSS.star}>*</span>
                     </label>
                     <select
+                    disabled={true}
                       className={viewPatientCSS.inputfield}
                       {...register("father_bp", {
                         required: "Blood pressure is required",
@@ -431,6 +440,7 @@ const ViewPatient = () => {
                   style={{ display: "flex", gap: "3rem", marginTop: "2rem" }}
                 >
                   <Input
+                    disabled={true}
                     label="Mother Name"
                     require="Mother Name"
                     register={register}
@@ -442,6 +452,7 @@ const ViewPatient = () => {
                   />
 
                   <Input
+                    disabled={true}
                     label="Mother Country"
                     require="Country Name"
                     register={register}
@@ -453,6 +464,7 @@ const ViewPatient = () => {
                   />
 
                   <Input
+                    disabled={true}
                     label="Mother Age "
                     require="Age"
                     register={register}
@@ -470,6 +482,7 @@ const ViewPatient = () => {
                       Mother BP <span className={viewPatientCSS.star}>*</span>
                     </label>
                     <select
+                    disabled={true}
                       className={viewPatientCSS.inputfield}
                       {...register("mother_bp", {
                         required: "Blood pressure is required",
@@ -566,6 +579,7 @@ const ViewPatient = () => {
                   style={{ display: "flex", gap: "3rem", marginBottom: "2rem" }}
                 >
                   <Input
+                    disabled={true}
                     label="Disease Type"
                     require="Disease Type"
                     register={register}
@@ -577,6 +591,7 @@ const ViewPatient = () => {
                   />
 
                   <Input
+                    disabled={true}
                     label="Disease Description"
                     require="Description require"
                     register={register}

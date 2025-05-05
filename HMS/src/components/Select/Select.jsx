@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import styles from "src/style/Select.module.css";
 
-export const Select = ({ value, onChange, options }) => {
+export const Select = ({ value, onChange, ...rest }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showSubMenu, setShowSubMenu] = useState(false);
   const subMenuTimeoutRef = useRef(null);
@@ -22,7 +22,7 @@ export const Select = ({ value, onChange, options }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} {...rest}>
       <div className={styles.main} onClick={() => setIsOpen(!isOpen)}>
         {value || "Select Gender"}
 

@@ -19,7 +19,7 @@ const Dashboard = () => {
             <span className={adminCSS.menuHeader}>Menu</span>
             <li>
               <NavLink
-                to="/admin/dashboard/addpatient"
+                to="/dashboard/addpatient"
                 className={({ isActive }) => {
                   return isActive ? adminCSS.active : adminCSS.linkText;
                 }}
@@ -37,7 +37,7 @@ const Dashboard = () => {
             </li>
             <li>
               <NavLink
-                to="/admin/dashboard/allpatients"
+                to="/dashboard/allpatients"
                 className={({ isActive }) => {
                   return isActive ? adminCSS.active : adminCSS.linkText;
                 }}
@@ -49,7 +49,7 @@ const Dashboard = () => {
 
             <li>
               <NavLink
-                to="/admin/dashboard/mypatients"
+                to="/dashboard/mypatients"
                 className={({ isActive }) => {
                   return isActive ? adminCSS.active : adminCSS.linkText;
                 }}
@@ -63,7 +63,7 @@ const Dashboard = () => {
 
             <li>
               <NavLink
-                to="/admin/dashboard/manageDoctor"
+                to="/dashboard/manageDoctor"
                 className={({ isActive }) => {
                   return isActive ? adminCSS.active : adminCSS.linkText;
                 }}
@@ -74,7 +74,7 @@ const Dashboard = () => {
             </li>
             <li>
               <NavLink
-                to="/admin/dashboard/manageAppointment"
+                to="/dashboard/manageAppointment"
                 className={({ isActive }) => {
                   return isActive ? adminCSS.active : adminCSS.linkText;
                 }}

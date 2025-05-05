@@ -8,7 +8,6 @@ import { fetchDoctorSlots } from "src/redux/asyncThunkFuntions/user";
 import { bookAppointment } from "src/redux/asyncThunkFuntions/user";
 import { useNavigate } from "react-router-dom";
 export const Slot = ({ date, book, setBook }) => {
-  const { isAdmin, isDoctor, isSuper } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [slots, setSlots] = useState([]);
   const [timeSlot, setTimeSlot] = useState([]);
@@ -80,14 +79,7 @@ export const Slot = ({ date, book, setBook }) => {
         })
       ).unwrap();
       setBook(false);
-      if (isAdmin || isSuper) {
-        navigate("/admin/dashboard/mypatients");
-      } else if (isDoctor) {
-        navigate("/doctor/dashboard/viewpatients");
-      } else {
-        navigate("/user/dashboard/viewpatients");
-      }
-
+      navigate("/dashboard/viewpatients");
       toast.success("Appointment confirmed successfully.");
     } catch (error) {
       toast.error(error);

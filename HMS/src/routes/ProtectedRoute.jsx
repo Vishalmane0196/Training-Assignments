@@ -1,36 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-export const ProtectedRoute = ({
-  children,
-  isAdminProp = 0,
-  isDoctorProp = 0,
-}) => {
+import Dashboard from "src/pages/Dashboard/Dashboard";
+import UserDashboard from "src/pages/Dashboard/UserDashboard";
+export const ProtectedRoute = () => {
   const navigate = useNavigate();
   const { token, isAdmin, isDoctor, isSuper } = useSelector(
     (state) => state.auth
   );
 
-  useEffect(() => {
-    if (!token) {
-      navigate("/account/user/login");
-    } else if (
-      parseInt(isAdmin) !== parseInt(isAdminProp) ||
-      parseInt(isDoctor) !== parseInt(isDoctorProp)
-    ) {
-      console.log(isAdmin, isSuper, isAdminProp);
-      console.log(isDoctor, isDoctorProp);
-
-      if (parseInt(isAdmin) == 1) {
-        navigate("/admin/dashboard/profile");
-      } else if (isDoctor == 1) {
-        navigate("/doctor/dashboard/profile");
-      } else {
-        navigate("/user/dashboard/profile");
-      }
+  if (!token) {
+    navigate("/account/user/login");
+  } else {
+    if (parseInt(isAdmin || isSuper) == 1) {
+      return <Dashboard />;
+    } else if (isDoctor == 1) {
+      return <UserDashboard access={"doctor"} />;
+    } else {
+      return <UserDashboard />;
     }
-  }, [token, isAdmin, isAdminProp, navigate]);
-
-  return children;
+  }
 };
