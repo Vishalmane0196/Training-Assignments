@@ -192,7 +192,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
             />
 
             <Input
-              label="Father Country"
+              label="Father's Country of Origin"
               require="Country Name"
               register={register}
               trigger={trigger}
@@ -204,7 +204,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
             />
 
             <Input
-              label="Father Age "
+              label="Father's Age "
               require="Age"
               register={register}
               trigger={trigger}
@@ -217,7 +217,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
             />
             <div className={familyCSS.fieldCoverDiv}>
               <label className={familyCSS.fieldLabel}>
-                Father BP <span className={familyCSS.star}>*</span>
+                Father Blood Pressure? <span className={familyCSS.star}>*</span>
               </label>
               <select
                 className={familyCSS.inputfield}
@@ -251,7 +251,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
             />
 
             <Input
-              label="Mother Country"
+              label="Mother's Country of Origin"
               require="Country Name"
               register={register}
               trigger={trigger}
@@ -263,7 +263,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
             />
 
             <Input
-              label="Mother Age "
+              label="Mother's Age "
               require="Age"
               register={register}
               trigger={trigger}
@@ -277,7 +277,8 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
 
             <div className={familyCSS.fieldCoverDiv}>
               <label className={familyCSS.fieldLabel}>
-                Mother BP <span className={familyCSS.star}>*</span>
+                Mother Blood Pressure?
+                <span className={familyCSS.star}>*</span>
               </label>
               <select
                 className={familyCSS.inputfield}
@@ -297,7 +298,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
 
           <div style={{ display: "flex", gap: "3rem", marginTop: "1rem" }}>
             <Radio
-              label="Mother Diabetic "
+              label="Has Mother Diabetic?"
               require="Diabetic"
               register={register}
               fieldName="mother_diabetic"
@@ -306,7 +307,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
             />
 
             <Radio
-              label=" Mother Cardiac Issue"
+              label=" Has Mother Cardiac?"
               require="Cardiac"
               register={register}
               fieldName="mother_cardiac_issue"
@@ -314,7 +315,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
               type="radio"
             />
             <Radio
-              label="Father Diabetic"
+              label="Has Father Diabetic?"
               require="Diabetic"
               register={register}
               fieldName="father_diabetic"
@@ -323,7 +324,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
             />
 
             <Radio
-              label="Father Cardiac Issue "
+              label="Has Father  Cardiac ?"
               require="Cardiac"
               register={register}
               fieldName="father_cardiac_issue"

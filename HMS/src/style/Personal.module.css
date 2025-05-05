@@ -34,6 +34,10 @@
   color: red;
 }
 
+.fieldLabel {
+  font-size: 0.88rem;
+}
+
 .fielderror {
   color: rgb(244, 82, 82);
   margin: 0;

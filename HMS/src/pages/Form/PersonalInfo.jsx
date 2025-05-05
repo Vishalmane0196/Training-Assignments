@@ -187,7 +187,7 @@ export const PersonalInfo = ({
             />
 
             <Input
-              label="Birth Date"
+              label="Date of Birth"
               require="Birth Date"
               register={register}
               trigger={trigger}
@@ -239,7 +239,7 @@ export const PersonalInfo = ({
 
           <div style={{ display: "flex", gap: "3rem", marginTop: "1rem" }}>
             <Input
-              label="Weight ( kg )"
+              label="	Weight (kg)"
               require="Weight "
               register={register}
               trigger={trigger}
@@ -252,7 +252,7 @@ export const PersonalInfo = ({
             />
 
             <Input
-              label="Height ( feet )"
+              label="Height (feet)"
               require="Height "
               register={register}
               trigger={trigger}
@@ -268,16 +268,7 @@ export const PersonalInfo = ({
 
           <div style={{ display: "flex", gap: "3rem", marginTop: "1rem" }}>
             <Radio
-              label="Blood Pressure"
-              require="Blood Pressure"
-              register={register}
-              fieldName="blood_pressure"
-              errors={errors}
-              type="radio"
-            />
-
-            <Radio
-              label="Diabetic "
+              label="Has Diabetic Issues?"
               require="Diabetic Field"
               register={register}
               fieldName="is_diabetic"
@@ -286,10 +277,18 @@ export const PersonalInfo = ({
             />
 
             <Radio
-              label="Cardiac "
+              label="Has Cardiac Issues?  "
               require="Cardiac Field"
               register={register}
               fieldName="cardiac_issue"
+              errors={errors}
+              type="radio"
+            />
+            <Radio
+              label="Has Blood Pressure?"
+              require="Blood Pressure"
+              register={register}
+              fieldName="blood_pressure"
               errors={errors}
               type="radio"
             />

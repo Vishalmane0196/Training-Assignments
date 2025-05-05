@@ -419,7 +419,7 @@ const ViewPatient = () => {
                       Father BP <span className={viewPatientCSS.star}>*</span>
                     </label>
                     <select
-                    disabled={true}
+                      disabled={true}
                       className={viewPatientCSS.inputfield}
                       {...register("father_bp", {
                         required: "Blood pressure is required",
@@ -482,7 +482,7 @@ const ViewPatient = () => {
                       Mother BP <span className={viewPatientCSS.star}>*</span>
                     </label>
                     <select
-                    disabled={true}
+                      disabled={true}
                       className={viewPatientCSS.inputfield}
                       {...register("mother_bp", {
                         required: "Blood pressure is required",
