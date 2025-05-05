@@ -39,11 +39,11 @@ const AdminPatient = ({ access }) => {
 
   const handleBookAppointment = (id) => {
     dispatch(setBookPatientId(id));
-    navigate("/dashboard/mypatients/viewpatients/bookAppointment");
+    navigate("/mypatients/viewpatients/bookAppointment");
   };
 
   const handleAdminAllPatient = (id) => {
-    navigate(`/dashboard/mypatients/patientdetails/${id}`);
+    navigate(`/mypatients/patientdetails/${id}`);
   };
 
   const changeStatus = async (data) => {

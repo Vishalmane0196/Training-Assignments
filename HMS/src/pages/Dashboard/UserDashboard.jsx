@@ -22,8 +22,8 @@ const UserDashboard = ({ access }) => {
               <NavLink
                 to={
                   access == "doctor"
-                    ? "/dashboard/profile"
-                    : "/dashboard/profile"
+                    ? "/profile"
+                    : "/profile"
                 }
                 className={({ isActive }) => {
                   return isActive
@@ -39,8 +39,8 @@ const UserDashboard = ({ access }) => {
               <NavLink
                 to={
                   access == "doctor"
-                    ? "/dashboard/viewpatients"
-                    : "/dashboard/viewpatients"
+                    ? "/viewpatients"
+                    : "/viewpatients"
                 }
                 className={({ isActive }) => {
                   return isActive
@@ -55,7 +55,7 @@ const UserDashboard = ({ access }) => {
             {access == "doctor" ? (
               <li>
                 <NavLink
-                  to="/dashboard/appointment"
+                  to="/appointment"
                   className={({ isActive }) => {
                     return isActive
                       ? userDashboardCSS.active
@@ -71,8 +71,8 @@ const UserDashboard = ({ access }) => {
               <NavLink
                 to={
                   access == "doctor"
-                    ? "/dashboard/setting"
-                    : "/dashboard/setting"
+                    ? "/setting"
+                    : "/setting"
                 }
                 className={({ isActive }) => {
                   return isActive

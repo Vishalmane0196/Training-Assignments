@@ -116,7 +116,7 @@ const Prescription = () => {
     });
     try {
       await promise;
-      navigate("/doctor/dashboard/viewAppointment");
+      navigate("/viewAppointment");
     } catch (error) {
       setBtnState(false);
       toast.error(error);

@@ -79,11 +79,11 @@ const Profile = () => {
         <br />
         <div className={styles.userDetails}>
           <div className={styles.detailRow}>
-            <p className={styles.label}>Patient Information :</p>
+            <p className={styles.label}>Patient Count :</p>
           </div>
 
           <div className={styles.detailRow}>
-            {isAdmin == 1 && <p className={styles.label}>Total Patient : </p>}
+            {isAdmin == 1 && <p className={styles.label}>Total Patients : </p>}
             {isAdmin == 1 && <p className={styles.value}>{totalPatient}</p>}
             <br />
             {isAdmin == 0 && (

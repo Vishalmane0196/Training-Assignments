@@ -59,7 +59,7 @@ const Router = createBrowserRouter([
     ),
   },
   {
-    path: "/dashboard",
+    path: "/",
     element: (
       <Suspense fallback={<Loading />}>
         <ErrorBoundary>
@@ -69,7 +69,7 @@ const Router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/dashboard/profile",
+        path: "/profile",
         element: (
           <RoleBasedRoute
             element={<Profile />}
@@ -78,20 +78,25 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/viewpatients",
-        element: <UserPatientTable />,
+        path: "/viewpatients",
+        element: (
+          <RoleBasedRoute
+            element={<UserPatientTable />}
+            role={["user", "doctor"]}
+          />
+        ),
       },
       {
-        path: "/dashboard/viewpatients/patientdetails/:id",
+        path: "/viewpatients/patientdetails/:id",
         element: <ViewPatient />,
       },
 
       {
-        path: "/dashboard/setting",
+        path: "/setting",
         element: <Setting />,
       },
       {
-        path: "/dashboard/addpatient",
+        path: "/addpatient",
         element: (
           <Suspense fallback={<Loading />}>
             <MultiStepForm />
@@ -99,28 +104,43 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/viewpatients/bookAppointment",
+        path: "/viewpatients/bookAppointment",
         element: <Appointment />,
       },
       {
-        path: "/dashboard/setting/accessControl",
-        element: <UpdateAdmin access={"Admin"} />,
+        path: "/setting/accessControl",
+        element: (
+          <RoleBasedRoute
+            element={<UpdateAdmin access={"Admin"} />}
+            role={["admin"]}
+          />
+        ),
       },
       {
-        path: "/dashboard/manageDoctor",
-        element: <UpdateAdmin access={"doctor"} />,
+        path: "/manageDoctor",
+        element: (
+          <RoleBasedRoute
+            element={<UpdateAdmin access={"doctor"} />}
+            role={["admin"]}
+          />
+        ),
       },
       {
-        path: "/dashboard/manageAppointment",
-        element: <AdminPatient access={"appointment"} />,
+        path: "/manageAppointment",
+        element: (
+          <RoleBasedRoute
+            element={<AdminPatient access={"appointment"} />}
+            role={["admin"]}
+          />
+        ),
       },
       {
-        path: "/dashboard/allpatients",
-        element: <Summary />,
+        path: "/allpatients",
+        element: <RoleBasedRoute element={<Summary />} role={["admin"]} />,
       },
       {
-        path: "/dashboard/allpatients/patientdetails/:id",
-        element: <Allpatient />,
+        path: "/allpatients/patientdetails/:id",
+        element: <RoleBasedRoute element={<Allpatient />} role={["admin"]} />,
         children: [
           {
             path: "",
@@ -129,8 +149,8 @@ const Router = createBrowserRouter([
         ],
       },
       {
-        path: "/dashboard/mypatients/patientdetails/:id",
-        element: <Allpatient />,
+        path: "/mypatients/patientdetails/:id",
+        element: <RoleBasedRoute element={<Allpatient />} role={["admin"]} />,
         children: [
           {
             path: "",
@@ -139,24 +159,35 @@ const Router = createBrowserRouter([
         ],
       },
       {
-        path: "/dashboard/mypatients/viewpatients/bookAppointment",
+        path: "/mypatients/viewpatients/bookAppointment",
+        element: <RoleBasedRoute element={<Appointment />} role={["admin"]} />,
+      },
+      {
+        path: "/mypatients",
+        element: (
+          <RoleBasedRoute
+            element={<AdminPatient access={""} />}
+            role={["admin"]}
+          />
+        ),
+      },
+      {
+        path: "/viewAppointment/prescription",
+        element: (
+          <RoleBasedRoute element={<Prescription />} role={["doctor"]} />
+        ),
+      },
+      {
+        path: "/viewpatients/bookAppointment",
         element: <Appointment />,
       },
       {
-        path: "/dashboard/mypatients",
-        element: <AdminPatient access={""} />,
-      },
-      {
-        path: "/dashboard/viewAppointment/prescription",
-        element: <Prescription />,
-      },
-      {
-        path: "/dashboard/viewpatients/bookAppointment",
-        element: <Appointment />,
-      },
-      {
-        path: "/dashboard/appointment",
-        element: <UserPatientTable access={"doctor"} />,
+        path: "/appointment",
+        element: (
+          <RoleBasedRoute
+            element={<UserPatientTable access={"doctor"} role={["doctor"]} />}
+          />
+        ),
       },
     ],
   },

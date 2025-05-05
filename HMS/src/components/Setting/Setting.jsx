@@ -15,7 +15,7 @@ const Setting = () => {
   const { isAdmin, isSuper } = useSelector((state) => state.auth);
 
   const handleAdminEmail = () => {
-    navigate("/dashboard/setting/accessControl");
+    navigate("/setting/accessControl");
   };
 
   return (

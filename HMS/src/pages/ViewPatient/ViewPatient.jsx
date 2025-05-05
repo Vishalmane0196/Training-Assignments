@@ -60,10 +60,10 @@ const ViewPatient = () => {
     dispatch(setStep(0));
     dispatch(setCount(3));
     isAdmin
-      ? navigate("/admin/dashboard/addpatient")
+      ? navigate("/addpatient")
       : isDoctor
-      ? navigate("/doctor/dashboard/addpatient")
-      : navigate("/user/dashboard/addpatient");
+      ? navigate("/addpatient")
+      : navigate("/addpatient");
   };
   const handleUpdateFamilyData = () => {
     documentToLocal();
@@ -71,10 +71,10 @@ const ViewPatient = () => {
     dispatch(setStep(1));
     dispatch(setCount(3));
     isAdmin
-      ? navigate("/admin/dashboard/addpatient")
+      ? navigate("/addpatient")
       : isDoctor
-      ? navigate("/doctor/dashboard/addpatient")
-      : navigate("/user/dashboard/addpatient");
+      ? navigate("/addpatient")
+      : navigate("/addpatient");
   };
 
   const handleUpdateDiseaseData = () => {
@@ -83,10 +83,10 @@ const ViewPatient = () => {
     dispatch(setStep(2));
     dispatch(setCount(3));
     isAdmin
-      ? navigate("/admin/dashboard/addpatient")
+      ? navigate("/addpatient")
       : isDoctor
-      ? navigate("/doctor/dashboard/addpatient")
-      : navigate("/user/dashboard/addpatient");
+      ? navigate("/addpatient")
+      : navigate("/addpatient");
   };
   const documentToLocal = () => {
     let object = {};
@@ -117,16 +117,16 @@ const ViewPatient = () => {
     dispatch(setCount(3));
 
     isAdmin
-      ? navigate("/admin/dashboard/addpatient")
+      ? navigate("/addpatient")
       : isDoctor
-      ? navigate("/doctor/dashboard/addpatient")
-      : navigate("/user/dashboard/addpatient");
+      ? navigate("/addpatient")
+      : navigate("/addpatient");
   };
 
   const getPatientData = async () => {
     let id = param.id;
     if (patientList.length == 0) {
-      navigate("/user/dashboard/viewpatients");
+      navigate("/viewpatients");
     }
     let fountPatient = patientList.find((obj) => obj.patient_id == id);
     setPatientData(fountPatient);

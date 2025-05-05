@@ -49,7 +49,7 @@ const Summary = () => {
   };
 
   const handleViewPage = (id) => {
-    navigate(`/dashboard/allpatients/patientdetails/${id}`);
+    navigate(`/allpatients/patientdetails/${id}`);
   };
 
   return (

@@ -30,11 +30,11 @@ const Login = () => {
 
   const handleNavigate = () => {
     if (isAdmin == 1) {
-      navigate("/dashboard/allpatients");
+      navigate("/allpatients");
     } else if (isDoctor == 1) {
-      navigate("/dashboard/profile");
+      navigate("/profile");
     } else {
-      navigate("/dashboard/profile");
+      navigate("/profile");
     }
   };
 
