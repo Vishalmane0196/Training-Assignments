@@ -162,7 +162,7 @@ const UpdateAdmin = ({ access }) => {
                       style={styles.delete}
                       type={"button"}
                       onClick={() => {
-                        setState((pre) => {
+                        setState(() => {
                           access == "doctor"
                             ? setID(admin?.doctor_id)
                             : setID(admin.email);

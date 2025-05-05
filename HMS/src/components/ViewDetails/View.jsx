@@ -18,7 +18,7 @@ export const View = ({ deleteState, setDeleteState, data }) => {
             </span>
             <div className={settingCSS.popup}>
               <div className={settingCSS.cover}>
-                <h3>Disease Discription :</h3>
+                <h3>Disease Description :</h3>
 
                 <div className={settingCSS.btnContainer}>
                   <div className={settingCSS.setHeight}>

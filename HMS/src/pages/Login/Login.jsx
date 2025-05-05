@@ -52,6 +52,7 @@ const Login = () => {
       ).unwrap();
       await dispatch(getUserInfo("get")).unwrap();
     } catch (error) {
+      console.error(error);
       toast.error(`Login failed `);
       setLoginStatus(true);
     }

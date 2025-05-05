@@ -18,30 +18,18 @@ const Appointment = lazy(() => import("src/pages/Appointment/Appointment"));
 const LRwrapper = lazy(() =>
   import("src/components/LoginRegisterWrapper/LRwrapper.jsx")
 );
-const Dashboard = lazy(() => import("src/pages/Dashboard/Dashboard.jsx"));
 const Login = lazy(() => delayForDemo(import("src/pages/Login/Login.jsx")));
 const Register = lazy(() => import("src/pages/Register/Register.jsx"));
-const UserDashboard = lazy(() =>
-  import("src/pages/Dashboard/UserDashboard.jsx")
-);
 const UserPatientTable = lazy(() =>
   import("src/pages/Table/UserPatientTable.jsx")
 );
-
 const Setting = lazy(() => import("src/components/Setting/Setting.jsx"));
-const DeletePopUp = lazy(() =>
-  import("src/components/Setting/Delete/DeletePopUp.jsx")
-);
 const MultiStepForm = lazy(() =>
   import("src/components/MultiStepForm/MultiStepForm.jsx")
 );
-const UserMain = lazy(() => import("src/pages/UserMain/UserMain.jsx"));
 const ViewPatient = lazy(() => import("src/pages/ViewPatient/ViewPatient"));
 const LandingPage = lazy(() => import("src/pages/LandingPage/LandingPage"));
 const Summary = lazy(() => import("src/pages/Summary/Summary.jsx"));
-const AdminSetting = lazy(() =>
-  import("src/components/Setting/AdminSetting.jsx")
-);
 const Profile = lazy(() => import("src/components/Profile/Profile.jsx"));
 const Allpatient = lazy(() => import("src/pages/AllPatient/Allpatient.jsx"));
 const AdminPatient = lazy(() =>

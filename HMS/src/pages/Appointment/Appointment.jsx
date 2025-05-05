@@ -11,19 +11,19 @@ import { NoRecord } from "src/components/NoRecord/NoRecord";
 const Appointment = () => {
   const dispatch = useDispatch();
   const [book, setBook] = useState(false);
-  const [backUp, setBackUpData] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [date, setDate] = useState(null);
   const [doctor, setDoctor] = useState("");
+
   const getDoctorsFunc = async () => {
     try {
       let response = await dispatch(getDoctor()).unwrap();
       setDoctors(response.data);
-      setBackUpData(response.data);
     } catch (error) {
       toast.error(error);
     }
   };
+
   const getDoctorsSearchFun = async () => {
     if (doctor == "") {
       getDoctorsFunc();
