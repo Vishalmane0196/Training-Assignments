@@ -22,14 +22,14 @@ export const DocumentInfo = ({ setStep, patientId }) => {
   } = useForm();
 
   const handleBackBtn = () => {
-    dispatch(setStep(2));
+    dispatch(setStep(1));
   };
 
   const handleNextBtn = () => {
     if (Object.keys(uploadStatus).length <= 1) {
       toast.warn("Aadhar documents are required.");
     } else {
-      dispatch(setStep(4));
+      dispatch(setStep(3));
     }
   };
 

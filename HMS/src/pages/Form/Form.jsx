@@ -35,16 +35,15 @@ export const Form = () => {
         );
       case 2:
         return (
-          <DiseaseInfo
-            count={count}
-            setCount={setCount}
-            setStep={setStep}
-            patientId={patientID}
-          />
+          // <DiseaseInfo
+          //   count={count}
+          //   setCount={setCount}
+          //   setStep={setStep}
+          //   patientId={patientID}
+          // />
+          <DocumentInfo patientId={patientID} setStep={setStep} />
         );
       case 3:
-        return <DocumentInfo patientId={patientID} setStep={setStep} />;
-      case 4:
         return (
           <Final
             setStep={setStep}
@@ -52,7 +51,7 @@ export const Form = () => {
             setCount={setCount}
           />
         );
-      case 5:
+
       default:
         return null;
     }
