@@ -3,7 +3,6 @@ import { PersonalInfo } from "./PersonalInfo";
 import formCSS from "../../style/Form.module.css";
 import { FamilyInfo } from "../Form/FamilyInfo";
 import { DocumentInfo } from "./DocumentInfo";
-import { DiseaseInfo } from "./DiseaseInfo";
 import { Final } from "./Final";
 import { useDispatch, useSelector } from "react-redux";
 import { setStep } from "../../redux/slices/multistepform/formSlice";

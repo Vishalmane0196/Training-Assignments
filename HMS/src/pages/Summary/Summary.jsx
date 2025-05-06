@@ -22,14 +22,14 @@ const Summary = () => {
   );
   const navigate = useNavigate();
 
-  const fetchData = useCallback(async () => {
+  const fetchData = async () => {
     try {
       await dispatch(fetchAllPAtients(currentPage)).unwrap();
       await dispatch(fetchPatientCardData("get")).unwrap();
     } catch (error) {
       console.error(error);
     }
-  }, [dispatch]);
+  };
 
   const deletePatientFun = async (id) => {
     try {
@@ -43,7 +43,7 @@ const Summary = () => {
 
   useEffect(() => {
     fetchData();
-  }, [currentPage, fetchData]);
+  }, [currentPage]);
 
   const handlePageClick = (data) => {
     setCurrentPage(data.selected + 1);
