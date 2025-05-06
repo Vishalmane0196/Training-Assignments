@@ -17,8 +17,6 @@ export const updateDoctorProfile = createAsyncThunk(
   "doctor/updateDoctor",
   async (data, { rejectWithValue }) => {
     try {
-      console.log(data);
-
       let response = await axiosInstance.put("/doctor/updateDoctor", data);
       return response.data;
     } catch (error) {
@@ -50,6 +48,19 @@ export const updatePrescription = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const getDoctor = createAsyncThunk(
+  "doctor/getDoctorProfile",
+  async (rejectWithValue) => {
+    try {
+      const response = await axiosInstance.get(`/doctor/getDoctorProfile`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      rejectWithValue(error.response.data.message);
     }
   }
 );

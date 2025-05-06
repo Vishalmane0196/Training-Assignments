@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../../../style/Edit.module.css";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -7,6 +7,7 @@ import { getUserInfo } from "../../../redux/asyncThunkFuntions/user";
 import { updateUserInfo } from "../../../redux/asyncThunkFuntions/user";
 import InputComponent from "src/components/Input/InputComponent";
 import { updateDoctorProfile } from "src/redux/asyncThunkFuntions/doctor";
+import { getDoctor } from "src/redux/asyncThunkFuntions/doctor";
 
 export const Edit = ({ editProfile, setEditProfile }) => {
   const { userInfo, isDoctor } = useSelector((state) => state.auth);
@@ -16,12 +17,13 @@ export const Edit = ({ editProfile, setEditProfile }) => {
     register,
     handleSubmit,
     trigger,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues:
       isDoctor == 1
         ? {
-            name: "",
+            doctorName: "",
             specialization: "",
             contact_number: "",
             doctorInTime: "",
@@ -36,8 +38,10 @@ export const Edit = ({ editProfile, setEditProfile }) => {
 
   const sendDataToUpdate = async (data) => {
     try {
-      if (isDoctor) { 
-       await dispatch(updateDoctorProfile(data)).unwrap();
+      if (isDoctor) {
+        await dispatch(
+          updateDoctorProfile({ ...data, name: data.doctorName })
+        ).unwrap();
       } else {
         await dispatch(updateUserInfo(data)).unwrap();
       }
@@ -53,7 +57,21 @@ export const Edit = ({ editProfile, setEditProfile }) => {
   const handleUpdateData = (data) => {
     sendDataToUpdate(data);
   };
-  
+  const getDoctorDetails = async () => {
+    try {
+      let response = await dispatch(getDoctor()).unwrap();
+      console.log(response?.data[0]);
+      reset(response?.data[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    if (isDoctor) {
+      getDoctorDetails();
+    }
+  }, []);
+
   return (
     <div>
       {editProfile && (
@@ -90,7 +108,7 @@ export const Edit = ({ editProfile, setEditProfile }) => {
                 require={isDoctor == 1 ? "Name" : "First Name"}
                 register={register}
                 trigger={trigger}
-                fieldName={isDoctor == 1 ? "name" : "first_name"}
+                fieldName={isDoctor == 1 ? "doctorName" : "first_name"}
                 type={"text"}
                 style={styles.inputTag}
                 pattern={{

@@ -50,6 +50,7 @@ const Login = () => {
             : { userCode: data.email, user_password: data.user_password }
         )
       ).unwrap();
+
       await dispatch(getUserInfo("get")).unwrap();
     } catch (error) {
       console.error(error);

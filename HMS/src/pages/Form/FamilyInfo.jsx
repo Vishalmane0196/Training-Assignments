@@ -183,6 +183,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
               trigger={trigger}
               fieldName="father_name"
               errors={errors}
+              maxlength={20}
               pattern={{
                 message: "Invalid Pattern",
                 value: /^[A-Za-z]{2,}(?:[ '-][A-Za-z]+)*$/,
@@ -194,6 +195,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
             <Input
               label="Father's Country of Origin"
               require="Country Name"
+              maxlength={20}
               register={register}
               trigger={trigger}
               fieldName="father_country_origin"
@@ -239,6 +241,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
               label="Mother Name"
               require="Mother Name"
               register={register}
+              maxlength={20}
               trigger={trigger}
               fieldName="mother_name"
               errors={errors}
@@ -253,6 +256,7 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
             <Input
               label="Mother's Country of Origin"
               require="Country Name"
+              maxlength={20}
               register={register}
               trigger={trigger}
               fieldName="mother_country_origin"
