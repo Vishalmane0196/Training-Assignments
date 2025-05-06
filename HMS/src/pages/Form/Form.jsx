@@ -61,36 +61,32 @@ export const Form = () => {
     <>
       <div className={formCSS.container}>
         <div className={formCSS.stepCover}>
-          {[
-            "Personal Info",
-            "Family Info",
-            "Disease Info",
-            "File Upload",
-            "Completed",
-          ].map((label, index) => (
-            <label
-              key={index}
-              htmlFor={index}
-              onClick={() => {
-                if (count >= index) {
-                  dispatch(setStep(index));
-                } else {
-                  toast.warn("Complete previous form.");
-                }
-              }}
-            >
-              <div
-                id={index}
+          {["Personal Info", "Family Info", "File Upload", "Completed"].map(
+            (label, index) => (
+              <label
                 key={index}
-                className={`${formCSS.step} ${
-                  step >= index ? formCSS.active : ""
-                }`}
+                htmlFor={index}
+                onClick={() => {
+                  if (count >= index) {
+                    dispatch(setStep(index));
+                  } else {
+                    toast.warn("Complete previous form.");
+                  }
+                }}
               >
-                <h3 className={formCSS.stepNo}>{index + 1}</h3>
-                <p className={formCSS.stepDetail}>{label}</p>
-              </div>
-            </label>
-          ))}
+                <div
+                  id={index}
+                  key={index}
+                  className={`${formCSS.step} ${
+                    step >= index ? formCSS.active : ""
+                  }`}
+                >
+                  <h3 className={formCSS.stepNo}>{index + 1}</h3>
+                  <p className={formCSS.stepDetail}>{label}</p>
+                </div>
+              </label>
+            )
+          )}
         </div>
         <div className={formCSS.line}> </div>
         {handleMultiStepForm(step)}

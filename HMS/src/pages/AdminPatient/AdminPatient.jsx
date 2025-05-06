@@ -124,8 +124,8 @@ const AdminPatient = ({ access }) => {
           </h1>
           <div className={patientCSS.title}>
             <p>{access == "appointment" ? "Patient Name" : "Sr. No"}</p>
-            <p>{access == "appointment" ? "Disease Type" : "Patient Name"}</p>
-            <p> {access == "appointment" ? "Doctor" : "Disease Type"} </p>
+            <p>{access == "appointment" ? "Gender" : "Patient Name"}</p>
+            <p> {access == "appointment" ? "Consulting" : "Mobile No"} </p>
             <p>{access == "appointment" ? "Time" : "Age"}</p>
             <p> {access == "appointment" ? "Date" : "view"} </p>
             <p>{access == "appointment" ? "Status" : "Book Slot"}</p>
@@ -135,27 +135,27 @@ const AdminPatient = ({ access }) => {
             {patientList?.map((patient, index) => (
               <li key={index} className={patientCSS.liList}>
                 <p className={patientCSS.p}>
-                  {access == "appointment" ? patient.patient_name : index + 1}
+                  {access == "appointment" ? patient?.patient_name : index + 1}
                 </p>
                 <p className={patientCSS.p}>
                   {access == "appointment"
-                    ? patient.disease_type
-                    : patient.patient_name}
+                    ? patient?.gender
+                    : patient?.patient_name}
                 </p>
                 <p className={patientCSS.p}>
                   {access == "appointment"
-                    ? patient.name
-                    : patient.disease_type}
+                    ? `Dr. ${patient?.name}`
+                    : patient?.mobile_number}
                 </p>
                 <p className={patientCSS.p}>
                   {access == "appointment"
-                    ? patient.appointment_time
-                    : patient.age}
+                    ? patient?.appointment_time
+                    : patient?.age}
                 </p>
 
                 <p className={patientCSS.iconDiv}>
                   {access == "appointment" ? (
-                    patient.appointment_id ? (
+                    patient?.appointment_id ? (
                       new Date(patient?.appointment_date)
                         .toISOString()
                         .slice(2, 10)
@@ -167,7 +167,7 @@ const AdminPatient = ({ access }) => {
                       <i
                         title="view patient"
                         onClick={() => {
-                          handleAdminAllPatient(patient.patient_id);
+                          handleAdminAllPatient(patient?.patient_id);
                         }}
                         className="fa-solid fa-eye"
                       ></i>
@@ -183,7 +183,7 @@ const AdminPatient = ({ access }) => {
                             patient?.appointment_status == null
                           ) {
                             setState(true);
-                            setID(patient.patient_id);
+                            setID(patient?.patient_id);
                           } else {
                             return;
                           }
@@ -209,7 +209,7 @@ const AdminPatient = ({ access }) => {
                           e.target.value
                         )
                       }
-                      className={patientCSS[patient.status]}
+                      className={patientCSS[patient?.status]}
                       id=""
                     >
                       {patient?.status == "Cancelled" ||
@@ -255,15 +255,15 @@ const AdminPatient = ({ access }) => {
                 ) : (
                   <Button
                     text={
-                      patient.appointment_status == null
+                      patient?.appointment_status == null
                         ? "Book Now"
-                        : patient.appointment_status
+                        : patient?.appointment_status
                     }
                     style={patientCSS.bookBtn}
                     onClick={
-                      patient.appointment_status == null
+                      patient?.appointment_status == null
                         ? () => {
-                            handleBookAppointment(patient.patient_id);
+                            handleBookAppointment(patient?.patient_id);
                           }
                         : null
                     }

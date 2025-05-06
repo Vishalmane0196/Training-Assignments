@@ -74,7 +74,7 @@ const Summary = () => {
                 <tr className={styles.heading}>
                   <th>Sr. no</th>
                   <th>Patient Name</th>
-                  <th>Disease Type</th>
+                  <th>Mobile No</th>
                   <th>Age</th>
                   <th>View</th>
                 </tr>
@@ -93,14 +93,14 @@ const Summary = () => {
                   patientList.map((obj, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
-                      <td>{obj.patient_name}</td>
-                      <td>{obj.disease_type}</td>
-                      <td>{obj.age}</td>
+                      <td>{obj?.patient_name}</td>
+                      <td>{obj?.mobile_number}</td>
+                      <td>{obj?.age}</td>
                       <td>
                         <div className={styles.iconDiv}>
                           <i
                             title="view patient"
-                            onClick={() => handleViewPage(obj.patient_id)}
+                            onClick={() => handleViewPage(obj?.patient_id)}
                             className="fa-solid fa-eye"
                           ></i>
                           <i

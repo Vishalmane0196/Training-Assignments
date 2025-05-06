@@ -60,7 +60,7 @@ const UserPatientTable = ({ access }) => {
               <tr className={tableCSS.heading}>
                 <th>{access == "doctor" ? "Sr. No" : "Sr. No"}</th>
                 <th>Patient Name</th>
-                <th>Disease Type</th>
+                <th>{access == "doctor" ? "Disease Type" : "BMI"}</th>
                 <th>{access == "doctor" ? "Time" : "Mobile"}</th>
                 <th>{access == "doctor" ? "Date" : "View"}</th>
                 <th>{access == "doctor" ? "Prescription" : "Appointment"}</th>
@@ -78,15 +78,15 @@ const UserPatientTable = ({ access }) => {
                   <tr key={index}>
                     <td> {index + 1}</td>
                     <td> {obj?.patient_name}</td>
-                    <td>{obj.disease_type || obj.disease_types}</td>
+                    <td>{obj?.disease_types || obj?.bmi}</td>
                     <td>
                       {access == "doctor"
                         ? obj?.appointment_time
-                        : obj.mobile_number}
+                        : obj?.mobile_number}
                     </td>
                     <td>
                       {access == "doctor" ? (
-                        obj.appointment_date ? (
+                        obj?.appointment_date ? (
                           new Date(obj?.appointment_date)
                             .toISOString()
                             .slice(0, 10)
@@ -96,7 +96,7 @@ const UserPatientTable = ({ access }) => {
                           <i
                             title="view patient"
                             onClick={() => {
-                              handlePatientView(obj.patient_id);
+                              handlePatientView(obj?.patient_id);
                             }}
                             className="fa-solid fa-eye"
                           ></i>
@@ -107,12 +107,12 @@ const UserPatientTable = ({ access }) => {
                       <Button
                         text={
                           access == "doctor"
-                            ? obj.prescription_id
+                            ? obj?.prescription_id
                               ? "Edit Prescription"
                               : "Add Prescription"
-                            : obj.appointment_status == null
+                            : obj?.appointment_status == null
                             ? "Book Now"
-                            : obj.appointment_status
+                            : obj?.appointment_status
                         }
                         style={tableCSS.bookBtn}
                         onClick={
