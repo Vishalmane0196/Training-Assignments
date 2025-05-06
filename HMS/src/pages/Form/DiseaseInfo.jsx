@@ -106,6 +106,7 @@ export const DiseaseInfo = ({ count, setCount, setStep, patientId }) => {
               require="Disease Type"
               register={register}
               trigger={trigger}
+              maxlength={20}
               fieldName="disease_type"
               errors={errors}
               pattern={{

@@ -13,6 +13,7 @@ const Profile = () => {
     const fun = async () => {
       let response2 = await dispatch(fetchPatientsInfo("get")).unwrap();
       setPatient(response2.data.length);
+      
     };
     fun();
   }, []);
