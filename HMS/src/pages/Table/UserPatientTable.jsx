@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import tableCSS from "../../style/UserPatientTable.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -31,16 +31,17 @@ const UserPatientTable = ({ access }) => {
     }
     navigate("/viewpatients/bookAppointment");
   };
-  const getPatient = async () => {
-    dispatch(await fetchPatientsInfo("get"));
-  };
-  const getAllAppointment = async () => {
+  const getPatient = useCallback(async () => {
+    dispatch(fetchPatientsInfo("get"));
+  }, [dispatch]);
+
+  const getAllAppointment = useCallback(async () => {
     try {
       await dispatch(getDoctorAppointmentsList(userInfo.doctor_id)).unwrap();
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     if (access == "doctor") {
@@ -48,7 +49,7 @@ const UserPatientTable = ({ access }) => {
     } else {
       getPatient();
     }
-  }, [access]);
+  }, [access, getAllAppointment, getPatient]);
 
   return (
     <>
@@ -119,7 +120,7 @@ const UserPatientTable = ({ access }) => {
                             ? () => {
                                 access == "doctor"
                                   ? navigate(
-                                      `/viewAppointment/prescription?id=${obj.appointment_id}&edit=${obj.prescription_id}`
+                                      `/appointment/prescription?id=${obj.appointment_id}&edit=${obj.prescription_id}`
                                     )
                                   : handleBookAppointment(obj.patient_id);
                               }

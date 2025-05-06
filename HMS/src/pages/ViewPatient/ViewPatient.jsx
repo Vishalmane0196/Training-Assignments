@@ -26,10 +26,7 @@ const ViewPatient = () => {
 
   const param = useParams();
   const [patientData, setPatientData] = useState();
-  const [personalUpdate, setPersonalUpdate] = useState(false);
-  const [FamilyUpdate, setFamily] = useState(false);
-  const [DiseaseUpdate, setDiseaseUpdate] = useState(false);
-  const [DocumentUpdate, setDocumentUpdate] = useState(false);
+
   const [documents, setDocuments] = useState([]);
 
   const {
@@ -173,11 +170,7 @@ const ViewPatient = () => {
           <AccordionDetails>
             <div
               className={viewPatientCSS.sectionCover}
-              style={
-                personalUpdate
-                  ? { backgroundColor: "#dddddd68" }
-                  : { backgroundColor: "#dddddd68" }
-              }
+              style={{ backgroundColor: "#dddddd68" }}
             >
               <div className={viewPatientCSS.textAndIconCover}>
                 <h1 className={viewPatientCSS.title}>Personal Information</h1>
@@ -231,6 +224,7 @@ const ViewPatient = () => {
                           disabled={true}
                           onBlur={onBlur}
                           onChange={onChange}
+                          disableOnClick={true}
                           value={value}
                           options={[
                             "Male",
@@ -313,6 +307,7 @@ const ViewPatient = () => {
                   }}
                 >
                   <Radio
+                    disabled={true}
                     label="Blood Pressure"
                     require="Blood Pressure"
                     register={register}
@@ -322,6 +317,7 @@ const ViewPatient = () => {
                   />
 
                   <Radio
+                    disabled={true}
                     label="Diabetic "
                     require="Diabetic Field"
                     register={register}
@@ -331,6 +327,7 @@ const ViewPatient = () => {
                   />
 
                   <Radio
+                    disabled={true}
                     label="Cardiac "
                     require="Cardiac Field"
                     register={register}
@@ -358,11 +355,7 @@ const ViewPatient = () => {
           <AccordionDetails>
             <div
               className={viewPatientCSS.sectionCover}
-              style={
-                FamilyUpdate
-                  ? { backgroundColor: "#dddddd68" }
-                  : { backgroundColor: "#dddddd68" }
-              }
+              style={{ backgroundColor: "#dddddd68" }}
             >
               <div className={viewPatientCSS.textAndIconCover}>
                 <h1 className={viewPatientCSS.title}>Family Information</h1>
@@ -504,6 +497,7 @@ const ViewPatient = () => {
                   style={{ display: "flex", gap: "3rem", marginTop: "2rem" }}
                 >
                   <Radio
+                    disabled={true}
                     label="Mother Diabetic "
                     require="Diabetic"
                     register={register}
@@ -513,6 +507,7 @@ const ViewPatient = () => {
                   />
 
                   <Radio
+                    disabled={true}
                     label=" Mother Cardiac Issue"
                     require="Cardiac"
                     register={register}
@@ -521,6 +516,7 @@ const ViewPatient = () => {
                     type="radio"
                   />
                   <Radio
+                    disabled={true}
                     label="Father Diabetic"
                     require="Diabetic"
                     register={register}
@@ -530,6 +526,7 @@ const ViewPatient = () => {
                   />
 
                   <Radio
+                    disabled={true}
                     label="Father Cardiac Issue "
                     require="Cardiac"
                     register={register}
@@ -557,11 +554,7 @@ const ViewPatient = () => {
           <AccordionDetails>
             <div
               className={viewPatientCSS.sectionCover}
-              style={
-                DiseaseUpdate
-                  ? { backgroundColor: "#dddddd68" }
-                  : { backgroundColor: "#dddddd68" }
-              }
+              style={{ backgroundColor: "#dddddd68" }}
             >
               <div className={viewPatientCSS.textAndIconCover}>
                 <h1 className={viewPatientCSS.title}>Disease Information</h1>
@@ -621,11 +614,7 @@ const ViewPatient = () => {
           <AccordionDetails>
             <div
               className={viewPatientCSS.sectionCover}
-              style={
-                DocumentUpdate
-                  ? { backgroundColor: "#dddddd68" }
-                  : { backgroundColor: "#dddddd68" }
-              }
+              style={{ backgroundColor: "#dddddd68" }}
             >
               <div className={viewPatientCSS.textAndIconCover}>
                 <h1 className={viewPatientCSS.title}>Document Information</h1>

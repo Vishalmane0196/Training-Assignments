@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "src/style/UpdateAdmin.module.css";
 import { toast } from "react-toastify";
 import { deleteAdmin } from "../../redux/asyncThunkFuntions/admin.js";
@@ -29,20 +29,6 @@ const UpdateAdmin = ({ access }) => {
   const handleToggle = () => {
     setAddAdminToggle((pre) => !pre);
   };
-  const fetchAdmins = async () => {
-    try {
-      let response = await dispatch(fetchAllAdmins()).unwrap();
-
-      response = response.data.map((obj) => ({
-        ...obj,
-        ["status"]: "active",
-        ["role"]: "Admin",
-      }));
-      setAdmins(response);
-    } catch (error) {
-      toast.error(error);
-    }
-  };
 
   const deleteDoctorFun = async (id) => {
     try {
@@ -61,21 +47,61 @@ const UpdateAdmin = ({ access }) => {
     }
   };
 
-  const fetchDoctors = async () => {
+  const fetchDoctors = useCallback(async () => {
     try {
       let response = await dispatch(getDoctor()).unwrap();
       setAdmins(response.data);
     } catch (error) {
       toast.error(error);
     }
-  };
+  }, [dispatch]);
+
+  // const fetchDoctors = async () => {
+  //   try {
+  //     let response = await dispatch(getDoctor()).unwrap();
+  //     setAdmins(response.data);
+  //   } catch (error) {
+  //     toast.error(error);
+  //   }
+  // };
+
+  const fetchAdmins = useCallback(async () => {
+    try {
+      let response = await dispatch(fetchAllAdmins()).unwrap();
+
+      response = response.data.map((obj) => ({
+        ...obj,
+        ["status"]: "active",
+        ["role"]: "Admin",
+      }));
+      setAdmins(response);
+    } catch (error) {
+      toast.error(error);
+    }
+  }, [dispatch]);
+
+  // const fetchAdmins = async () => {
+  //   try {
+  //     let response = await dispatch(fetchAllAdmins()).unwrap();
+
+  //     response = response.data.map((obj) => ({
+  //       ...obj,
+  //       ["status"]: "active",
+  //       ["role"]: "Admin",
+  //     }));
+  //     setAdmins(response);
+  //   } catch (error) {
+  //     toast.error(error);
+  //   }
+  // };
+
   useEffect(() => {
     if (access == "doctor") {
       fetchDoctors();
     } else {
       fetchAdmins();
     }
-  }, [access]);
+  }, [access, fetchAdmins, fetchDoctors]);
 
   return (
     <>
@@ -113,8 +139,8 @@ const UpdateAdmin = ({ access }) => {
               <tr>
                 <th>{access == "doctor" ? "Name" : "Id"}</th>
                 <th>{access == "doctor" ? "specialization" : "Email"}</th>
-                <th>{access == "doctor" ? "doctorInTime" : "Role"}</th>
-                <th>{access == "doctor" ? "doctorOutTime" : "Status"}</th>
+                <th>{access == "doctor" ? "In-Time" : "Role"}</th>
+                <th>{access == "doctor" ? "Out-Time" : "Status"}</th>
                 <th>Action</th>
               </tr>
             </thead>

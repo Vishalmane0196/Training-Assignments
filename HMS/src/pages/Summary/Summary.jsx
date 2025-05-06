@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import styles from "../../style/Summary.module.css";
 import { useNavigate } from "react-router-dom";
@@ -22,14 +22,15 @@ const Summary = () => {
   );
   const navigate = useNavigate();
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       await dispatch(fetchAllPAtients(currentPage)).unwrap();
       await dispatch(fetchPatientCardData("get")).unwrap();
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [dispatch]);
+
   const deletePatientFun = async (id) => {
     try {
       await dispatch(deletePatient(id)).unwrap();
@@ -42,7 +43,7 @@ const Summary = () => {
 
   useEffect(() => {
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, fetchData]);
 
   const handlePageClick = (data) => {
     setCurrentPage(data.selected + 1);

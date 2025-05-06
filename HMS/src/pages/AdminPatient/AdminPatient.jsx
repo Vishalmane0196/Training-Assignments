@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import patientCSS from "../../style/AdminPatient.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,20 +22,37 @@ const AdminPatient = ({ access }) => {
   const { patientList } = useSelector((state) => state.patient);
   const navigate = useNavigate();
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     try {
-      await dispatch(fetchPatientsInfo());
+      await dispatch(fetchPatientsInfo()).unwrap();
     } catch (error) {
       console.error(error);
     }
-  };
-  const getAppointment = async () => {
+  }, [dispatch]);
+
+  // const getData = async () => {
+  //   try {
+  //     await dispatch(fetchPatientsInfo());
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  const getAppointment = useCallback(async () => {
     try {
       await dispatch(getAppointments()).unwrap();
     } catch (error) {
       toast.error(error);
     }
-  };
+  }, [dispatch]);
+
+  // const getAppointment = async () => {
+  //   try {
+  //     await dispatch(getAppointments()).unwrap();
+  //   } catch (error) {
+  //     toast.error(error);
+  //   }
+  // };
 
   const handleBookAppointment = (id) => {
     dispatch(setBookPatientId(id));
@@ -94,7 +111,7 @@ const AdminPatient = ({ access }) => {
     } else {
       getData();
     }
-  }, [access]);
+  }, [access, getAppointment, getData]);
 
   return (
     <>

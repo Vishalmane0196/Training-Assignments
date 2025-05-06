@@ -154,7 +154,7 @@
   }
   
   .breadcrumbs li a {
-    text-decoration: none;
+    
     font-weight: 500;
     font-size: 15px;
     line-height: 19px;
@@ -172,5 +172,6 @@
   @media (hover: hover) {
     .breadcrumbs li a:hover {
       color: var(--primary-color);
+      text-decoration: underline;
     }
   }

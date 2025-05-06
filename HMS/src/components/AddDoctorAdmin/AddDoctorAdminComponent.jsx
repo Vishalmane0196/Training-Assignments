@@ -16,7 +16,6 @@ const AddDoctorAdminComponent = ({
   onPopup,
   setPopupOff,
 }) => {
-  const [options, setOptions] = useState([]);
   const [btnState, setBtnState] = useState(false);
   const dispatch = useDispatch();
   const {
@@ -72,16 +71,14 @@ const AddDoctorAdminComponent = ({
   };
   const getAllAdminEmailsFun = async () => {
     try {
-      let response = await dispatch(getAllAdminEmails()).unwrap();
-      setOptions(response.data);
+      await dispatch(getAllAdminEmails()).unwrap();
     } catch (error) {
       toast.error(error);
     }
   };
   const getAllDoctorEmailsFun = async () => {
     try {
-      let response = await dispatch(getAllDoctorEmails()).unwrap();
-      setOptions(response.data);
+      await dispatch(getAllDoctorEmails()).unwrap();
     } catch (error) {
       toast.error(error);
     }

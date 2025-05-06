@@ -1,8 +1,7 @@
-import { color } from "framer-motion";
 import React, { useState, useRef } from "react";
 import styles from "src/style/Select.module.css";
 
-export const Select = ({ value, onChange, ...rest }) => {
+export const Select = ({ value, disableOnClick, onChange, ...rest }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showSubMenu, setShowSubMenu] = useState(false);
   const subMenuTimeoutRef = useRef(null);
@@ -27,7 +26,7 @@ export const Select = ({ value, onChange, ...rest }) => {
       <div
         className={styles.main}
         style={value == "" ? { color: "#797777" } : { color: "black" }}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => (disableOnClick ? null : setIsOpen(!isOpen))}
       >
         {value || "Select Gender"}
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Calendar from "../Calender/Calender";
 import { Doctor } from "src/components/Doctor/Doctor";
 import appointmentCSS from "../../style/Appointment.module.css";
@@ -15,14 +15,14 @@ const Appointment = () => {
   const [date, setDate] = useState(null);
   const [doctor, setDoctor] = useState("");
 
-  const getDoctorsFunc = async () => {
+  const getDoctorsFunc = useCallback(async () => {
     try {
       let response = await dispatch(getDoctor()).unwrap();
       setDoctors(response.data);
     } catch (error) {
       toast.error(error);
     }
-  };
+  }, [dispatch]);
 
   const getDoctorsSearchFun = async () => {
     if (doctor == "") {
@@ -39,7 +39,7 @@ const Appointment = () => {
 
   useEffect(() => {
     getDoctorsFunc();
-  }, []);
+  }, [getDoctorsFunc]);
 
   useEffect(() => {
     const debounce = setTimeout(() => {
@@ -48,6 +48,7 @@ const Appointment = () => {
     return () => {
       clearTimeout(debounce);
     };
+    
   }, [doctor]);
 
   return (

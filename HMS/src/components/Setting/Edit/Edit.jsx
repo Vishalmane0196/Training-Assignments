@@ -36,10 +36,8 @@ export const Edit = ({ editProfile, setEditProfile }) => {
 
   const sendDataToUpdate = async (data) => {
     try {
-      if (isDoctor) {
-        console.log(data);
-
-        await dispatch(updateDoctorProfile(data)).unwrap();
+      if (isDoctor) { 
+       await dispatch(updateDoctorProfile(data)).unwrap();
       } else {
         await dispatch(updateUserInfo(data)).unwrap();
       }
@@ -55,6 +53,7 @@ export const Edit = ({ editProfile, setEditProfile }) => {
   const handleUpdateData = (data) => {
     sendDataToUpdate(data);
   };
+  
   return (
     <div>
       {editProfile && (
@@ -184,7 +183,7 @@ export const Edit = ({ editProfile, setEditProfile }) => {
                       alignItems: "center",
                     }}
                   >
-                    <label htmlFor="">doctorInTime</label>
+                    <label htmlFor="">In-Time</label>
                     {errors.doctorInTime && (
                       <span>{errors.doctorInTime.message}</span>
                     )}
@@ -206,7 +205,7 @@ export const Edit = ({ editProfile, setEditProfile }) => {
                       alignItems: "center",
                     }}
                   >
-                    <label htmlFor=""> doctorOutTime</label>
+                    <label htmlFor=""> Out-Time</label>
                     {errors.doctorOutTime && (
                       <span>{errors.doctorOutTime.message}</span>
                     )}
