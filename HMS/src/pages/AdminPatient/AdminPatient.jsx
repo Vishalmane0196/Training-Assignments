@@ -3,10 +3,7 @@ import patientCSS from "../../style/AdminPatient.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPatientsInfo } from "../../redux/asyncThunkFuntions/user";
-import {
-  setBookPatientId,
-  setAppointmentId,
-} from "src/redux/slices/appointment/bookSlice";
+import { setBookPatientId } from "src/redux/slices/appointment/bookSlice";
 import { changeAppointmentStatusToCancel } from "src/redux/asyncThunkFuntions/admin";
 import { changeAppointmentStatusToSchedule } from "src/redux/asyncThunkFuntions/admin";
 import {
@@ -25,6 +22,7 @@ const AdminPatient = ({ access }) => {
   const dispatch = useDispatch();
   const { patientList } = useSelector((state) => state.patient);
   const navigate = useNavigate();
+  const { isAdmin } = useSelector((state) => state.auth);
 
   const getData = useCallback(async () => {
     try {
@@ -134,9 +132,7 @@ const AdminPatient = ({ access }) => {
       <div className={patientCSS.containerCover}>
         <div className={patientCSS.container}>
           <h1 className={patientCSS.titleHeader}>
-            {access == "appointment"
-              ? "Manage Appointment"
-              : "Admin Patient Details"}
+            {access == "appointment" ? "Manage Appointment" : "Patient Details"}
           </h1>
           <div className={patientCSS.title}>
             <p>{access == "appointment" ? "Patient Name" : "Sr. No"}</p>
@@ -188,36 +184,38 @@ const AdminPatient = ({ access }) => {
                         className="fa-solid fa-eye"
                       ></i>
                       <i
-                        title="delete patient"
-                        disabled={
-                          patient?.appointment_status == "Cancelled" ||
-                          patient?.appointment_status == null
-                        }
-                        onClick={() => {
-                          if (
-                            patient?.appointment_status == "Cancelled" ||
-                            patient?.appointment_status == null
-                          ) {
-                            setState(true);
-                            setID(patient?.patient_id);
-                          } else {
-                            return;
-                          }
-                        }}
-                        className={`fa-solid fa-trash ${
-                          patient?.appointment_status == "Cancelled" ||
-                          patient?.appointment_status == null
-                            ? null
-                            : patientCSS.disabled
-                        }`}
-                      ></i>
-                      <i
                         title="view appointments"
                         onClick={() =>
                           showHistoryOfAppointment(patient?.patient_id)
                         }
                         className="fa-solid fa-clock-rotate-left"
                       ></i>
+                      {isAdmin ? (
+                        <i
+                          title="delete patient"
+                          disabled={
+                            patient?.appointment_status == "Cancelled" ||
+                            patient?.appointment_status == null
+                          }
+                          onClick={() => {
+                            if (
+                              patient?.appointment_status == "Cancelled" ||
+                              patient?.appointment_status == null
+                            ) {
+                              setState(true);
+                              setID(patient?.patient_id);
+                            } else {
+                              return;
+                            }
+                          }}
+                          className={`fa-solid fa-trash ${
+                            patient?.appointment_status == "Cancelled" ||
+                            patient?.appointment_status == null
+                              ? null
+                              : patientCSS.disabled
+                          }`}
+                        ></i>
+                      ) : null}{" "}
                     </>
                   )}
                 </p>

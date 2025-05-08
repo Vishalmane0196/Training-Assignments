@@ -102,11 +102,7 @@ export const Slot = ({ data, date, book, setBook }) => {
       }
 
       setBook(false);
-      // if (isAdmin || isSuper) {
-      //   navigate("/mypatients");
-      // } else {
-      //   navigate("/viewpatients");
-      // }
+      navigate("/mypatients");
       toast.success("Appointment confirmed successfully.");
     } catch (error) {
       toast.error(error);

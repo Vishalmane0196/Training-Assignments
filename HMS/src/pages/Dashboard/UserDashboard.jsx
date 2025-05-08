@@ -20,11 +20,7 @@ const UserDashboard = ({ access }) => {
           <ul className={userDashboardCSS.ulLink}>
             <li>
               <NavLink
-                to={
-                  access == "doctor"
-                    ? "/profile"
-                    : "/profile"
-                }
+                to={access == "doctor" ? "/profile" : "/profile"}
                 className={({ isActive }) => {
                   return isActive
                     ? userDashboardCSS.active
@@ -37,11 +33,7 @@ const UserDashboard = ({ access }) => {
             </li>
             <li>
               <NavLink
-                to={
-                  access == "doctor"
-                    ? "/viewpatients"
-                    : "/viewpatients"
-                }
+                to={access == "doctor" ? "/mypatients" : "/mypatients"}
                 className={({ isActive }) => {
                   return isActive
                     ? userDashboardCSS.active
@@ -69,11 +61,7 @@ const UserDashboard = ({ access }) => {
             ) : null}
             <li>
               <NavLink
-                to={
-                  access == "doctor"
-                    ? "/setting"
-                    : "/setting"
-                }
+                to={access == "doctor" ? "/setting" : "/setting"}
                 className={({ isActive }) => {
                   return isActive
                     ? userDashboardCSS.active

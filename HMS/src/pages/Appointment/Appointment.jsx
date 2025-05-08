@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { Input } from "src/components/Input/Input";
 import View from "src/components/ViewDetails/View";
 import { setAppointmentId } from "src/redux/slices/appointment/bookSlice";
+import { useNavigate } from "react-router-dom";
 
 const Appointment = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const Appointment = () => {
   const [searchDoctorState, setSearchDoctor] = useState("");
   const [displayState, setDisplayState] = useState(false);
   const [diseaseInfo, setDiseaseInfo] = useState(null);
-
+  const navigate = useNavigate();
   const { appointment_Id } = useSelector((state) => state.book);
   const {
     register,
@@ -114,7 +115,7 @@ const Appointment = () => {
               <a> Dashboard</a>
             </li>
             <li>
-              <a onClick={() => history.back()}>My Patient</a>
+              <a onClick={() => navigate("/mypatients")}>My Patient</a>
             </li>
             {appointment_Id !== null ? (
               <li>

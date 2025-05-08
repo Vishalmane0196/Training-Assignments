@@ -8,6 +8,7 @@ const History = ({ obj }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const date = new Date(obj.appointment_date);
+  const options = { month: "long" };
   const handleRescheduleBooking = (id) => {
     dispatch(setAppointmentId(id));
   };
@@ -26,7 +27,7 @@ const History = ({ obj }) => {
         · <span>{obj.appointment_time}</span>
       </div>
       <p className={styles.description}>
-        Appointment is scheduled for {date.getUTCMonth() + 1}{" "}
+        Appointment is scheduled for {date.toLocaleString("en-US", options)}{" "}
         {date.getUTCDate()}, {date.getUTCFullYear()} at 11:00 AM for a patient
         suffering from a headache, described as 'pain is so much'.
       </p>

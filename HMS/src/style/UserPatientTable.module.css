@@ -7,6 +7,7 @@
     border-top-right-radius: 20px;
     border: 1px solid #ddd;
     overflow: hidden;
+    margin-top: 3rem;
 }
 
 .table-wrapper {

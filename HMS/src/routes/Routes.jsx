@@ -67,15 +67,7 @@ const Router = createBrowserRouter([
           />
         ),
       },
-      {
-        path: "/viewpatients",
-        element: (
-          <RoleBasedRoute
-            element={<UserPatientTable />}
-            role={["user", "doctor"]}
-          />
-        ),
-      },
+
       {
         path: "/viewpatients/patientdetails/:id",
         element: <ViewPatient />,
@@ -100,10 +92,7 @@ const Router = createBrowserRouter([
         path: "/mypatients/history/reschedule/bookAppointment",
         element: <Appointment />,
       },
-      {
-        path: "/viewpatients/bookAppointment",
-        element: <Appointment />,
-      },
+
       {
         path: "/setting/accessControl",
         element: (
@@ -147,7 +136,12 @@ const Router = createBrowserRouter([
       },
       {
         path: "/mypatients/patientdetails/:id",
-        element: <RoleBasedRoute element={<Allpatient />} role={["admin"]} />,
+        element: (
+          <RoleBasedRoute
+            element={<Allpatient />}
+            role={["admin", "doctor", "user"]}
+          />
+        ),
         children: [
           {
             path: "",
@@ -157,14 +151,19 @@ const Router = createBrowserRouter([
       },
       {
         path: "/mypatients/viewpatients/bookAppointment",
-        element: <RoleBasedRoute element={<Appointment />} role={["admin"]} />,
+        element: (
+          <RoleBasedRoute
+            element={<Appointment />}
+            role={["admin", "admin", "user", "doctor"]}
+          />
+        ),
       },
       {
         path: "/mypatients",
         element: (
           <RoleBasedRoute
             element={<AdminPatient access={""} />}
-            role={["admin"]}
+            role={["admin", "user", "doctor"]}
           />
         ),
       },
