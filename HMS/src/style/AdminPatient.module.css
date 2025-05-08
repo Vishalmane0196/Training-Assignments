@@ -67,18 +67,22 @@
 
 .iconDiv {
     display: flex;
-    gap: 3rem;
+    gap: 1.5rem;
     align-items: center;
+}
+
+.iconDiv>i {
+    cursor: pointer;
 }
 
 .iconDiv>i:nth-child(1) {
     color: rgb(85, 84, 84);
-    cursor: pointer;
+
 }
 
 .iconDiv>i:nth-child(2) {
     color: rgb(245, 82, 82);
-    cursor: pointer;
+
 }
 
 .bookBtn {

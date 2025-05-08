@@ -1,28 +1,50 @@
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import styles from "src/style/Calender.module.css";
+import utc from "dayjs/plugin/utc";
 
-const Calendar = ({ setDate }) => {
-  const [selectedDate, setSelectedDate] = useState(
-    dayjs().format("YYYY-MM-DD")
-  );
+dayjs.extend(utc);
 
-  const today = dayjs();
-  const days = Array.from({ length: 7 }, (_, i) => today.add(i, "day"));
+const Calendar = ({ dateSelected, setDate }) => {
+  
+  const [startDate, setStartDate] = useState(dayjs().startOf("day"));
+  const parsedDate = dateSelected ? dayjs.utc(dateSelected) : dayjs();
+  const [selectedDate, setSelectedDate] = useState(parsedDate);
+
+  const days = Array.from({ length: 7 }, (_, i) => startDate.add(i, "day"));
 
   const handleSelectDate = (date) => {
-    setSelectedDate(date.format("YYYY-MM-DD"));
+    setSelectedDate(date);
     setDate(date.format("YYYY-MM-DD"));
   };
+  const handlePrevWeek = () => {
+    setStartDate((prev) => prev.subtract(7, "day"));
+  };
 
+  const handleNextWeek = () => {
+    setStartDate((prev) => prev.add(7, "day"));
+  };
   useEffect(() => {
-    setDate(dayjs().format("YYYY-MM-DD"));
-  }, []);
+    if (dateSelected) {
+      setSelectedDate(dayjs.utc(dateSelected));
+    }
+    setDate(parsedDate.format("YYYY-MM-DD"));
+  }, [dateSelected]);
 
   return (
     <div className={styles.calendar}>
+      <div className={styles.navButtons}>
+        <button onClick={handlePrevWeek} className={styles.navButton}>
+          ◀
+        </button>
+        <button onClick={handleNextWeek} className={styles.navButton}>
+          ▶
+        </button>
+      </div>
+
       {days.map((date) => {
-        const isSelected = date.isSame(selectedDate, "day");
+        const isSelected =
+          date.format("YYYY-MM-DD") === selectedDate.format("YYYY-MM-DD");
         return (
           <div
             key={date.format("YYYY-MM-DD")}

@@ -74,17 +74,7 @@ const ViewPatient = () => {
       : navigate("/addpatient");
   };
 
-  const handleUpdateDiseaseData = () => {
-    documentToLocal();
-    dispatch(setPatientID(parseInt(param.id)));
-    dispatch(setStep(2));
-    dispatch(setCount(3));
-    isAdmin
-      ? navigate("/addpatient")
-      : isDoctor
-      ? navigate("/addpatient")
-      : navigate("/addpatient");
-  };
+ 
   const documentToLocal = () => {
     let object = {};
     documents.map((obj) => {
@@ -540,65 +530,7 @@ const ViewPatient = () => {
           </AccordionDetails>
         </Accordion>
 
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            sx={{
-              fontSize: "1.5rem",
-              fontWeight: 600,
-              padding: "1rem 1rem 1rem 1rem",
-            }}
-          >
-            Disease Information
-          </AccordionSummary>
-          <AccordionDetails>
-            <div
-              className={viewPatientCSS.sectionCover}
-              style={{ backgroundColor: "#dddddd68" }}
-            >
-              <div className={viewPatientCSS.textAndIconCover}>
-                <h1 className={viewPatientCSS.title}>Disease Information</h1>
-                <div className={viewPatientCSS.iconCoverDivDeleteEdit}>
-                  <i
-                    onClick={() => {
-                      handleUpdateDiseaseData();
-                    }}
-                    class="fa-solid fa-pencil"
-                  ></i>
-                </div>
-              </div>
-              <form>
-                <div
-                  style={{ display: "flex", gap: "3rem", marginBottom: "2rem" }}
-                >
-                  <Input
-                    disabled={true}
-                    label="Disease Type"
-                    require="Disease Type"
-                    register={register}
-                    trigger={trigger}
-                    fieldName="disease_type"
-                    errors={errors}
-                    type="text"
-                    placeholder="Enter Disease Name."
-                  />
-
-                  <Input
-                    disabled={true}
-                    label="Disease Description"
-                    require="Description require"
-                    register={register}
-                    trigger={trigger}
-                    fieldName="disease_description"
-                    errors={errors}
-                    type="text"
-                    placeholder="Enter Description."
-                  />
-                </div>
-              </form>
-            </div>
-          </AccordionDetails>
-        </Accordion>
+       
 
         <Accordion>
           <AccordionSummary

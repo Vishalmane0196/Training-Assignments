@@ -298,3 +298,46 @@ export const searchDoctor = createAsyncThunk(
     }
   }
 );
+
+export const getAppointmentDetails = createAsyncThunk(
+  "user/getAppointmentDetails",
+  async (data, { rejectWithValue }) => {
+    try {
+      let response = await axiosInstance.get(
+        `/user/getAppointmentData?appointment_id=${data}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const rescheduleAppointment = createAsyncThunk(
+  "user/rescheduleAppointment",
+  async (data, { rejectWithValue }) => {
+    try {
+      let response = await axiosInstance.put(
+        `/user/rescheduleAppointment?appointment_id=${data.appointment_Id}`,
+        data
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const fetchAppointmentHistory = createAsyncThunk(
+  "user/fetchAppointmentHistory",
+  async (id, { rejectWithValue }) => {
+    try {
+      let response = await axiosInstance.get(
+        `/user/appointmentHistory?patient_id=${id}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);

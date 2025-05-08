@@ -11,7 +11,9 @@ const delayForDemo = (promise, time = 1000) => {
     setTimeout(() => resolve(promise), time);
   });
 };
-
+const HistoryAppointment = lazy(() =>
+  import("src/pages/History/HistoryAppointment")
+);
 const Prescription = lazy(() => import("src/pages/Prescription/Prescription"));
 const UpdateAdmin = lazy(() => import("src/pages/AdminSetting/UpdateAdmin"));
 const Appointment = lazy(() => import("src/pages/Appointment/Appointment"));
@@ -78,7 +80,10 @@ const Router = createBrowserRouter([
         path: "/viewpatients/patientdetails/:id",
         element: <ViewPatient />,
       },
-
+      {
+        path: "/mypatients/history/:id",
+        element: <HistoryAppointment />,
+      },
       {
         path: "/setting",
         element: <Setting />,
@@ -90,6 +95,10 @@ const Router = createBrowserRouter([
             <MultiStepForm />
           </Suspense>
         ),
+      },
+      {
+        path: "/mypatients/history/reschedule/bookAppointment",
+        element: <Appointment />,
       },
       {
         path: "/viewpatients/bookAppointment",

@@ -8,6 +8,22 @@
 
 }
 
+.diseaseContainer {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 3rem;
+  height: 12vh;
+}
+
+.eye {
+  position: relative;
+  font-size: 0.8rem;
+  left: -4rem;
+  top: 0.5rem;
+  color: #797777;
+  cursor: pointer;
+}
+
 .search {
   outline: none;
   border: none;
@@ -15,7 +31,7 @@
   justify-content: left;
   align-items: center;
   flex-direction: row-reverse;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.305);
+  border-bottom: 1px solid rgba(128, 128, 128, 0);
   margin-bottom: 0.5rem;
   position: relative;
 }
@@ -32,6 +48,7 @@
   font-size: 1rem;
   transition: all 0.3s;
   border: none;
+
 }
 
 .search::before {
@@ -103,7 +120,7 @@
 
 .breadcrumbs__list {
   list-style: none;
-  margin: 0.5rem;
+  margin: 1rem;
   padding-left: 1.2rem;
 }
 
@@ -140,10 +157,7 @@
   cursor: pointer;
 }
 
-.breadcrumbs li:nth-child(3)>a {
-  color: gray;
-  cursor: default;
-}
+
 
 @media (hover: hover) {
   .breadcrumbs li a:hover {

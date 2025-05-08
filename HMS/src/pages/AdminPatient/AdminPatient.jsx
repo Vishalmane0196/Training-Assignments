@@ -3,8 +3,12 @@ import patientCSS from "../../style/AdminPatient.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPatientsInfo } from "../../redux/asyncThunkFuntions/user";
-import { setBookPatientId } from "src/redux/slices/appointment/bookSlice";
+import {
+  setBookPatientId,
+  setAppointmentId,
+} from "src/redux/slices/appointment/bookSlice";
 import { changeAppointmentStatusToCancel } from "src/redux/asyncThunkFuntions/admin";
+import { changeAppointmentStatusToSchedule } from "src/redux/asyncThunkFuntions/admin";
 import {
   deletePatient,
   getAppointments,
@@ -75,6 +79,14 @@ const AdminPatient = ({ access }) => {
           error: "Error while Cancelling",
         });
         await y;
+      } else if (data?.status == "Scheduled") {
+        let y = dispatch(changeAppointmentStatusToSchedule(data)).unwrap();
+        toast.promise(y, {
+          pending: "Scheduling appointment please wait...",
+          success: " Successfully Scheduled.",
+          error: "Error while Cancelling",
+        });
+        await y;
       } else {
         await dispatch(changeAppointmentStatus(data)).unwrap();
       }
@@ -104,6 +116,10 @@ const AdminPatient = ({ access }) => {
       changeStatus({ id: id, status: status });
     }
   };
+  const showHistoryOfAppointment = (id) => {
+    dispatch(setBookPatientId(id));
+    navigate(`/mypatients/history/${id}`);
+  };
 
   useEffect(() => {
     if (access == "appointment") {
@@ -111,7 +127,7 @@ const AdminPatient = ({ access }) => {
     } else {
       getData();
     }
-  }, [access, getAppointment, getData]);
+  }, [access]);
 
   return (
     <>
@@ -155,10 +171,10 @@ const AdminPatient = ({ access }) => {
 
                 <p className={patientCSS.iconDiv}>
                   {access == "appointment" ? (
-                    patient?.appointment_id ? (
+                    patient?.appointment_date ? (
                       new Date(patient?.appointment_date)
                         .toISOString()
-                        .slice(2, 10)
+                        .split("T")[0]
                     ) : (
                       ""
                     )
@@ -194,6 +210,13 @@ const AdminPatient = ({ access }) => {
                             ? null
                             : patientCSS.disabled
                         }`}
+                      ></i>
+                      <i
+                        title="view appointments"
+                        onClick={() =>
+                          showHistoryOfAppointment(patient?.patient_id)
+                        }
+                        className="fa-solid fa-clock-rotate-left"
                       ></i>
                     </>
                   )}
@@ -257,7 +280,7 @@ const AdminPatient = ({ access }) => {
                     text={
                       patient?.appointment_status == null
                         ? "Book Now"
-                        : patient?.appointment_status
+                        : "Book Now"
                     }
                     style={patientCSS.bookBtn}
                     onClick={
@@ -265,7 +288,9 @@ const AdminPatient = ({ access }) => {
                         ? () => {
                             handleBookAppointment(patient?.patient_id);
                           }
-                        : null
+                        : () => {
+                            handleBookAppointment(patient?.patient_id);
+                          }
                     }
                   />
                 )}

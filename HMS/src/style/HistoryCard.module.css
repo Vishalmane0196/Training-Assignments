@@ -1,0 +1,81 @@
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 16px;
+    max-width: 300px;
+    font-family: sans-serif;
+    height: fit-content;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sellerName {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.location {
+    font-size: 0.9rem;
+    color: #888;
+    display: flex;
+    align-items: center;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.subdata {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 4px 0 12px 0;
+}
+
+.description {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 16px;
+}
+
+.rating {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.circle {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.priceMin,
+.priceMax {
+    font-weight: 600;
+}
+
+.priceNow {
+    background-color: #2ea043;
+    color: white;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}

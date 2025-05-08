@@ -11,7 +11,11 @@ const Allpatient = () => {
               <a> Dashboard</a>
             </li>
             <li>
-              <a onClick={() => history.back()}>All Patient</a>
+              <a onClick={() => history.back()}>
+                {window.location.href.includes("mypatients")
+                  ? "My Patients"
+                  : "All Patient"}
+              </a>
             </li>
             <li>
               <a>View Patient</a>

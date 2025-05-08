@@ -6,8 +6,9 @@ import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { fetchDoctorSlots } from "src/redux/asyncThunkFuntions/user";
 import { bookAppointment } from "src/redux/asyncThunkFuntions/user";
+import { rescheduleAppointment } from "src/redux/asyncThunkFuntions/user";
 import { useNavigate } from "react-router-dom";
-export const Slot = ({ date, book, setBook }) => {
+export const Slot = ({ data, date, book, setBook }) => {
   const navigate = useNavigate();
   const { isAdmin, isSuper } = useSelector((state) => state.auth);
   const [slots, setSlots] = useState([]);
@@ -15,7 +16,10 @@ export const Slot = ({ date, book, setBook }) => {
   const [pendingSlot, setPendingSlot] = useState([]);
   const dispatch = useDispatch();
   const [time, setTime] = useState(null);
-  const { patientId, selectedDoctor } = useSelector((state) => state.book);
+  const { patientId, selectedDoctor, appointment_Id } = useSelector(
+    (state) => state.book
+  );
+  console.log(data);
 
   const generateTimeSlots = (startTime, endTime, intervalMinutes) => {
     const slots = [];
@@ -71,20 +75,38 @@ export const Slot = ({ date, book, setBook }) => {
   };
   const handleAppointment = async () => {
     try {
-      await dispatch(
-        bookAppointment({
-          date: date,
-          patient_id: patientId,
-          doctor_id: selectedDoctor.id,
-          time: time.slice(0, 8),
-        })
-      ).unwrap();
-      setBook(false);
-      if (isAdmin || isSuper) {
-        navigate("/mypatients");
+      if (appointment_Id !== null) {
+        console.log("I am here");
+        await dispatch(
+          rescheduleAppointment({
+            date: date,
+            appointment_Id: appointment_Id,
+            patient_id: patientId,
+            doctor_id: selectedDoctor.id,
+            time: time.slice(0, 8),
+            disease_type: data.disease_type,
+            disease_description: data.disease_description,
+          })
+        ).unwrap();
       } else {
-        navigate("/viewpatients");
+        await dispatch(
+          bookAppointment({
+            date: date,
+            patient_id: patientId,
+            doctor_id: selectedDoctor.id,
+            time: time.slice(0, 8),
+            disease_type: data.disease_type,
+            disease_description: data.disease_description,
+          })
+        ).unwrap();
       }
+
+      setBook(false);
+      // if (isAdmin || isSuper) {
+      //   navigate("/mypatients");
+      // } else {
+      //   navigate("/viewpatients");
+      // }
       toast.success("Appointment confirmed successfully.");
     } catch (error) {
       toast.error(error);

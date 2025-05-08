@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   patientId: null,
   selectedDoctor: null,
+  appointment_Id: null,
 };
 
 const bookSlice = createSlice({
@@ -15,9 +16,13 @@ const bookSlice = createSlice({
     setBookDoctor: (state, action) => {
       state.selectedDoctor = action.payload;
     },
+    setAppointmentId: (state, action) => {
+      state.appointment_Id = action.payload;
+    },
   },
 });
 
-export const { setBookDoctor, setBookPatientId } = bookSlice.actions;
+export const { setBookDoctor, setBookPatientId, setAppointmentId } =
+  bookSlice.actions;
 
 export default bookSlice.reducer;
