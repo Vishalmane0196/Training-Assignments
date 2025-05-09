@@ -54,7 +54,10 @@ export const addAdmin = createAsyncThunk(
   "admin/addAdmin",
   async (data, { rejectWithValue }) => {
     try {
-      let response = await axiosInstance.post("/admin/addAdmin", data);
+      let response = await axiosInstance.post("/admin/addAdmin", {
+        ...data,
+        mobile_number: data.contact_number,
+      });
 
       return response;
     } catch (error) {
@@ -140,9 +143,7 @@ export const addDoctor = createAsyncThunk(
         doctorInTime: data.doctorInTime,
         doctorOutTime: data.doctorOutTime,
         email: data.email,
-
         contact_number: data.contact_number,
-        user_password: data.user_password,
         first_name: data.first_name,
         last_name: data.last_name,
       });

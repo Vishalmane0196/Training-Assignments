@@ -39,7 +39,7 @@ const History = ({ obj }) => {
         <div>
           <span className={styles.priceMax}></span>
         </div>
-        {obj.status == "Cancelled" ? null : (
+        {obj.status == "Cancelled" || obj.status == "Completed" ? null : (
           <div
             onClick={() => {
               handleRescheduleBooking(obj?.appointment_id);

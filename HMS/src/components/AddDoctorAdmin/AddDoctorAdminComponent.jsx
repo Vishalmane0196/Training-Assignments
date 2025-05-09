@@ -322,28 +322,6 @@ const AddDoctorAdminComponent = ({
                 placeholder="Enter Email"
               />
 
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <label htmlFor=""> Password </label>
-                {errors.user_password && (
-                  <span>{errors.user_password.message}</span>
-                )}
-              </div>
-
-              <InputComponent
-                require="password "
-                register={register}
-                trigger={trigger}
-                fieldName="user_password"
-                type="password"
-                style={styles.inputTag}
-                placeholder="Enter Password"
-              />
               <button
                 type="submit"
                 disabled={btnState}

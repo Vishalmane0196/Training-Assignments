@@ -104,7 +104,7 @@ const UserPatientTable = ({ access }) => {
                       />
                     </td>
                     <td> {obj?.patient_name}</td>
-                    <td>{obj?.disease_types || obj?.bmi}</td>
+                    <td>{obj?.disease_type || obj?.bmi}</td>
                     <td>
                       {access == "doctor"
                         ? obj?.appointment_time
