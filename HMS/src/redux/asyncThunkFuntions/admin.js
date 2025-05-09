@@ -174,7 +174,7 @@ export const changeAppointmentStatus = createAsyncThunk(
       console.log(data);
 
       let response = await axiosInstance.put(
-        `/admin/changeStatus?status=${data.status}&appointment_id=${data.id}`
+        `/admin/changeStatus?status=Completed&appointment_id=${data.id}`
       );
       return response.data;
     } catch (error) {

@@ -312,5 +312,3 @@ const AdminPatient = ({ access }) => {
     </>
   );
 };
-
-export default AdminPatient;
