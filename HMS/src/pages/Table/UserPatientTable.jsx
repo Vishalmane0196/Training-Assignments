@@ -7,6 +7,7 @@ import { Button } from "src/components/Button/Button";
 import { setBookPatientId } from "src/redux/slices/appointment/bookSlice";
 import { getDoctorAppointmentsList } from "src/redux/asyncThunkFuntions/doctor";
 import { NoRecord } from "src/components/NoRecord/NoRecord";
+import { changeAppointmentStatus } from "src/redux/asyncThunkFuntions/admin";
 const UserPatientTable = ({ access }) => {
   const dispatch = useDispatch();
   const { patientList } = useSelector((state) => state.patient);
@@ -35,6 +36,20 @@ const UserPatientTable = ({ access }) => {
     dispatch(fetchPatientsInfo("get"));
   }, [dispatch]);
 
+  const handleAppointmentStatus = async (status, id) => {
+    try {
+      await dispatch(
+        changeAppointmentStatus({
+          status: status,
+          id: id,
+        })
+      ).unwrap();
+      getAllAppointment();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getAllAppointment = useCallback(async () => {
     try {
       await dispatch(getDoctorAppointmentsList(userInfo.doctor_id)).unwrap();
@@ -49,7 +64,7 @@ const UserPatientTable = ({ access }) => {
     } else {
       getPatient();
     }
-  }, [access, getAllAppointment, getPatient]);
+  }, [access]);
 
   return (
     <>
@@ -58,7 +73,7 @@ const UserPatientTable = ({ access }) => {
           <table>
             <thead>
               <tr className={tableCSS.heading}>
-                <th>{access == "doctor" ? "Sr. No" : "Sr. No"}</th>
+                <th>{access == "doctor" ? "" : "Sr. No"}</th>
                 <th>Patient Name</th>
                 <th>{access == "doctor" ? "Disease Type" : "BMI"}</th>
                 <th>{access == "doctor" ? "Time" : "Mobile"}</th>
@@ -76,7 +91,18 @@ const UserPatientTable = ({ access }) => {
               <tbody>
                 {patientList?.map((obj, index) => (
                   <tr key={index}>
-                    <td> {index + 1}</td>
+                    <td>
+                      {" "}
+                      <input
+                        type="checkbox"
+                        onChange={() =>
+                          handleAppointmentStatus(
+                            "Completed",
+                            obj?.appointment_id
+                          )
+                        }
+                      />
+                    </td>
                     <td> {obj?.patient_name}</td>
                     <td>{obj?.disease_types || obj?.bmi}</td>
                     <td>
