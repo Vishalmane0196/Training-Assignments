@@ -24,7 +24,6 @@ const UserPatientTable = ({ access }) => {
   const { isDoctor } = useSelector((state) => state.auth);
   const { userInfo } = useSelector((state) => state.auth);
   const [btnState, setBtnState] = useState(false);
-  const [id, setId] = useState(null);
   const navigate = useNavigate();
 
   const handleBookAppointment = (id) => {
@@ -40,7 +39,7 @@ const UserPatientTable = ({ access }) => {
     dispatch(fetchPatientsInfo("get"));
   }, [dispatch]);
 
-  const handleAppointment = async () => {
+  const handleAppointment = async (data) => {
     if (btnState) return;
     try {
       setBtnState(true);
@@ -174,7 +173,7 @@ const UserPatientTable = ({ access }) => {
         {deleteState && (
           <DeletePopUp
             deleteFunction={handleAppointment}
-            id={id}
+            id={data.id}
             functionCall={getAllAppointment}
             deleteState={deleteState}
             setDeleteState={setState}
