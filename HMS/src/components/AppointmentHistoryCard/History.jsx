@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setAppointmentId } from "src/redux/slices/appointment/bookSlice";
 import styles from "src/style/HistoryCard.module.css";
+import { FaClock, FaCalendarAlt } from "react-icons/fa";
 
 const History = ({ obj }) => {
   const navigate = useNavigate();
@@ -22,9 +23,13 @@ const History = ({ obj }) => {
       </div>
       <div className={styles.subdata}>
         <span>
+          <FaCalendarAlt className={styles.icon} />{" "}
           {new Date(obj.appointment_date).toISOString().split("T")[0]}
         </span>{" "}
-        · <span>{obj.appointment_time}</span>
+        ·{" "}
+        <span>
+          <FaClock className={styles.icon} /> {obj.appointment_time}
+        </span>
       </div>
       <p className={styles.description}>
         Appointment is scheduled for {date.toLocaleString("en-US", options)}{" "}

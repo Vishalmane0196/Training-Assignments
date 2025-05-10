@@ -5,6 +5,7 @@ import { ProtectedRoute } from "src/routes/ProtectedRoute.jsx";
 import { Loading } from "src/components/Loading/Loading";
 import ErrorBoundary from "src/components/ErrorBoundary/ErrorBoundary";
 import { RoleBasedRoute } from "./RoleBasedRoute";
+import AppointmentCard from "src/pages/AppointmentCard/AppointmentCard";
 
 const delayForDemo = (promise, time = 1000) => {
   return new Promise((resolve) => {
@@ -178,7 +179,7 @@ const Router = createBrowserRouter([
         element: (
           <RoleBasedRoute
             role={["doctor"]}
-            element={<UserPatientTable access={"doctor"} />}
+            element={<AppointmentCard access={"doctor"} />}
           />
         ),
       },

@@ -17,3 +17,21 @@
     background-color: #f44336 !important;
     color: white !important;
 }
+
+
+::-webkit-scrollbar {
+    width: 0.1rem;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 8px;
+    background-color: transparent;
+    border: 1px solid #cacaca;
+
+    ;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: black
+}

@@ -1,6 +1,6 @@
 .container {
     background-color: white;
-    padding: 2rem;
+    padding: 1rem 2rem 1rem 2rem;
     border-radius: 12px;
     /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); */
     width: 100%;
@@ -22,26 +22,10 @@
     gap: 1rem;
     flex-wrap: wrap;
     height: 53vh;
-    overflow-x:hidden;
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
-::-webkit-scrollbar {
-    width: 0.4rem;
-}
-
-::-webkit-scrollbar-track {
-    border-radius: 8px;
-    background-color: #e7e7e7;
-    border: 1px solid #cacaca;
-
-    ;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 8px;
-    background-color: black
-}
 
 .tabSwitcher {
     display: flex;
