@@ -112,6 +112,7 @@ export const AppointmentPopup = ({
             <div>
               <p className={styles.datetimeLabel}>Date & Time</p>
               <p>
+                {console.log(obj)}
                 {`${new Date(
                   new Date(obj.appointment_date).toISOString().split("T")[0]
                 )
@@ -142,7 +143,7 @@ export const AppointmentPopup = ({
             onClick={() => {
               setCancelState(true);
               console.log(reason, btnState);
-              if (reason == "") {
+              if (reason == "" || btnState) {
                 toast.warn("Enter Reason for Cancellation.");
                 return;
               }

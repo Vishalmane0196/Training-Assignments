@@ -3,7 +3,9 @@
     align-items: center;
     gap: 20px;
     font-family: sans-serif;
-    position: relative;
+    position: absolute;
+    bottom: 50px;
+    right: 140px;
 }
 
 .dropdown {
@@ -26,15 +28,13 @@
     background: white;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    display: none;
+    display: block;
     min-width: 140px;
     z-index: 1000;
     padding: 8px 0;
 }
 
-.dropdown:hover .menu {
-    display: block;
-}
+.dropdown:hover .menu {}
 
 .item,
 .itemActive {
@@ -58,7 +58,7 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    color: white;
+    color: rgb(14, 13, 13);
     font-size: 18px;
     display: flex;
     align-items: center;

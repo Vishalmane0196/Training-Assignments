@@ -5,20 +5,7 @@ import { AppointmentPopup } from "src/components/AppointmentPopup/AppointmentPop
 import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { getDoctorAppointmentsList } from "src/redux/asyncThunkFuntions/doctor";
-
-
-const getStatusClass = (status) => {
-  switch (status) {
-    case "Scheduled":
-      return styles.approved;
-    case "Pending":
-      return styles.pending;
-    case "Cancelled":
-      return styles.cancelled;
-    default:
-      return "";
-  }
-};
+import { AppointmentInfo } from "src/components/AppointmentCard/AppointmentInfo";
 
 const AppointmentCard = () => {
   const [obj, setObj] = useState(null);
@@ -26,6 +13,7 @@ const AppointmentCard = () => {
   const { patientList } = useSelector((state) => state.patient);
   const [popUpState, setPopUpState] = useState(false);
   const dispatch = useDispatch();
+  const [id, setId] = useState(null);
 
   const getAllAppointment = useCallback(async () => {
     try {
@@ -49,45 +37,14 @@ const AppointmentCard = () => {
     >
       {patientList.length !== 0
         ? patientList.map((appt, index) => (
-            <div className={styles.card} key={index}>
-              <div className={styles.header}>
-                <h3>{`${appt?.patient_name}`}</h3>
-                <span
-                  className={`${styles.status} ${getStatusClass(appt.status)}`}
-                >
-                  {appt.status}
-                </span>
-              </div>
-              <div className={styles.details}>
-                <div>
-                  <FaClock className={styles.icon} /> {appt.appointment_time}
-                </div>
-                <div>
-                  <FaCalendarAlt className={styles.icon} />{" "}
-                  {appt.appointment_date &&
-                    new Date(
-                      new Date(appt.appointment_date)
-                        .toISOString()
-                        .split("T")[0]
-                    )
-                      .toLocaleDateString("en-GB", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      })
-                      .replace(/ /g, "-")}
-                </div>
-              </div>
-              <p
-                onClick={() => {
-                  setObj(appt);
-                  setPopUpState(true);
-                }}
-                className={styles.link}
-              >
-                Full Info
-              </p>
-            </div>
+            <AppointmentInfo
+              appt={appt}
+              id={id}
+              setId={setId}
+              key={index}
+              setObj={setObj}
+              setPopUpState={setPopUpState}
+            />
           ))
         : `You currently have no appointments.`}
     </motion.div>

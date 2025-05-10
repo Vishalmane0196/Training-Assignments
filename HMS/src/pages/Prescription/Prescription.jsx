@@ -14,7 +14,6 @@ const Prescription = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
   const edit = searchParams.get("edit");
-  console.log(edit);
   const [prescription, setPrescription] = useState({});
   const [btnState, setBtnState] = useState(false);
   const [prescriptionSample, setPrescriptionSample] = useState([]);
@@ -29,6 +28,7 @@ const Prescription = () => {
       Afternoon: "",
       Night: "",
       duration: "",
+      note: "",
     },
   });
   const handleSubmitData = (data) => {
@@ -37,12 +37,13 @@ const Prescription = () => {
       y.push(data);
       return y;
     });
-
+    console.log(data);
     setPrescription((pre) => {
+      let note = [...(pre.note || []), data.note];
       let medicine = [...(pre.medicines || []), data.medicine];
       let capacity = [...(pre.capacity || []), data.capacity];
       let dosage = [...(pre.dosage || []), data.dose];
-
+      console.log(note);
       let morning = [
         ...(pre.morning || []),
         data.Morning == "true"
@@ -79,6 +80,7 @@ const Prescription = () => {
         morning: morning,
         afternoon: afternoon,
         evening: evening,
+        notes: note,
       };
     });
     reset();
@@ -92,6 +94,7 @@ const Prescription = () => {
 
     setPrescription((prev) => {
       return {
+        note: prev?.note.filter((_, i) => i !== indexToDelete) || [],
         medicines: prev.medicines?.filter((_, i) => i !== indexToDelete) || [],
         capacity: prev.capacity?.filter((_, i) => i !== indexToDelete) || [],
         dosage: prev.dosage?.filter((_, i) => i !== indexToDelete) || [],
@@ -116,7 +119,7 @@ const Prescription = () => {
     });
     try {
       await promise;
-      navigate("/viewAppointment");
+      navigate("/appointment");
     } catch (error) {
       setBtnState(false);
       toast.error(error);
@@ -132,7 +135,7 @@ const Prescription = () => {
             <div className={styles.topDiv}>
               <div>
                 <label htmlFor="" className={styles.headerLabelMain}>
-                  Medicine
+                  Medicine :
                 </label>
                 <br />
                 <input
@@ -145,7 +148,7 @@ const Prescription = () => {
               </div>
               <div>
                 <label htmlFor="" className={styles.headerLabelMain}>
-                  Capacity
+                  Capacity :
                 </label>
                 <br />
                 <input
@@ -159,7 +162,7 @@ const Prescription = () => {
 
               <div>
                 <label htmlFor="" className={styles.headerLabelMain}>
-                  Dose
+                  Dose :
                 </label>
                 <br />
                 <input
@@ -169,13 +172,24 @@ const Prescription = () => {
               </div>
               <div>
                 <label htmlFor="" className={styles.headerLabelMain}>
-                  Duration
+                  Duration :
                 </label>
                 <br />
                 <input
                   {...register("duration", { required: true })}
                   type="number"
                   placeholder="Enter Duration"
+                ></input>
+              </div>
+              <div>
+                <label htmlFor="" className={styles.headerLabelMain}>
+                  Note :
+                </label>
+                <br />
+                <input
+                  {...register("note", { required: true })}
+                  type="text"
+                  placeholder="Enter Note"
                 ></input>
               </div>
             </div>
@@ -256,8 +270,7 @@ const Prescription = () => {
         {prescriptionSample?.map((prescriptionSampleData, index) => (
           <div key={prescriptionSampleData.id} className={`${styles.row} `}>
             {" "}
-            {console.log(prescriptionSampleData)}
-            <div>{index}</div>
+            <div>{index + 1}</div>
             <div>{prescriptionSampleData.medicine}</div>
             <div>{prescriptionSampleData.capacity}</div>
             <div>{prescriptionSampleData.dose}</div>
