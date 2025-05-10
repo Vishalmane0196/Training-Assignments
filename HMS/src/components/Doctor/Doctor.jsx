@@ -3,7 +3,16 @@ import doctorCSS from "../../style/Doctor.module.css";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { setBookDoctor } from "src/redux/slices/appointment/bookSlice";
-export const Doctor = ({ outTime, inTime, name, specialist, id, setBook }) => {
+export const Doctor = ({
+  valid,
+  outTime,
+  inTime,
+  name,
+  specialist,
+  date,
+  id,
+  setBook,
+}) => {
   const dispatch = useDispatch();
   const handleDoctorBookId = () => {
     setBook(true);
@@ -17,9 +26,26 @@ export const Doctor = ({ outTime, inTime, name, specialist, id, setBook }) => {
       })
     );
   };
+
   return (
     <>
-      <div className={doctorCSS.card} onClick={handleDoctorBookId}>
+      <div
+        className={
+          valid.unavailable_from_date <= date ||
+          date <= valid.unavailable_to_date
+            ? `${doctorCSS.card} ${doctorCSS.disabled}`
+            : `${doctorCSS.card}`
+        }
+        onClick={() => {
+          if (
+            valid.unavailable_from_date <= date ||
+            date <= valid.unavailable_to_date
+          ) {
+            return;
+          }
+          handleDoctorBookId();
+        }}
+      >
         <div className={doctorCSS.leftSection}>
           <div className={doctorCSS.avatarCover}>
             <img

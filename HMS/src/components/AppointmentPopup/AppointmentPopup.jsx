@@ -111,9 +111,8 @@ export const AppointmentPopup = ({
             {/* <FaCalendarAlt className={styles.dateIcon} /> */}
             <div>
               <p className={styles.datetimeLabel}>Date & Time</p>
-              <p>
-                {console.log(obj)}
-                {`${new Date(
+              <pre className={styles.datetimeLabel}>
+                {`• ${new Date(
                   new Date(obj.appointment_date).toISOString().split("T")[0]
                 )
                   .toLocaleDateString("en-GB", {
@@ -121,8 +120,8 @@ export const AppointmentPopup = ({
                     month: "short",
                     year: "numeric",
                   })
-                  .replace(/ /g, "-")} •  ${obj.appointment_time}`}
-              </p>
+                  .replace(/ /g, "-")}   • ${obj.appointment_time}`}
+              </pre>
             </div>
           </div>
           <div

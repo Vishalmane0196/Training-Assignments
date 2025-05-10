@@ -10,6 +10,9 @@
     height: 8.4rem;
     cursor: pointer;
 }
+.disabled{
+    background-color: #4c5159;
+}
 
 .leftSection {
     display: flex;

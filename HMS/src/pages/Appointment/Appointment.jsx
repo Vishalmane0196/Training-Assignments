@@ -200,6 +200,7 @@ const Appointment = () => {
               {doctors.map((object, index) => {
                 return (
                   <Doctor
+                    date={date}
                     key={index}
                     setBook={setBook}
                     name={object.name}
@@ -207,6 +208,7 @@ const Appointment = () => {
                     outTime={object.doctorOutTime}
                     specialist={object.specialization}
                     id={object.doctor_id}
+                    valid={object}
                   />
                 );
               })}
