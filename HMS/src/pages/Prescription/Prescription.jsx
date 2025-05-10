@@ -187,7 +187,7 @@ const Prescription = () => {
                 </label>
                 <br />
                 <input
-                  {...register("note", { required: true })}
+                  {...register("note")}
                   type="text"
                   placeholder="Enter Note"
                 ></input>

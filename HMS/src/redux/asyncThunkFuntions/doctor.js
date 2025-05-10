@@ -64,3 +64,18 @@ export const getDoctor = createAsyncThunk(
     }
   }
 );
+
+export const ApplyLeave = createAsyncThunk(
+  "doctor/applyLeave",
+  async (data, { rejectWithValue }) => {
+    try {
+      let response = await axiosInstance.put(
+        `/doctor/changeAvailabilityStatus`,
+        data
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);

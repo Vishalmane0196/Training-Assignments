@@ -15,6 +15,9 @@ export const Doctor = ({
 }) => {
   const dispatch = useDispatch();
   const handleDoctorBookId = () => {
+    let start = new Date(valid.unavailable_from_date);
+    let end = new Date(valid.unavailable_to_date);
+
     setBook(true);
     dispatch(
       setBookDoctor({
@@ -26,21 +29,26 @@ export const Doctor = ({
       })
     );
   };
+  const functionStyle = () => {
+    const from = new Date(valid.unavailable_from_date);
+    const to = new Date(valid.unavailable_to_date);
+    const selected = new Date(date);
 
+    const isUnavailable = selected >= from && selected <= to;
+
+    return isUnavailable
+      ? `${doctorCSS.card} ${doctorCSS.disabled}`
+      : `${doctorCSS.card}`;
+  };
   return (
     <>
       <div
-        className={
-          valid.unavailable_from_date <= date ||
-          date <= valid.unavailable_to_date
-            ? `${doctorCSS.card} ${doctorCSS.disabled}`
-            : `${doctorCSS.card}`
-        }
+        className={functionStyle()}
         onClick={() => {
-          if (
-            valid.unavailable_from_date <= date ||
-            date <= valid.unavailable_to_date
-          ) {
+          const from = new Date(valid.unavailable_from_date);
+          const to = new Date(valid.unavailable_to_date);
+          const selected = new Date(date);
+          if (selected >= from && selected <= to) {
             return;
           }
           handleDoctorBookId();

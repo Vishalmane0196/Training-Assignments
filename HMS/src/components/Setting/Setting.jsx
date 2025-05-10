@@ -5,19 +5,23 @@ import { Edit } from "./Edit/Edit.jsx";
 import EditPassword from "./Edit/EditPassword.jsx";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Leave } from "../Leave/Leave";
 
 const Setting = () => {
   const navigate = useNavigate();
   const [deleteState, setDeleteState] = useState(false);
   const [editProfile, setEditProfile] = useState(false);
   const [reset, setReset] = useState(false);
-
-  const { isAdmin, isSuper } = useSelector((state) => state.auth);
+  const [applyStatus, setApplyStatus] = useState(false);
+  const { isAdmin, isSuper, isDoctor } = useSelector((state) => state.auth);
 
   const handleAdminEmail = () => {
     navigate("/setting/accessControl");
   };
 
+  const handleLeave = () => {
+    setApplyStatus(true);
+  };
   return (
     <>
       <div className={settingCSS.containerCoverAdmin}>
@@ -41,7 +45,23 @@ const Setting = () => {
               Edit Profile
             </button>
           </div>
-
+          {isDoctor == 1 && (
+            <div className={settingCSS.featureCover}>
+              <h3 className={settingCSS.h3header}>Apply for Leave</h3>
+              <div className={settingCSS.line}></div>
+              <p className={settingCSS.p3tag}>
+                You can apply for leave by selecting the from and to dates,
+                along with the leave type and reason.
+              </p>
+              <div className={settingCSS.inputBtnCover}>
+                <div className={settingCSS.butCover}>
+                  <button onClick={handleLeave} className={settingCSS.editBtn}>
+                    Apply
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
           {/* Admin-only Section */}
 
           {isAdmin == 1 && (
@@ -94,6 +114,9 @@ const Setting = () => {
             />
           )}
           {reset && <EditPassword reset={reset} setReset={setReset} />}
+          {applyStatus && (
+            <Leave applyStatus={applyStatus} setReset={setApplyStatus} />
+          )}
         </div>
       </div>
     </>
