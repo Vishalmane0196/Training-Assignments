@@ -127,3 +127,15 @@ export const deleteObservation = createAsyncThunk(
     }
   }
 );
+
+export const getDoctorProfile = createAsyncThunk(
+  "doctor/Info",
+  async (rejectWithValue) => {
+    try {
+      let response = await axiosInstance.get(`/doctor/getDoctorProfile`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);

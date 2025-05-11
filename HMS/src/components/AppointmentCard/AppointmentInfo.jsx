@@ -61,7 +61,7 @@ export const AppointmentInfo = ({
           >
             Full Info
           </p>
-          {appt.status == "Scheduled" ? (
+          {appt.status == "Scheduled" || appt.status == "Completed" ? (
             <button
               onClick={() => {
                 setId((pre) => {

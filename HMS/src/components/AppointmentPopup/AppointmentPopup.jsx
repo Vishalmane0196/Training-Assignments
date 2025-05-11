@@ -87,13 +87,17 @@ export const AppointmentPopup = ({
             )}{" "}
             {obj.status == "Pending"
               ? `Appointment is in pending.`
-              : `Appointment is Scheduled.`}
+              : `Appointment is ${
+                  obj.status == "Completed" ? "Completed" : "Scheduled"
+                }.`}
           </p>
 
           <h2 className={styles.title}>
             {obj.status == "Pending"
               ? `Please schedule appointment`
-              : `Appointment scheduled.`}
+              : `Appointment ${
+                  obj.status == "Completed" ? "Completed" : "Scheduled"
+                }`}
           </h2>
           <div className={styles.withPerson}>
             <span>with {obj.patient_name}</span>
@@ -138,44 +142,48 @@ export const AppointmentPopup = ({
               placeholder="Reason For Cancellation."
             />
           </div>
-          <button
-            onClick={() => {
-              setCancelState(true);
-              console.log(reason, btnState);
-              if (reason == "" || btnState) {
-                toast.warn("Enter Reason for Cancellation.");
-                return;
-              }
-              btnState
-                ? null
-                : handleAppointment({ ...obj, status: "Cancelled" });
-            }}
-            className={styles.reject}
-          >
-            Reject appointment
-          </button>
-          {obj.status == "Scheduled" ? (
-            <button
-              onClick={() => {
-                btnState
-                  ? null
-                  : handleAppointment({ ...obj, status: "Completed" });
-              }}
-              className={styles.button}
-            >
-              Complete appointment
-            </button>
-          ) : (
-            <button
-              onClick={() => {
-                btnState
-                  ? null
-                  : handleAppointment({ ...obj, status: "Scheduled" });
-              }}
-              className={styles.button}
-            >
-              Approve appointment
-            </button>
+          {obj.status == "Completed" ? null : (
+            <>
+              <button
+                onClick={() => {
+                  setCancelState(true);
+                  console.log(reason, btnState);
+                  if (reason == "" || btnState) {
+                    toast.warn("Enter Reason for Cancellation.");
+                    return;
+                  }
+                  btnState
+                    ? null
+                    : handleAppointment({ ...obj, status: "Cancelled" });
+                }}
+                className={styles.reject}
+              >
+                Reject appointment
+              </button>
+              {obj.status == "Scheduled" ? (
+                <button
+                  onClick={() => {
+                    btnState
+                      ? null
+                      : handleAppointment({ ...obj, status: "Completed" });
+                  }}
+                  className={styles.button}
+                >
+                  Complete appointment
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    btnState
+                      ? null
+                      : handleAppointment({ ...obj, status: "Scheduled" });
+                  }}
+                  className={styles.button}
+                >
+                  Approve appointment
+                </button>
+              )}
+            </>
           )}
         </div>
       </div>

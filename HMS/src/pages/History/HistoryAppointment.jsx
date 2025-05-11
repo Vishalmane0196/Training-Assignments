@@ -60,23 +60,18 @@ const HistoryAppointment = () => {
   }, [activeTab]);
 
   const functionFilterAppointment = (data) => {
-    console.log("i am running ");
+
     if (activeTab == "upcoming") {
-      console.log("i am in upcoming tab filter");
       const asd = data?.filter(
         (obj) => obj.status === "Scheduled" || obj.status === "Pending"
       );
-      console.log("upcoming", asd);
-      console.log("data", data);
 
       setFilterAppointmentHistory(asd);
     } else {
-      console.log("i am in past tab filter");
       const asd = data?.filter(
         (obj) => obj.status === "Cancelled" || obj.status === "Completed"
       );
-      console.log("past", asd);
-      console.log("data", data);
+
       setFilterAppointmentHistory(asd);
     }
   };

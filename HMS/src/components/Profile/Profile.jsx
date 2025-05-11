@@ -1,108 +1,99 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../style/AdminProfile.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPatientsInfo } from "../../redux/asyncThunkFuntions/user";
+import { getDoctorProfile } from "src/redux/asyncThunkFuntions/doctor";
+import { getUserInfo } from "src/redux/asyncThunkFuntions/user";
 
 const Profile = () => {
-  const { userInfo, isAdmin, isDoctor } = useSelector((state) => state.auth);
-  const { totalPatient } = useSelector((state) => state.patient);
+  const [profile, setProfile] = useState(null);
+  const { isAdmin, isDoctor, isSuper } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const [patient, setPatient] = useState(0);
+  const getData = async () => {
+    let response = {};
+    try {
+      if (isDoctor) {
+        response = await dispatch(getDoctorProfile()).unwrap();
+        console.log(response.data[0]);
+        setProfile(response.data[0]);
+      } else {
+        response = await dispatch(getUserInfo()).unwrap();
+        console.log(response);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-    const fun = async () => {
-      let response2 = await dispatch(fetchPatientsInfo("get")).unwrap();
-      setPatient(response2.data.length);
-      
-    };
-    fun();
+    getData();
   }, []);
   return (
-    <div>
-      <div className={styles.profileContainer}>
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            gap: "1rem",
-            height: "48vh",
-          }}
-        >
-          <div className={styles.profileCard}>
-            <div className={styles.imgDiv}>
-              <div>
-                <img
-                  src="https://ud2.spinehrm.in/SUD/ELLICI/UserData/EmpPhotoes/EmpPhoto.jpg" // Replace with actual image
-                  alt="Profile"
-                  className={styles.profileImage}
-                />
-                <h2 className={styles.userName}>
-                  {userInfo?.first_name} {userInfo?.last_name}
-                </h2>
-                <p className={styles.trustText}>
-                  {isAdmin ? "Admin" : isDoctor ? "Doctor" : "User"}
-                </p>
+    <div className={styles.container}>
+      <h2 className={styles.heading}>My Profile</h2>
 
-                <p className={styles.trustText}></p>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Section - User Details */}
-          <div className={styles.userDetails}>
-            <div className={styles.detailRow}>
-              <p className={styles.label}>First Name:</p>
-              <p className={styles.value}>{userInfo?.first_name} </p>
-              <p style={{ marginLeft: "12rem" }} className={styles.label}>
-                Last Name:
-              </p>
-              <p className={styles.value}>{userInfo?.last_name}</p>
-            </div>
-
-            <div className={styles.detailRow}>
-              <p className={styles.label}>Email:</p>
-              <p className={styles.value}>{userInfo?.email}</p>
-            </div>
-
-            <div className={styles.detailRow}>
-              <p className={styles.label}>Mobile:</p>
-              <p className={styles.value}>{userInfo?.mobile_number}</p>
-            </div>
-
-            <div className={styles.detailRow}>
-              <p className={styles.label}>Role :</p>
-              <p className={styles.value}>
-                {isAdmin ? "Admin" : isDoctor ? "Doctor" : "User"}
-              </p>
-            </div>
+      <section className={styles.card}>
+        <div className={styles.profileHeader}>
+          {/* <img src={profilePic} alt="Profile" className={styles.avatar} /> */}
+          <div>
+            <h3 className={styles.name}></h3>
+            <p className={styles.role}>Team Manager</p>
+            <p className={styles.location}>Leeds, United Kingdom</p>
           </div>
         </div>
-        <br />
-        <div className={styles.userDetails}>
-          <div className={styles.detailRow}>
-            <p className={styles.label}>Patient Count :</p>
-          </div>
+      </section>
 
-          <div className={styles.detailRow}>
-            {isAdmin == 1 && <p className={styles.label}>Total Patients : </p>}
-            {isAdmin == 1 && <p className={styles.value}>{totalPatient}</p>}
-            <br />
-            {isAdmin == 0 && (
-              <>
-                {" "}
-                <p className={styles.label}>Your Patients :</p>
-                <p className={styles.value}>{patient}</p>
-              </>
-            )}
-          </div>
-          {isAdmin == 1 && (
-            <div className={styles.detailRow}>
-              <p className={styles.label}>Your Patient :</p>
-              <p className={styles.value}>{patient}</p>
-            </div>
-          )}
+      <section className={styles.card}>
+        <div className={styles.sectionHeader}>
+          <h4>Personal Information</h4>
         </div>
-      </div>
+        <div className={styles.grid}>
+          <div>
+            <label>First Name</label>
+            <p>Rafiqur</p>
+          </div>
+          <div>
+            <label>Last Name</label>
+            <p>Rahman</p>
+          </div>
+          <div>
+            <label>Email address</label>
+            <p>rafiqurrahman51@gmail.com</p>
+          </div>
+          <div>
+            <label>Phone</label>
+            <p>+09 345 346 46</p>
+          </div>
+          <div className={styles.fullWidth}>
+            <label>Bio</label>
+            <p>Team Manager</p>
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.card}>
+        <div className={styles.sectionHeader}>
+          <h4>Address</h4>
+        </div>
+        <div className={styles.grid}>
+          <div>
+            <label>Country</label>
+            <p>United Kingdom</p>
+          </div>
+          <div>
+            <label>City/State</label>
+            <p>Leeds, East London</p>
+          </div>
+          <div>
+            <label>Postal Code</label>
+            <p>ERT 2354</p>
+          </div>
+          <div>
+            <label>TAX ID</label>
+            <p>AS45645756</p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

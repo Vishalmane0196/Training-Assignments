@@ -1,15 +1,9 @@
 /* PatientList.module.css */
 .container {
-    padding: 20px;
-    padding-top: 0;
+    padding: 2rem;
+    padding-bottom: 0;
+    padding-top: 1rem;
     font-family: 'Arial', sans-serif;
-}
-
-h2 {
-
-    font-size: 1.4rem;
-    margin: 0;
-    margin-bottom: 2rem;
 }
 
 .backBtn {
@@ -21,11 +15,12 @@ h2 {
     border-radius: 6px;
     border: 1px solid #7b76766b;
     cursor: pointer;
-    margin-top: 2rem;
+    margin-top: 0.8rem;
     align-items: start;
 }
-.backBtn:hover{
-   background-color: #7b767634;
+
+.backBtn:hover {
+    background-color: #7b767634;
 }
 
 .filters {
@@ -153,7 +148,7 @@ h2 {
     border-radius: 6px;
     border: none;
     cursor: pointer;
-    margin-top: 2rem;
+    margin-top: 0.8rem;
     align-items: start;
 }
 
@@ -161,4 +156,70 @@ h2 {
     display: flex;
     width: 100%;
     justify-content: right;
+}
+
+.headerLabel {
+    font-size: 1.4rem;
+    margin: 0;
+    margin-bottom: 2rem;
+}
+
+
+
+.breadcrumbs {
+    --color-text: #5d5d5d;
+    width: 100%;
+    /* background: #f3f3f3; */
+    padding: 5px;
+}
+
+.breadcrumbs__list {
+    list-style: none;
+    margin: 0.5rem;
+    padding-left: 1rem;
+}
+
+.breadcrumbs li {
+    display: inline;
+}
+
+.breadcrumbs li:first-child a::before {
+    content: "\f015";
+    font-family: FontAwesome;
+    padding: 2px;
+}
+
+.breadcrumbs li:first-child a::before,
+.breadcrumbs li+li::before {
+    font-size: 15px;
+    color: var(--color-text);
+}
+
+.breadcrumbs li+li::before {
+    padding: 8px;
+    content: "\f105";
+    font-family: FontAwesome;
+}
+
+.breadcrumbs li a {
+
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 19px;
+    color: var(--color-text);
+    text-transform: capitalize;
+    transition: color 0.24s linear;
+    cursor: pointer;
+}
+
+.breadcrumbs li:nth-child(3)>a {
+    color: gray;
+    cursor: default;
+}
+
+@media (hover: hover) {
+    .breadcrumbs li a:hover {
+        color: var(--primary-color);
+        text-decoration: underline;
+    }
 }
