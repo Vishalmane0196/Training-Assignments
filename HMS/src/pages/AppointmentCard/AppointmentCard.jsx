@@ -6,8 +6,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { getDoctorAppointmentsList } from "src/redux/asyncThunkFuntions/doctor";
 import { AppointmentInfo } from "src/components/AppointmentCard/AppointmentInfo";
+import { Observation } from "src/components/Observation/Observation";
 
 const AppointmentCard = () => {
+  const [observation, setObservation] = useState(false);
   const [obj, setObj] = useState(null);
   const { userInfo } = useSelector((state) => state.auth);
   const { patientList } = useSelector((state) => state.patient);
@@ -43,6 +45,7 @@ const AppointmentCard = () => {
               setId={setId}
               key={index}
               setObj={setObj}
+              setObservation={setObservation}
               setPopUpState={setPopUpState}
             />
           ))
@@ -61,6 +64,13 @@ const AppointmentCard = () => {
           getAllAppointment={getAllAppointment}
           popUpState={popUpState}
           setDeleteState={setPopUpState}
+        />
+      )}
+      {observation && (
+        <Observation
+          setDeleteState={setObservation}
+          getAllAppointment={getAllAppointment}
+          obj={id}
         />
       )}
     </div>

@@ -79,3 +79,51 @@ export const ApplyLeave = createAsyncThunk(
     }
   }
 );
+
+export const addObservation = createAsyncThunk(
+  "doctor/addObservation",
+  async (data, { rejectWithValue }) => {
+    try {
+      let response = await axiosInstance.post(
+        `/doctor/addObservation?appointment_id=${data.id}`,
+        {
+          observation: data.observation,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const updateObservation = createAsyncThunk(
+  "doctor/updateObservation",
+  async (data, { rejectWithValue }) => {
+    try {
+      let response = await axiosInstance.put(
+        `/doctor/editObservation?appointment_id=${data.id}`,
+        {
+          observation: data.observation,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const deleteObservation = createAsyncThunk(
+  "doctor/deleteObservation",
+  async (data, { rejectWithValue }) => {
+    try {
+      let response = await axiosInstance.delete(
+        `/doctor/deleteObservation?appointment_id=${data.id}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);

@@ -15,7 +15,14 @@ const getStatusClass = (status) => {
       return "";
   }
 };
-export const AppointmentInfo = ({ id, setId, appt, setObj, setPopUpState }) => {
+export const AppointmentInfo = ({
+  setObservation,
+  id,
+  setId,
+  appt,
+  setObj,
+  setPopUpState,
+}) => {
   const [uploadState, setUploadState] = useState(false);
   return (
     <>
@@ -68,7 +75,13 @@ export const AppointmentInfo = ({ id, setId, appt, setObj, setPopUpState }) => {
             </button>
           ) : null}
         </div>
-        {id == appt.appointment_id && <SelectItem obj={appt} />}
+        {id == appt.appointment_id && (
+          <SelectItem
+            setObservation={setObservation}
+            setId={setId}
+            obj={appt}
+          />
+        )}
       </div>
     </>
   );

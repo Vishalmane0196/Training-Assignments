@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "src/style/HoverMenu.module.css";
 
-const SelectItem = ({ obj }) => {
+const SelectItem = ({ setObservation, setId, obj }) => {
   const navigate = useNavigate();
   return (
     <div className={styles.container}>
@@ -18,7 +18,13 @@ const SelectItem = ({ obj }) => {
           >
             {obj?.prescription_id ? "Edit Prescription" : "Add Prescription"}
           </div>
-          <div onClick={() => {}} className={styles.item}>
+          <div
+            onClick={() => {
+              setId(obj);
+              setObservation(true);
+            }}
+            className={styles.item}
+          >
             {obj?.observation ? "Edit Observation" : "Add Observation"}
           </div>
         </div>
