@@ -6,7 +6,10 @@ import { getUserInfo } from "src/redux/asyncThunkFuntions/user";
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
-  const { isAdmin, isDoctor, isSuper } = useSelector((state) => state.auth);
+
+  const { isAdmin, isDoctor, isSuper, userInfo } = useSelector(
+    (state) => state.auth
+  );
   const dispatch = useDispatch();
 
   const getData = async () => {
@@ -14,7 +17,6 @@ const Profile = () => {
     try {
       if (isDoctor) {
         response = await dispatch(getDoctorProfile()).unwrap();
-        console.log(response.data[0]);
         setProfile(response.data[0]);
       } else {
         response = await dispatch(getUserInfo()).unwrap();
@@ -28,6 +30,7 @@ const Profile = () => {
   useEffect(() => {
     getData();
   }, []);
+
   return (
     <div className={styles.container}>
       <h2 className={styles.heading}>My Profile</h2>
@@ -36,9 +39,15 @@ const Profile = () => {
         <div className={styles.profileHeader}>
           {/* <img src={profilePic} alt="Profile" className={styles.avatar} /> */}
           <div>
-            <h3 className={styles.name}></h3>
-            <p className={styles.role}>Team Manager</p>
-            <p className={styles.location}>Leeds, United Kingdom</p>
+            <h3 className={styles.name}>
+              {isDoctor ? profile?.doctorName : profile?.name}
+            </h3>
+            <p className={styles.role}>
+              Role - {isDoctor ? "Doctor" : isAdmin ? "Admin" : "User"}
+            </p>
+            <p className={styles.location}>
+              Specialization - {profile?.specialization}
+            </p>
           </div>
         </div>
       </section>
@@ -50,28 +59,36 @@ const Profile = () => {
         <div className={styles.grid}>
           <div>
             <label>First Name</label>
-            <p>Rafiqur</p>
+            <p>{userInfo?.first_name}</p>
           </div>
           <div>
             <label>Last Name</label>
-            <p>Rahman</p>
+            <p>{userInfo?.last_name}</p>
           </div>
           <div>
             <label>Email address</label>
-            <p>rafiqurrahman51@gmail.com</p>
+            <p>{userInfo?.email}</p>
           </div>
           <div>
             <label>Phone</label>
-            <p>+09 345 346 46</p>
+            <p>{userInfo.mobile_number}</p>
           </div>
-          <div className={styles.fullWidth}>
-            <label>Bio</label>
-            <p>Team Manager</p>
-          </div>
+          {isDoctor ? (
+            <>
+              <div>
+                <label>Doctor In-Time</label>
+                <p>{profile?.doctorInTime}</p>
+              </div>
+              <div>
+                <label>Doctor Out-Time</label>
+                <p>{profile?.doctorOutTime}</p>
+              </div>
+            </>
+          ) : null}
         </div>
       </section>
 
-      <section className={styles.card}>
+      {/* <section className={styles.card}>
         <div className={styles.sectionHeader}>
           <h4>Address</h4>
         </div>
@@ -93,7 +110,7 @@ const Profile = () => {
             <p>AS45645756</p>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

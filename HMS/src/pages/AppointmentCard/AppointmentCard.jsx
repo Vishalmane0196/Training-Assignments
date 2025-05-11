@@ -23,7 +23,11 @@ const AppointmentCard = () => {
 
   const getAllAppointment = useCallback(async () => {
     try {
-      await dispatch(getDoctorAppointmentsList(userInfo.doctor_id)).unwrap();
+      let response = await dispatch(
+        getDoctorAppointmentsList(userInfo.doctor_id)
+      ).unwrap();
+      console.log(response.data);
+      functionFilterAppointment(response.data);
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -55,7 +59,7 @@ const AppointmentCard = () => {
 
   const renderMessage = () => (
     <motion.div
-     key={activeTab}
+      key={activeTab}
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
