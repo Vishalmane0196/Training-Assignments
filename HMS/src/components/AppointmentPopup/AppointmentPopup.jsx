@@ -146,12 +146,12 @@ export const AppointmentPopup = ({
             <>
               <button
                 onClick={() => {
-                  setCancelState(true);
-                  console.log(reason, btnState);
-                  if (reason == "" || btnState) {
+                  if (reason == "" && btnState !== true) {
                     toast.warn("Enter Reason for Cancellation.");
+                    setCancelState(true);
                     return;
                   }
+
                   btnState
                     ? null
                     : handleAppointment({ ...obj, status: "Cancelled" });

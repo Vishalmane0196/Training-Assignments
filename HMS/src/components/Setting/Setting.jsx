@@ -45,6 +45,23 @@ const Setting = () => {
               Edit Profile
             </button>
           </div>
+
+          <div className={settingCSS.featureCover}>
+            <h3 className={settingCSS.h3header}>Reset Password</h3>
+            <div className={settingCSS.line}></div>
+            <p className={settingCSS.p3tag}>
+              Please enter the password you wish to change.
+            </p>
+            <button
+              className={settingCSS.editBtn}
+              onClick={() => {
+                setReset(true);
+              }}
+            >
+              Reset
+            </button>
+          </div>
+
           {isDoctor == 1 && (
             <div className={settingCSS.featureCover}>
               <h3 className={settingCSS.h3header}>Apply for Leave</h3>

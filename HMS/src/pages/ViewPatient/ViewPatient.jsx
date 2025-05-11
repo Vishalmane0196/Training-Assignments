@@ -17,10 +17,12 @@ import {
 } from "src/redux/slices/multistepform/formSlice";
 
 import { Select } from "src/components/Select/Select";
+import Popup from "src/components/Popup/Popup";
 
 const ViewPatient = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [popUpState, setPopUp] = useState(false);
   const { isAdmin, isDoctor } = useSelector((state) => state.auth);
   const { patientList } = useSelector((state) => state.patient);
 
@@ -52,29 +54,34 @@ const ViewPatient = () => {
 
   //------------------
   const handleUpdatePersonalData = () => {
-    documentToLocal();
-    dispatch(setPatientID(parseInt(param.id)));
-    dispatch(setStep(0));
-    dispatch(setCount(3));
-    isAdmin
-      ? navigate("/addpatient")
-      : isDoctor
-      ? navigate("/addpatient")
-      : navigate("/addpatient");
+    setPopUp(true);
+    setTimeout(() => {
+      documentToLocal();
+      dispatch(setPatientID(parseInt(param.id)));
+      dispatch(setStep(0));
+      dispatch(setCount(3));
+      isAdmin
+        ? navigate("/addpatient")
+        : isDoctor
+        ? navigate("/addpatient")
+        : navigate("/addpatient");
+    }, 3000);
   };
   const handleUpdateFamilyData = () => {
-    documentToLocal();
-    dispatch(setPatientID(parseInt(param.id)));
-    dispatch(setStep(1));
-    dispatch(setCount(3));
-    isAdmin
-      ? navigate("/addpatient")
-      : isDoctor
-      ? navigate("/addpatient")
-      : navigate("/addpatient");
+    setPopUp(true);
+    setTimeout(() => {
+      documentToLocal();
+      dispatch(setPatientID(parseInt(param.id)));
+      dispatch(setStep(1));
+      dispatch(setCount(3));
+      isAdmin
+        ? navigate("/addpatient")
+        : isDoctor
+        ? navigate("/addpatient")
+        : navigate("/addpatient");
+    }, 3000);
   };
 
- 
   const documentToLocal = () => {
     let object = {};
     documents.map((obj) => {
@@ -97,17 +104,21 @@ const ViewPatient = () => {
     console.log(object2);
     localStorage.setItem("upload_status", JSON.stringify(object));
   };
-  const handleUpdateDocumentData = () => {
-    documentToLocal();
-    dispatch(setPatientID(parseInt(param.id)));
-    dispatch(setStep(3));
-    dispatch(setCount(3));
 
-    isAdmin
-      ? navigate("/addpatient")
-      : isDoctor
-      ? navigate("/addpatient")
-      : navigate("/addpatient");
+  const handleUpdateDocumentData = () => {
+    setPopUp(true);
+    setTimeout(() => {
+      documentToLocal();
+      dispatch(setPatientID(parseInt(param.id)));
+      dispatch(setStep(3));
+      dispatch(setCount(3));
+
+      isAdmin
+        ? navigate("/addpatient")
+        : isDoctor
+        ? navigate("/addpatient")
+        : navigate("/addpatient");
+    }, 3000);
   };
 
   const getPatientData = async () => {
@@ -530,8 +541,6 @@ const ViewPatient = () => {
           </AccordionDetails>
         </Accordion>
 
-       
-
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -587,6 +596,7 @@ const ViewPatient = () => {
             </div>
           </AccordionDetails>
         </Accordion>
+        {popUpState && <Popup />}
       </div>
     </>
   );

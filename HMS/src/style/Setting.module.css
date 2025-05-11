@@ -6,7 +6,7 @@
     border-radius: 15px;
     margin-bottom: 1rem;
     position: relative;
-    height: 75vh;
+    height: 77vh;
     overflow: scroll;
 }
 
@@ -315,6 +315,7 @@ input:checked+.slider::before {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     position: relative;
 }
+
 .close {
     position: absolute;
     right: 10px;
@@ -322,9 +323,11 @@ input:checked+.slider::before {
     font-size: 24px;
     cursor: pointer;
 }
+
 .containerCoverAdmin {
     padding: 0.5rem 2rem;
 }
+
 .popup h3 {
     color: black;
 }
@@ -346,6 +349,7 @@ input:checked+.slider::before {
     white-space: normal;
     border-radius: 5px;
 }
+
 .pre {
     color: black;
 }

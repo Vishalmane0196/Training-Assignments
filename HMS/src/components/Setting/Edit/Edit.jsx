@@ -98,9 +98,9 @@ export const Edit = ({ editProfile, setEditProfile }) => {
                 <label htmlFor="">
                   {isDoctor == 1 ? "Name" : "First Name"}{" "}
                 </label>
-                {errors[isDoctor == 1 ? "name" : "first_name "] && (
-                  <span>
-                    {errors[isDoctor == 1 ? "name" : "first_name "].message}
+                {errors[isDoctor == 1 ? "name" : "first_name"] && (
+                  <span className={styles.error}>
+                    {errors[isDoctor == 1 ? "name" : "first_name"].message}
                   </span>
                 )}
               </div>
@@ -131,7 +131,7 @@ export const Edit = ({ editProfile, setEditProfile }) => {
                   {isDoctor == 1 ? "Specialization" : "Last Name"}{" "}
                 </label>
                 {errors[isDoctor == 1 ? "specialization" : "last_name"] && (
-                  <span>
+                  <span className={styles.error}>
                     {errors[isDoctor ? "specialization" : "last_name"].message}
                   </span>
                 )}
@@ -167,7 +167,7 @@ export const Edit = ({ editProfile, setEditProfile }) => {
                   {isDoctor ? "Contact Number" : "Mobile Number"}
                 </label>
                 {errors[isDoctor ? "contact_number" : "mobile_number"] && (
-                  <span>
+                  <span className={styles.error}>
                     {
                       errors[isDoctor ? "contact_number" : "mobile_number"]
                         .message
@@ -203,7 +203,9 @@ export const Edit = ({ editProfile, setEditProfile }) => {
                   >
                     <label htmlFor="">In-Time</label>
                     {errors.doctorInTime && (
-                      <span>{errors.doctorInTime.message}</span>
+                      <span className={styles.error}>
+                        {errors.doctorInTime.message}
+                      </span>
                     )}
                   </div>
 
@@ -225,7 +227,9 @@ export const Edit = ({ editProfile, setEditProfile }) => {
                   >
                     <label htmlFor=""> Out-Time</label>
                     {errors.doctorOutTime && (
-                      <span>{errors.doctorOutTime.message}</span>
+                      <span className={styles.error}>
+                        {errors.doctorOutTime.message}
+                      </span>
                     )}
                   </div>
                   <InputComponent
