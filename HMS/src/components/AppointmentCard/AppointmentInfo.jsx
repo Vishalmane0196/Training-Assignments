@@ -34,6 +34,9 @@ export const AppointmentInfo = ({
           </span>
         </div>
         <div className={styles.details}>
+          <div
+            className={styles.first_div}
+          >{` is consulting for "${appt.disease_type}".`}</div>
           <div>
             <FaClock className={styles.icon} /> {appt.appointment_time}
           </div>

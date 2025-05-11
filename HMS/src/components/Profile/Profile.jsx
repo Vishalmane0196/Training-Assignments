@@ -40,13 +40,15 @@ const Profile = () => {
           {/* <img src={profilePic} alt="Profile" className={styles.avatar} /> */}
           <div>
             <h3 className={styles.name}>
-              {isDoctor ? profile?.doctorName : profile?.name}
+              {isDoctor
+                ? profile?.doctorName
+                : `${userInfo?.first_name} ${userInfo?.last_name}`}
             </h3>
             <p className={styles.role}>
               Role - {isDoctor ? "Doctor" : isAdmin ? "Admin" : "User"}
             </p>
             <p className={styles.location}>
-              Specialization - {profile?.specialization}
+              {isDoctor ? `Specialization - ${profile?.specialization}` : null}
             </p>
           </div>
         </div>
@@ -61,7 +63,7 @@ const Profile = () => {
             <label>First Name</label>
             <p>{userInfo?.first_name}</p>
           </div>
-          <div>
+          <div className={isDoctor ? "" : styles.fullWidth}>
             <label>Last Name</label>
             <p>{userInfo?.last_name}</p>
           </div>
@@ -69,7 +71,7 @@ const Profile = () => {
             <label>Email address</label>
             <p>{userInfo?.email}</p>
           </div>
-          <div>
+          <div className={isDoctor ? "" : styles.fullWidth}>
             <label>Phone</label>
             <p>{userInfo.mobile_number}</p>
           </div>
