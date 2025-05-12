@@ -3,7 +3,7 @@ import styles from "src/style/Popup.module.css";
 import avatarImage from "src/assets/wait.jpg";
 
 const Popup = () => {
-  const [countDown, setCountdown] = useState(2);
+  const [countDown, setCountdown] = useState(4);
   useEffect(() => {
     if (countDown === 0) return;
 

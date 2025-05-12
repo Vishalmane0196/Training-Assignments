@@ -10,12 +10,16 @@
     overflow: scroll;
 }
 
+.h3header {
+    font-size: 0.875rem;
+}
 
 .header {
     margin: 0;
     font-size: 24px;
     margin-bottom: 10px;
     font-weight: 500;
+
 }
 
 .editBtn {
@@ -50,6 +54,7 @@
     font-weight: 400;
     margin-top: 0px;
     margin-bottom: 1rem;
+    font-size: 0.9rem;
 }
 
 .deleteBtn {
@@ -229,6 +234,7 @@ input:checked+.slider::before {
     font-size: 2rem;
     margin-bottom: 1.5rem;
     font-weight: 700;
+    font-size: 1.5rem;
 }
 
 .featureCover {

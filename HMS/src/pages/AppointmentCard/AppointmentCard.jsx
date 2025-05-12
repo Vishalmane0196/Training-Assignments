@@ -66,19 +66,21 @@ const AppointmentCard = () => {
       transition={{ duration: 0.3 }}
       className={styles.grid}
     >
-      {filterAppointmentHistory.length !== 0
-        ? filterAppointmentHistory.map((appt, index) => (
-            <AppointmentInfo
-              appt={appt}
-              id={id}
-              setId={setId}
-              key={index}
-              setObj={setObj}
-              setObservation={setObservation}
-              setPopUpState={setPopUpState}
-            />
-          ))
-        : `You currently have no appointments.`}
+      {filterAppointmentHistory.length !== 0 ? (
+        filterAppointmentHistory.map((appt, index) => (
+          <AppointmentInfo
+            appt={appt}
+            id={id}
+            setId={setId}
+            key={index}
+            setObj={setObj}
+            setObservation={setObservation}
+            setPopUpState={setPopUpState}
+          />
+        ))
+      ) : (
+        <p className={styles.message}>You currently have no appointments.</p>
+      )}
     </motion.div>
   );
 

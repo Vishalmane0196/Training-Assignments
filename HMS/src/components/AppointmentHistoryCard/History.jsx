@@ -16,7 +16,7 @@ const History = ({ obj }) => {
   return (
     <div className={styles.card}>
       <div className={styles.header}>
-        <h2 className={styles.sellerName}>{`Dr.${obj.doctorName}`}</h2>
+        <h2 className={styles.sellerName}>{`Dr.${obj?.doctorName}`}</h2>
         <span className={styles.location}>
           <span className={styles.dot}></span> {obj.status}
         </span>
@@ -24,17 +24,21 @@ const History = ({ obj }) => {
       <div className={styles.subdata}>
         <span>
           <FaCalendarAlt className={styles.icon} />{" "}
-          {new Date(obj.appointment_date).toISOString().split("T")[0]}
+          {new Date(obj?.appointment_date).toISOString().split("T")[0]}
         </span>{" "}
         ·{" "}
         <span>
-          <FaClock className={styles.icon} /> {obj.appointment_time}
+          <FaClock className={styles.icon} /> {obj?.appointment_time}
         </span>
       </div>
       <p className={styles.description}>
-        Appointment is scheduled for {date.toLocaleString("en-US", options)}{" "}
-        {date.getUTCDate()}, {date.getUTCFullYear()} at 11:00 AM for a patient
-        suffering from a headache, described as 'pain is so much'.
+        {`Appointment is scheduled for ${date.toLocaleString("en-US", options)}
+        ${date.getUTCDate()}, ${date.getUTCFullYear()} at ${
+          obj?.appointment_time
+        }  for a patient
+        suffering from a ${obj?.disease_type}, described as '${
+          obj?.disease_description
+        }'.`}
       </p>
 
       <div className={styles.footer}>

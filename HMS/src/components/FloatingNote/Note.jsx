@@ -7,8 +7,8 @@ export const Note = () => {
         <div class={`${styles.noData} ${styles.float}`}>
           <i className={`fa fa-caret-left fa-md ${styles.arrow}`}></i>
           <p>
-            <i className={`fa ${styles.faWarning}`}></i>Patient form incomplete.
-            Please complete it.
+            <i className={`fa ${styles.faWarning}`}></i>Kindly complete all
+            steps.
           </p>
         </div>
       </div>

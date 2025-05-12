@@ -226,7 +226,8 @@ export const updatePassword = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      console.log(error);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -341,4 +342,3 @@ export const fetchAppointmentHistory = createAsyncThunk(
     }
   }
 );
-

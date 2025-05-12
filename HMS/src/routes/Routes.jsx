@@ -151,7 +151,7 @@ const Router = createBrowserRouter([
         ],
       },
       {
-        path: "/mypatients/viewpatients/bookAppointment",
+        path: "/mypatients/bookAppointment",
         element: (
           <RoleBasedRoute
             element={<Appointment />}

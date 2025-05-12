@@ -58,7 +58,7 @@ const AdminPatient = ({ access }) => {
 
   const handleBookAppointment = (id) => {
     dispatch(setBookPatientId(id));
-    navigate("/mypatients/viewpatients/bookAppointment");
+    navigate("/mypatients/bookAppointment");
   };
 
   const handleAdminAllPatient = (id) => {
@@ -131,9 +131,9 @@ const AdminPatient = ({ access }) => {
     <>
       <div className={patientCSS.containerCover}>
         <div className={patientCSS.container}>
-          <h1 className={patientCSS.titleHeader}>
+          <h2 className={patientCSS.titleHeader}>
             {access == "appointment" ? "Manage Appointment" : "Patient Details"}
-          </h1>
+          </h2>
           <div className={patientCSS.title}>
             <p>{access == "appointment" ? "Patient Name" : "Sr. No"}</p>
             <p>{access == "appointment" ? "Gender" : "Patient Name"}</p>

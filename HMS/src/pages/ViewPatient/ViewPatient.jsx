@@ -65,7 +65,7 @@ const ViewPatient = () => {
         : isDoctor
         ? navigate("/addpatient")
         : navigate("/addpatient");
-    }, 3000);
+    }, 5000);
   };
   const handleUpdateFamilyData = () => {
     setPopUp(true);
@@ -79,7 +79,7 @@ const ViewPatient = () => {
         : isDoctor
         ? navigate("/addpatient")
         : navigate("/addpatient");
-    }, 3000);
+    }, 5000);
   };
 
   const documentToLocal = () => {
@@ -110,7 +110,7 @@ const ViewPatient = () => {
     setTimeout(() => {
       documentToLocal();
       dispatch(setPatientID(parseInt(param.id)));
-      dispatch(setStep(3));
+      dispatch(setStep(2));
       dispatch(setCount(3));
 
       isAdmin
@@ -118,7 +118,7 @@ const ViewPatient = () => {
         : isDoctor
         ? navigate("/addpatient")
         : navigate("/addpatient");
-    }, 3000);
+    }, 5000);
   };
 
   const getPatientData = async () => {

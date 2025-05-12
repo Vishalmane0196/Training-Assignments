@@ -133,10 +133,10 @@ const Appointment = () => {
         <h1>Booking Appointment</h1>
         <div className={appointmentCSS.line}></div>
         <div>
-          <h3>Pick Date :</h3>
+          <h3 className={appointmentCSS.headerH}>Pick Date :</h3>
           <Calendar dateSelected={date} setDate={setDate} />
           <br />
-          <h3>Disease Descriptions :</h3>
+          <h3 className={appointmentCSS.headerH}>Disease Descriptions :</h3>
           <div className={appointmentCSS.diseaseContainer}>
             <Input
               label="Disease Type"
@@ -177,7 +177,7 @@ const Appointment = () => {
               className={`fa-solid fa-eye ${appointmentCSS.eye}`}
             ></i>
           </div>
-          <h3>Select Doctors :</h3>
+          <h3 className={appointmentCSS.headerH}>Select Doctors :</h3>
           <span className={appointmentCSS.search}>
             <input
               className={appointmentCSS.searchInput}

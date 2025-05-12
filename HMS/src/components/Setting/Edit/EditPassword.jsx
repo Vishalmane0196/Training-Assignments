@@ -24,7 +24,6 @@ export const EditPassword = ({ reset, setReset }) => {
           newPassword: data.newPassword,
         })
       ).unwrap();
-
       setReset(false);
       toast.success("Password updated successfully!");
     } catch (error) {
@@ -63,7 +62,7 @@ export const EditPassword = ({ reset, setReset }) => {
                   alignItems: "center",
                 }}
               >
-                <label htmlFor=""> Old Password</label>
+                <label htmlFor=""> Current Password</label>
               </div>
               <input
                 className={styles.inputTag}

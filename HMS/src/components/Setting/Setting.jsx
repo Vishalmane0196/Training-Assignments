@@ -36,7 +36,7 @@ const Setting = () => {
             <h3 className={settingCSS.h3header}>Change personal info</h3>
             <div className={settingCSS.line}></div>
             <p className={settingCSS.p3tag}>
-              You can change your email, password, and other details here.
+              You can change your personal information and other details here.
             </p>
             <button
               className={settingCSS.editBtn}
@@ -50,7 +50,7 @@ const Setting = () => {
             <h3 className={settingCSS.h3header}>Reset Password</h3>
             <div className={settingCSS.line}></div>
             <p className={settingCSS.p3tag}>
-              Please enter the password you wish to change.
+              You can change your password by clicking on reset.
             </p>
             <button
               className={settingCSS.editBtn}
@@ -67,8 +67,7 @@ const Setting = () => {
               <h3 className={settingCSS.h3header}>Apply for Leave</h3>
               <div className={settingCSS.line}></div>
               <p className={settingCSS.p3tag}>
-                You can apply for leave by selecting the from and to dates,
-                along with the leave type and reason.
+                You can apply for leave by selecting the from and to dates.
               </p>
               <div className={settingCSS.inputBtnCover}>
                 <div className={settingCSS.butCover}>
