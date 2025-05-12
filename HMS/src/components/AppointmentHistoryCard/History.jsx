@@ -24,11 +24,13 @@ const History = ({ obj }) => {
       <div className={styles.subdata}>
         <span>
           <FaCalendarAlt className={styles.icon} />{" "}
-          {new Date(obj?.appointment_date).toISOString().split("T")[0]}
+          <pre>
+            {new Date(obj?.appointment_date).toISOString().split("T")[0]}
+          </pre>
         </span>{" "}
         ·{" "}
         <span>
-          <FaClock className={styles.icon} /> {obj?.appointment_time}
+          <FaClock className={styles.icon} /> <pre>{obj?.appointment_time}</pre>
         </span>
       </div>
       <p className={styles.description}>

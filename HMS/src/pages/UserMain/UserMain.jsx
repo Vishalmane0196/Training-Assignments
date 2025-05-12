@@ -39,26 +39,23 @@ const UserMain = () => {
             </div>
           </div>
 
-          {patientID !== null &&
-            !window.location.href.includes("addpatient") && (
-              <button
-                onClick={() => {
-                  isDoctor
-                    ? navigate("/addpatient/")
-                    : navigate("/addpatient/");
-                }}
-                className={userDashboardCSS.addPatientBtn}
-              >
-                Add Patient
-              </button>
-            )}
+          {!window.location.href.includes("addpatient") && (
+            <button
+              onClick={() => {
+                isDoctor ? navigate("/addpatient/") : navigate("/addpatient/");
+              }}
+              className={userDashboardCSS.addPatientBtn}
+            >
+              Add Patient
+            </button>
+          )}
         </div>
 
         <Outlet />
 
-        {patientID !== null && !window.location.href.includes("addpatient") && (
-          <Note />
-        )}
+        {patientID == null
+          ? null
+          : !window.location.href.includes("addpatient") && <Note />}
       </main>
     </>
   );

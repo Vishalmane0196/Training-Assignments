@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { fetchAppointmentHistory } from "src/redux/asyncThunkFuntions/user";
 import { Loading } from "src/components/Loading/Loading";
 import { setAppointmentId } from "src/redux/slices/appointment/bookSlice";
+import { Breadcrumb } from "src/components/Breadcrum/Breadcrumb";
 
 const HistoryAppointment = () => {
   const [activeTab, setActiveTab] = useState("upcoming");
@@ -16,6 +17,7 @@ const HistoryAppointment = () => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const param = useParams();
+
   const renderMessage = () => (
     <motion.div
       key={activeTab}
@@ -51,7 +53,7 @@ const HistoryAppointment = () => {
   };
   useEffect(() => {
     dispatch(setAppointmentId(null));
-    if (!param.id) return;
+    if (param.id) return;
     fetchAppointmentDataFun();
   }, []);
 
@@ -60,7 +62,6 @@ const HistoryAppointment = () => {
   }, [activeTab]);
 
   const functionFilterAppointment = (data) => {
-
     if (activeTab == "upcoming") {
       const asd = data?.filter(
         (obj) => obj.status === "Scheduled" || obj.status === "Pending"
@@ -81,21 +82,7 @@ const HistoryAppointment = () => {
   }
   return (
     <>
-      <div className={styles.breadcrumbs}>
-        <div className={styles.container2}>
-          <ul className={styles.breadcrumbs__list}>
-            <li>
-              <a> Dashboard</a>
-            </li>
-            <li>
-              <a onClick={() => history.back()}>Patients </a>
-            </li>
-            <li>
-              <a>History</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <Breadcrumb />
 
       <div className={styles.container}>
         <h2 className={styles.title}>Appointment History</h2>

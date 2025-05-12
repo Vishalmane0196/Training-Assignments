@@ -68,13 +68,8 @@ const Router = createBrowserRouter([
           />
         ),
       },
-
       {
-        path: "/viewpatients/patientdetails/:id",
-        element: <ViewPatient />,
-      },
-      {
-        path: "/mypatients/history/:id",
+        path: "/mypatients/history",
         element: <HistoryAppointment />,
       },
       {
@@ -126,7 +121,7 @@ const Router = createBrowserRouter([
         element: <RoleBasedRoute element={<Summary />} role={["admin"]} />,
       },
       {
-        path: "/allpatients/patientdetails/:id",
+        path: "/allpatients/patientdetail",
         element: <RoleBasedRoute element={<Allpatient />} role={["admin"]} />,
         children: [
           {
@@ -136,7 +131,7 @@ const Router = createBrowserRouter([
         ],
       },
       {
-        path: "/mypatients/patientdetails/:id",
+        path: "/mypatients/patientdetail",
         element: (
           <RoleBasedRoute
             element={<Allpatient />}

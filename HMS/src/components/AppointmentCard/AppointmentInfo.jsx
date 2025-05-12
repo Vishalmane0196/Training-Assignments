@@ -38,32 +38,19 @@ export const AppointmentInfo = ({
             className={styles.first_div}
           >{`is seeking medical advice for "${appt.disease_type}".`}</div>
           <div>
-            <FaClock className={styles.icon} /> {appt.appointment_time}
-          </div>
-          <div>
-            <FaCalendarAlt className={styles.icon} />{" "}
-            {appt.appointment_date &&
-              new Date(
-                new Date(appt.appointment_date).toISOString().split("T")[0]
-              )
-                .toLocaleDateString("en-GB", {
-                  day: "2-digit",
-                  month: "short",
-                  year: "numeric",
-                })
-                .replace(/ /g, "-")}
+            {appt?.observation ? `Observation : ${appt.observation}` : null}
           </div>
         </div>
         <div className={styles.uploadBtnCover}>
-          <p
+          <button
             onClick={() => {
               setObj(appt);
               setPopUpState(true);
             }}
             className={styles.link}
           >
-            Full Info
-          </p>
+            More
+          </button>
           {appt.status == "Scheduled" || appt.status == "Completed" ? (
             <button
               onClick={() => {

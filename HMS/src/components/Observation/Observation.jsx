@@ -103,7 +103,7 @@ export const Observation = ({ getAllAppointment, obj, setDeleteState }) => {
               }}
               className={styles.reject}
             >
-              Delete Observation
+              Delete
             </button>
           )}
 

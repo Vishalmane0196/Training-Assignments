@@ -158,7 +158,7 @@ export const AppointmentPopup = ({
                 }}
                 className={styles.reject}
               >
-                Reject appointment
+                Reject
               </button>
               {obj.status == "Scheduled" ? (
                 <button
@@ -169,7 +169,7 @@ export const AppointmentPopup = ({
                   }}
                   className={styles.button}
                 >
-                  Complete appointment
+                  Complete
                 </button>
               ) : (
                 <button
@@ -180,7 +180,7 @@ export const AppointmentPopup = ({
                   }}
                   className={styles.button}
                 >
-                  Approve appointment
+                  Approve
                 </button>
               )}
             </>

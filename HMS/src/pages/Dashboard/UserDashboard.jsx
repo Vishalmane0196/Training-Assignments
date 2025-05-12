@@ -41,7 +41,7 @@ const UserDashboard = ({ access }) => {
                 }}
               >
                 <i class="fa-solid fa-list"></i>{" "}
-                <span style={{ marginLeft: "0.5rem" }}> View Patients</span>
+                <span style={{ marginLeft: "0.5rem" }}>Patients</span>
               </NavLink>
             </li>
             {access == "doctor" ? (

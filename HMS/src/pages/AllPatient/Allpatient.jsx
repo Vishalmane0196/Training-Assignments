@@ -1,33 +1,17 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import viewPatientCSS from "../../style/ViewPatient.module.css";
+import { Breadcrumb } from "src/components/Breadcrum/Breadcrumb";
 const Allpatient = () => {
   return (
     <>
-      <div className={viewPatientCSS.breadcrumbs}>
-        <div className={viewPatientCSS.container2}>
-          <ul className={viewPatientCSS.breadcrumbs__list}>
-            <li>
-              <a> Dashboard</a>
-            </li>
-            <li>
-              <a onClick={() => history.back()}>
-                {window.location.href.includes("mypatients")
-                  ? "My Patients"
-                  : "All Patient"}
-              </a>
-            </li>
-            <li>
-              <a>View Patient</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <Breadcrumb />
       <div style={{ padding: "2rem", paddingBottom: "0" }}>
         <h1
           style={{
             fontWeight: 600,
             margin: 0,
+            fontSize: "1.5rem",
             marginBottom: "1rem",
             paddingLeft: "9px",
           }}

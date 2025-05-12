@@ -86,12 +86,16 @@ h2 {
 }
 
 .link {
+    padding: 0.4rem 0.1rem;
+    margin: 5px;
     text-decoration: none;
     color: #007bff;
     font-weight: bold;
     font-size: 0.9rem;
     display: inline;
     cursor: pointer;
+    background-color: transparent;
+    border: none;
 }
 
 .link:hover {

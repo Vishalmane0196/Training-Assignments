@@ -37,15 +37,28 @@
 }
 
 .subdata {
+
     font-size: 0.85rem;
     color: #666;
-    margin: 4px 0 12px 0;
+    /* margin: 4px 0 12px 0; */
+    font-size: 0.85rem;
+    display: flex;
+    color: #666;
+    /* margin: 4px 0 12px 0; */
+    gap: 0.4rem
+}
+
+.subdata>span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
 }
 
 .description {
     font-size: 0.9rem;
     color: #666;
-    margin-bottom: 16px;
+     margin-top: 0rem;
+    margin-bottom: 1rem
 }
 
 .rating {
@@ -79,4 +92,8 @@
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.icon {
+    margin-top: 0.1rem;
 }

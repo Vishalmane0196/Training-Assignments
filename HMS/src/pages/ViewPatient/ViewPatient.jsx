@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import viewPatientCSS from "../../style/ViewPatient.module.css";
 import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Input } from "src/components/Input/Input";
 import { Radio } from "src/components/Radio/Radio";
@@ -26,7 +26,8 @@ const ViewPatient = () => {
   const { isAdmin, isDoctor } = useSelector((state) => state.auth);
   const { patientList } = useSelector((state) => state.patient);
 
-  const param = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const id = searchParams.get("id");
   const [patientData, setPatientData] = useState();
 
   const [documents, setDocuments] = useState([]);
@@ -57,7 +58,7 @@ const ViewPatient = () => {
     setPopUp(true);
     setTimeout(() => {
       documentToLocal();
-      dispatch(setPatientID(parseInt(param.id)));
+      dispatch(setPatientID(parseInt(id)));
       dispatch(setStep(0));
       dispatch(setCount(3));
       isAdmin
@@ -71,7 +72,7 @@ const ViewPatient = () => {
     setPopUp(true);
     setTimeout(() => {
       documentToLocal();
-      dispatch(setPatientID(parseInt(param.id)));
+      dispatch(setPatientID(parseInt(id)));
       dispatch(setStep(1));
       dispatch(setCount(3));
       isAdmin
@@ -109,7 +110,7 @@ const ViewPatient = () => {
     setPopUp(true);
     setTimeout(() => {
       documentToLocal();
-      dispatch(setPatientID(parseInt(param.id)));
+      dispatch(setPatientID(parseInt(id)));
       dispatch(setStep(2));
       dispatch(setCount(3));
 
@@ -122,9 +123,8 @@ const ViewPatient = () => {
   };
 
   const getPatientData = async () => {
-    let id = param.id;
     if (patientList.length == 0) {
-      navigate("/viewpatients");
+      navigate("/mypatients");
     }
     let fountPatient = patientList.find((obj) => obj.patient_id == id);
     setPatientData(fountPatient);
@@ -152,7 +152,7 @@ const ViewPatient = () => {
 
   useEffect(() => {
     getPatientData();
-  }, [param.id, reset]);
+  }, [id, reset]);
 
   return (
     <>
@@ -161,7 +161,7 @@ const ViewPatient = () => {
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             sx={{
-              fontSize: "1.5rem",
+              fontSize: "1rem",
               fontWeight: 600,
               padding: "1rem 1rem 1rem 1rem",
             }}
@@ -346,7 +346,7 @@ const ViewPatient = () => {
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             sx={{
-              fontSize: "1.5rem",
+              fontSize: "1rem",
               fontWeight: 600,
               padding: "1rem 1rem 1rem 1rem",
             }}
@@ -545,7 +545,7 @@ const ViewPatient = () => {
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             sx={{
-              fontSize: "1.5rem",
+              fontSize: "1rem",
               fontWeight: 600,
               padding: "1rem 1rem 1rem 1rem",
             }}

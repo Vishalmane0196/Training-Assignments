@@ -50,7 +50,7 @@ const Summary = () => {
   };
 
   const handleViewPage = (id) => {
-    navigate(`/allpatients/patientdetails/${id}`);
+    navigate(`/allpatients/patientdetail?id=${id}`);
   };
 
   return (
