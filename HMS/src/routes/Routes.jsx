@@ -69,7 +69,7 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/mypatients/history",
+        path: "/patients/history",
         element: <HistoryAppointment />,
       },
       {
@@ -85,7 +85,7 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/mypatients/history/reschedule/bookAppointment",
+        path: "/patients/history/reschedule/bookAppointment",
         element: <Appointment />,
       },
 
@@ -131,7 +131,7 @@ const Router = createBrowserRouter([
         ],
       },
       {
-        path: "/mypatients/patientdetail",
+        path: "/patients/patientdetail",
         element: (
           <RoleBasedRoute
             element={<Allpatient />}
@@ -146,7 +146,7 @@ const Router = createBrowserRouter([
         ],
       },
       {
-        path: "/mypatients/bookAppointment",
+        path: "/patients/bookAppointment",
         element: (
           <RoleBasedRoute
             element={<Appointment />}
@@ -155,7 +155,7 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/mypatients",
+        path: "/patients",
         element: (
           <RoleBasedRoute
             element={<AdminPatient access={""} />}

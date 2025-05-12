@@ -58,11 +58,11 @@ const AdminPatient = ({ access }) => {
 
   const handleBookAppointment = (id) => {
     dispatch(setBookPatientId(id));
-    navigate("/mypatients/bookAppointment");
+    navigate("/patients/bookAppointment");
   };
 
   const handleAdminAllPatient = (id) => {
-    navigate(`/mypatients/patientdetail?id=${id}`);
+    navigate(`/patients/patientdetail?id=${id}`);
   };
 
   const changeStatus = async (data) => {
@@ -116,7 +116,7 @@ const AdminPatient = ({ access }) => {
   };
   const showHistoryOfAppointment = (id) => {
     dispatch(setBookPatientId(id));
-    navigate(`/mypatients/history?id=${id}`);
+    navigate(`/patients/history?id=${id}`);
   };
 
   useEffect(() => {

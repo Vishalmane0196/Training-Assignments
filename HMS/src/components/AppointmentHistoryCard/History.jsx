@@ -54,7 +54,7 @@ const History = ({ obj }) => {
           <div
             onClick={() => {
               handleRescheduleBooking(obj?.appointment_id);
-              navigate("/mypatients/history/reschedule/bookAppointment");
+              navigate("/patients/history/reschedule/bookAppointment");
             }}
             className={styles.priceNow}
           >

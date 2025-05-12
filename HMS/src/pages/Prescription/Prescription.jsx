@@ -10,6 +10,7 @@ import {
 } from "src/redux/asyncThunkFuntions/doctor";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Breadcrumb } from "src/components/Breadcrum/Breadcrumb";
 const Prescription = () => {
   const [searchParams, setSearchParam] = useSearchParams();
   const id = searchParams.get("id");
@@ -128,21 +129,7 @@ const Prescription = () => {
   };
   return (
     <>
-      <div className={styles.breadcrumbs}>
-        <div className={styles.container2}>
-          <ul className={styles.breadcrumbs__list}>
-            <li>
-              <a> Dashboard</a>
-            </li>
-            <li>
-              <a onClick={() => history.back()}>My Appointments </a>
-            </li>
-            <li>
-              <a>Prescription</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <Breadcrumb />
       <div className={styles.container}>
         <h2 className={styles.headerLabel}>Create Prescription</h2>
         <div className={styles.filters}>
@@ -220,7 +207,11 @@ const Prescription = () => {
                     <label htmlFor="" className={styles.labelOption}>
                       <pre> Morning</pre>
                     </label>
-                    <input {...register("Morning")} value={true} type="radio" />
+                    <input
+                      {...register("Morning")}
+                      value={true}
+                      type="checkbox"
+                    />
 
                     <label htmlFor="" className={styles.labelOption}>
                       <pre>Afternoon</pre>
@@ -228,13 +219,17 @@ const Prescription = () => {
                     <input
                       {...register("Afternoon")}
                       value={true}
-                      type="radio"
+                      type="checkbox"
                     />
 
                     <label htmlFor="" className={styles.labelOption}>
                       <pre>Night</pre>
                     </label>
-                    <input {...register("Night")} value={true} type="radio" />
+                    <input
+                      {...register("Night")}
+                      value={true}
+                      type="checkbox"
+                    />
                   </div>
 
                   <div className={styles.labelDiv}>
@@ -252,7 +247,7 @@ const Prescription = () => {
                     <input
                       {...register("Morning")}
                       value={false}
-                      type="radio"
+                      type="checkbox"
                     />
 
                     <label htmlFor="" className={styles.labelOption}>
@@ -261,13 +256,17 @@ const Prescription = () => {
                     <input
                       {...register("Afternoon")}
                       value={false}
-                      type="radio"
+                      type="checkbox"
                     />
 
                     <label htmlFor="" className={styles.labelOption}>
                       <pre>Night</pre>
                     </label>
-                    <input {...register("Night")} value={false} type="radio" />
+                    <input
+                      {...register("Night")}
+                      value={false}
+                      type="checkbox"
+                    />
                   </div>
                 </div>
               </div>

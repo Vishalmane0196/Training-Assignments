@@ -8,7 +8,9 @@
     font-family: 'Segoe UI', sans-serif;
     height: 82vh;
 }
-
+.h2{
+  font-size: 1.5rem;
+}
 .header {
     display: flex;
     justify-content: space-between;

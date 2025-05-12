@@ -6,7 +6,7 @@ const Allpatient = () => {
   return (
     <>
       <Breadcrumb />
-      <div style={{ padding: "2rem", paddingBottom: "0" }}>
+      <div style={{ padding: "2rem", paddingTop: "1rem", paddingBottom: "0" }}>
         <h1
           style={{
             fontWeight: 600,

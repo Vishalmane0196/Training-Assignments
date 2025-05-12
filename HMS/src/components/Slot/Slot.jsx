@@ -102,7 +102,7 @@ export const Slot = ({ data, date, book, setBook }) => {
       }
 
       setBook(false);
-      navigate("/mypatients");
+      navigate("/patients");
       toast.success("Appointment confirmed successfully.");
     } catch (error) {
       toast.error(error);

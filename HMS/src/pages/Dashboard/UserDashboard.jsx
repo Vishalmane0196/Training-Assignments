@@ -33,7 +33,7 @@ const UserDashboard = ({ access }) => {
             </li>
             <li>
               <NavLink
-                to={access == "doctor" ? "/mypatients" : "/mypatients"}
+                to={access == "doctor" ? "/patients" : "/patients"}
                 className={({ isActive }) => {
                   return isActive
                     ? userDashboardCSS.active

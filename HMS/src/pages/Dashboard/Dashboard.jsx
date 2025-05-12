@@ -26,13 +26,14 @@ const Dashboard = () => {
               >
                 <i className="fa-solid fa-plus"></i>{" "}
                 <span style={{ marginLeft: "0.5rem" }}>Add Patient </span>
-                {console.log(window.location)}
-                {patientID !== null && (
-                  <i
-                    title="Form incomplete"
-                    className={`fa-solid fa-triangle-exclamation ${adminCSS.warning}`}
-                  ></i>
-                )}
+                {patientID == null
+                  ? null
+                  : !window.location.href.includes("addpatient") && (
+                      <i
+                        title="Form incomplete"
+                        className={`fa-solid fa-triangle-exclamation ${adminCSS.warning}`}
+                      ></i>
+                    )}
               </NavLink>
             </li>
             <li>
@@ -49,13 +50,13 @@ const Dashboard = () => {
 
             <li>
               <NavLink
-                to="/mypatients"
+                to="/patients"
                 className={({ isActive }) => {
                   return isActive ? adminCSS.active : adminCSS.linkText;
                 }}
               >
                 <i class="fa-solid fa-window-restore"></i>{" "}
-                <span style={{ marginLeft: "0.5rem" }}>My Patient </span>
+                <span style={{ marginLeft: "0.5rem" }}>Patients </span>
               </NavLink>
             </li>
             <span className={adminCSS.menuHeader}>Manage</span>

@@ -9,7 +9,7 @@ export const Final = ({ setStep, setPatientId, setCount }) => {
   const resetAllValues = async () => {
     localStorage.removeItem("file_preview");
     localStorage.removeItem("upload_status");
-    navigate("/mypatients");
+    navigate("/patients");
     dispatch(setStep(0));
     dispatch(setCount(0));
     await dispatch(setPatientId(null));

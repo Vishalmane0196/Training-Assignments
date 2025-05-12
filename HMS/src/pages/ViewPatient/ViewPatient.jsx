@@ -124,7 +124,7 @@ const ViewPatient = () => {
 
   const getPatientData = async () => {
     if (patientList.length == 0) {
-      navigate("/mypatients");
+      navigate("/patients");
     }
     let fountPatient = patientList.find((obj) => obj.patient_id == id);
     setPatientData(fountPatient);

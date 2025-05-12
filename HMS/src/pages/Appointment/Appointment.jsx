@@ -116,7 +116,7 @@ const Appointment = () => {
               <a> Dashboard</a>
             </li>
             <li>
-              <a onClick={() => navigate("/mypatients")}>My Patient</a>
+              <a onClick={() => navigate("/patients")}>My Patient</a>
             </li>
             {appointment_Id !== null ? (
               <li>
@@ -131,7 +131,7 @@ const Appointment = () => {
         </div>
       </div> */}
       <Breadcrumb />
-      
+
       <div className={appointmentCSS.container}>
         <h1>Booking Appointment</h1>
         <div className={appointmentCSS.line}></div>
