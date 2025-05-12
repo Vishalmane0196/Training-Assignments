@@ -34,8 +34,8 @@ export const Leave = ({ applyStatus, setReset }) => {
     ).unwrap();
 
     toast.promise(y, {
-      pending: "Applying",
-      success: "Leave application sent successfully. ",
+      pending: "Processing",
+      success: "Successfully Done. ",
       error: "Error while Applying",
     });
 

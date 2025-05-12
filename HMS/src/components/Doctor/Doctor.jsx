@@ -67,6 +67,9 @@ export const Doctor = ({
             <h2>{`Dr. ${name}`}</h2>
             <h3>{specialist}</h3>
             <p>{`Time: ${inTime.slice(0, 5)}  - ${outTime.slice(0, 5)} `}</p>
+            {functionStyle().includes("disabled") && (
+              <p>Doctor is unavailable on selected date</p>
+            )}
           </div>
         </div>
         <div></div>
