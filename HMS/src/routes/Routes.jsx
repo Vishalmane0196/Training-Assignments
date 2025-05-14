@@ -73,7 +73,7 @@ const Router = createBrowserRouter([
         element: <HistoryAppointment />,
       },
       {
-        path: "/setting",
+        path: "/settings",
         element: <Setting />,
       },
       {
@@ -85,12 +85,12 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/patients/history/reschedule/bookAppointment",
+        path: "/patients/history/bookAppointment",
         element: <Appointment />,
       },
 
       {
-        path: "/setting/accessControl",
+        path: "/settings/manageAdmins",
         element: (
           <RoleBasedRoute
             element={<UpdateAdmin access={"Admin"} />}
@@ -99,7 +99,7 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/manageDoctor",
+        path: "/manageDoctors",
         element: (
           <RoleBasedRoute
             element={<UpdateAdmin access={"doctor"} />}
@@ -117,11 +117,11 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/allpatients",
+        path: "/allPatients",
         element: <RoleBasedRoute element={<Summary />} role={["admin"]} />,
       },
       {
-        path: "/allpatients/patientdetail",
+        path: "/allPatients/patientDetail",
         element: <RoleBasedRoute element={<Allpatient />} role={["admin"]} />,
         children: [
           {
@@ -131,7 +131,7 @@ const Router = createBrowserRouter([
         ],
       },
       {
-        path: "/patients/patientdetail",
+        path: "/patients/patientDetail",
         element: (
           <RoleBasedRoute
             element={<Allpatient />}
@@ -164,13 +164,13 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/appointment/prescription",
+        path: "/appointments/prescription",
         element: (
           <RoleBasedRoute element={<Prescription />} role={["doctor"]} />
         ),
       },
       {
-        path: "/appointment",
+        path: "/appointments",
         element: (
           <RoleBasedRoute
             role={["doctor"]}

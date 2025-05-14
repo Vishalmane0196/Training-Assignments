@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "src/style/Prescription.module.css";
 import { FaTrash } from "react-icons/fa";
 import { Button } from "src/components/Button/Button";
@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import { Breadcrumb } from "src/components/Breadcrum/Breadcrumb";
 const Prescription = () => {
   const [searchParams, setSearchParam] = useSearchParams();
+  const [selectedTime, setSelectedTime] = useState();
   const id = searchParams.get("id");
   const edit = searchParams.get("edit");
   const [prescription, setPrescription] = useState({});
@@ -20,18 +21,34 @@ const Prescription = () => {
   const [prescriptionSample, setPrescriptionSample] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { register, handleSubmit, reset } = useForm({
-    defaultValues: {
-      medicine: "",
-      capacity: "",
-      dose: "",
-      Morning: "",
-      Afternoon: "",
-      Night: "",
-      duration: "",
-      note: "",
-    },
-  });
+  const { register, setValue, watch, handleSubmit, reset, getValues } = useForm(
+    {
+      defaultValues: {
+        medicine: "",
+        capacity: "",
+        dose: "",
+        Morning: "",
+        Afternoon: "",
+        Night: "",
+        duration: "",
+        note: "",
+      },
+    }
+  );
+
+  const watchFields = watch(["Morning", "Afternoon", "Night"]);
+
+  const handleCheck = (field, value) => {
+    const currentValue = watch(field);
+    console.log(field);
+    console.log(value);
+    console.log(currentValue);
+    if (currentValue.includes("on")) {
+      setValue(field, true);
+    } else {
+      setValue(field, false);
+    }
+  };
 
   const handleSubmitData = (data) => {
     setPrescriptionSample((pre) => {
@@ -199,74 +216,113 @@ const Prescription = () => {
 
               <div>
                 <div className={styles.medicineDuration}>
+                  {/* --------- BEFORE MEAL --------- */}
                   <div className={styles.labelDiv}>
-                    <label htmlFor="" className={styles.labelHead}>
-                      Before Meal
-                    </label>
+                    <label className={styles.labelHead}>Before Meal :</label>
 
-                    <label htmlFor="" className={styles.labelOption}>
-                      <pre> Morning</pre>
-                    </label>
                     <input
+                      type="checkbox"
                       {...register("Morning")}
-                      value={true}
-                      type="checkbox"
+                      checked={watchFields[0] == true}
+                      onChange={(e) => {
+                        const { onChange } = register("Morning");
+                        onChange(e);
+                        handleCheck("Morning", true);
+                      }}
+                      id="morningBefore"
+                      className={styles.customRadio}
                     />
 
-                    <label htmlFor="" className={styles.labelOption}>
-                      <pre>Afternoon</pre>
+                    <label
+                      htmlFor="morningBefore"
+                      className={styles.customLabel}
+                    >
+                      Morning
                     </label>
+
                     <input
+                      type="checkbox"
                       {...register("Afternoon")}
-                      value={true}
-                      type="checkbox"
+                      checked={watchFields[1] === true}
+                      onChange={() => handleCheck("Afternoon", true)}
+                      id="afternoonBefore"
+                      className={styles.customRadio}
                     />
-
-                    <label htmlFor="" className={styles.labelOption}>
-                      <pre>Night</pre>
+                    <label
+                      htmlFor="afternoonBefore"
+                      className={styles.customLabel}
+                    >
+                      Afternoon
                     </label>
+
                     <input
-                      {...register("Night")}
-                      value={true}
                       type="checkbox"
+                      {...register("Night")}
+                      checked={watchFields[2] === true}
+                      onChange={() => handleCheck("Night", true)}
+                      id="eveningBefore"
+                      className={styles.customRadio}
                     />
+                    <label
+                      htmlFor="eveningBefore"
+                      className={styles.customLabel}
+                    >
+                      Evening
+                    </label>
                   </div>
 
+                  {/* --------- AFTER MEAL --------- */}
                   <div className={styles.labelDiv}>
                     <label
-                      htmlFor=""
                       className={`${styles.labelHead} ${styles.marginCheck}`}
                     >
-                      After Meal
-                    </label>
-
-                    <label htmlFor="" className={styles.labelOption}>
-                      <pre>Morning</pre>
+                      After Meal :
                     </label>
 
                     <input
+                      type="checkbox"
                       {...register("Morning")}
-                      value={false}
-                      type="checkbox"
+                      checked={watchFields[0] === false}
+                      onChange={() => handleCheck("Morning", false)}
+                      id="morningAfter"
+                      className={styles.customRadio}
                     />
-
-                    <label htmlFor="" className={styles.labelOption}>
-                      <pre>Afternoon</pre>
+                    <label
+                      htmlFor="morningAfter"
+                      className={styles.customLabel}
+                    >
+                      Morning
                     </label>
+
                     <input
+                      type="checkbox"
                       {...register("Afternoon")}
-                      value={false}
-                      type="checkbox"
+                      checked={watchFields[1] === false}
+                      onChange={() => handleCheck("Afternoon", false)}
+                      id="afternoonAfter"
+                      className={styles.customRadio}
                     />
-
-                    <label htmlFor="" className={styles.labelOption}>
-                      <pre>Night</pre>
+                    <label
+                      htmlFor="afternoonAfter"
+                      className={styles.customLabel}
+                    >
+                      Afternoon
                     </label>
+
                     <input
-                      {...register("Night")}
-                      value={false}
                       type="checkbox"
+                      {...register("Night")}
+                      checked={watchFields[2] === false}
+                      onChange={() => handleCheck("Night", false)}
+                      id="eveningAfter"
+                      className={styles.customRadio}
                     />
+                    <label
+                      htmlFor="eveningAfter"
+                      className={styles.customLabel}
+                    >
+                      Evening
+                    </label>
                   </div>
                 </div>
               </div>

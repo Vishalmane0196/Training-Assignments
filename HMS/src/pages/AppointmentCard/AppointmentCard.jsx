@@ -8,8 +8,10 @@ import { getDoctorAppointmentsList } from "src/redux/asyncThunkFuntions/doctor";
 import { AppointmentInfo } from "src/components/AppointmentCard/AppointmentInfo";
 import { Observation } from "src/components/Observation/Observation";
 import { Loading } from "src/components/Loading/Loading";
+import View from "src/components/ViewDetails/View";
 
 const AppointmentCard = () => {
+  const [displayState, setDisplayState] = useState(false);
   const [activeTab, setActiveTab] = useState("upcoming");
   const [filterAppointmentHistory, setFilterAppointmentHistory] = useState([]);
   const [observation, setObservation] = useState(false);
@@ -76,6 +78,7 @@ const AppointmentCard = () => {
             setObj={setObj}
             setObservation={setObservation}
             setPopUpState={setPopUpState}
+            setDisplayState={setDisplayState}
           />
         ))
       ) : (
@@ -128,6 +131,14 @@ const AppointmentCard = () => {
           setDeleteState={setObservation}
           getAllAppointment={getAllAppointment}
           obj={id}
+        />
+      )}
+      {displayState && (
+        <View
+          data={id}
+          label={"Observation"}
+          deleteState={displayState}
+          setDeleteState={setDisplayState}
         />
       )}
     </div>

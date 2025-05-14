@@ -1,12 +1,52 @@
 .container {
-    padding: 0.6rem 1.25rem 1.25rem 1.90rem;
-    font-family: Arial, sans-serif;
+    padding: 0.4rem 1.25rem 1.25rem 1.90rem;
+}
+
+.container>h2 {
+    margin-bottom: 1.25rem;
+    font-size: 1.5rem;
+    margin: 0;
+    margin-bottom: 1.5rem;
+    /* margin-top: 1rem; */
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.pTag {
+    width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0rem;
 
 }
 
-h2 {
-    margin-bottom: 1.25rem;
-    font-size: 1.5rem;
+pre {
+    
+    cursor: pointer;
+    margin: 0;
+    font-size: 14px;
+    letter-spacing:-0.1px;
+}
+
+pre:hover {
+    text-decoration: underline;
+}
+
+.pTag>pre {
+
+    cursor: pointer;
+    color: #666;
+}
+
+.observation {
+    padding: 0.2rem;
+    display: flex;
+    border-radius: 0.1rem;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f7f95d;
+
 }
 
 .grid {

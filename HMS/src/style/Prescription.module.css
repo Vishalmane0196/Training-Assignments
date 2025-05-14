@@ -2,7 +2,7 @@
 .container {
     padding: 2rem;
     padding-bottom: 0;
-    padding-top: 1rem;
+    padding-top: 0.3rem;
     font-family: 'Arial', sans-serif;
 }
 
@@ -117,7 +117,7 @@
 }
 
 .labelDiv {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0rem;
 }
 
 .labelHead {
@@ -138,7 +138,7 @@
 }
 
 .marginCheck {
-    margin-right: 2.3rem;
+    margin-right: 1.88rem;
 }
 
 .submitBtn {
@@ -161,7 +161,7 @@
 .headerLabel {
     font-size: 1.4rem;
     margin: 0;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 
@@ -217,6 +217,32 @@
     cursor: default;
 }
 
+/* ----check list ---*/
+
+.customRadio {
+    visibility: hidden;
+}
+
+.customLabel {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    border: 2px solid #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.customRadio:checked+.customLabel {
+    background-color: #007bff;
+    color: white;
+}
+
+.customLabel:hover {
+    background-color: #e6f0ff;
+}
+
+/* ------------------- */
 @media (hover: hover) {
     .breadcrumbs li a:hover {
         color: var(--primary-color);

@@ -22,6 +22,7 @@ export const AppointmentInfo = ({
   appt,
   setObj,
   setPopUpState,
+  setDisplayState,
 }) => {
   const [uploadState, setUploadState] = useState(false);
   return (
@@ -37,8 +38,19 @@ export const AppointmentInfo = ({
           <div
             className={styles.first_div}
           >{`is seeking medical advice for "${appt.disease_type}".`}</div>
-          <div>
-            {appt?.observation ? `Observation : ${appt.observation}` : null}
+          <div className={styles.observation}>
+            <p className={styles.pTag}>
+              {appt?.observation
+                ? `Observation : ${appt.observation}`
+                : "Not yet  observation added"}
+            </p>
+            <pre
+              onClick={() => {
+                setId(appt.observation);
+                setDisplayState(true);
+              }}
+              // className="fa-solid fa-eye"
+            >view more</pre>
           </div>
         </div>
         <div className={styles.uploadBtnCover}>
@@ -51,7 +63,11 @@ export const AppointmentInfo = ({
           >
             More
           </button>
-          {appt.status == "Scheduled" || appt.status == "Completed" ? (
+
+          {(new Date(appt.appointment_date) < new Date() ||
+            appt.appointment_time <
+              new Date().toLocaleTimeString().slice(0, -2)) &&
+          appt.status == "Scheduled" ? (
             <button
               onClick={() => {
                 setId((pre) => {

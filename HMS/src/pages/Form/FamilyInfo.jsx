@@ -227,8 +227,8 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
                   required: "Blood pressure is required",
                 })}
               >
-                <option value="true">True</option>
-                <option value="false">False</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
               </select>
               <p className={familyCSS.fielderror}>
                 {errors.father_bp && <span>{errors.father_bp.message}</span>}
@@ -290,8 +290,8 @@ export const FamilyInfo = ({ count, setCount, setStep, patientId }) => {
                   required: "Blood pressure is required",
                 })}
               >
-                <option value="true">True</option>
-                <option value="false">False</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
               </select>
 
               <p className={familyCSS.fielderror}>

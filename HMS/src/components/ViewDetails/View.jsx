@@ -1,7 +1,12 @@
 import React from "react";
 import settingCSS from "src/style/Setting.module.css";
 
-export const View = ({ deleteState, setDeleteState, data }) => {
+export const View = ({
+  deleteState,
+  setDeleteState,
+  data,
+  label = "Description",
+}) => {
   return (
     <>
       {deleteState && (
@@ -10,6 +15,7 @@ export const View = ({ deleteState, setDeleteState, data }) => {
             className={settingCSS.modalContent}
             onClick={(e) => e.stopPropagation()}
           >
+            {console.log(data)}
             <span
               className={settingCSS.close}
               onClick={() => setDeleteState(false)}
@@ -18,11 +24,11 @@ export const View = ({ deleteState, setDeleteState, data }) => {
             </span>
             <div className={settingCSS.popup}>
               <div className={settingCSS.cover}>
-                <h3>Disease Description :</h3>
+                <h3> {label}:</h3>
 
                 <div className={settingCSS.btnContainer}>
                   <div className={settingCSS.setHeight}>
-                    {data == "" ? "Empty Description ." : data}
+                    {data == null ? "Please upload to see ." : data}
                   </div>
                 </div>
               </div>

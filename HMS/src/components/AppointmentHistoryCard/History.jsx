@@ -5,7 +5,7 @@ import { setAppointmentId } from "src/redux/slices/appointment/bookSlice";
 import styles from "src/style/HistoryCard.module.css";
 import { FaClock, FaCalendarAlt } from "react-icons/fa";
 
-const History = ({ obj }) => {
+const History = ({ obj, id }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const date = new Date(obj.appointment_date);
@@ -54,7 +54,7 @@ const History = ({ obj }) => {
           <div
             onClick={() => {
               handleRescheduleBooking(obj?.appointment_id);
-              navigate("/patients/history/reschedule/bookAppointment");
+              navigate(`/patients/history/bookAppointment?id=${id}`);
             }}
             className={styles.priceNow}
           >

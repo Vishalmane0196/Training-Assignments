@@ -11,7 +11,7 @@ const SelectItem = ({ setObservation, setId, obj }) => {
           <div
             onClick={() => {
               navigate(
-                `/appointment/prescription?id=${obj.appointment_id}&edit=${obj.prescription_id}`
+                `/appointments/prescription?id=${obj.appointment_id}&edit=${obj.prescription_id}`
               );
             }}
             className={styles.item}

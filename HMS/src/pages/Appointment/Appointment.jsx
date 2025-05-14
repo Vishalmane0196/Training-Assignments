@@ -78,7 +78,7 @@ const Appointment = () => {
     return () => {
       clearTimeout(debounce);
     };
-  }, []);
+  }, [searchDoctorState]);
 
   const getDiseaseInfoFun = async () => {
     if (appointment_Id === null) {

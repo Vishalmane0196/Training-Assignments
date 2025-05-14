@@ -235,6 +235,7 @@ input:checked+.slider::before {
     margin-bottom: 1.5rem;
     font-weight: 700;
     font-size: 1.5rem;
+    margin-top: 0.4rem;
 }
 
 .featureCover {
@@ -332,6 +333,7 @@ input:checked+.slider::before {
 
 .containerCoverAdmin {
     padding: 1rem 2rem;
+    padding-top: 0;
 }
 
 .popup h3 {

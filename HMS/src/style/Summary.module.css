@@ -1,12 +1,12 @@
 .dashboard {
-    padding: 20px 28px 18px 28px;
-    font-family: Arial, sans-serif;
+    padding: 0px 28px 18px 28px;
     width: 100%;
     padding-bottom: 0;
 }
 
-h2 {
-    margin-bottom: 20px;
+.dashboard>h2 {
+    font-size: 1.5rem;
+    margin-top: 0.9rem;
 }
 
 .disabled {

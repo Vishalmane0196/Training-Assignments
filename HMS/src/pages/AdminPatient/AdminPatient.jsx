@@ -62,7 +62,7 @@ const AdminPatient = ({ access }) => {
   };
 
   const handleAdminAllPatient = (id) => {
-    navigate(`/patients/patientdetail?id=${id}`);
+    navigate(`/patients/patientDetail?id=${id}`);
   };
 
   const changeStatus = async (data) => {

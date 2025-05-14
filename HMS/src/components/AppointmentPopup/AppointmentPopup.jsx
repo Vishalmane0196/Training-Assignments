@@ -144,22 +144,25 @@ export const AppointmentPopup = ({
           </div>
           {obj.status == "Completed" ? null : (
             <>
-              <button
-                onClick={() => {
-                  if (reason == "" && btnState !== true) {
-                    toast.warn("Enter Reason for Cancellation.");
-                    setCancelState(true);
-                    return;
-                  }
+              {obj.prescription_id !== null ||
+              obj.observation !== null ? null : (
+                <button
+                  onClick={() => {
+                    if (reason == "" && btnState !== true) {
+                      toast.warn("Enter Reason for Cancellation.");
+                      setCancelState(true);
+                      return;
+                    }
 
-                  btnState
-                    ? null
-                    : handleAppointment({ ...obj, status: "Cancelled" });
-                }}
-                className={styles.reject}
-              >
-                Reject
-              </button>
+                    btnState
+                      ? null
+                      : handleAppointment({ ...obj, status: "Cancelled" });
+                  }}
+                  className={styles.reject}
+                >
+                  Reject
+                </button>
+              )}
               {obj.status == "Scheduled" ? (
                 <button
                   onClick={() => {

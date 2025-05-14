@@ -16,7 +16,7 @@ const Setting = () => {
   const { isAdmin, isSuper, isDoctor } = useSelector((state) => state.auth);
 
   const handleAdminEmail = () => {
-    navigate("/setting/accessControl");
+    navigate("/settings/manageAdmins");
   };
 
   const handleLeave = () => {
@@ -24,7 +24,10 @@ const Setting = () => {
   };
   return (
     <>
-      <div className={settingCSS.containerCoverAdmin}>
+      <div
+        style={isAdmin ? { paddingTop: "0.67rem" } : null}
+        className={settingCSS.containerCoverAdmin}
+      >
         <div className={settingCSS.container}>
           <div>
             <div className={settingCSS.verticalLine}></div>

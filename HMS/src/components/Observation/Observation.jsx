@@ -91,6 +91,7 @@ export const Observation = ({ getAllAppointment, obj, setDeleteState }) => {
               onChange={(e) => {
                 setReason(e.target.value);
               }}
+              maxLength={100}
               value={reason}
               type="text"
               placeholder="Write clinical observations and remarks here."

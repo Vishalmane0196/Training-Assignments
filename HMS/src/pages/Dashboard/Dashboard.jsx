@@ -30,7 +30,7 @@ const Dashboard = () => {
                   ? null
                   : !window.location.href.includes("addpatient") && (
                       <i
-                        title="Form incomplete"
+                        title="complete steps"
                         className={`fa-solid fa-triangle-exclamation ${adminCSS.warning}`}
                       ></i>
                     )}
@@ -38,7 +38,7 @@ const Dashboard = () => {
             </li>
             <li>
               <NavLink
-                to="/allpatients"
+                to="/allPatients"
                 className={({ isActive }) => {
                   return isActive ? adminCSS.active : adminCSS.linkText;
                 }}
@@ -64,7 +64,7 @@ const Dashboard = () => {
 
             <li>
               <NavLink
-                to="/manageDoctor"
+                to="/manageDoctors"
                 className={({ isActive }) => {
                   return isActive ? adminCSS.active : adminCSS.linkText;
                 }}

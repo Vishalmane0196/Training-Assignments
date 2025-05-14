@@ -13,7 +13,7 @@
     float: right;
     margin-top: 0.2rem;
     align-self: center;
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: rgba(255, 238, 0, 0.425);
     animation: pulse-animation 1s infinite alternate ease-in-out;
 }

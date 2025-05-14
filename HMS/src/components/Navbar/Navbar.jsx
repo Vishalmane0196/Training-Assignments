@@ -79,7 +79,7 @@ export const Navbar = () => {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/setting">
+                      <Link to="/settings">
                         <i class="fa-solid fa-gear"></i> Settings
                       </Link>
                     </li>

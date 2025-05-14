@@ -3,7 +3,7 @@ import styles from "src/style/HistoryAppointment.module.css";
 import { FaCalendarAlt, FaHistory } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import History from "src/components/AppointmentHistoryCard/History";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchAppointmentHistory } from "src/redux/asyncThunkFuntions/user";
 import { Loading } from "src/components/Loading/Loading";
@@ -16,7 +16,7 @@ const HistoryAppointment = () => {
   const [filterAppointmentHistory, setFilterAppointmentHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-  const param = useParams();
+  const [param, setParam] = useSearchParams();
 
   const renderMessage = () => (
     <motion.div
@@ -30,7 +30,7 @@ const HistoryAppointment = () => {
       {filterAppointmentHistory.length !== 0 ? (
         <div className={styles.CardCover}>
           {filterAppointmentHistory?.map((obj, index) => {
-            return <History key={index} obj={obj} />;
+            return <History id={param.get("id")} key={index} obj={obj} />;
           })}
         </div>
       ) : (
@@ -40,7 +40,9 @@ const HistoryAppointment = () => {
   );
   const fetchAppointmentDataFun = async () => {
     try {
-      let response = await dispatch(fetchAppointmentHistory(param.id)).unwrap();
+      let response = await dispatch(
+        fetchAppointmentHistory(param.get("id"))
+      ).unwrap();
 
       setAppointmentHistory(response.data);
 

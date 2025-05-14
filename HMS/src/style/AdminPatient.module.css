@@ -5,14 +5,15 @@
 .containerCover {
     width: 100%;
     padding: 0rem 2rem;
+    padding-left: 1.9rem;
 }
 
 .titleHeader {
     margin: 0;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
-    font-weight: 700;
-    margin-top: 1rem;
 }
 
 .title {
@@ -52,6 +53,7 @@
 }
 
 .liList>p {
+    font-size: 15px;
     /* text-align: center; */
 }
 
@@ -63,25 +65,33 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 15px;
+    color: #666;
 }
 
 .iconDiv {
     display: flex;
     gap: 1.5rem;
     align-items: center;
+
+
+
 }
 
-.iconDiv>i {
+.iconDiv i {
+    color: #666;
     cursor: pointer;
 }
 
 .iconDiv>i:nth-child(1) {
     color: rgb(85, 84, 84);
 
+
 }
 
 .iconDiv>i:nth-child(3) {
     color: rgb(245, 82, 82);
+
 
 }
 
