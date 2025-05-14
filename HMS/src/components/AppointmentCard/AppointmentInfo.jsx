@@ -35,7 +35,7 @@ export const AppointmentInfo = ({
           </span>
         </div>
         <div className={styles.details}>
-          <div
+          <div 
             className={styles.first_div}
           >{`is seeking medical advice for "${appt.disease_type}".`}</div>
           <div className={styles.observation}>
@@ -50,7 +50,9 @@ export const AppointmentInfo = ({
                 setDisplayState(true);
               }}
               // className="fa-solid fa-eye"
-            >view more</pre>
+            >
+              view more
+            </pre>
           </div>
         </div>
         <div className={styles.uploadBtnCover}>
@@ -63,15 +65,15 @@ export const AppointmentInfo = ({
           >
             More
           </button>
-
-          {(new Date(appt.appointment_date) < new Date() ||
-            appt.appointment_time <
+        
+          {(new Date(appt?.appointment_date) < new Date() &&
+            appt?.appointment_time <
               new Date().toLocaleTimeString().slice(0, -2)) &&
-          appt.status == "Scheduled" ? (
+          appt?.status == "Scheduled" ? (
             <button
               onClick={() => {
                 setId((pre) => {
-                  return pre == null ? appt.appointment_id : null;
+                  return pre == null ? appt?.appointment_id : null;
                 });
                 setUploadState((pre) => !pre);
               }}

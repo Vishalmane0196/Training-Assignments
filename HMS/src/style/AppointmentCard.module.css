@@ -22,14 +22,14 @@
 }
 
 pre {
-    
+
     cursor: pointer;
     margin: 0;
     font-size: 14px;
     letter-spacing:-0.1px;
 }
 
-pre:hover {
+pre:hover{
     text-decoration: underline;
 }
 
@@ -118,6 +118,10 @@ pre:hover {
 
 .first_div {
     margin-bottom: 0.4rem;
+     width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .icon {
