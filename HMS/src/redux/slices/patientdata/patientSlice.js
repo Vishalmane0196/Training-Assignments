@@ -10,7 +10,7 @@ const initialState = {
   error: null,
   details: [],
   totalPages: 0,
-  itemsPerPage: 5,
+  itemsPerPage: 6,
   patientList: [],
   totalPatient: 0,
 };

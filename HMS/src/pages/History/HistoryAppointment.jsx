@@ -9,11 +9,14 @@ import { fetchAppointmentHistory } from "src/redux/asyncThunkFuntions/user";
 import { Loading } from "src/components/Loading/Loading";
 import { setAppointmentId } from "src/redux/slices/appointment/bookSlice";
 import { Breadcrumb } from "src/components/Breadcrum/Breadcrumb";
+import { values } from "lodash";
 
 const HistoryAppointment = () => {
+  const [searchAppointment, setSearchAppointment] = useState("");
   const [activeTab, setActiveTab] = useState("upcoming");
   const [appointmentHistory, setAppointmentHistory] = useState(null);
   const [filterAppointmentHistory, setFilterAppointmentHistory] = useState([]);
+  const [searchBackUpData, setSearchDataBackUp] = useState([]);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const [param, setParam] = useSearchParams();
@@ -70,14 +73,40 @@ const HistoryAppointment = () => {
       );
 
       setFilterAppointmentHistory(asd);
+      setSearchDataBackUp(asd);
     } else {
       const asd = data?.filter(
         (obj) => obj.status === "Cancelled" || obj.status === "Completed"
       );
 
       setFilterAppointmentHistory(asd);
+      setSearchDataBackUp(asd);
     }
   };
+  const getAppointmentFunction = () => {
+    if (searchAppointment == "") {
+      functionFilterAppointment(searchBackUpData);
+      return;
+    }
+
+    const y = searchBackUpData.filter((appointment) => {
+      return Object.values(appointment).some((values) => {
+        return String(values)
+          .toLowerCase()
+          .includes(searchAppointment.toLowerCase());
+      });
+    });
+    setFilterAppointmentHistory(y);
+  };
+
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      getAppointmentFunction();
+    }, 200);
+    return () => {
+      clearTimeout(debounce);
+    };
+  }, [searchAppointment]);
 
   if (loading) {
     return <Loading />;
@@ -88,29 +117,42 @@ const HistoryAppointment = () => {
 
       <div className={styles.container}>
         <h2 className={styles.title}>Appointment History</h2>
-        <div className={styles.tabSwitcher}>
-          <button
-            className={`${styles.tab} ${
-              activeTab === "upcoming" ? styles.active : ""
-            }`}
-            onClick={() => {
-              setActiveTab("upcoming");
-            }}
-          >
-            <FaCalendarAlt className={styles.icon} />
-            UPCOMING
-          </button>
-          <button
-            className={`${styles.tab} ${
-              activeTab === "past" ? styles.active : ""
-            }`}
-            onClick={() => {
-              setActiveTab("past");
-            }}
-          >
-            <FaHistory className={styles.icon} />
-            PAST
-          </button>
+        <div className={styles.featuresDiv}>
+          <div className={styles.tabSwitcher}>
+            <button
+              className={`${styles.tab} ${
+                activeTab === "upcoming" ? styles.active : ""
+              }`}
+              onClick={() => {
+                setActiveTab("upcoming");
+              }}
+            >
+              <FaCalendarAlt className={styles.icon} />
+              UPCOMING
+            </button>
+            <button
+              className={`${styles.tab} ${
+                activeTab === "past" ? styles.active : ""
+              }`}
+              onClick={() => {
+                setActiveTab("past");
+              }}
+            >
+              <FaHistory className={styles.icon} />
+              PAST
+            </button>
+          </div>
+          <div className={styles.SearchFilterDIv}>
+            <input
+              onChange={(e) => {
+                setSearchAppointment(e.target.value);
+              }}
+              className={styles.search}
+              type="text"
+              placeholder="Search Appointment"
+            />
+            <hr />
+          </div>
         </div>
 
         <AnimatePresence mode="wait">{renderMessage()}</AnimatePresence>

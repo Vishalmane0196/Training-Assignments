@@ -38,9 +38,7 @@ const History = ({ obj, id }) => {
         ${date.getUTCDate()}, ${date.getUTCFullYear()} at ${
           obj?.appointment_time
         }  for a patient
-        suffering from a ${obj?.disease_type}, described as '${
-          obj?.disease_description
-        }'.`}
+        suffering from a ${obj?.disease_type}.`}
       </p>
 
       <div className={styles.footer}>
@@ -51,7 +49,7 @@ const History = ({ obj, id }) => {
           <span className={styles.priceMax}></span>
         </div>
         {obj.status == "Cancelled" || obj.status == "Completed" ? null : (
-          <div
+          <button
             onClick={() => {
               handleRescheduleBooking(obj?.appointment_id);
               navigate(`/patients/history/bookAppointment?id=${id}`);
@@ -59,7 +57,7 @@ const History = ({ obj, id }) => {
             className={styles.priceNow}
           >
             Reschedule
-          </div>
+          </button>
         )}
       </div>
     </div>

@@ -6,6 +6,7 @@
 
 .dashboard>h2 {
     font-size: 1.5rem;
+    margin-bottom: 0.5rem;
     margin-top: 0.9rem;
 }
 
@@ -126,7 +127,7 @@
 }
 
 .table-wrapper {
-    height: 58vh;
+    height: 56vh;
     overflow-y: auto;
     display: block;
     scrollbar-width: none;
@@ -153,7 +154,7 @@ td {
 }
 
 td {
-    padding: 23px;
+    padding: 1rem;
 }
 
 th {

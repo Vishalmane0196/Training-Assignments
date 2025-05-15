@@ -138,7 +138,7 @@ const Summary = () => {
               </table>
             </div>
           </div>
-
+          {console.log(totalPages)}
           {/* Pagination */}
           <ReactPaginate
             previousLabel={"Previous"}
