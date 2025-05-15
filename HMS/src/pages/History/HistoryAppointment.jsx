@@ -85,10 +85,10 @@ const HistoryAppointment = () => {
   };
   const getAppointmentFunction = () => {
     if (searchAppointment == "") {
+      if (searchBackUpData.length == 0) return;
       functionFilterAppointment(searchBackUpData);
       return;
     }
-
     const y = searchBackUpData.filter((appointment) => {
       return Object.values(appointment).some((values) => {
         return String(values)
@@ -124,6 +124,8 @@ const HistoryAppointment = () => {
                 activeTab === "upcoming" ? styles.active : ""
               }`}
               onClick={() => {
+                setSearchDataBackUp([]);
+                setSearchAppointment("");
                 setActiveTab("upcoming");
               }}
             >
@@ -135,6 +137,8 @@ const HistoryAppointment = () => {
                 activeTab === "past" ? styles.active : ""
               }`}
               onClick={() => {
+                setSearchDataBackUp([]);
+                setSearchAppointment("");
                 setActiveTab("past");
               }}
             >
@@ -147,6 +151,7 @@ const HistoryAppointment = () => {
               onChange={(e) => {
                 setSearchAppointment(e.target.value);
               }}
+              value={searchAppointment}
               className={styles.search}
               type="text"
               placeholder="Search Appointment"
