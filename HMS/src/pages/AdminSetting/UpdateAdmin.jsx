@@ -10,7 +10,7 @@ import AddDoctorAdminComponent from "src/components/AddDoctorAdmin/AddDoctorAdmi
 import { deleteDoctor } from "../../redux/asyncThunkFuntions/admin.js";
 import DeletePopUp from "src/components/Setting/Delete/DeletePopUp.jsx";
 import { NoRecord } from "src/components/NoRecord/NoRecord.jsx";
-import { Breadcrumb } from "src/components/Breadcrum/Breadcrumb.jsx";
+
 const UpdateAdmin = ({ access }) => {
   const [deleteState, setState] = useState(false);
   const [id, setID] = useState(null);
@@ -106,10 +106,11 @@ const UpdateAdmin = ({ access }) => {
 
   return (
     <>
-      {access == "doctor" ? null : <Breadcrumb />}
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.headerTitle}>{access == "doctor" ? "Manage Doctors" : "Manage Admins"} </h2>
+          <h2 className={styles.headerTitle}>
+            {access == "doctor" ? "Manage Doctors" : "Manage Admins"}{" "}
+          </h2>
           <div className={styles.actions}>
             <button className={styles.addBtn} onClick={handleToggle}>
               {access == "doctor" ? "Add Doctor" : "Add Admin"}

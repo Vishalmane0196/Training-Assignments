@@ -10,7 +10,6 @@ import {
 } from "src/redux/asyncThunkFuntions/doctor";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Breadcrumb } from "src/components/Breadcrum/Breadcrumb";
 const Prescription = () => {
   const [searchParams, setSearchParam] = useSearchParams();
   const [selectedTime, setSelectedTime] = useState();
@@ -146,7 +145,6 @@ const Prescription = () => {
   };
   return (
     <>
-      <Breadcrumb />
       <div className={styles.container}>
         <h2 className={styles.headerLabel}>Create Prescription</h2>
         <div className={styles.filters}>

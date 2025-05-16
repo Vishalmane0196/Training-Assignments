@@ -164,16 +164,21 @@ export const AppointmentPopup = ({
                 </button>
               )}
               {obj.status == "Scheduled" ? (
-                <button
-                  onClick={() => {
-                    btnState
-                      ? null
-                      : handleAppointment({ ...obj, status: "Completed" });
-                  }}
-                  className={styles.button}
-                >
-                  Complete
-                </button>
+                new Date(obj?.appointment_date) < new Date() &&
+                obj?.appointment_time <
+                  new Date().toLocaleTimeString().slice(0, -2) &&
+                obj?.status == "Scheduled" ? (
+                  <button
+                    onClick={() => {
+                      btnState
+                        ? null
+                        : handleAppointment({ ...obj, status: "Completed" });
+                    }}
+                    className={styles.button}
+                  >
+                    Complete
+                  </button>
+                ) : null
               ) : (
                 <button
                   onClick={() => {

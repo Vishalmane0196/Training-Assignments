@@ -16,7 +16,7 @@ import { Input } from "src/components/Input/Input";
 import View from "src/components/ViewDetails/View";
 import { setAppointmentId } from "src/redux/slices/appointment/bookSlice";
 import { useNavigate } from "react-router-dom";
-import { Breadcrumb } from "src/components/Breadcrum/Breadcrumb";
+
 
 const Appointment = () => {
   const dispatch = useDispatch();
@@ -109,28 +109,7 @@ const Appointment = () => {
 
   return (
     <>
-      {/* <div className={appointmentCSS.breadcrumbs}>
-        <div className={appointmentCSS.container2}>
-          <ul className={appointmentCSS.breadcrumbs__list}>
-            <li>
-              <a> Dashboard</a>
-            </li>
-            <li>
-              <a onClick={() => navigate("/patients")}>My Patient</a>
-            </li>
-            {appointment_Id !== null ? (
-              <li>
-                <a onClick={() => history.back()}>History</a>
-              </li>
-            ) : null}
-
-            <li>
-              <a>Booking</a>
-            </li>
-          </ul>
-        </div>
-      </div> */}
-      <Breadcrumb />
+      
 
       <div className={appointmentCSS.container}>
         <h1>Booking Appointment</h1>

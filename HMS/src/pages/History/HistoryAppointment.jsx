@@ -3,14 +3,11 @@ import styles from "src/style/HistoryAppointment.module.css";
 import { FaCalendarAlt, FaHistory } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import History from "src/components/AppointmentHistoryCard/History";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchAppointmentHistory } from "src/redux/asyncThunkFuntions/user";
 import { Loading } from "src/components/Loading/Loading";
 import { setAppointmentId } from "src/redux/slices/appointment/bookSlice";
-import { Breadcrumb } from "src/components/Breadcrum/Breadcrumb";
-import { values } from "lodash";
-
 const HistoryAppointment = () => {
   const [searchAppointment, setSearchAppointment] = useState("");
   const [activeTab, setActiveTab] = useState("upcoming");
@@ -83,7 +80,8 @@ const HistoryAppointment = () => {
       setSearchDataBackUp(asd);
     }
   };
-  const getAppointmentFunction = () => {
+
+  const searchAppointmentFunction = () => {
     if (searchAppointment == "") {
       if (searchBackUpData.length == 0) return;
       functionFilterAppointment(searchBackUpData);
@@ -101,7 +99,7 @@ const HistoryAppointment = () => {
 
   useEffect(() => {
     const debounce = setTimeout(() => {
-      getAppointmentFunction();
+      searchAppointmentFunction();
     }, 200);
     return () => {
       clearTimeout(debounce);
@@ -113,8 +111,6 @@ const HistoryAppointment = () => {
   }
   return (
     <>
-      <Breadcrumb />
-
       <div className={styles.container}>
         <h2 className={styles.title}>Appointment History</h2>
         <div className={styles.featuresDiv}>

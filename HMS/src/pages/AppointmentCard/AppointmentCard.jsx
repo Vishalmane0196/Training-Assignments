@@ -14,6 +14,8 @@ const AppointmentCard = () => {
   const [displayState, setDisplayState] = useState(false);
   const [activeTab, setActiveTab] = useState("upcoming");
   const [filterAppointmentHistory, setFilterAppointmentHistory] = useState([]);
+  const [searchBackUpData, setSearchDataBackUp] = useState([]);
+  const [searchAppointment, setSearchAppointment] = useState("");
   const [observation, setObservation] = useState(false);
   const [obj, setObj] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -45,15 +47,41 @@ const AppointmentCard = () => {
       const asd = data?.filter(
         (obj) => obj.status === "Scheduled" || obj.status === "Pending"
       );
+      setSearchDataBackUp(asd);
       setFilterAppointmentHistory(asd);
     } else {
       const asd = data?.filter(
         (obj) => obj.status === "Cancelled" || obj.status === "Completed"
       );
-
+      setSearchDataBackUp(asd);
       setFilterAppointmentHistory(asd);
     }
   };
+
+  const searchAppointmentFunction = () => {
+    if (searchAppointment == "") {
+      if (searchBackUpData.length == 0) return;
+      functionFilterAppointment(patientList);
+      return;
+    }
+    const y = searchBackUpData.filter((appointment) => {
+      return Object.values(appointment).some((values) => {
+        return String(values)
+          .toLowerCase()
+          .includes(searchAppointment.toLowerCase());
+      });
+    });
+    setFilterAppointmentHistory(y);
+  };
+
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      searchAppointmentFunction();
+    }, 200);
+    return () => {
+      clearTimeout(debounce);
+    };
+  }, [searchAppointment]);
 
   useEffect(() => {
     functionFilterAppointment(patientList);
@@ -93,30 +121,49 @@ const AppointmentCard = () => {
   return (
     <div className={styles.container}>
       <h2>My Appointments</h2>
-      <div className={styles.tabSwitcher}>
-        <button
-          className={`${styles.tab} ${
-            activeTab === "upcoming" ? styles.active : ""
-          }`}
-          onClick={() => {
-            setActiveTab("upcoming");
-          }}
-        >
-          <FaCalendarAlt className={styles.icon} />
-          UPCOMING
-        </button>
-        <button
-          className={`${styles.tab} ${
-            activeTab === "past" ? styles.active : ""
-          }`}
-          onClick={() => {
-            setActiveTab("past");
-          }}
-        >
-          <FaHistory className={styles.icon} />
-          PAST
-        </button>
+      <div className={styles.featuresDiv}>
+        <div className={styles.tabSwitcher}>
+          <button
+            className={`${styles.tab} ${
+              activeTab === "upcoming" ? styles.active : ""
+            }`}
+            onClick={() => {
+              setSearchDataBackUp([]);
+              setSearchAppointment("");
+              setActiveTab("upcoming");
+            }}
+          >
+            <FaCalendarAlt className={styles.icon} />
+            UPCOMING
+          </button>
+          <button
+            className={`${styles.tab} ${
+              activeTab === "past" ? styles.active : ""
+            }`}
+            onClick={() => {
+              setSearchDataBackUp([]);
+              setSearchAppointment("");
+              setActiveTab("past");
+            }}
+          >
+            <FaHistory className={styles.icon} />
+            PAST
+          </button>
+        </div>
+        <div className={styles.SearchFilterDIv}>
+          <input
+            onChange={(e) => {
+              setSearchAppointment(e.target.value);
+            }}
+            value={searchAppointment}
+            className={styles.search}
+            type="text"
+            placeholder="Search Appointment"
+          />
+          <hr />
+        </div>
       </div>
+
       <AnimatePresence mode="wait">{renderMessage()}</AnimatePresence>
       {popUpState && (
         <AppointmentPopup
