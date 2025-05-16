@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { loginUser } from "../../asyncThunkFuntions/auth";
 import { getUserInfo } from "../../asyncThunkFuntions/user";
 import { jwtDecode } from "jwt-decode";
+
 const initialState = {
   isLoggedIn: 0,
   token: null,
@@ -27,6 +28,7 @@ const authSlice = createSlice({
       state.isLoggedIn = 0;
     },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {

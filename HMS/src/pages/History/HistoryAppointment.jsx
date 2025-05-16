@@ -8,7 +8,9 @@ import { useDispatch } from "react-redux";
 import { fetchAppointmentHistory } from "src/redux/asyncThunkFuntions/user";
 import { Loading } from "src/components/Loading/Loading";
 import { setAppointmentId } from "src/redux/slices/appointment/bookSlice";
+import FilterPanel from "src/components/Filter/FilterPanel";
 const HistoryAppointment = () => {
+  const [filterStatus, setFilterStatus] = useState(false);
   const [searchAppointment, setSearchAppointment] = useState("");
   const [activeTab, setActiveTab] = useState("upcoming");
   const [appointmentHistory, setAppointmentHistory] = useState(null);
@@ -114,33 +116,62 @@ const HistoryAppointment = () => {
       <div className={styles.container}>
         <h2 className={styles.title}>Appointment History</h2>
         <div className={styles.featuresDiv}>
-          <div className={styles.tabSwitcher}>
-            <button
-              className={`${styles.tab} ${
-                activeTab === "upcoming" ? styles.active : ""
-              }`}
+          <div className={styles.filterCover}>
+            <div className={styles.tabSwitcher}>
+              <button
+                className={`${styles.tab} ${
+                  activeTab === "upcoming" ? styles.active : ""
+                }`}
+                onClick={() => {
+                  localStorage.removeItem("filterData");
+                  setFilterStatus(false);
+                  setSearchDataBackUp([]);
+                  setSearchAppointment("");
+                  setActiveTab("upcoming");
+                }}
+              >
+                <FaCalendarAlt className={styles.icon} />
+                UPCOMING
+              </button>
+              <button
+                className={`${styles.tab} ${
+                  activeTab === "past" ? styles.active : ""
+                }`}
+                onClick={() => {
+                  localStorage.removeItem("filterData");
+                  setFilterStatus(false);
+                  setSearchDataBackUp([]);
+                  setSearchAppointment("");
+                  setActiveTab("past");
+                }}
+              >
+                <FaHistory className={styles.icon} />
+                PAST
+              </button>
+            </div>
+
+            <label
               onClick={() => {
-                setSearchDataBackUp([]);
-                setSearchAppointment("");
-                setActiveTab("upcoming");
+                setFilterStatus((pre) => !pre);
               }}
+              className={
+                filterStatus
+                  ? `${styles.label} ${styles.labelActive}`
+                  : styles.label
+              }
             >
-              <FaCalendarAlt className={styles.icon} />
-              UPCOMING
-            </button>
-            <button
-              className={`${styles.tab} ${
-                activeTab === "past" ? styles.active : ""
-              }`}
-              onClick={() => {
-                setSearchDataBackUp([]);
-                setSearchAppointment("");
-                setActiveTab("past");
-              }}
-            >
-              <FaHistory className={styles.icon} />
-              PAST
-            </button>
+              <i className="fa-solid fa-filter"></i>
+              Filter
+            </label>
+            
+            {filterStatus && (
+              <FilterPanel
+                searchBackUpData={searchBackUpData}
+                setFilterStatus={setFilterStatus}
+                data={filterAppointmentHistory}
+                setData={setFilterAppointmentHistory}
+              />
+            )}
           </div>
           <div className={styles.SearchFilterDIv}>
             <input

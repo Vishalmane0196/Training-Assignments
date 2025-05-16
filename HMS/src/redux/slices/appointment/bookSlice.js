@@ -19,6 +19,7 @@ const bookSlice = createSlice({
     setAppointmentId: (state, action) => {
       state.appointment_Id = action.payload;
     },
+    
   },
 });
 
