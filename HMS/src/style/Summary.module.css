@@ -69,12 +69,11 @@
 
 .leaderboard {
 
-    padding: 1.13rem 0px;
+    padding: 0.5rem 0px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-left: 0px;
-    padding-top: 0;
-    padding-bottom: 1rem;
+    padding-top: 0; 
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 

@@ -19,7 +19,7 @@
 .stepCover::before {
     content: "";
     position: absolute;
-    top: 48%;
+    top: 1.3rem;
     left: 8%;
     width: 84%;
     height: 4px;

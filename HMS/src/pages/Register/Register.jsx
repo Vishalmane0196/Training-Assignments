@@ -188,7 +188,7 @@ const Register = () => {
           <div className={login.signbtndiv}>
             <button type="submit" className={login.signInBtn}>
               {" "}
-              <pre> Sign Up </pre>{" "}
+              Sign Up{" "}
             </button>
           </div>
 

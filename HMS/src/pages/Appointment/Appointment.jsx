@@ -16,10 +16,11 @@ import { Input } from "src/components/Input/Input";
 import View from "src/components/ViewDetails/View";
 import { setAppointmentId } from "src/redux/slices/appointment/bookSlice";
 import { useNavigate } from "react-router-dom";
-
+import { Breadcrumb } from "src/components/Breadcrum/Breadcrumb";
 
 const Appointment = () => {
   const dispatch = useDispatch();
+  const { isAdmin } = useSelector((state) => state.auth);
   const [book, setBook] = useState(false);
   const [doctors, setDoctors] = useState([]);
   const [date, setDate] = useState(null);
@@ -109,8 +110,7 @@ const Appointment = () => {
 
   return (
     <>
-      
-
+      {isAdmin ? <Breadcrumb /> : null}
       <div className={appointmentCSS.container}>
         <h1>Booking Appointment</h1>
         <div className={appointmentCSS.line}></div>

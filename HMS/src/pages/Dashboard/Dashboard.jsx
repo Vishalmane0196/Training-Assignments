@@ -19,7 +19,7 @@ const Dashboard = () => {
             <span className={adminCSS.menuHeader}>Menu</span>
             <li>
               <NavLink
-                to="/addpatient"
+                to="/addPatient"
                 className={({ isActive }) => {
                   return isActive ? adminCSS.active : adminCSS.linkText;
                 }}
@@ -28,7 +28,7 @@ const Dashboard = () => {
                 <span style={{ marginLeft: "0.5rem" }}>Add Patient </span>
                 {patientID == null
                   ? null
-                  : !window.location.href.includes("addpatient") && (
+                  : !window.location.href.includes("addPatient") && (
                       <i
                         title="complete steps"
                         className={`fa-solid fa-triangle-exclamation ${adminCSS.warning}`}

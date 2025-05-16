@@ -177,7 +177,7 @@
 }
 
 
-.addpatientbtn {
+.addPatientbtn {
     padding: 0.6rem 1.2rem;
     background-color: #2ea043;
     color: #ffffff;
@@ -186,7 +186,7 @@
     cursor: pointer;
 }
 
-.addpatientbtn:hover {
+.addPatientbtn:hover {
     background-color: #2ea043;
 }
 

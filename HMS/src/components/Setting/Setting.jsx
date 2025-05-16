@@ -31,7 +31,7 @@ const Setting = () => {
         <div className={settingCSS.container}>
           <div>
             <div className={settingCSS.verticalLine}></div>
-            <h3 className={settingCSS.headerSecond}>Settings</h3>
+            <h2 className={settingCSS.headerSecond}>Settings</h2>
           </div>
 
           {/* Shared Section - Edit Profile */}

@@ -62,10 +62,10 @@ const ViewPatient = () => {
       dispatch(setStep(0));
       dispatch(setCount(3));
       isAdmin
-        ? navigate("/addpatient")
+        ? navigate("/addPatient")
         : isDoctor
-        ? navigate("/addpatient")
-        : navigate("/addpatient");
+        ? navigate("/addPatient")
+        : navigate("/addPatient");
     }, 5000);
   };
   const handleUpdateFamilyData = () => {
@@ -76,10 +76,10 @@ const ViewPatient = () => {
       dispatch(setStep(1));
       dispatch(setCount(3));
       isAdmin
-        ? navigate("/addpatient")
+        ? navigate("/addPatient")
         : isDoctor
-        ? navigate("/addpatient")
-        : navigate("/addpatient");
+        ? navigate("/addPatient")
+        : navigate("/addPatient");
     }, 5000);
   };
 
@@ -115,10 +115,10 @@ const ViewPatient = () => {
       dispatch(setCount(3));
 
       isAdmin
-        ? navigate("/addpatient")
+        ? navigate("/addPatient")
         : isDoctor
-        ? navigate("/addpatient")
-        : navigate("/addpatient");
+        ? navigate("/addPatient")
+        : navigate("/addPatient");
     }, 5000);
   };
 

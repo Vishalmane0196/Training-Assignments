@@ -159,7 +159,7 @@ const Login = () => {
           <div className={login.signBtnDiv}>
             <button type="submit" className={login.signInBtn}>
               {" "}
-              <pre> Sign In </pre>{" "}
+              Sign In{" "}
             </button>
           </div>
           <div className={login.signup}>

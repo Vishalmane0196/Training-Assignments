@@ -4,11 +4,12 @@ import { FaCalendarAlt, FaHistory } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import History from "src/components/AppointmentHistoryCard/History";
 import { useSearchParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchAppointmentHistory } from "src/redux/asyncThunkFuntions/user";
 import { Loading } from "src/components/Loading/Loading";
 import { setAppointmentId } from "src/redux/slices/appointment/bookSlice";
 import FilterPanel from "src/components/Filter/FilterPanel";
+import { Breadcrumb } from "src/components/Breadcrum/Breadcrumb";
 const HistoryAppointment = () => {
   const [filterStatus, setFilterStatus] = useState(false);
   const [searchAppointment, setSearchAppointment] = useState("");
@@ -19,6 +20,7 @@ const HistoryAppointment = () => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const [param, setParam] = useSearchParams();
+  const { isAdmin } = useSelector((state) => state.auth);
 
   const renderMessage = () => (
     <motion.div
@@ -113,6 +115,7 @@ const HistoryAppointment = () => {
   }
   return (
     <>
+      {isAdmin ? <Breadcrumb /> : null}
       <div className={styles.container}>
         <h2 className={styles.title}>Appointment History</h2>
         <div className={styles.featuresDiv}>
@@ -163,7 +166,7 @@ const HistoryAppointment = () => {
               <i className="fa-solid fa-filter"></i>
               Filter
             </label>
-            
+
             {filterStatus && (
               <FilterPanel
                 searchBackUpData={searchBackUpData}

@@ -40,10 +40,10 @@ const UserMain = () => {
             </div>
           </div>
 
-          {!window.location.href.includes("addpatient") && (
+          {!window.location.href.includes("addPatient") && (
             <button
               onClick={() => {
-                isDoctor ? navigate("/addpatient/") : navigate("/addpatient/");
+                isDoctor ? navigate("/addPatient/") : navigate("/addPatient/");
               }}
               className={userDashboardCSS.addPatientBtn}
             >
@@ -56,7 +56,7 @@ const UserMain = () => {
 
         {patientID == null
           ? null
-          : !window.location.href.includes("addpatient") && <Note />}
+          : !window.location.href.includes("addPatient") && <Note />}
       </main>
     </>
   );

@@ -77,7 +77,7 @@ const Router = createBrowserRouter([
         element: <Setting />,
       },
       {
-        path: "/addpatient",
+        path: "/addPatient",
         element: (
           <Suspense fallback={<Loading />}>
             <MultiStepForm />
