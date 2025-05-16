@@ -17,6 +17,7 @@ const AddDoctorAdminComponent = ({
   setPopupOff,
 }) => {
   const [btnState, setBtnState] = useState(false);
+  const [doctor, setDoctor] = useState(null);
   const dispatch = useDispatch();
   const {
     register,
@@ -34,6 +35,7 @@ const AddDoctorAdminComponent = ({
           first_name: "",
           last_name: "",
           contact_number: "",
+          leave_approval_senior_doctor_id: null,
         }
       : {
           email: "",
@@ -69,6 +71,7 @@ const AddDoctorAdminComponent = ({
   const handleUpdateData = (data) => {
     sendDataToUpdate(data);
   };
+
   const getAllAdminEmailsFun = async () => {
     try {
       await dispatch(getAllAdminEmails()).unwrap();
@@ -76,15 +79,18 @@ const AddDoctorAdminComponent = ({
       toast.error(error);
     }
   };
+
   const getAllDoctorEmailsFun = async () => {
     try {
-      await dispatch(getAllDoctorEmails()).unwrap();
+      let response = await dispatch(getAllDoctorEmails()).unwrap();
+      console.log(response.data);
+      setDoctor(response.data);
     } catch (error) {
       toast.error(error);
     }
   };
   useEffect(() => {
-    control ? getAllDoctorEmailsFun() : getAllAdminEmailsFun();
+    control ? getAllDoctorEmailsFun() : null;
   }, []);
   return (
     <div>
@@ -298,6 +304,25 @@ const AddDoctorAdminComponent = ({
                       />
                     </div>
                   </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label htmlFor="">Add Leave Approval </label>
+                  </div>
+                  <select
+                    className={styles.leaveApproval}
+                    {...register("leave_approval_senior_doctor_id")}
+                  >
+                    {doctor?.map((e) => (
+                      <option key={e.id} value={e.email}>
+                        {e.email}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               ) : null}
 
